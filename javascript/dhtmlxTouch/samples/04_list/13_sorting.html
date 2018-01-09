@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+         <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+	     <link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	     <script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+         <title>Sorting</title>
+	</head>
+<body>
+   <script type="text/javascript" charset="utf-8">
+	dhx.ui({
+		  	rows:[
+                {
+                    view:"toolbar", type:"MainBar",
+                    elements:[
+                        { view:"button", label: 'by Name', align:"left", click:"sort('#title#','string')",width:120},
+                        { view:"button", label: 'by Author', align:"left", click:"sort('#author#','string')",inputWidth:120},
+                        { view:"button", label: 'by Price', align:"right", click:"sort('#cprice#','int')",width:120}
+                    ]
+			    },
+                {
+                    id:"books",
+                    view:"list",
+                    template:"<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div><div class='price'>#cprice# $</div>",
+                    url:"books.xml",
+                    datatype:"xml",
+                    type:{
+                        height: 35
+                    }
+                }
+			]
+        });
+	function sort(value,method){
+		$$('books').sort({
+				by:value,
+				dir:"asc",
+				as: method
+		});
+	}
+ 
+
+   </script>
+</body>
+</html>
+

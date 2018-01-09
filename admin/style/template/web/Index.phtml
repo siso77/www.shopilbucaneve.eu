@@ -1,0 +1,167 @@
+<?php
+$_tplvar = $this->getVars();
+
+//_dump($_tplvar);
+//exit();
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="<?php echo $_SESSION['lang'];?>">
+<head>
+
+	<?php echo $this->getEncoding();?>
+	<?php $this->getSeoMetatag();?>
+
+	<meta name="language" content="<?php echo $_SESSION['lang'];?>">
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<META NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW">
+
+	<link rel="shortcut icon" href="<?php echo STORE_WWW_ROOT_PATH?>img/web/favico.png" />
+
+	<!-- Add jQuery library -->
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/lib/jquery-1.7.2.min.js"></script>
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/jquery.fancybox.js?v=2.0.6"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/jquery.fancybox.css?v=2.0.6" media="screen" />
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.2" />
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.2"></script>
+	<!-- Add Thumbnail helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.2" />
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.2"></script>
+	<!-- Add Media helper (this is optional) -->
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.0"></script>
+	
+	
+	<link rel="stylesheet" id="reset-css" href="<?php echo $_tplvar['WWW_ROOT']?>themes/styles/common-css/reset.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="text-css" href="<?php echo $_tplvar['WWW_ROOT']?>themes/styles/<?php echo $_tplvar['theme']?>/css/text.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="grid-960-css" href="<?php echo $_tplvar['WWW_ROOT']?>themes/styles/common-css/960.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="style-css" href="<?php echo $_tplvar['WWW_ROOT']?>themes/styles/<?php echo $_tplvar['theme']?>/css/style.css?ver=1.0" type="text/css" media="screen" />
+
+	<!-- <script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>-->
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/javascript.js"></script>
+
+	
+	<?php //$this->getPartial('shared/HederaPageJavascript');?>
+	<style>
+	/* STYLE PER IL FOCUS DELLE TEXT */
+	.focus {
+	    border: 2px solid #C0C0C0;
+	}
+	/* STYLE PER IL FOCUS DELLE TEXT */
+
+	/* STYLE PER IL LIGHTBOX */
+	.black_overlay{
+		display: none;
+		position: absolute;
+		top: 0%;
+		left: 0%;
+		width: 100%;
+		height: 2000px;
+		background-color: black;
+		z-index:1001;
+		-moz-opacity: 0.8;
+		opacity:.80;
+		filter: alpha(opacity=80);
+	}
+	 
+	.white_content {
+		z-index:1002;
+	}
+	/* STYLE PER IL LIGHTBOX */
+	</style>
+	<link rel="stylesheet" href="<?php echo $_tplvar['WWW_ROOT']?>/style/style.css" type="text/css" media="screen" />	
+	
+<style>
+<!--
+.selected {
+	background-color: #B00000;
+}
+.not_selected {
+	background-color: #ADADAD;
+}
+
+td {
+	padding: 9px 12px;
+	color: #333;
+	border-top: 1px solid white;
+}
+tbody tr:hover td {
+	background: url('<?php echo STORE_WWW_ROOT_PATH?>themes/styles/<?php echo $_tplvar['theme']?>/images/back.png') repeat scroll transparent;
+}
+tbody td {
+	background: url('<?php echo STORE_WWW_ROOT_PATH?>themes/styles/<?php echo $_tplvar['theme']?>/images/back.png') repeat scroll transparent;
+}
+-->
+</style>
+</head>
+<html>
+<body>
+
+<div id="fade" class="black_overlay">
+	<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/loading.gif" width="30" style="top: 25%;left: 50%;position:absolute;">
+</div>
+
+<div id="wrapper-1" class="pngfix">
+
+
+	<?php $this->getPartial('Header');?>
+	
+			<div id="page-content">
+				<div id="page-content-header" class="container_24">
+					<div id="page-title">
+					    <!--MENU TOP-->
+					    <br>
+					    <div style="float:left">
+					    <?php echo $this->getPartial('shared/MenuTop');?>
+					    </div>
+					    <!-- / MENU TOP-->
+					</div>
+				</div>
+				<div id="content-container" class="container_24">
+	
+				
+			    <!--SOTTO MENU TOP -->        
+				<?php echo $this->getPartial('shared/SottoMenuTop');?>
+			    <!-- / SOTTO MENU TOP-->
+				<br/><br/>
+				
+				<style>
+				#sidebar {
+				/*
+				    background: url("http://pro-bike.it/wp-content/themes/stationpro/images/bg_sidebar.png") repeat-x scroll 0 0 transparent;
+				    border-left: 1px solid #282828;
+				    color: #BBBBBB;
+				    float: left;
+				    padding: 10px 10px 1em;
+				    position: absolute;
+				    width: 97%;
+				    z-index:-2;
+				*/
+				}	
+				</style>
+						
+				<?php $this->getPartial($_tplvar['tpl_action']);?>
+			</div>
+		</div>
+		
+    
+   	<!--FOOTER-->
+	<?php $this->getPartial('Footer');?>
+    <!-- / FOOTER-->
+	
+</div>
+</body>
+	<script>
+	$('input[type="text"]').focus(function() {
+	    $(this).addClass("focus");
+	});
+	 
+	$('input[type="text"]').blur(function() {
+	    $(this).removeClass("focus");
+	});	
+	</script>
+</html>

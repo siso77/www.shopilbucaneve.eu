@@ -1,0 +1,222 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial($_tplvar['action_class_name']);
+?>
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+<!--MENU TOP-->
+    <?php echo $this->getPartial('shared/BoxSearch');?>
+<!-- / MENU TOP-->
+				<div id="table-block">
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td nowrap="nowrap">
+						   	<?php 
+								$assign['key_session'] = $_tplvar['action_class_name'];
+								$assign['order_by'] = 'ragione_sociale';
+								$assign['action'] = $_tplvar['action_class_name'];
+								$assign['field_name'] = 'RAGIONE SOCIALE';							
+								$this->getPartial('shared/SortField', $assign);
+						   ?>
+						   </td>							
+							<td nowrap="nowrap">
+						   	<?php 
+								$assign['key_session'] = $_tplvar['action_class_name'];
+								$assign['order_by'] = 'provincia';
+								$assign['action'] = $_tplvar['action_class_name'];
+								$assign['field_name'] = 'PROVINCIA';							
+								$this->getPartial('shared/SortField', $assign);
+						   ?>
+						   </td>							
+							<td nowrap="nowrap">
+						   	<?php 
+								$assign['key_session'] = $_tplvar['action_class_name'];
+								$assign['order_by'] = 'cellulare';
+								$assign['action'] = $_tplvar['action_class_name'];
+								$assign['field_name'] = 'CELLULARE';							
+								$this->getPartial('shared/SortField', $assign);
+						   ?>
+						   </td>							
+							<td nowrap="nowrap">
+						   	<?php 
+								$assign['key_session'] = $_tplvar['action_class_name'];
+								$assign['order_by'] = 'fisso';
+								$assign['action'] = $_tplvar['action_class_name'];
+								$assign['field_name'] = 'TELEFONO';							
+								$this->getPartial('shared/SortField', $assign);
+						   ?>
+						   </td>							
+							<td nowrap="nowrap">
+						   	<?php 
+								$assign['key_session'] = $_tplvar['action_class_name'];
+								$assign['order_by'] = 'email';
+								$assign['action'] = $_tplvar['action_class_name'];
+								$assign['field_name'] = 'EMAIL';							
+								$this->getPartial('shared/SortField', $assign);
+						   ?>
+						   </td>							
+							<td nowrap="nowrap">
+						   	<?php 
+								$assign['key_session'] = $_tplvar['action_class_name'];
+								$assign['order_by'] = 'listino';
+								$assign['action'] = $_tplvar['action_class_name'];
+								$assign['field_name'] = 'LISTINO';							
+								$this->getPartial('shared/SortField', $assign);
+						   ?>
+						   </td>
+						   <td>CATEGORIA</td>
+							<td>SCORPORO IVA</td>
+                           <td>FATTURE</td>
+                           <td>DETTAGLIO</td>
+                           <td>MODIFICA</td>
+                           <td>CANCELLA</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>						
+						<tr>
+<!--                            <td><?php echo $value['nome']?>&nbsp;</td>-->
+<!--							<td><?php echo $value['cognome']?>&nbsp;</td>-->
+<!--                            <td><?php echo $value['codice_fiscale']?>&nbsp;</td>-->
+                            <td><?php echo $value['ragione_sociale']?>&nbsp;</td>
+                            <td><?php echo $value['provincia']?>&nbsp;</td>
+							<td><?php echo $value['cellulare']?>&nbsp;</td>
+							<td><?php echo $value['fisso']?>&nbsp;</td>
+							<td><?php echo $value['email']?>&nbsp;</td>
+							<td><?php echo $value['listino']?>&nbsp;</td>
+							<td>
+								<?php
+								include_once(APP_ROOT."/beans/customer.php");
+								$BeanCustomer = new customer();
+								$category = $BeanCustomer->dbGetCategoryCustomerByID(MyDB::connect(), $value['id_category']);
+								echo($category[0]['descrizione']);
+								?>&nbsp;
+							</td>
+							<td>
+								<?php
+								if($value['scorporo_iva']) 
+									echo 'Si';
+								else
+									echo 'No';
+								?>
+							</td>
+<!--							<td><?php echo $value['registred_from']?>&nbsp;</td>-->
+							<td>
+							<?php
+							if($value['nome'] != 'Negozio')
+							{ 
+								$invoices = $this->getInvoiceFromIdCustomer($value['id']);
+								if(!empty($invoices))
+								{
+								?>
+								<a href="javascript:void(0);" onclick="javascript:showHiddenDiv('<?php echo $value['id']?>')">FATTURE</a>
+								<div id="<?php echo $value['id']?>" style="visibility:hidden;position:absolute;background-color:#000000;border:1px solid #993300;width:auto;padding:20px">
+								<?php
+									foreach ($invoices as $k => $data)
+									{
+										echo ' <a href="'.$data.'" target="_blank"><img src="'.$_tplvar['WWW_ROOT'].'/img/web/pdf_ico.gif"></a>';
+									}
+								}
+								?>
+								</div>
+								<?php 
+							}
+							?>
+							</td>
+							<td class="actions">
+
+							<?php 
+							include_once(APP_ROOT."/beans/users.php");
+							$Bean = new users();
+							$user = $Bean->dbGetAllCustom(MyDb::connect(),' id_customer = '.$value['id']);
+							?>
+							<script>
+							var html_detail_<?php echo $value['id'];?> = '<table style="width:475px"><tr><td>Ricarico Listino Den Dekker</td><td><input type="text" name="sconto_fornitori_nl_<?php echo $user[0]['id']?>" id="sconto_fornitori_nl_<?php echo $user[0]['id']?>" value="<?php echo $user[0]['sconto_fornitori_nl']?>"> % <input type="button" onclick="javascript:setScontoFornitoriNl(<?php echo $user[0]['id'];?>);" value="Salva"></td></tr><tr><td>Ricarico Listino Gasa</td><td><input type="text" name="sconto_fornitori_de_<?php echo $user[0]['id']?>" id="sconto_fornitori_de_<?php echo $user[0]['id']?>" value="<?php echo $user[0]['sconto_fornitori_de']?>"> % <input type="button" onclick="javascript:setScontoFornitoriDe(<?php echo $user[0]['id'];?>);" value="Salva"></td></tr><tr><td><?php echo str_replace("'","",$this->getText('nome'))?></td><td><?php echo str_replace("'","",$value['nome'])?></td></tr><tr><td><?php echo $this->getText('cognome')?></td><td><?php echo str_replace("'","",$value['cognome'])?></td></tr><tr><td><?php echo $this->getText('codice_fiscale')?></td><td><?php echo $value['codice_fiscale']?></td></tr><tr><td><?php echo $this->getText('p_iva')?></td><td><?php echo $value['p_iva']?></td></tr><tr><td><?php echo $this->getText('indirizzo')?></td><td><?php echo str_replace("'","",$value['indirizzo'])?></td></tr><tr><td><?php echo $this->getText('provincia')?></td><td><?php echo $value['provincia']?></td></tr><tr><td><?php echo $this->getText('stato')?></td><td><?php echo $value['stato']?></td></tr><tr><td><?php echo str_replace("'","",$this->getText('citta'))?></td><td><?php echo str_replace("'","",$value['citta'])?></td></tr><tr><td><?php echo $this->getText('cap')?></td><td><?php echo $value['cap']?></td></tr><tr><td><?php echo $this->getText('cellulare')?></td><td><?php echo $value['cellulare']?></td></tr><tr><td><?php echo $this->getText('fisso')?></td><td><?php echo $value['fisso']?></td></tr><tr><td><?php echo $this->getText('email')?></td><td><?php echo $value['email']?></td></tr><tr><td>PRESSO</td><td><?php echo str_replace("'","",$value['text_spedizione'])?></td></tr><tr><td><?php echo $this->getText('indirizzo_spedizione')?></td><td><?php echo str_replace("'","",$value['indirizzo_spedizione'])?></td></tr><tr><td><?php echo $this->getText('cap_spedizione')?></td><td><?php echo $value['cap_spedizione']?></td></tr><tr><td><?php echo str_replace("'","",$this->getText('citta_spedizione'))?></td><td><?php echo str_replace("'","",$value['citta_spedizione'])?></td></tr><tr><td><?php echo $this->getText('provincia_spedizione')?></td><td><?php echo $value['provincia_spedizione']?></td></tr><tr><td><?php echo $this->getText('stato_spedizione')?></td><td><?php echo $value['stato_spedizione']?></td></tr><tr><td><?php echo $this->getText('data_inserimento_riga')?></td><td><?php echo $this->getFormatDate($value['data_inserimento_riga'])?></td></tr></table></div>';
+							</script>
+							
+							<a class="delete" href="javascript:void(0);" onclick="jQuery.fancybox(html_detail_<?php echo $value['id'];?>)">DETTAGLIO</a>							
+							
+							</td>
+                            <td class="actions">
+                            	<a class="edit" href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCliente&edit=1&id=<?php echo $value['id']?>">MODIFICA</a> 
+                            </td>
+							<td class="actions"><a class="delete" href="javascript:void(0);" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')">CANCELLA</a>
+								<div id="confirm_delete_<?php echo $value['id'];?>" style="background-color:#4A5154;left:400px;padding:10px;border:3px solid #900;width:250px;position:absolute;visibility:hidden">
+									
+								    <b><font color="#ffffff">Sei sicuro di voler cancellare?</font></b>
+									
+									<div style="width:200px; height:50px; margin-left:15px; margin-top:10px;">
+									
+									<div style="float:left;width:100px; ">
+									<input type="button" value="Si" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=ListaClienti&delete=1&id=<?php echo $value['id']?>'" style="cursor:pointer"/>
+									</div>
+									<div style="float:left; width:100px;">
+									<input type="button" value="No" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')" style="cursor:pointer"/>
+									<div>
+								</div>
+								</div>
+							</td>
+						</tr>
+					<?php endforeach;?>						
+					</tbody>
+				</table>
+				<script>
+				function setScontoFornitoriNl(id_user)
+				{
+					var sconto = $('#sconto_fornitori_nl_'+id_user).val();
+					$.fancybox.showLoading();
+					$.ajax({
+					  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetScontoFornitoriNl',
+					  type: 'POST',
+					  dataType: 'html',
+					  data: '&id_user='+id_user+'&sconto='+sconto,
+					  success: function(html){		
+					  	$.fancybox( html );
+					  	<?php if(!empty($_REQUEST['key_search'])):?>
+					  		setTimeout("document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=ListaClienti&reset=1&search=1&key_search=<?php echo $_REQUEST['key_search']?>';", 2000);
+					  	<?php else:?>
+					  		setTimeout("document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=ListaClienti&reset=1';", 2000);
+					  	<?php endif;?>
+					  }
+					});
+				}
+				function setScontoFornitoriDe(id_user)
+				{
+					var sconto = $('#sconto_fornitori_de_'+id_user).val();
+					$.fancybox.showLoading();
+					$.ajax({
+					  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetScontoFornitoriDe',
+					  type: 'POST',
+					  dataType: 'html',
+					  data: '&id_user='+id_user+'&sconto='+sconto,
+					  success: function(html){		
+					  $.fancybox( html );
+					  <?php if(!empty($_REQUEST['key_search'])):?>
+					  	setTimeout("document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=ListaClienti&reset=1&search=1&key_search=<?php echo $_REQUEST['key_search']?>';", 2000);
+					  <?php else:?>
+					  	setTimeout("document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=ListaClienti&reset=1';", 2000);
+					  <?php endif;?>
+					  }
+					});
+				}
+				</script>
+                <!-- Page Navigation -->
+				<?php echo $this->getPartial('shared/Paging');?>
+				<!-- /Page Navigation -->
+                
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+                
+				</div>
+			</div>
+		</div><!-- end page-content -->
+		

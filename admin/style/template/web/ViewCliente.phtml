@@ -1,0 +1,434 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+
+		<div id="page-content" class="clearfix">
+			
+			<h1>Compila la scheda Cliente</h1>
+			
+			<h2>Scrivi su ogni campo e carica il &quot;Data Base&quot; <span>(Descrizione del cliente)</span></h2>
+			<div class="inner-box clearfix">
+
+                
+                
+			
+<div id="form-block-div">
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCliente" method="post">
+<?php if(!empty($_tplvar['cliente']['id'])):?>
+<input type="hidden" name="id" value="<?php echo $_tplvar['cliente']['id'];?>">
+<?php endif;?>
+<input type="hidden" name="edit" value="1">
+<div class="contenitore">
+<div>
+<label for="field_1">Nome o Soc</label>
+<input name="nome" type="text" id="field_1" value="<?php echo $_tplvar['cliente']['nome']?>" />
+</div>
+
+<div>
+<label for="field_1">Cognome</label>
+<input type="text" name="cognome" id="field_1" value="<?php echo $_tplvar['cliente']['cognome']?>"/>
+
+</div>
+
+<div>
+<label for="field_1">Codice Fiscale</label>
+<input type="text" name="codice_fiscale" id="field_1" value="<?php echo $_tplvar['cliente']['codice_fiscale']?>"/>
+
+</div>
+
+<div>
+<label for="field_1">P.IVA</label>
+<input type="text" name="p_iva" id="field_1" value="<?php echo $_tplvar['cliente']['p_iva']?>"/>
+
+</div>
+
+<div>
+<label for="field_1">Indirizzo Fatturazione</label>
+<input type="text" name="indirizzo" id="field_1" value="<?php echo $_tplvar['cliente']['indirizzo']?>"/>
+
+</div>
+
+<div>
+<label for="field_1">Indirizzo Spedizione</label>
+<input type="text" name="indirizzo_spedizione" id="field_1" value="<?php echo $_tplvar['cliente']['indirizzo_spedizione']?>"/>
+
+</div>
+
+<div>
+<label for="field_1">CAP</label>
+<input type="text" name="cap" id="field_1" value="<?php echo $_tplvar['cliente']['cap']?>"/>
+
+</div>
+
+<div>
+<label for="field_1">Citt&agrave;</label>
+<input type="text" name="citta" id="field_1" value="<?php echo $_tplvar['cliente']['citta']?>"/>
+
+</div>
+
+<div>
+<label for="field_1">Telefono fisso</label>
+<input type="text" name="fisso" id="field_1" value="<?php echo $_tplvar['cliente']['fisso']?>"/>
+
+</div>
+
+
+<div>
+<label for="field_1">Cellulare</label>
+<input type="text" name="cellulare" id="field_1"  value="<?php echo $_tplvar['cliente']['cellulare']?>"/>
+</div>
+
+<div>
+<?php foreach ($_tplvar['emails'] as $key => $email):?>
+<label for="field_1">Mail <?php if($key > 0) echo $key?></label>
+<input type="text" name="email" id="field_1"  value="<?php echo $email['email']?>"/>
+<?php endforeach;?>
+</div>
+
+<div>
+<label for="field_1">Ragione Sociale</label>
+<input type="text" name="ragione_sociale" id="field_1"  value="<?php echo $_tplvar['cliente']['ragione_sociale']?>"/>
+</div>
+
+<div>
+<label for="field_1">Percentuale di Sconto</label>
+<select name="percentuale_sconto"  id="percentuale_sconto" class="medium">
+	<?php foreach($_tplvar['cmb_percentuali_sconto'] as $value):?>
+		<option value="<?php echo $value['valore']?>" <?php if($_tplvar['cliente']['percentuale_sconto'] == $value['valore']):?> selected="selected"<?php endif;?>><?php echo $value['nome']?></option>
+	<?php endforeach;?>
+</select>
+</div>
+
+
+<div class="submit">
+<input type="submit" class="submit" value="Modifica" />
+</div>
+<!--<div class="submit">-->
+<!--<input type="button" class="submit reset" value="Porta in visione" />-->
+<!--</div>-->
+
+</div>
+</form>
+
+<?php if(!empty($_tplvar['ListaResi'])):?>
+<div id="table-block" style="width:1000px;">
+	<h2>Libri/DVD/Riviste resi</h2>
+	<br>
+		<table cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr class="header">
+            	<td>ISBN</td>
+				<td>TITOLO</td>
+				<td>PREZZO</td>
+				<td>QUANTITA'</td>
+				<td>DATA VISIONE</td>
+			</tr>
+			<?php foreach ($_tplvar['ListaResi'] as $value):?>
+            <tr>
+				<td><?php echo $value['contenuto']['isbn']?></td>
+                <td><?php echo $value['contenuto']['titolo']?></td>
+                <td><?php echo $this->getFormatPrice($value['contenuto']['prezzo'])?></td>
+                <td><?php echo $value['quantita']?></td>
+				<td><?php echo $this->getFormatDate($value['data_inserimento_riga']);?></td>
+                <!--<td><?php echo $value['magazzino']['documento_carico']?></td>-->
+                <!--<td><?php echo $this->getFormatDate($value['magazzino']['data_carico'])?></td>-->
+				<!--<td  class="actions">
+
+                		<a 
+                			class="edit" 
+                			href="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovaVendita&id_cliente=<?php echo $_tplvar['cliente']['id']?>&id_contenuto=<?php echo $value['contenuto']['id']?>&id_magazzino=<?php echo $value['magazzino']['id']?>&id_visione=<?php echo $value['id']?>&vendita_from=visione_cliente&qty=<?php echo $value['quantita']?>">Vendi</a>
+
+                </td>-->
+                <!--<td  class="actions"><a href="#">Rendi</a></td>-->
+                <!--<td  class="actions"><a href="#">Riporta in Magazzino</a></td>-->
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+    <!-- Page Navigation -->
+	<?php
+	$assign['tot_items'] 	= $_tplvar['tot_items_resi'];
+	$assign['curr_page'] 	= $_tplvar['curr_page_resi'];
+	$assign['last_page'] 	= $_tplvar['last_page_resi'];
+	$assign['numViewPage'] 	= $_tplvar['numViewPage_resi'];
+	$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+	$assign['pageID'] 		= '&id='.$_REQUEST['id'].'&pageIdResi=';
+	$assign['pageIDIndex']	= $_REQUEST['pageIdResi'];
+	echo $this->getPartial('shared/PagingAbstract', $assign);
+	?>
+	<!-- /Page Navigation -->
+	<br><br><br>
+</div>
+<?php else:?>
+<div id="table-block" style="width:1000px;">
+	<h2>Non ci sono Libri/DVD/Riviste resi</h2>
+	<br><br><br>
+</div>
+<?php endif;?>
+
+
+<div id="table-block" style="width:1000px;">
+<h2>Libri/DVD/Riviste in visione</h2>
+<br>
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+                        	<td>ISBN</td>
+							<td>TITOLO</td>
+							<td>PREZZO</td>
+							<td>QUANTITA'</td>
+							<td>DATA VISIONE</td>
+                            <td>BOLLA VISIONE</td>
+                            <!--<td>DATA CARICO</td>-->
+                            <td>Vendi</td>
+                            <td>Rendi</td>
+                            <td>Riporta in Magazzino</td>
+						</tr>
+						<?php foreach ($_tplvar['ListaInVisione'] as $value):?>
+                        <tr>
+							<td><?php echo $value['contenuto']['isbn']?></td>
+                            <td><?php echo $value['contenuto']['titolo']?></td>
+                            <td><?php echo $this->getFormatPrice($value['contenuto']['prezzo'])?></td>
+                            <td><?php echo $value['quantita']?></td>
+							<td><?php echo $this->getFormatDate($value['data_visione'])?></td>
+                            <td><?php echo $value['bolla_visione']?></td>
+                            <!--<td><?php echo $this->getFormatDate($value['magazzino']['data_carico'])?></td>-->
+                            <td  class="actions">
+
+                            		<a 
+                            			class="edit" 
+                            			href="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovaVendita&id_cliente=<?php echo $_tplvar['cliente']['id']?>&id_contenuto=<?php echo $value['contenuto']['id']?>&id_magazzino=<?php echo $value['magazzino']['id']?>&id_visione=<?php echo $value['id']?>&vendita_from=visione_cliente&qty=<?php echo $value['quantita']?>">Vendi</a>
+
+                            </td>
+                            <td  class="actions">
+                            	<a 
+                            		class="edit" 
+                            		href="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovoReso&id_cliente=<?php echo $_tplvar['cliente']['id']?>&id_contenuto=<?php echo $value['contenuto']['id']?>&id_rappresentante=<?php echo $value['id_rappresentante']?>&id_visione=<?php echo $value['id']?>&id_magazzino=<?php echo $value['magazzino']['id']?>&reso_from=visione_cliente&qty=<?php echo $value['quantita']?>">Rendi</a>
+                            </td>
+                            <td  class="actions"><a href="#">Riporta in Magazzino</a></td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+
+                <!-- Page Navigation -->
+				<?php
+				$assign['tot_items'] 	= $_tplvar['tot_items'];
+				$assign['curr_page'] 	= $_tplvar['curr_page'];
+				$assign['last_page'] 	= $_tplvar['last_page'];
+				$assign['numViewPage'] 	= $_tplvar['numViewPage'];
+				$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+				$assign['pageID'] 		= '&id='.$_REQUEST['id'].'&pageIdVisioni=';
+				$assign['pageIDIndex']	= $_REQUEST['pageIdVisioni'];
+				echo $this->getPartial('shared/PagingAbstract', $assign);
+				?>
+				<!-- /Page Navigation -->
+                
+<br><br><br>
+</div>
+
+<div id="table-block" style="width:1000px;">
+	<h2>Libri/DVD/Riviste venduti</h2>
+	<br>
+		<div id="result_basket" style="background-color:#4A5154;color:#fff;width:990px;"></div>
+
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+                        	<td>ISBN</td>
+							<td>TITOLO</td>
+							<td>PREZZO</td>
+							<td>QUANTITA'</td>
+							<td>DATA VENDITA</td>
+                            <td>DOC. CARICO</td>
+                            <td>Reso post vendita</td>
+                            <td colspan="2">Stampa Fattura</td>
+						</tr>
+						<?php foreach ($_tplvar['ListaVendite'] as $value):?>
+                        <tr>
+							<td><?php echo $value['contenuto']['isbn']?></td>
+                            <td><?php echo $value['contenuto']['titolo']?></td>
+                            <td><?php echo $this->getFormatPrice($value['contenuto']['prezzo'])?></td>
+                            <td><?php echo $value['quantita']?></td>
+							<td><?php echo $this->getFormatDate($value['data_vendita'])?></td>
+                            <td><?php echo $value['magazzino']['documento_carico']?></td>
+                            <td  class="actions" nowrap="nowrap">
+                            	<a href="javascript:void(0);" onclick="javascript:show_div('new_reso_post_vendita_<?php echo $value['id']?>', 'new_reso_post_vendita_<?php echo $value['id']?>');">
+                            		Reso post vendita
+                            	</a>
+
+								<div id="new_reso_post_vendita_<?php echo $value['id']?>" style="visibility:hidden;float:left; background-color:#FFF; position:absolute; top:50px; left:10px;border:#E6E6D2 5px solid; padding-left:3px; width:448px; min-height:100px; z-index:1;">
+									<h2>Reso Post Vendita</h2>
+									<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovoResoPostVendita&id_cliente=<?php echo $_tplvar['cliente']['id']?>&id_contenuto=<?php echo $value['contenuto']['id']?>&id_rappresentante=<?php echo $value['id_rappresentante']?>&id_vendita=<?php echo $value['id']?>&id_magazzino=<?php echo $value['magazzino']['id']?>&reso_from=vendita_cliente&qty=<?php echo $value['quantita']?>" method="post">
+									<div>
+									<label for="field_1">Nota di Credito</label><input type="text" name="nota_credito" id="nota_credito" value="" />
+									</div>
+									
+									<div id="" class="submit" style="position:relative;">
+										<input type="submit" class="submit" value="Rendi" />
+									</div> 
+								            
+								    <div class="submit" style="position:relative;">
+										<input type="button" class="submit" value="Chiudi" onclick="javascript:show_div('new_reso_post_vendita_<?php echo $value['id']?>', 'new_reso_post_vendita_<?php echo $value['id']?>');"/>
+									</div>           
+									</form>
+								</div>
+
+                            </td>
+                            <td class="actions" nowrap="nowrap">
+							<?php if(file_exists($_tplvar['APP_ROOT'].'/fatture/'.$value['id_cliente'].'/'.$value['fattura'].'.doc')):?>
+							<div id="show_fattura_<?php echo $value['id']?>" class="contenitore esplode" style="visibility:hidden;position:absolute;background-color:#E6E6D2;left:0px;z-index:10000; width:400px;">
+							
+							    <div class="tit" style="width:380px;border: 2px solid #000000;color: #6DA9D2;font: bold 1.5em Arial,Tahoma,sans-serif;margin: 0;padding: 12px 0 12px 15px;">
+							    Visualizzazione Fattura
+							    </div>
+							
+								<div id="form-block-div" style="width:380px;">
+									<div class="contenitore" style="width:380px;text-align:left;padding:20px;">
+										<br />
+										<a href="<?php echo $_tplvar['WWW_ROOT'].'fatture/'.$value['id_cliente'].'/'.$value['fattura'].'.doc'?>" target="_blank" alt="Scarica in formato word">
+											<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/ico_wor.gif" border="0">
+										</a>
+										<a href="<?php echo $_tplvar['WWW_ROOT'].'fatture/'.$value['id_cliente'].'/'.$value['fattura'].'.pdf'?>" target="_blank" alt="Scarica in formato pdf">
+											<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/pdf_ico.gif" border="0">
+										</a>
+										<a target="_blank" href="<?php echo $_tplvar['WWW_ROOT']?>?act=Fatturazione&view_fattura=1&id_vendita=<?php echo $value['id']?>&id_cliente=<?php echo $_tplvar['cliente']['id']?>&id_contenuto=<?php echo $value['contenuto']['id']?>" alt="Visualizza in formato HTML">
+											<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/ie_ico.png" border="0">
+										</a>
+										<b>Fattura creata il <?php echo $this->getFormatDate($value['data_fatturazione']);?></b>
+										<br />
+									</div>
+								    <div style="width:380px;margin-left:5px;">
+										<input type="button" class="submit" value="CHIUDI" style="float:right;"  onclick="var el = document.getElementById('show_fattura_<?php echo $value['id']?>');
+																												el.style.visibility = 'hidden';"/>
+								    </div>
+								</div>
+							</div>
+							<?php endif;?>
+
+                            <?php if($value['is_invoiced']):?>
+                            	<a class="delete" href="javascript:void();" onclick="var el = document.getElementById('show_fattura_<?php echo $value['id']?>');
+																					el.style.visibility = 'visible';
+                            														">Visualiza Fattura</a>
+                            	<!-- INSERIRE LISTA FATTURE SALVATE -->
+                            <?php else:?>
+                            	<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Fatturazione&id_cliente=<?php echo $_tplvar['cliente']['id']?>&id_contenuto=<?php echo $value['contenuto']['id']?>&id_vendita=<?php echo $value['id']?>">Stampa Fattura</a>
+                            <?php endif;?>	
+                            </td>
+
+                            <td class="actions">
+                            <?php if(!$value['is_invoiced']):?>
+                            
+								<div id="check_add_<?php echo $value['id']?>" style="height:20px;width:10px;margin-top:-10px">
+									<input 
+										style="width:10px"
+										type="checkbox" 
+										name="id"
+										onclick="javascript:
+														this.checked = false;
+														ajaxSendBookToBasket(
+																				'<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxStampaFattura', 
+																				'POST', 
+																				'action_fatturazione=add_book_to_basket&id=<?php echo $value['contenuto']['id']?>&id_vendita=<?php echo $value['id']?>&tbl_name_fatturazione=vendite', 
+																				'result_basket', 
+																				'check_add_<?php echo $value['id']?>',
+																				'check_rem_<?php echo $value['id']?>' 
+																			);">
+								</div>																	
+								<div id="check_rem_<?php echo $value['id']?>" style="height:20px;visibility:hidden;position:absolute;width:10px;margin-top:-10px">
+									<input 
+										checked="checked"
+										style="width:10px"
+										type="checkbox" 
+										name="id"
+										onclick="javascript:
+														this.checked = true;
+														ajaxSendBookToBasket(
+																				'<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxStampaFattura', 
+																				'POST', 
+																				'action_fatturazione=add_book_to_basket&remove=1&id=<?php echo $value['contenuto']['id']?>&id_vendita=<?php echo $value['id']?>&tbl_name_fatturazione=vendite', 
+																				'result_basket', 
+																				'check_rem_<?php echo $value['id']?>', 
+																				'check_add_<?php echo $value['id']?>'
+																			);">
+								</div>	     
+								<?php endif;?>                                                  
+                            </td>
+						</tr>
+						<?php endforeach;?>
+						
+						<tr>
+							<td colspan="6">&nbsp;</td>
+							<td colspan="3">
+								<input type="button" class="submit" onclick="document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Fatturazione&id_cliente=<?php echo $_tplvar['cliente']['id']?>'" value="Stampa Fatture Selezionate" style="width:250px;"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+                <!-- Page Navigation -->
+				<?php
+				$assign['tot_items'] 	= $_tplvar['tot_items_venduti'];
+				$assign['curr_page'] 	= $_tplvar['curr_page_venduti'];
+				$assign['last_page'] 	= $_tplvar['last_page_venduti'];
+				$assign['numViewPage'] 	= $_tplvar['numViewPage_venduti'];
+				$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+				$assign['pageID'] 		= '&id='.$_REQUEST['id'].'&pageIdVenduti=';
+				$assign['pageIDIndex']	= $_REQUEST['pageIdVenduti'];
+				echo $this->getPartial('shared/PagingAbstract', $assign);
+				?>
+				<!-- /Page Navigation -->
+<br><br><br>				
+</div>
+  
+    
+<div id="table-block" style="width:1000px;">
+	<h2>Libri/DVD/Riviste resi post vendita</h2>
+	<br>
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+                        	<td>ISBN</td>
+							<td>TITOLO</td>
+							<td>PREZZO</td>
+							<td>QUANTITA'</td>
+							<td>DATA RESO</td>
+                            <td>NOTA CREDITO</td>
+						</tr>
+						<?php foreach ($_tplvar['ListaResiPostVendite'] as $value):?>
+                        <tr>
+							<td><?php echo $value['contenuto']['isbn']?></td>
+                            <td><?php echo $value['contenuto']['titolo']?></td>
+                            <td><?php echo $this->getFormatPrice($value['contenuto']['prezzo'])?></td>
+                            <td><?php echo $value['quantita']?></td>
+							<td><?php echo $this->getFormatDate($value['data_reso'])?></td>
+                            <td><?php echo $value['nota_credito']?></td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+
+                <!-- Page Navigation -->
+				<?php
+				$assign['tot_items'] 	= $_tplvar['tot_items_resi_post_vendite'];
+				$assign['curr_page'] 	= $_tplvar['curr_page_resi_post_vendite'];
+				$assign['last_page'] 	= $_tplvar['last_page_resi_post_vendite'];
+				$assign['numViewPage'] 	= $_tplvar['numViewPage_resi_post_vendite'];
+				$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+				$assign['pageID'] 		= '&id='.$_REQUEST['id'].'&pageIdResiPostVendite=';
+				$assign['pageIDIndex']	= $_REQUEST['pageIdResiPostVendite'];
+				echo $this->getPartial('shared/PagingAbstract', $assign);
+				?>
+				<!-- /Page Navigation -->
+				</div>
+    <!--Carrello -->        
+              <?php //echo $this->getPartial('shared/Carrello');?>
+    <!-- / Carrello-->
+
+    
+    
+    
+</div>
+</div>
+</div>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<script src="../../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="../../../codebase/touchui.css" type="text/css" charset="utf-8">
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ready(function(){
+				dhx.ui({
+                    view:"window",
+                    width:500,
+                    height:400,
+                    position:"center",
+                    head:false,
+					body:{
+                        rows:[
+                            {view:"toolbar", type:"MainBar", elements:[
+                                {view:"button", value:"Add", click:"addItem" },
+                                {},
+                                {view:"button", value:"Remove", click:"deleteItem" }
+                            ]},
+                            {
+                                view:"list", id:"mylist", url:"data.php",
+                                type:{ width:"auto", template:"#name#" },
+                                select:true
+                            }
+                        ]
+                    }
+				});
+				
+				$$('mylist').attachEvent("onAfterAdd", function(id){
+					dhx.ajax().post("data.php?action=insert", this.item(id));
+				});
+				$$('mylist').attachEvent("onAfterDelete", function(id){
+					dhx.ajax().post("data.php?action=delete", { id: id });
+				});
+			
+			});
+			
+			function addItem(){
+				$$('mylist').add({},1);
+			};
+			function deleteItem(){
+                if(!$$('mylist').getSelected())
+                    return dhx.alert("A record is not selected!");
+				$$('mylist').remove($$('mylist').getSelected());
+			};
+			
+			
+		</script>
+	</body>
+</html>

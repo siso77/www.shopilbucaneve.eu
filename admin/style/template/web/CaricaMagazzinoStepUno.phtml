@@ -1,0 +1,121 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<script type="text/javascript">
+<!--
+onload = function(){
+	document.getElementById('bar_code').focus();
+} 
+//-->
+</script>
+
+<!--<script>window.dhx_globalImgPath = "<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/imgs/";</script>-->
+<!--<link rel="STYLESHEET" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.css">-->
+<!--<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>-->
+<!--<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>-->
+
+<table width="80%">
+
+<?php if(!empty($_tplvar['error_content_not_found'])):?>
+<tr>
+	<td align="center">
+		<b style="color:red">IL BAR CODE NON E&acute; STATO TROVATO<br>INSERISCI IL NOME DELL&acute;ARTICOLO PER CERCARLO</b>
+	</td>
+</tr>
+<tr>
+	<td align="center">
+		<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+			
+		<?php echo $this->getText('frm_code');?>	
+		<input type="text" name="bar_code" id="bar_code"/>
+		NOME ARTICOLO	
+		<input type="text" name="name_it" id="name_it"/>
+		<input type="submit" value="Cerca" /><input class="submit" type="button" value="Salta" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaMagazzino&error=1';"/>
+	</td>
+</tr>
+<?php elseif(!empty($_tplvar['content_found'])):?>
+<table>
+<tr>
+	<td align="center" colspan="7">CONTENUTI TROVATI</td>
+</tr>
+<tr>
+	<td>IMMAGINE</td>
+	<td>NOME</td>
+	<td>DESCRIZIONE</td>
+	<td>PREZZO</td>
+	<td>PREZZO SCONTATO</td>
+	<td>CATEGORIA</td>
+	<td>SELEZIONA PER IL CARICO</td>
+</tr>
+<?php foreach ($_tplvar['content_found'] as $value):?>
+<tr>
+	<td><?php echo $this->getImageFromIdContent($value['id'], 'Small_');?></td>
+	<td>
+		<a href="javascript:void(0);" onclick="
+			var el = document.getElementById('name_<?php echo $value['id']?>');
+			el.style.visibility = 'visible';
+			el.style.position = 'relative';">
+			<?php echo substr($value['name_it'], 0, $_tplvar['LISTA_MAGAZZINO_TRUNCATE_NAME'])?>...&nbsp;
+		</a>
+		<div id="name_<?php echo $value['id']?>" style="visibility:hidden;width:300px;border:1px solid #2388FF;position:absolute">
+			<?php echo $value['name_it']?><br>
+			<a href="javascript:void(0);" onclick="
+				var el = document.getElementById('name_<?php echo $value['id']?>');
+				el.style.visibility = 'hidden';
+				el.style.position = 'absolute';">CHIUDI</a>
+		</div>
+	</td>
+	<td>
+		<a href="javascript:void(0);" onclick="
+			var el = document.getElementById('description_<?php echo $value['id']?>');
+			el.style.visibility = 'visible';
+			el.style.position = 'relative';">
+			<?php echo substr($value['description_it'], 0, $_tplvar['LISTA_MAGAZZINO_TRUNCATE_DESCRIPTION'])?>...&nbsp;
+		</a>
+		<div id="description_<?php echo $value['id']?>" style="visibility:hidden;width:300px;border:1px solid #2388FF;position:absolute">
+			<?php echo $value['description_it']?><br>
+			<a href="javascript:void(0);" onclick="
+				var el = document.getElementById('description_<?php echo $value['id']?>');
+				el.style.visibility = 'hidden';
+				el.style.position = 'absolute';">CHIUDI</a>
+		</div>
+	</td>
+	<td><?php echo $value['price_it']?></td>
+	<td><?php echo $value['price_discounted_it']?></td>
+	<td><?php echo $value['name']?></td>
+	<td>
+		<a href="<?php echo $_tplvar['WWW_ROOT'].'?act=CaricaMagazzino&id_content='.$value['id']?>">SELEZIONA</a>
+		
+	</td>
+</tr>
+<?php endforeach;?>
+</table>
+<?php else:?>
+<tr>
+	<td align="center">
+		<h1><?php echo $this->getText('title');?></h1>
+		<br><br>
+		<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+			
+		<?php echo $this->getText('frm_code');?>	
+		<input type="text" name="bar_code" id="bar_code"/>
+		NOME ARTICOLO	
+		<input type="text" name="name_it" id="name_it"/>
+				
+		<input type="submit" value="Avanti" />
+	</td>
+</tr>
+<tr>
+<?php endif;?>
+
+<?php if($_tplvar['confirm_insert']):?>
+	<td align="center">
+		<br><br>
+		<b style="color:red"><?php echo $this->getText('insert_succesfull');?></b>
+	</td>
+</tr>
+<?php endif;?>	
+</table>
+
+<br><br>
+</form>

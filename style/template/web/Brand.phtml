@@ -1,0 +1,33 @@
+<?php 
+$_tplvar = $this->getVars();
+$index = 3;
+$i=1;
+?>
+
+							<div class="store-cont">
+							<table cellpadding="30" width="100%">
+							<?php foreach($_tplvar['brands'] as $key => $brand):?>
+							<?php if($brand['num_contents'] > 0):?>
+								<?php if($key == 0):?>
+								<tr>
+								<?php endif;?>
+															
+									<td>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Marchi/Tutti i Prodotti di <?php echo $brand['name']?>/<?php echo $brand['id']?>.html">
+											<?php echo $brand['name']?> (<?php echo $brand['num_contents']?>)
+										</a>
+									</td>
+								<?php if($i == $index):?>
+								</tr>
+								<tr>
+								<?php $i=0;?>
+								<?php endif;?>
+								<?php $i++?>
+							<?php endif;?>
+							<?php endforeach;?>
+							</table>
+								
+								<div class="clear"></div>
+							</div>
+
+							<div class="clear"></div>

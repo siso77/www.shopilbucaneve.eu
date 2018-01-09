@@ -1,0 +1,229 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Login');
+$templateConfig = $_tplvar['template_config']['search'];
+?>
+<div id="image_vbn" style="top:0px;display:none;position:absolute;background:#fff;z-index:10000;width:601px;height:451px"></div>
+<div id="image_repertorio" style="top:0px;display:none;position:absolute;background:#fff;z-index:10000;left:100px;width:601px;height:451px"></div>
+
+<div class="category-products">
+	<!-- Begin ToolBarButton -->
+    <?php 
+    $assign['url'] = $_tplvar['WWW_ROOT'].'?act=SearchFornitoriDe&for=1';
+    $assign['layout_active'] = $_SESSION['Search']['layout'];
+    $assign['show_switch_layout'] = true;
+    $this->getPartial('SearchFornitoriDe/ToolBarButton1', $assign);?>
+	<!-- End ToolBarButton -->
+	<br>
+	<!-- Begin Product Listing -->
+
+		<?php if(empty($_tplvar['content'])):?>
+		    <?php 
+		    $assign['err_message'] = 'Attenzione: il prodotto cercato non &eacute; al momento disponibile.';
+		    $this->getPartial('shared/ErrorMessage', $assign);
+		    ?>
+		<?php endif;?>
+	
+		<div id="pencentuale_occupazione_top" class="toolbar" style="float:right;padding-left:18px">
+			Percentuale Occupazione Carrello <?php echo $_tplvar['perc_occupazione_de']?> % - N. Carrelli <?php echo $_SESSION[session_id()]['basket_fornitori_de']['n_carrelli'];?>
+		</div>
+
+			<br>
+			<table class="list-table-detailed">
+			<tr class="header-row-detailed">
+				<?php foreach($templateConfig as $config):?>
+				<?php
+				if($config['is_visible'])
+				{
+					if($config['is_link'])
+					{
+						if(strtolower($config['value']) == 'prezzo' && empty($_SESSION['LoggedUser']['id']))
+							$config['is_link'] = false;
+						if(strtolower($config['value']) == 'prezzo')
+							$config['key'] = $_tplvar['key_prezzo'];
+					}
+					if($config['is_link'])
+					{
+						echo '<td class="header-cell-detailed" style="'.$config['style'].'" '.$config['attributes'].'>';
+						$assign['key_session'] = 'SearchFornitoriDe';
+						$assign['order_by'] = $config['key'];
+						$assign['action'] = 'SearchFornitoriDe';
+						$assign['field_name'] = $config['value'];
+						$this->getPartial('shared/SortField', $assign);
+						echo '</td>';
+					}
+					else 
+					{
+						if(!empty($config['style']) || !empty($config['attributes']))
+							echo '<td class="header-cell-detailed" style="'.$config['style'].'" '.$config['attributes'].'><a href="#">'.$config['value'].'</a></td>';
+						else
+							echo '<td class="header-cell-detailed"><a href="#">'.$config['value'].'</a></td>';
+					}
+				}
+				?>
+				<?php endforeach;?>
+				<td class="header-cell-detailed" style="width:20px;">Qta</td>
+			</tr>
+			
+		<?php foreach ($_tplvar['content'] as $key => $value):?>
+			<tr class="list-row-detailed" 
+				id="row-<?php echo $value['id']?>" 
+				<?php 
+				$qty_in_basket = null;
+				foreach ($_SESSION[session_id()]['basket_fornitori_de'] as $val):?>
+				<?php if($value['id'] == $val['giacenza']['id']):?> style="background-color:#B6E9B8;"<?php endif;?>
+				<?php if($value['id'] == $val['giacenza']['id']):$qty_in_basket = $val['basket_qty']['sel_quantita']; endif;?>
+				<?php endforeach;?>
+				onclick="javascript:swapClass(this, 'list-row-detailed', 'list-row-detailed active');">
+				
+				<?php if($templateConfig['FIELD_1']['is_visible']):?>
+				  <td class="list-cell-detailed" style="padding-left:5px;">
+					<?php
+					$image = null;
+					if(is_file($_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore2/'.$value['codice']."P.jpg"))
+						$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore2/".$value['codice']."P.jpg";
+					else
+					{
+						$file = WWW_IMAGE_GASA_PAHT."".$value['codice']."P.jpg";
+						$file_headers = @get_headers($file);
+						if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+							$image_to_copy = null;
+						else
+							$image_to_copy = WWW_IMAGE_GASA_PAHT."".$value['codice']."P.jpg";
+
+						if(!empty($image_to_copy))
+						{
+							copy($image_to_copy, $_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore2/'.$value['codice']."P.jpg");
+							$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore2/".$value['codice']."P.jpg";
+						}
+					}
+					?>
+					<?php if(!empty($image)):?>
+						<a style="width:14px;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' width=500 />');">
+							<!-- onmouseover="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' width=500 />');"/>  -->
+							<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/repertorio.gif" width="14" height="14" style="width:14px;height:14px;" alt=""
+							onmouseover="jQuery('#image_vbn').html('<img src=\'<?php echo $image?>\' width=601 heght=451 oncontextmenu=\'return false;\' />');jQuery('#image_vbn').show();centra('#image_vbn');" onmouseout="jQuery('#image_vbn').hide();" />
+						</a>
+					<?php else:?>
+							<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image.gif" width="14" height="14" style="width:14px;height:14px;" oncontextmenu="return false;" alt="" />
+					<?php endif;?>
+				  </td>
+				  <?php endif;?>
+
+				<?php if($templateConfig['FIELD_2']['is_visible']):?>
+		          <td class="list-cell-detailed">
+				  <?php if(!empty($value['bar_code'])):?>
+		          	<?php echo $value['bar_code']?>
+		          <?php endif;?>
+		          </td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_3']['is_visible']):?>
+		          <td class="list-cell-detailed">
+		          <?php if(empty($value['codice'])):?>
+		          	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		          <?php else:?>
+		          	<?php echo $value['codice']?>
+		          <?php endif;?>
+		          </td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_4']['is_visible']):?>
+		          <td class="list-cell-detailed"><?php echo $value['descrizione']?></td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_5']['is_visible']):?>
+		          <td class="list-cell-detailed" style="text-align:center;"><?php echo $value['qta_scatola']?></td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_6']['is_visible']):?>
+		          <td class="list-cell-detailed" style="text-align:center;"><?php echo $value['qta_pianale']?> <?php echo $value['tipo_colore']?></td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_7']['is_visible']):?>
+		          <td class="list-cell-detailed" style="text-align:center;"><?php echo round($value['diametro_vaso'],2)?></div>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_8']['is_visible']):?>
+		          <td class="list-cell-detailed" style="text-align:center;"><?php echo round($value['altezza_pianta'], 2)?></td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_9']['is_visible']):?>
+		          <td class="list-cell-detailed" style="text-align:center;">
+		          	<?php if(!empty($value['prezzo_sc']) && !empty($_SESSION['LoggedUser']['id'])):?>
+				          <?php
+				          $ricarico = 0;
+				          $ricarico_commissione_imballi_gasa = 0;
+				          $ricarico_commissione_fissa_gasa = 0;
+				          
+				          if(!empty($_tplvar['commissione_fissa_gasa']))
+				          	$value['prezzo_sc'] += $this->getRicarico($value['prezzo_sc'], $_tplvar['commissione_fissa_gasa']);
+				          
+				          if(!empty($_tplvar['commissione_imballi_gasa']))
+				          	$value['prezzo_sc'] += $this->getRicarico($value['prezzo_sc'], $_tplvar['commissione_imballi_gasa']);
+				          
+				          if(!empty($_SESSION['LoggedUser']['sconto_fornitori_de']))
+				          	$value['prezzo_sc'] += $this->getRicarico($value['prezzo_sc'], $_SESSION['LoggedUser']['sconto_fornitori_de']);
+				          ?>
+			          	<?php echo Currency::FormatEuro( $value['prezzo_sc'] )?>
+		          	<?php endif;?>
+		          	&nbsp;
+		          </td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_10']['is_visible']):?>
+		          <td class="list-cell-detailed" style="text-align:center;"> 
+		          	<?php if(!empty($value['prezzo_pi']) && !empty($_SESSION['LoggedUser']['id'])):?>
+				          <?php
+				          $ricarico = 0;
+				          $ricarico_commissione_imballi_gasa = 0;
+				          $ricarico_commissione_fissa_gasa = 0;
+				          
+				          if(!empty($_tplvar['commissione_fissa_gasa']))
+				          	$value['prezzo_pi'] += $this->getRicarico($value['prezzo_pi'], $_tplvar['commissione_fissa_gasa']);
+				          
+				          if(!empty($_tplvar['commissione_imballi_gasa']))
+				          	$value['prezzo_pi'] += $this->getRicarico($value['prezzo_pi'], $_tplvar['commissione_imballi_gasa']);
+				          
+				          if(!empty($_SESSION['LoggedUser']['sconto_fornitori_de']))
+				          	$value['prezzo_pi'] += $this->getRicarico($value['prezzo_pi'], $_SESSION['LoggedUser']['sconto_fornitori_de']);
+				          
+				          ?>
+		          		<?php echo Currency::FormatEuro($value['prezzo_pi'])?>
+		          	<?php endif;?>
+		          	&nbsp;
+		          </td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_11']['is_visible']):?>
+		          <td class="list-cell-detailed" style="text-align:center;"> 
+		          		<?php echo $value['carrello']?>
+		          </td>
+				<?php endif;?>
+				<?php if($templateConfig['FIELD_12']['is_visible']):?>
+		          <td class="list-cell-detailed"> 
+		          		<?php echo $value['stato']?>
+		          </td>
+				<?php endif;?>
+				
+		      <td class="list-cell-detailed">
+	          <?php //if(!empty($giacenza) && $giacenza['disponibilita'] > 0 && $giacenza['quantita'] <= $giacenza['disponibilita']):?>
+	          	<input value="<?php echo $qty_in_basket;?>" type="text" name="quantita_<?php echo $value['id'];?>" id="quantita_<?php echo $value['id'];?>" style="border:1px solid #6d7a7e;background-color:#fff;padding:0px;height:20px;width:30px;" 
+	          	onkeypress="javascript:
+	          	var e = jQuery('#quantita_<?php echo $value['id'];?>').keydown( function(e){
+				var code = (e.keyCode ? e.keyCode : e.which);
+				if(code == 13)			          	
+	          		addProductCartFornitoriDe('<?php echo $value['id'];?>', this.value);
+	          	});">
+	          	<!-- onblur="javascript:addProductCartFornitoriDe('<?php echo $value['id'];?>', this.value);" -->
+			  <?php //endif;?>
+			  </td>
+			  
+		    </tr>
+		<?php endforeach;?>
+		<tr><td>&nbsp;</td></tr>
+		</table>
+
+		<div id="pencentuale_occupazione_bottom" class="toolbar" style="float:right;padding-left:18px">
+			Percentuale Occupazione Carrello <?php echo $_tplvar['perc_occupazione_de']?> % - N. Carrelli <?php echo $_SESSION[session_id()]['basket_fornitori_de']['n_carrelli'];?>
+		</div><br><br>
+
+	<!-- Begin ToolBarButton -->
+    <?php 
+    $assign['show_paging'] = true;
+    $assign['show_switch_layout'] = false;
+    $this->getPartial('shared/ToolBarButton', $assign);?>
+	<!-- End ToolBarButton -->
+</div>
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+        <title>ActiveContent: set values</title>
+	</head>
+	<body>
+       
+		<script type="text/javascript" charset="utf-8">
+dhx.ready(function() {
+	
+	dhx.protoUI({
+		name:"activeList"
+	}, dhx.ui.list, dhx.ActiveContent);
+
+    dhx.ui({
+       
+        cols: [
+            {
+                view: "activeList",
+                data:[ { title:"On", toggleButton:"on"},{ title:"Off", toggleButton:"off"},{ title:"On", toggleButton:"on"} ],
+                activeContent:{
+                	toggleButton:{
+                		view:"toggle",
+                		options:["on","off"],
+                		width:180
+                	}
+                },
+                template: "<div style='float:right'>{common.toggleButton()}</div> #title#",
+                type: {
+                    height:32
+                },
+                select:false
+            },
+            {
+                view: "activeList",
+
+                data:[ { id:"t1", title:"one", counterButton:1},{ title:"two", counterButton:2},{ title:"three", counterButton:3} ],
+                activeContent:{
+                	counterButton:{
+                		view:"counter",
+                		min:0, max:10,
+                		width:180
+                	}
+                },
+                template: "<div style='float:right'>{common.counterButton()}</div> #title#",
+                type: {
+                    height:32
+                },
+                select:false
+            }
+        ]
+
+    });
+
+		
+});
+
+					
+			
+			
+			
+		</script>
+	</body>
+</html>

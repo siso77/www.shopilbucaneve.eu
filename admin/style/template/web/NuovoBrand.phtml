@@ -1,0 +1,46 @@
+<?php $_tplvar = $this->getVars();?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post" enctype="multipart/form-data">
+<?php if(!empty($_tplvar['data']['id']))?>
+	<input type="hidden" name="id" value="<?php echo $_tplvar['data']['id']?>">
+
+<table border="0" cellspacing="3">
+  <tr>
+    <td>Brand</td>
+    <td><input type="text" name="name" value="<?php echo $_tplvar['data']['name']?>"></td>
+  </tr>
+  <tr>
+    <td>Link</td>
+    <td><input type="text" name="link" value="<?php echo $_tplvar['data']['link']?>"></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+		<?php $i = 0;?>
+        <?php foreach($_tplvar['images'] as $key => $val):?>
+            <?php if(!empty($val['id'])):?>
+                <input type="hidden" name="id_img[]" value="<?php echo $val['id']?>" />
+            <?php endif;?>
+            <?php if(!empty($val['name'])):?>
+                    <a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $val['id']?><?php if(!empty($_tplvar['data']['id'])):?>&id=<?php echo $_tplvar['data']['id']?><?php endif;?>">Rimuovi</a><b></b>
+                    <img src="<?php echo $val['www_path'].'/Small_'.$val['name']?>" border="0">
+            <?php endif;?>
+            <?php if(empty($val['name'])):?>
+                Immagine <input type="file" name="img_<?php echo $i;?>">
+            <?php endif;?>
+            <?php $i++;?>
+        <br><br>
+        <?php endforeach;?>
+                <a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&add_img=1<?php if(!empty($_tplvar['data']['id'])):?>&id=<?php echo $_tplvar['data']['id']?><?php endif;?>">AGGIUNGI </a>
+        <?php if(count($_tplvar['images']) > 1):?>
+                <a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&rem_img=1<?php if(!empty($_tplvar['data']['id'])):?>&id=<?php echo $_tplvar['data']['id']?><?php endif;?>">RIMUOVI ULTIMO </a>
+        <?php endif;?>    
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+    <input type="submit" name="save" value="Salva">
+	<input type="reset" class="submit" name="cancel" value="Cancella">
+    </td>
+  </tr>
+</table>
+
+</form>

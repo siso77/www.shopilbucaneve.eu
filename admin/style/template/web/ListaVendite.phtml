@@ -1,0 +1,171 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+
+<!--MENU TOP-->
+    <?php echo $this->getPartial('shared/BoxSearch');?>
+<!-- / MENU TOP-->
+
+					<table cellspacing="0" cellpadding="0" style="width:auto">
+						<tr>
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaVendite';
+							$assign['order_by'] = 'nome';
+							$assign['action'] = 'ListaVendite';
+							$assign['field_name'] = 'CANALE';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaVendite';
+							$assign['order_by'] = 'nome';
+							$assign['action'] = 'ListaVendite';
+							$assign['field_name'] = 'NOME';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaVendite';
+							$assign['order_by'] = 'cognome';
+							$assign['action'] = 'ListaVendite';
+							$assign['field_name'] = 'COGNOME';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaVendite';
+							$assign['order_by'] = 'tipo_pagamento';
+							$assign['action'] = 'ListaVendite';
+							$assign['field_name'] = 'PAGAMENTO';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaVendite';
+							$assign['order_by'] = 'total';
+							$assign['action'] = 'ListaVendite';
+							$assign['field_name'] = 'TOTALE';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaVendite';
+							$assign['order_by'] = 'data_vendita';
+							$assign['action'] = 'ListaVendite';
+							$assign['field_name'] = 'DATA VENDITA';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaVendite';
+							$assign['order_by'] = 'operatore';
+							$assign['action'] = 'ListaVendite';
+							$assign['field_name'] = 'OPERATORE';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>            
+							<td>FATTURE</td>            
+							<td>DETTAGLIO</td>
+							<td>CANCELLA</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>						
+						<tr>
+							<td><?php echo $value['channel']?>&nbsp;</td>
+							<td>
+								<?php 
+								if($value['nome'] != 'Negozio')
+									echo $value['nome']
+								?>
+								&nbsp;
+							</td>
+                            <td>
+                            	<?php 
+                            	if($value['cognome'] != 'Pro-Bike')
+                            		echo $value['cognome']
+                            	?>
+                            	&nbsp;
+                            </td>
+                            <td><?php echo $value['tipo_pagamento']?>&nbsp;</td>
+							<td><?php echo $this->getFormatPrice($value['totale'])?>&nbsp;</td>
+                            <td><?php echo $this->getFormatDate($value['data_vendita'])?>&nbsp;</td>
+                            <td><?php echo $value['operatore']?>&nbsp;</td>
+							<td>
+							<?php
+							//if($value['nome'] != 'Negozio')
+							if(true)
+							{ 
+								$invoices = $this->getInvoiceFromIdCustomer($value, $value['fattura']);
+								if(!empty($invoices))
+								{
+								?>
+								<a href="javascript:void(0);" onclick="javascript:showHiddenDiv('<?php echo $value['id']?>')">FATTURE</a>
+								<div id="<?php echo $value['id']?>" style="visibility:hidden;position:absolute;background-color:#000000;border:1px solid #993300;width:auto;padding:20px">
+								<?php
+									foreach ($invoices as $k => $data)
+									{
+										echo ' <a href="'.$data.'" target="_blank"><img src="'.$_tplvar['WWW_ROOT'].'/img/web/doc_ico.png"></a>';
+									}
+								}
+								?>
+								</div>
+								<?php 
+							}
+							?>
+							</td>                            
+							<td class="actions">
+								<a class="edit" href="javascript:void(0);" onclick="
+										$.ajax({
+											  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetDetailVendita',
+											  type: 'POST',
+											  dataType: 'html',
+											  data: 'id_vendita=<?php echo $value['id'];?>',
+											  success: function(html){
+												  $('#detail_<?php echo $value['id'];?>').html(html);
+												  $('#detail_<?php echo $value['id'];?>').show();
+											  }
+											});">DETTAGLIO</a>
+								<div id="detail_<?php echo $value['id'];?>" style="border:1px solid #993300;background-color:#000000;left:20px;display:none;position:absolute;"></div>
+							</td>
+							<td>
+								<a class="delete" href="javascript:void(0);" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')">CANCELLA</a>
+								<div id="confirm_delete_<?php echo $value['id'];?>" style="background-color:#4A5154;left:400px;padding:10px;border:3px solid #900;width:250px;position:absolute;visibility:hidden">
+									<b><font color="#ffffff">Sei sicuro di voler cancellare?</font></b>
+									<div style="width:200px; height:50px; margin-left:15px; margin-top:10px;">
+										<div style="float:left;width:100px; ">
+											<input type="button" value="Si" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=ListaVendite&delete=1&id=<?php echo $value['id']?>'" style="cursor:pointer"/>
+										</div>
+										<div style="float:left; width:100px;">
+											<input type="button" value="No" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')" style="cursor:pointer"/>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					<?php endforeach;?>						
+				</table>
+
+                <!-- Page Navigation -->
+				<?php echo $this->getPartial('shared/Paging');?>
+				<!-- /Page Navigation -->
+				
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->

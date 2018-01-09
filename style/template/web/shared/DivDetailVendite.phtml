@@ -1,0 +1,134 @@
+<?php $_tplvar = $this->getVars();?>
+
+<?php 
+$sales = $_tplvar['data']['single_sales'];
+unset($_tplvar['data']['single_sales']);
+//_dump($_tplvar['data']);
+//exit();
+?>
+<div style="height:auto; margin:10px;padding:10px;">
+	<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="2" align="center">DETTAGLIO VENDITA</td>
+	<tr>
+		<td>
+			<table width="430">
+			<tr>
+				<td colspan="2" align="center">DATI GENERALI</td>
+			</tr>
+			<tr>
+				<td>NOME</td>
+				<td><?php echo $_tplvar['data'][0]['nome']?></td>
+			</tr>
+			<tr>
+				<td>COGNOME</td>
+				<td><?php echo $_tplvar['data'][0]['cognome']?></td>
+			</tr>
+			<tr>
+				<td>COD.FISCALE</td>
+				<td><?php echo $_tplvar['data'][0]['codice_fiscale']?></td>
+			</tr>
+			<tr>
+				<td>INDIRIZZO</td>
+				<td><?php echo $_tplvar['data'][0]['indirizzo']?></td>
+			</tr>
+			<tr>
+				<td>PROVINCIA</td>
+				<td><?php echo $_tplvar['data'][0]['provincia']?></td>
+			</tr>
+			<tr>
+				<td>STATO</td>
+				<td><?php echo $_tplvar['data'][0]['stato']?></td>
+			</tr>
+			<tr>
+				<td>CITTA'</td>
+				<td><?php echo $_tplvar['data'][0]['citta']?></td>
+			</tr>
+			<tr>
+				<td>CAP</td>
+				<td><?php echo $_tplvar['data'][0]['cap']?></td>
+			</tr>
+			<tr>
+				<td>CELLULARE</td>
+				<td><?php echo $_tplvar['data'][0]['cellulare']?></td>
+			</tr>
+			<tr>
+				<td>FISSO</td>
+				<td><?php echo $_tplvar['data'][0]['fisso']?></td>
+			</tr>
+			<tr>
+				<td>EMAIL</td>
+				<td><?php echo $_tplvar['data'][0]['email']?></td>
+			</tr>
+			</table>
+		</td>
+		<td>
+			<table width="430">
+			<tr>
+				<td colspan="2" align="center">DATI SPEDIZIONE</td>
+			</tr>			
+			<tr>
+				<td>INDIRIZZO</td>
+				<td><?php echo $_tplvar['data'][0]['indirizzo_spedizione']?></td>
+			</tr>
+			<tr>
+				<td>PROVINCIA</td>
+				<td><?php echo $_tplvar['data'][0]['cap_spedizione']?></td>
+			</tr>
+			<tr>
+				<td>STATO</td>
+				<td><?php echo $_tplvar['data'][0]['citta_spedizione']?></td>
+			</tr>
+			<tr>
+				<td>CITTA'</td>
+				<td><?php echo $_tplvar['data'][0]['provincia_spedizione']?></td>
+			</tr>
+			<tr>
+				<td>CAP</td>
+				<td><?php echo $_tplvar['data'][0]['stato_spedizione']?></td>
+			</tr>
+			</table>
+		</td>	
+	</tr>
+	<tr>
+		<td colspan="2" align="center">PRODOTTI VENDUTI</td>
+	</tr>
+	<?php foreach($_tplvar['data'] as $value):?>
+	<tr>
+		<td colspan="2">
+			<table>
+			<tr>
+				<td width="20">BAR CODE</td>
+				<td width="200">NOME</td>
+				<td>QUANTITA'</td>
+				<td>TOTALE</td>
+				<td>PAGAMENTO</td>
+				<td>PERCENTUALE SCONTO</td>
+				<td>DATA VENDITA</td>
+				<td>FATTURA</td>
+			</tr>
+			<tr>
+				<td><?php echo $value['bar_code']?></td>
+				<td><?php echo $value['name_it']?></td>
+				<td><?php echo $value['quantita']?></td>
+				<td><?php echo $this->getFormatPrice($value['total'])?></td>
+				<td><?php echo $value['tipo_pagamento']?></td>
+				<?php 
+				if(!empty($value['percentuale_sconto']))
+					$percent = $value['percentuale_sconto'];
+				else 
+					$percent = 0;
+				?>
+				<td><?php echo $percent?>%</td>
+				<td><?php echo $this->getFormatDate($value['data_vendita'])?></td>
+				<td><?php echo $value['fattura']?></td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<?php endforeach;?>
+	<tr>
+		<td colspan="2" align="center"><a href="javascript:void(0);"onclick="javascript:$('#detail_<?php echo $_tplvar['data'][0]['id']?>').hide();">CHIUDI</a></td>
+	</tr>
+	</table>
+</div>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <title>Form: custom validation rules</title>
+</head> 
+<body>
+	<div style="width:220px;height:138px;border:1px solid #ADADAD; margin:50px;">
+    	<div id="box" style='width:100%; height:100%;'></div>
+    </div>
+ 
+	<script>
+		dhx.ready(function(){
+			dhx.ui({ 
+					container:"box",
+					view:"form", id:"myform", elements:[
+							{ view:"text", label:"Full name", id:"fullname"},
+							{ view:"text", label:"Age",  id:"age"},
+							{ view:"button", label:"Submit", click:"submit_form",inputWidth:130,align:"right"}],
+					rules:{
+							age:isPositiveInteger}
+ 
+			});
+ 
+ 		})
+ 
+		submit_form = function(){
+			if ($$("myform").validate()==false)
+					{dhx.notice("Invalid value for 'age' field");}
+		}
+ 
+		isPositiveInteger = function(value) {
+			return (parseInt(value,10) == value && value>=0);}
+	</script>
+</body>
+</html>

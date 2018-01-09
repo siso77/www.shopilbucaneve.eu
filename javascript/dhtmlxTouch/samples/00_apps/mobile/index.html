@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+		<link rel="stylesheet" href="../../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">	
+		<script src="../../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+
+
+		<script src="demo.js" type="text/javascript"></script>
+		<link rel="STYLESHEET" type="text/css" href="demo.css">
+		<style>
+            html,body{
+                background-color:#ffffff;
+            }
+			.tb_sup{
+				font-size:10px;
+				text-shadow: none;
+				font-style:italic;
+			}
+		</style>
+		<title>Samples</title>
+		<script type="text/javascript" charset="utf-8">
+			
+			function back(){
+				$$("list").show();
+				$$("back").hide();
+			}
+			
+		
+			dhx.ready(function(){ //exec code only after document loading
+			
+			var config = {
+				container:"samples",
+				rows:[
+					{ 	
+						view:"toolbar", 
+						id:"header",
+						type:"MainBar", 
+						elements:[
+							{view:"label", id:"label",label: "Samples <sup class='dhx_el_label_sup'>mobile</sup>", align:'left', inputWidth:200},
+							{view:"button", id:"button", label: "Back", align:'right' ,click:"back", id:'back', hidden:true}
+						]
+					},
+					{ 
+						view:"multiview",
+						cells:[{
+								view:"list",
+								id:"list",
+								select:true, 
+								scroll:true,
+								url:"data/samples.xml", 
+								datatype:"xml",
+								type:{
+									template:"#title#",
+									width:"auto"
+								}
+							},
+							{
+								view:"iframe",
+								id:"sample"
+							}
+						]
+					}
+				]
+			};
+			
+			correctDemo(config);
+			//init config
+			
+			dhx.ui(config);
+			$$("list").attachEvent("onItemClick",function(id){
+				$$("back").show();
+				$$("sample").show();
+				$$("sample").define("src",this.item(id).url);
+			});
+			
+			
+		});
+		</script>
+</head>
+	<body>
+		<div class='bg_wrapper' style='padding-top:20px;padding-bottom:20px; width:480px; margin-right:auto; margin-left:auto;'>
+		<div class='wrapper' style='padding-top:110px;padding-bottom:150px; margin-left:30px;'>
+			
+		<div style="width:320px;height:500px;border:1px solid #969696; margin-left:50px;">
+			<div id="samples" style='width:100%; height:100%;'>
+			</div>
+		</div>
+		
+		</div>
+		</div>
+	</body>
+</html>

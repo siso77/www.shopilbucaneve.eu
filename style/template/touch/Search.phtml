@@ -1,0 +1,70 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Login');
+?>
+
+<!-- 
+<div class="ui-grid-d">
+	<div class="ui-block-a"><h5>
+	</h5>
+	</div>
+	<div class="ui-block-b"><h5>
+	<?php
+	$assign['key_session'] = 'Search';
+	$assign['order_by'] = 'vbn';
+	$assign['action'] = 'Search';
+	$assign['field_name'] = 'VBN';							
+	$this->getPartial('shared/SortField', $assign);
+	?>
+	</h5>
+	</div>
+	<div class="ui-block-c"><h5>
+	<?php
+	$assign['key_session'] = 'Search';
+	$assign['order_by'] = 'nome_it';
+	$assign['action'] = 'Search';
+	$assign['field_name'] = 'Variet&aacute;';							
+	$this->getPartial('shared/SortField', $assign);
+	?>
+	</h5>
+	</div>
+	<div class="ui-block-d"><h3>
+	<?php
+	$assign['key_session'] = 'Search';
+	$assign['order_by'] = 'C4';
+	$assign['action'] = 'Search';
+	$assign['field_name'] = 'Colore';							
+	$this->getPartial('shared/SortField', $assign);
+	?>
+	</h3>
+	</div>
+	<div class="ui-block-e">
+		<h5>
+		</h5>
+	</div>
+	-->
+	
+	
+<ul data-role="listview" data-inset="true" data-theme="b">
+	<?php foreach ($_tplvar['content'] as $key => $value):?>
+	<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb">
+	
+		<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxDetailGiacenza&touch=1&id=<?php echo $value['id'];?>" data-transition="flip">
+			<?php $image = $this->getImageFromVbn($value['vbn']);?>
+			<?php if(!empty($image)):?>
+					<img  src="<?php echo $image?>" class="ui-li-thumb"/>
+			<?php else:?>
+					<img  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image.gif"/>
+			<?php endif;?>
+			<p>
+				<b>Codice VBN</b> <?php echo $value['vbn']?><br>
+				<b>Variet&aacute;</b> <?php echo $value['nome_it']?><br>
+				<b>Colore</b> <?php echo $value['C3']?><br>
+				<b>Altezza</b> <?php echo $value['C4']?>
+			</p>
+		</a>
+	</li>
+	<?php endforeach;?>
+</ul>		
+<br>
+<span><?php //echo $this->getPartial('shared/ComboRowForPage');?></span>

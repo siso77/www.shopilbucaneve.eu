@@ -1,0 +1,181 @@
+<?php 
+$_tplvar = $this->getVars();
+?>
+<style>
+<!--
+.order{color:white;}
+-->
+</style>
+<div id="container-int">
+
+	<div id="sidebar" style="width:1200px;">
+		<!-- WIDGETS RIGHT -->
+		<div id="widgets">
+			<div id="nav_menu-3" class="widget_nav_menu widget">
+				<div class="winner">
+					<div class="menu-abbigliamento-container">
+						<ul id="menu-abbigliamento" class="menu">
+
+    <table align="center">
+    <tr>
+    	<td><div><input class="submit" type="button" value="Nuova Newsletter" onclick="javascript:window.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Newsletter'" /></div></td>
+    </tr>
+    </table>
+
+<br>
+	<?php  echo $this->getPartial('shared/NewsletterSearch');?>
+			ELENCO NEWLETTERS
+		<br style="clear: both;"/>
+	</h2>
+	<div id="elenco_utente">
+	<div>
+		<div></div>
+		<fieldset style="border: 0px none ; margin: 0px; padding: 0px;">
+			<table style="width: 100%; text-align: left;">
+			<tr>			
+				<td colspan="4" style="width: 100%; text-align: right;padding: 5px; vertical-align: top;"><?php echo $this->getPartial('shared/Paging');?></td>
+			</tr>
+			<tr style="background: rgb(51, 51, 51) none repeat scroll 0% 0%; color: rgb(255, 255, 255); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+				<th style="padding: 5px; width: 410px; font-size: 11px;">
+				<?php if($_SESSION['search_newsletter']['order_type'] == 'ASC'):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1&order_by=title&order_type=DESC" class="order">Titolo</a>
+					<?php if($_SESSION['search_newsletter']['order_by'] == 'title'):?>
+						<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_asc.png">
+					<?php endif;?>
+				<?php else:?>
+					<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1&order_by=title&order_type=ASC" class="order">Titolo</a>
+					<?php if($_SESSION['search_newsletter']['order_by'] == 'title'):?>
+					<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_desc.png">
+					<?php endif;?>
+				<?php endif;?>
+				</th>
+				<th style="padding: 5px; width: 120px; font-size: 11px;">
+				<?php if($_SESSION['search_newsletter']['order_type'] == 'ASC'):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1&order_by=object&order_type=DESC" class="order">Ogetto</a>
+					<?php if($_SESSION['search_newsletter']['order_by'] == 'object'):?>
+						<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_asc.png">
+					<?php endif;?>
+				<?php else:?>
+					<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1&order_by=object&order_type=ASC" class="order">Ogetto</a>
+					<?php if($_SESSION['search_newsletter']['order_by'] == 'object'):?>
+						<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_desc.png">
+					<?php endif;?>
+				<?php endif;?>
+				</th>
+				<th style="padding: 5px; width: 120px; font-size: 11px;">
+				<?php if($_SESSION['search_newsletter']['order_type'] == 'ASC'):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1&order_by=date_last_modify&order_type=DESC" class="order">Data</a>
+					<?php if($_SESSION['search_newsletter']['order_by'] == 'date_last_modify'):?>
+						<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_asc.png">
+					<?php endif;?>
+				<?php else:?>
+					<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1&order_by=date_last_modify&order_type=ASC" class="order">Data</a>
+					<?php if($_SESSION['search_newsletter']['order_by'] == 'date_last_modify'):?>
+						<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_desc.png">
+					<?php endif;?>
+				<?php endif;?>
+				</th>
+				<th style="padding: 5px; font-size: 11px;"> </th>
+				<th style="padding: 5px; font-size: 11px;"> </th>
+			</tr>
+			
+			<?php foreach ($_tplvar['newsletter'] as $newsletter):
+			?>
+			<tr id="news_<?php echo $newsletter['id'];?>">
+				<td style="padding: 5px; vertical-align: top;" width="60%">
+					<div>
+						<b>Titolo:</b> <a class="tit-gallery" style="font-size: 12px; font-weight: bold;" onclick="javascrit:showDetail('news_<?php echo $newsletter['id'];?>', 'news_detail_<?php echo $newsletter['id'];?>');">
+						<?php echo $newsletter['news_data'][0]['titolo']?>
+						</a>
+					</div>
+				</td>
+				<td style="padding: 5px; vertical-align: top;">
+					<div>
+						<?php echo $newsletter['object']?>
+					</div>
+				</td>
+				<td style="padding: 5px; vertical-align: top;">
+					<div>
+						<?php echo $this->getFormatDate($newsletter['date_last_modify'])?>
+					</div>
+				</td>
+				<td style="padding: 5px; vertical-align: top;">
+					<div>
+						<input class="submit" type="button" value="Spedisci" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&step=4&id=<?php echo $newsletter['id'];?>'">
+					</div>
+				</td>
+				<td style="padding: 5px; vertical-align: top;">
+					<div>
+						<input class="submit" type="button" value="Cancella" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&step=5&id=<?php echo $newsletter['id'];?>'">
+					</div>
+				</td>
+			</tr>
+
+			<tr id="news_detail_<?php echo $newsletter['id'];?>" style="visibility:hidden;position:absolute;background-color:#8c0d0d;">
+				<td colspan="3" style="padding: 5px; vertical-align: top;border:1px solid #fff">
+					<table cellpadding="10" cellspacing="0" width="100%">
+					<tr>
+						<td colspan="9">
+							<div style="float:left">
+								<b><a onclick="javascrit:showDetail('news_<?php echo $newsletter['id'];?>', 'news_detail_<?php echo $newsletter['id'];?>');">Chiudi</a></b>
+							</div>
+						</td>
+					</tr>
+					<tr style="background: rgb(51, 51, 51) none repeat scroll 0% 0%; color: rgb(255, 255, 255); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+						<td nowrap="nowrap"><b>Titolo</b></td>
+						<td nowrap="nowrap"><b>Newsletter</b></td>
+					</tr>
+
+<?php foreach ($newsletter['news_data'] as $newsData):?>
+					<tr>
+						<td><?php echo $newsData['titolo']?></td>
+						<td><?php echo $newsData['news']?></td>
+					</tr>
+<?php endforeach;?>
+					</table>
+				</td>
+			</tr>
+			
+			<?php endforeach;?>
+			<tr>
+				<td colspan="4" style="width: 100%; text-align: right;"><?php echo $this->getPartial('shared/Paging');?></td>
+			</tr>
+			</table>
+		</fieldset>
+		
+		</div>
+	</div>
+</div>
+<br style="clear: both;"/>
+
+
+						</ul>
+					</div>
+					&nbsp;
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+function showDetail(id, id_user)
+{
+	var el = document.getElementById(id);
+	var el2 = document.getElementById(id_user);
+
+	if(el.style.visibility == 'hidden')
+	{
+		el.style.visibility = 'visible';
+		//el.style.position = 'relative';
+		el2.style.visibility = 'hidden';
+		//el2.style.position = 'absolute';
+	}
+	else
+	{
+		el.style.visibility = 'hidden';
+		//el.style.position = 'absolute';
+		el2.style.visibility = 'visible';
+		//el2.style.position = 'relative';
+	}
+}
+</script>

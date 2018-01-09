@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+        <title>Toolbar: popup menus</title>
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ui({
+				rows:[
+						{ 	view:"toolbar", type:"MainBar", elements:[
+							{ view:"button", label: 'Left', popup:"Menu1"},
+							{ view:"button", label: 'Menu', popup:"Menu1"},
+							{ view:"button", label: 'Menu', popup:"Menu1"},
+							{ view:"button", label: 'Menu', popup:"Menu1"},
+							{ view:"button", label: 'Right', popup:"Menu1"}
+								
+							]
+						},
+						{	},
+						{ 	view:"toolbar", type:"MainBar", elements:[
+							{ view:"button", label: 'Left', popup:"Menu1"},
+							{ view:"button", label: 'Menu', popup:"Menu1"},
+							{ view:"button", label: 'Menu', popup:"Menu1"},
+							{ view:"button", label: 'Menu', popup:"Menu1"},
+							{ view:"button", label: 'Right', popup:"Menu1"}
+								
+							]
+						}
+				]
+			});
+			
+			dhx.ui({
+				view:"popup",
+				id:"Menu1",
+				body:{
+					view:"list",
+					url:"menu.xml", datatype:"xml",
+					select:true, yCount:3
+				}
+			}).hide();
+
+		</script>
+	</body>
+</html>

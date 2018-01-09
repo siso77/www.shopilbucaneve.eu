@@ -1,0 +1,230 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script type="text/javascript">
+var timeout         = 500;
+var closetimer		= 0;
+var ddmenuitem      = 0;
+
+function jsddm_open()
+{	jsddm_canceltimer();
+	jsddm_close();
+	ddmenuitem = $(this).find('ul').eq(0).css('visibility', 'visible');}
+
+function jsddm_close()
+{	if(ddmenuitem) ddmenuitem.css('visibility', 'hidden');}
+
+function jsddm_timer()
+{	closetimer = window.setTimeout(jsddm_close, timeout);}
+
+function jsddm_canceltimer()
+{	if(closetimer)
+	{	window.clearTimeout(closetimer);
+		closetimer = null;}}
+
+$(document).ready(function()
+{	$('#jsddm > li').bind('mouseover', jsddm_open);
+	$('#jsddm > li').bind('mouseout',  jsddm_timer);});
+
+document.onclick = jsddm_close;
+</script>
+<?php 
+$permessi = null;
+foreach($_tplvar['cmb_user_type'] as $key => $val)
+{
+	if($_SESSION['LoggedUser']['id_type'] == $val['id'])
+	{
+		$exp = explode('|', $val['permessi']);
+		foreach ($exp as $v)
+		{
+			$ex = explode('@', $v);
+			$permessi[$ex[0]] = $ex[1];
+		}
+	}
+}
+?>	
+
+<?php // echo $this->getText('header_title');?> 
+
+<ul id="jsddm">
+    <li>
+    	<a href="<?php echo $_tplvar['WWW_ROOT']?>">Home</a>
+    </li>
+    <?php if($permessi['CambioLogo'] && $_SESSION['LoggedUser']['username'] == 'siso'):?>
+    <li>
+    	<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CambioLogo">Cambio Logo</a>
+    </li>
+    <?php endif;?>
+    <?php if($permessi['ecommerce']):?>
+    <li><a href="#"><?php echo $this->getText('menu_top_ecommerce');?></a>
+        <ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Orders">Lista Ordini</a>	            
+			</li>
+			<!-- 
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=OrdersSended">Lista Ordini Evasi</a>	            
+			</li>			
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Banners">Gestione Banner</a>	            
+			</li>			
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Showcase">Gestione Vetrina</a>	            
+			</li>			
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaMercatino">Lista annunci Mercatino Usato</a>	            
+			</li>			
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaMercatino">Pubblica annuncio Mercatino Usato</a>	            
+			</li>
+			
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaStolen">Lista annunci Bici Rubate</a>	            
+			</li>			
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaStolen">Pubblica annuncio Bici Rubate</a>	            
+			</li>			
+ 			-->
+ 			<!-- 
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=OrdersPending">Lista Ordini Pendenti</a>
+			</li>
+			-->
+        </ul>
+    </li>
+    <?php endif;?>
+    <!-- 
+    <li><a href="/siso_newsletter/">Newsletter</a>
+    <li><a href="#"><?php echo $this->getText('menu_top_store');?></a>
+        <ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaMagazzinoStepUno"><?php echo $this->getText('menu_top_add_store');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaCategorie"><?php echo $this->getText('menu_top_list_categories');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCategoria"><?php echo $this->getText('menu_top_add_categories');?></a>	            
+			</li>
+			
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaBrand"><?php echo $this->getText('menu_top_list_brand');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovoBrand"><?php echo $this->getText('menu_top_add_brand');?></a>	            
+			</li>
+        </ul>
+    </li>
+    <li><a href="#"><?php echo $this->getText('menu_top_content');?></a>
+        <ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaContenuti"><?php echo $this->getText('menu_top_list_content');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=PrintBarcode">Genera Bar Code</a>	            
+			</li>
+	    </ul>    
+    </li>
+    -->
+    <?php if($permessi['Setup']):?>
+    <li><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Setup"><?php echo $this->getText('menu_top_setup');?></a>
+        <ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Setup">Setup</a>	            
+			</li>
+			<?php if($_SESSION['LoggedUser']['username'] == 'siso'):?>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetDefaultUserToCustomer">Creazione Utenze di Default</a>	            
+			</li>
+			<?php endif;?>
+			<!-- 
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupColor"><?php echo $this->getText('menu_top_setup_color');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupSize"><?php echo $this->getText('menu_top_setup_size');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupSizeType"><?php echo $this->getText('menu_top_setup_size_type');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupPercentDiscount"><?php echo $this->getText('menu_top_setup_percent_discount');?></a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupInvoice">Setup Fatturazione</a>	            
+			</li>
+			-->
+		</ul>
+    </li>
+    <?php endif;?>
+    <?php if($permessi['Fornitori']):?>
+		<?php if($_SESSION['LoggedUser']['username'] == 'siso'):?>
+	    <li><a href="javascript:void(0);">Fornitori</a>
+	        <ul>
+	            <li>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaListinoDenDekker">Carica Listino Den Dekker</a>	            
+				</li>
+	        </ul>
+	    </li>
+		<?php endif;?>
+	<?php endif;?>
+	<?php if($permessi['Utenti']):?>
+    <li><a href="#"><?php echo $this->getText('menu_top_users');?></a>
+        <ul>
+            <li><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaUtenti"> &nbsp;&nbsp;<?php echo $this->getText('menu_top_list_users');?>&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        </ul>
+    </li>
+    <?php endif;?>
+    <?php if($permessi['Clienti']):?>
+    <li><a href="#">Clienti</a>
+        <ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaClienti">Lista Clienti Etiflor</a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaClienti&get_ricarichi=1">Lista Clienti Etiflor / Utenze Web Shop</a>
+			</li>
+			<!-- 
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCliente"><?php echo $this->getText('menu_top_new_customer');?></a>	            
+			</li>
+			 -->
+        </ul>
+    </li>
+    <?php endif;?>
+    <!-- 
+    <li><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaVendite">Vendite</a>
+		<ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaVendite">Lista Vendite</a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaFatture">Lista Fatture</a>	            
+			</li>
+			<li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=FreeInvoice">Genera Fatttura Libera</a>	            
+			</li>
+        </ul>    
+    </li>
+    <li><a href="#">Statistiche</a>
+        <ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=StatsVendite">Statistiche di Vendita</a>	            
+			</li>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=StatsVenditeDett">Statistica di Vendita per Brand/Categoria</a>	            
+			</li>
+        </ul>
+    </li>
+    <li><a href="#">Contabilit&agrave;</a>
+        <ul>
+            <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaMagazzino">Exporta Magazzino</a>
+			</li>
+			 <li>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaMagazzinoNull">Situazione Magazzino</a>
+			</li>
+        </ul>
+    </li>
+    -->
+    <li><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Logout">Logout</a></li>
+</ul>

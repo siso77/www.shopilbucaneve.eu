@@ -1,0 +1,169 @@
+
+.cn-slideshow {
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 415px;
+    position: relative;
+    width: 770px;
+}
+.cn-loading {
+    background: url("../images/loading.gif") no-repeat scroll center center transparent;
+    height: 50px;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    opacity: 0.6;
+    position: absolute;
+    text-indent: -9000px;
+    top: 50%;
+    width: 50px;
+    z-index: 999;
+}
+.cn-images {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.cn-images img {
+    border-radius: 0 0 7px 7px;
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.cn-bar {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 0 0 7px 7px;
+    bottom: 0;
+    color: #F8F8F8;
+    height: 80px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+}
+.ie7 .cn-bar, .ie8 .cn-bar {
+    background: url("../images/mask.png") repeat scroll 0 0 transparent;
+}
+.cn-nav {
+    position: relative;
+    z-index: 999;
+}
+.cn-nav-content {
+    height: 100%;
+    left: 70px;
+    overflow: hidden;
+    position: absolute;
+    right: 70px;
+    top: 0;
+    z-index: 999;
+}
+.cn-nav-content div {
+    color: #AAAAAA;
+    float: left;
+    width: 130px;
+}
+.cn-nav-content span {
+    color: #777777;
+}
+.cn-nav-content div.cn-nav-content-current {
+    left: 50%;
+    margin-left: -140px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 280px;
+}
+.cn-nav-content h2 {
+    color: #719806;
+    font-size: 1.25em;
+    margin-top: 0.7em;
+}
+.cn-nav-content-current span {
+    color: #D0AB47;
+}
+.cn-nav-content div.cn-nav-content-prev {
+    margin-left: 20px;
+}
+.cn-nav-content div.cn-nav-content-next {
+    float: right;
+    margin-right: 20px;
+    text-align: right;
+}
+.cn-nav-content div span {
+    color: #FFFFFF;
+    display: block;
+    font-family: 'PT Sans Narrow',sans-serif;
+    font-size: 1.833em;
+    font-weight: 100;
+    padding-top: 20px;
+}
+.cn-nav-content div strong {
+    color: #FFFFFF;
+    display: block;
+    font-weight: 100;
+    padding-top: 18px;
+}
+.cn-nav > a {
+    background: -moz-linear-gradient(center top , #F3F3F3 0%, #E8E8E8 100%) repeat scroll 0 0 transparent;
+    border-radius: 1px 9px 0 5px;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    width: 56px;
+}
+.cn-nav > a.cn-nav-next {
+    border-radius: 9px 1px 5px 0;
+}
+a.cn-nav-prev {
+    left: 0;
+}
+a.cn-nav-next {
+    right: 0;
+}
+.cn-nav a span {
+    -moz-transition: all 0.4s ease 0s;
+    cursor: pointer;
+    display: block;
+    height: 36px;
+    opacity: 0.9;
+    position: absolute;
+    text-indent: -9000px;
+    top: 16px;
+    width: 22px;
+}
+.cn-nav a.cn-nav-prev span {
+    background: url("../images/prev.png") no-repeat scroll center center transparent;
+    left: 14px;
+}
+.cn-nav a.cn-nav-next span {
+    background: url("../images/next.png") no-repeat scroll center center transparent;
+    right: 14px;
+}
+.cn-nav-prev div {
+    left: 63px;
+    top: 13px;
+}
+.cn-nav-next div {
+    right: 63px;
+    top: 13px;
+}
+.cn-nav a div {
+    -moz-transition: all 0.2s ease-out 0s;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 0 0 0 0;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+}
+.cn-nav a:hover span {
+    opacity: 0.6;
+}
+.cn-nav a:hover div {
+    border-radius: 5px 5px 5px 5px;
+    height: 53px;
+    width: 99px;
+}

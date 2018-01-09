@@ -1,0 +1,309 @@
+<?php $_tplvar = $this->getVars();
+//_dump($_tplvar['user']);
+//_dump($_tplvar['user_anag']);
+//_dump($_tplvar['ordine']);
+//_dump($_tplvar['products']);
+if(empty($_tplvar['print']))
+	$table_css = ' style="border:1px solid #fff"';
+?>
+
+<?php if($_tplvar['print']):?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<HEAD>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Conferma spedizione ordine # <?php echo $_tplvar['ordine']['id']?> - Pro-Bike.it</title>
+	<link rel="stylesheet" id="reset-css" href="<?php echo STORE_WWW_ROOT_PATH?>theme/styles/common-css/reset.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="text-css" href="<?php echo STORE_WWW_ROOT_PATH?>theme/styles/style2/css/text.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="grid-960-css" href="<?php echo STORE_WWW_ROOT_PATH?>theme/styles/common-css/960.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="superfish_menu-css" href="<?php echo STORE_WWW_ROOT_PATH?>theme/scripts/superfish-1.4.8/css/superfish.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="pagination-css" href="<?php echo STORE_WWW_ROOT_PATH?>theme/scripts/pagination/pagenavi-css.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="style-css" href="<?php echo STORE_WWW_ROOT_PATH?>theme/styles/style2/css/style.css?ver=1.0" type="text/css" media="screen" />
+	<link rel="stylesheet" id="pretty_photo-css" href="<?php echo STORE_WWW_ROOT_PATH?>theme/scripts/prettyPhoto/css/prettyPhoto.css?ver=1.0" type="text/css" media="screen" />
+    <script type="text/javascript">
+    window.print();
+    </script>
+</HEAD>
+<body style="background-color:#fff">
+<?php endif;?>
+
+<style>
+<!--
+<?php if($_tplvar['print']):?>
+td {
+	padding: 9px 12px;
+	color: #333;
+	border-top: 1px solid white;
+}
+tbody tr:hover td {
+	background: url('<?php echo STORE_WWW_ROOT_PATH?>theme/styles/style2/images/back.png') repeat scroll transparent;
+}
+tbody td {
+	background: url('<?php echo STORE_WWW_ROOT_PATH?>theme/styles/style2/images/back.png') repeat scroll transparent;
+}
+<?php else:?>
+td {
+	padding:7px;
+	font-size:12px;
+	text-size:12px;
+	border:1px solid #ffffff;
+}
+#sidebar {
+	/*background: url("http://pro-bike.it/wp-content/themes/stationpro/images/bg_sidebar.png") repeat-x scroll 0 0*/ 
+	transparent;
+	border-left: 1px solid 
+	#282828;
+	color:#BBB;
+	float: left;
+	padding: 10px 10px 1em;
+	position: absolute;
+	width: auto;
+	z-index: -2;
+}	
+<?php endif;?>
+
+-->
+</style>
+<form action="<?php echo $_tplvar['WWW_ROOT'].'?act='.$_tplvar['action_class_name']?>" method="post">
+<input type="hidden" name="id" value="<?php echo $_tplvar['ordine']['id']?>">
+<table cellspacing="0" cellpadding="0" width="80%">
+<tr>
+	<td>
+		<?php if($_tplvar['confirm']):?>
+		ORDINE CONFERMATO CORRETTAMENTE
+		<?php else:?>
+		ORDINE N.° <?php echo $_tplvar['ordine']['id']?>
+		<?php endif;?>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<table width="80%" cellpadding="6" style="border:1px solid #8F8F8F;">
+		<tr style="background-color:#8F8F8F;">
+			<td colspan="2" style="color:#000000;"><b>Dati Fatturazione/Spedizione</b></td>
+		</tr>
+		<tr style="color:#8F8F8F;">
+			<td>Nome</td>
+			<td><?php echo $_tplvar['user_anag']['name']?></td>
+		</tr>
+		<tr style="color:#8F8F8F;">
+			<td>Cogome</td>
+			<td><?php echo $_tplvar['user_anag']['surname']?></td>
+		</tr>
+		<tr style="color:#8F8F8F;">
+			<td>Indirizzo</td>
+			<td><?php echo $_tplvar['user_anag']['address']?> <?php echo $_tplvar['user_anag']['cap']?> - <?php echo $_tplvar['user_anag']['city']?> (<?php echo $_tplvar['user_anag']['province']?>) - <?php echo $_tplvar['user_anag']['nation']?></td>
+		</tr>
+		<tr style="color:#8F8F8F;">
+			<td>Indirizzo Secondario</td>
+			<td><?php echo $_tplvar['user_anag']['address_secondary']?></td>
+		</tr>
+		<tr style="color:#8F8F8F;">
+			<td>Telefono Fisso</td>
+			<td><?php echo $_tplvar['user_anag']['phone']?></td>
+		</tr>
+		<tr style="color:#8F8F8F;">
+			<td>Telefono cellulare</td>
+			<td><?php echo $_tplvar['user_anag']['mobile']?></td>
+		</tr>
+		<tr style="color:#8F8F8F;">
+			<td>Email</td>
+			<td><?php echo $_tplvar['user_anag']['email']?></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<table width="80%" cellpadding="6" style="border:1px solid #8F8F8F;">
+		<tr style="background-color:#8F8F8F;">
+			<td colspan="2" style="color:#000000;"><b>Dati Ordine</b></td>
+		</tr>
+		<tr>
+			<td>Pagamento: <?php echo $_tplvar['ordine']['tipo_pagamento']?></td>
+		</tr>					
+		<tr>
+			<td<?php echo $table_css;?> colspan="6">Prodotti</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="90%" cellspacing="0" cellpadding="0">
+				<tr>
+					<td<?php echo $table_css;?>>Quantita</td>
+					<td<?php echo $table_css;?>>Descrizione</td>
+					<td<?php echo $table_css;?>>Colore</td>
+					<td<?php echo $table_css;?>>Misura</td>
+					<td<?php echo $table_css;?>>IVA</td>
+					<td<?php echo $table_css;?>>Prezzo</td>
+				</tr>
+				<?php foreach ($_tplvar['products'] as $product):?>
+				<tr>
+					<td<?php echo $table_css;?> nowrap="nowrap"><?php echo $product['quantita']?></td>
+					<td<?php echo $table_css;?> nowrap="nowrap"><?php echo $product['magazzino']['name_brand']?> - <?php echo $product['magazzino']['name_it']?></td>
+					<td<?php echo $table_css;?> nowrap="nowrap">
+						<?php echo $product['magazzino']['color']?>
+						<?php if(!empty($product['magazzino']['id_color_2'])):?>
+							- <?php echo $this->getColorFromIdContent($product['magazzino']['id_color_2'])?>
+						<?php endif;?>
+						<?php if(!empty($product['magazzino']['id_color_3'])):?>
+							- <?php echo $this->getColorFromIdContent($product['magazzino']['id_color_3'])?>
+						<?php endif;?>
+					</td>
+					<td<?php echo $table_css;?> nowrap="nowrap"><?php echo $product['magazzino']['size']?></td>
+					<?php 
+					  	$iva = IVA;
+				  	?>	
+					<td<?php echo $table_css;?> nowrap="nowrap"><?php echo $iva?> %</td>
+					<?php 
+					$total = $total + str_replace(',', '.', $product['importo']);
+					$imponibile += round(str_replace(',', '.', $product['importo']) / FATTURA_TAX_IVA, 2);
+					$prezzo_iva += str_replace(',', '.', $product['importo']) - round(str_replace(',', '.', $product['importo']));
+					?>
+					<td<?php echo $table_css;?> nowrap="nowrap"><?php echo $this->getFormatPrice($product['importo'])?> &euro;</td>
+				</tr>
+				<?php endforeach;?>
+				<?php if(!empty($_tplvar['spese_spedizione'][0]['name']) && $_tplvar['spese_spedizione'][0]['name'] != '0,00'):?>
+				<tr>
+					<td<?php echo $table_css;?> colspan="5">Spese di trasporto</td>
+					<td<?php echo $table_css;?> nowrap="nowrap"><?php echo $_tplvar['spese_spedizione'][0]['name']?>  &euro;</td>
+				</tr>
+				<?php endif;?>
+				<?php 
+				if(!empty($_tplvar['spese_spedizione'][0]['name']) && $_tplvar['spese_spedizione'][0]['name'] != '0,00')
+				{
+					$total = $total + str_replace(',', '.', $_tplvar['spese_spedizione'][0]['name']);
+					$imponibile += round(str_replace(',', '.', $_tplvar['spese_spedizione'][0]['name']) / FATTURA_TAX_IVA, 2);
+					if(empty($prezzo_iva))
+						$prezzo_iva = str_replace(',', '.', $_tplvar['spese_spedizione'][0]['name']) - $imponibile;
+				}
+				
+				?>
+				<tr>
+					<td<?php echo $table_css;?> colspan="5">
+						<?php if(!empty($imponibile_integratori)):?>
+						Imponibile Integratori (&euro; <?php echo $this->getFormatPrice($imponibile_integratori);?>) Iva <?php echo IVA_INTEGRATORI?>% (&euro; <?php echo $this->getFormatPrice($prezzo_iva_integratori)?>)
+						<br>
+						<?php endif;?>
+						<?php if(!empty($imponibile)):?>
+						Imponibile (&euro; <?php echo $this->getFormatPrice($imponibile);?>) Iva <?php echo $iva?>% (&euro; <?php echo $this->getFormatPrice($prezzo_iva)?>) Totale
+						<?php endif;?>
+					</td>
+					<td<?php echo $table_css;?>><?php echo $this->getFormatPrice($total)?>  &euro;</td>
+				</tr>
+				</table>
+			</td>
+		</tr>		
+		</table>
+	</td>
+</tr>
+<tr>
+	<td>
+		<table cellspacing="0" cellpadding="6" width="80%" style="border:1px solid #fff">
+		<tr style="background-color:#8F8F8F;">
+			<td style="color:#000000;"><b>Note</b></td>
+		</tr>
+		<tr>
+			<td>
+				<?php if($_tplvar['print']):?>
+					<?php echo $_tplvar['ordine']['note']?>&nbsp;
+				<?php else:?>
+					<textarea name="note" rows="5" cols="70"><?php echo $_tplvar['ordine']['note']?></textarea>
+				<?php endif;?>
+			</td>
+		</tr>
+		<tr style="background-color:#8F8F8F;">
+			<td align="left" style="color:#000000;border:1px solid #fff"><b>Traking Number</b> &nbsp;</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<?php if($_tplvar['print']):?>
+					<?php echo $_tplvar['ordine']['traking']?>
+				<?php else:?>
+					<input type="text" name="traking" value="<?php echo $_tplvar['ordine']['traking']?>">
+				<?php endif;?>
+			</td>
+		</tr>		
+		<tr style="background-color:#8F8F8F;">
+			<td style="color:#000000;border:1px solid #fff"><b>Corriere</b></td>
+		</tr>
+		<tr>
+			<td>
+			<?php 
+			if($_tplvar['print']):
+				echo $_tplvar['ordine']['corriere'];
+			else:
+			?>
+				<script type="text/javascript">
+				function checkCorriere(obj, url)
+				{
+					var el = document.getElementById('web_page_corriere');
+					var value = obj.value;
+					el.src = url;
+				}
+				</script>
+				<table>
+				<tr>
+<!--					<td>Pro-Bike <input <?php if($_tplvar['ordine']['corriere'] == 'Bike Messanger di Pro-Bike'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="Bike Messanger di Pro-Bike" onclick="javascript:checkCorriere(this, 'http://www.pro-bike.it/wp-content/themes/stationpro/images/logo_bw.png');"></td>-->
+					<td>Bartolini <input <?php if($_tplvar['ordine']['corriere'] == 'Bartolini' || empty($_tplvar['ordine']['corriere'])):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="Bartolini" onclick="javascript:checkCorriere(this, 'http://www.bartolini.it/');"></td>
+					<td>DHL International <input <?php if($_tplvar['ordine']['corriere'] == 'DHL International'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="DHL International" onclick="javascript:checkCorriere(this, 'http://www.dhl.it/');"></td>
+					<td>FEDEX Express Italia <input <?php if($_tplvar['ordine']['corriere'] == 'FEDEX Express Italia'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="FEDEX Express Italia" onclick="javascript:checkCorriere(this, 'http://www.fedex.com/it/');"></td>
+					<td>PostaCelere <input <?php if($_tplvar['ordine']['corriere'] == 'PostaCelere'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="PostaCelere" onclick="javascript:checkCorriere(this, 'http://poste.it/postali/online/index.shtml');"></td>
+					<td>SDA Express Courier <input <?php if($_tplvar['ordine']['corriere'] == 'SDA Express Courier'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="SDA Express Courier" onclick="javascript:checkCorriere(this, 'http://www.sda.it/');"></td>
+					<td>TNT Italia <input <?php if($_tplvar['ordine']['corriere'] == 'TNT Italia'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="TNT Italia" onclick="javascript:checkCorriere(this, 'http://www.tnttraco.it/');"></td>
+					<td>UPS ITALIA <input <?php if($_tplvar['ordine']['corriere'] == 'UPS ITALIA'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="UPS ITALIA" onclick="javascript:checkCorriere(this, 'http://www.ups.com/');"></td>
+					<td>UNEX (United Express)<input <?php if($_tplvar['ordine']['corriere'] == 'UNEX (United Express)'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="UNEX (United Express)" onclick="javascript:checkCorriere(this, 'http://www.unex.it/');"></td>
+					<td>E-boost <input <?php if($_tplvar['ordine']['corriere'] == 'E-boost'):?>checked="checked"<?php endif;?> type="radio" name="corriere" value="E-boost" onclick="javascript:checkCorriere(this, 'http://www.eboost.it/');"></td>
+				</tr>
+				</table>
+				<?php endif;?>
+			</td>
+		</tr>
+			<?php if(empty($_tplvar['print'])):
+				$mapCorriere = array(
+									'Bike Messanger di Pro-Bike' => 'http://www.pro-bike.it/wp-content/themes/stationpro/images/logo_bw.png',
+									'Bartolini' => 'http://www.bartolini.it',
+									'DHL International' => 'http://www.dhl.it/',
+									'FEDEX Express Italia' => 'http://www.fedex.com/it/',
+									'PostaCelere' => 'http://poste.it/postali/online/index.shtml',
+									'SDA Express Courier' => 'http://www.sda.it/',
+									'TNT Italia' => 'http://www.tnttraco.it/',
+									'UPS ITALIA' => 'http://www.ups.com/',
+									'UNEX (United Express)' => 'http://www.unex.it/',
+									'E-boost' => 'http://www.eboost.it/'
+								);		
+								
+				if(!empty($_tplvar['ordine']['corriere']))
+					$src = $mapCorriere[$_tplvar['ordine']['corriere']];
+				else
+					$src = 'http://www.bartolini.it';
+			?>
+			<td>
+				<iframe id="web_page_corriere" src="<?php echo $src;?>" scrolling="auto" frameborder="no" align="center" height = "800px" width = "1100px"></iframe>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table>
+				<tr>
+					<td><input type="submit" class="submit" name="invia" value="Spedisci Ordine" /></td>
+					<td><input type="button" class="submit" name="invia" value="Apri Fattura" onclick="javascript:window.open('<?php echo $_tplvar['WWW_ROOT'].'?act=FatturaEcm&id_ordine='.$_tplvar['ordine']['id']?>', '');" /></td>
+					<td><input type="button" class="submit" name="invia" value="Apri DDT" onclick="javascript:window.open('<?php echo $_tplvar['WWW_ROOT'].'?act=DDTEcm&id_ordine='.$_tplvar['ordine']['id']?>', '');" /></td>					
+					<td>
+						<input type="button" class="submit" name="print" value="Stampa Ordine"  onclick="javascript:window.open('<?php echo $_tplvar['WWW_ROOT'].'?act=SendOrder&print=1&id='.$_tplvar['ordine']['id']?>');"/>
+<!--						<input type="button" class="submit" name="invia" value="Ordine Spedito" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT'].'?act=SendOrder&sended=1&id='.$_tplvar['ordine']['id']?>';" />-->
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<?php endif;?>
+		</table>
+	</td>
+</tr>
+</table>
+</form>
+<?php if($_tplvar['print']):?>
+</body>
+</html>
+<?php endif;?>

@@ -1,0 +1,456 @@
+<?php 
+$_tplvar = $this->getVars();
+if(!empty($_REQUEST['id_category']))
+	$rowForBox = 100000;
+else
+	$rowForBox = 24;
+?>
+
+<style>
+.crop{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:180px;
+    height:83px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+
+
+
+<?php if(!empty($_tplvar['hidden_prod'])):?>
+						<?php foreach($_tplvar['hidden_prod'] as $category => $products):?>
+
+							<h2 class="ftitle">	<?php echo ucfirst(strtolower($category));?></h2>
+
+							<?php $index = 0;?>
+							<?php if(!empty($products)):?>
+							<?php $hrefCategory = str_replace(' ','-', str_replace(' /','', ucfirst(strtolower($category))));?>
+							
+							<?php shuffle($products);?>
+							
+							<div class="store-cont">
+							<?php foreach($products as $key => $product):?>
+								<?php $index++;?>
+								<?php if(!empty($product) && $index <= $rowForBox):?>
+									<div class="item-box" style="min-height: 220px;">
+										<?php $image = $this->getImageFromIdContent($product['id'], 'Large_', '100')?>
+										<?php if(!empty($image)):?>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+											<?php echo $image;?>
+										</a>
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="100" height="95">
+										<?php endif;?>
+										</p>
+										<div class="item_name">
+											<?php if($_SERVER['HTTP_HOST'] == 'pro-bike.ecm.lo'):?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ProductInfo&id=<?php echo $product['id']?>">
+											<?php else:?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+											<?php endif;?>
+												<?php echo $product['name_band'];?><br>
+												<?php echo substr($product['name_it'], 0, $_tplvar['SHOP_TRUNCATE_TEXT']);?>
+											</a>
+										</div>
+										
+										<div class="disp">
+										<?php if($product['magazzino'][0]['quantita'] > 0):?>
+											Disponibile
+										<?php elseif($product['magazzino'][0]['is_in_ecommerce']):?>
+											Acquistabile in negozio
+										<?php else:?>
+											<p style="color:#F9D616">Non Disponibile</p>
+										<?php endif;?>
+										</div>
+	
+										<div class="price">
+										<?php if(!empty($product['price_discounted_it'])):?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_discounted_it'])?>
+										<?php else:?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_it'])?>
+										<?php endif;?>
+										</div>
+									</div>
+								<?php else:?>
+<!--									<div class="store-cont"><div class="item-box">&nbsp;</div></div>-->
+								<?php endif;?>
+								
+								<?php endforeach;?>
+								
+								<div class="clear"></div>
+							</div>
+						<?php endif;?>
+						<?php endforeach;?>
+							<div class="clear"></div>
+<?php endif;?>
+						
+						<?php foreach($_tplvar['products'] as $category => $products):?>
+						
+							<?php if(!empty($products)):?>
+								<h2 class="ftitle">	<?php echo ucfirst(strtolower($category));?></h2>
+							<?php endif;?>
+
+							<?php $index = 0;?>
+							<?php if(!empty($products)):?>
+							<?php $hrefCategory = str_replace(' ','-', str_replace(' /','', ucfirst(strtolower($category))));?>
+							
+							<?php shuffle($products);?>
+							
+							<div class="store-cont">
+							<?php foreach($products as $key => $product):?>
+								<?php $index++;?>
+								<?php if(!empty($product) && $index <= $rowForBox):?>
+									<div class="item-box" style="min-height: 220px;">
+										<?php $image = $this->getImageFromIdContent($product['id'], 'Large_', '100')?>
+										<?php if(!empty($image)):?>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+											<?php echo $image;?>
+										</a>
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="100" height="95">
+										<?php endif;?>
+										</p>
+										<div class="item_name">
+											<?php if($_SERVER['HTTP_HOST'] == 'pro-bike.ecm.lo'):?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ProductInfo&id=<?php echo $product['id']?>">
+											<?php else:?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+											<?php endif;?>
+												<?php echo $product['name_band'];?><br>
+												<?php echo substr($product['name_it'], 0, $_tplvar['SHOP_TRUNCATE_TEXT']);?>
+											</a>
+										</div>
+
+										<?php 
+										$qty = 0;
+										$qty_color = null;
+										$qty_size = null;
+										foreach ($product['magazzino'] as $giacenze)
+										{
+											$qty += $giacenze['quantita'];
+											if(!empty($giacenze['color']))
+												$qty_color[ucfirst(strtolower($giacenze['color']))] += $giacenze['quantita'];
+											if(!empty($giacenze['size']))
+												$qty_size[ucfirst(strtolower($giacenze['size']))] += $giacenze['quantita'];
+										}
+										?>
+										<div class="disp">
+										<?php if($qty > 0):?>
+											Disponibile&nbsp;<!-- (<?php //echo $qty?>) -->
+										<?php elseif($product['magazzino'][0]['is_in_ecommerce']):?>
+											Acquistabile in negozio
+										<?php else:?>
+											<p style="color:#F9D616">Non Disponibile</p>
+										<?php endif;?>
+
+										</div>
+										
+										<div class="price"><!--
+											<a href="javascript:void(0);" onclick="javascript:
+												$('#detail_qty_<?php echo $product['id']?>').show();">
+												Taglie e colori&nbsp;(<?php echo $qty?>)												
+											</a>
+									-->
+											<a href="#detail_qty_<?php echo $product['id']?>" id="lnk_qty_<?php echo $product['id']?>">
+												Taglie e colori&nbsp;(<?php echo $qty?>)												
+											</a>
+									
+											<script type="text/javascript">
+											 $(document).ready(function() {
+											        $("#lnk_qty_<?php echo $product['id']?>").fancybox({
+														'titlePosition'		: 'inside',
+														'transitionIn'		: 'none',
+														'transitionOut'		: 'none'
+													});
+											    });
+											</script>
+											
+											<a id="lnk_<?php echo $product['id']?>" href="javascript:void(0);" onclick="javascript:
+												$.ajax({
+													  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetListCompare',
+													  type: 'POST',
+													  dataType: 'html',
+													  data: 'id_content=<?php echo $product['id']?>',
+													  success: function(html){
+														  $('#lnk_<?php echo $product['id']?>').css('color', 'green');
+														  $('#prodicts_compared').html(html);
+														  
+															$.ajax({
+																  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetListCompare',
+																  type: 'POST',
+																  dataType: 'html',
+																  data: 'id_content=<?php echo $product['id']?>&get_help=1',
+																  success: function(html){
+																	  $('#hlp_<?php echo $product['id']?>').html(html);
+																	  $('#hlp_<?php echo $product['id']?>').show();
+																  }
+																});														
+														  
+													  }
+													});
+													
+													">
+												Confronta Prodotto
+											</a>
+										</div>
+
+						<!-- HELP PRODOTTI A CONFRONTO -->
+						<div id="hlp_<?php echo $product['id']?>" style="width:auto;display:block;position:absolute;background-color:#1A1A1A;z-index:100;border:1px solid #fff;"></div>
+						<!-- HELP PRODOTTI A CONFRONTO -->
+
+										<div style="display:none;">
+											<div id="detail_qty_<?php echo $product['id']?>" style="width:auto;background-color:#1A1A1A;z-index:1;border:1px solid #fff;width:250px">
+												<div id="nav_menu-3" class="widget_nav_menu widget" style="background: url('<?php echo $_tplvar['wp_external_root']?>/wp-content/themes/stationpro/images/hl-dot-black.gif') repeat-x scroll left top #1A1A1A;padding:20px">
+<!--													<div class="winner">-->
+														<br>
+														<h4 class="wtitle">TAGLIE E COLORI</h4>
+														<br>
+														<div class="menu-abbigliamento-container">
+														<ul id="menu-abbigliamento" class="menu">
+															<?php 														
+															if(is_array($qty_color)): 
+															?>
+															<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+																Colori disponibili
+															</li>
+															<?php
+																foreach ($qty_color as $key => $val):
+															?>
+															<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+																<?php echo $key?>&nbsp;(<?php echo $val?>)
+															</li>
+															<?php 
+																endforeach;
+															endif;
+															?>
+														</ul>
+														<ul id="menu-abbigliamento" class="menu">
+															<?php 														
+															if(is_array($qty_size)): 
+															?>
+															<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+																Taglie disponibili
+															</li>
+															<?php foreach ($qty_size as $key => $val):?>
+															<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+																<?php echo $key?>&nbsp;(<?php echo $val?>)
+															</li>
+															<?php 
+																endforeach;
+															endif;
+															?>
+														</ul>
+														</div>
+<!--													</div>-->
+												</div>
+											</div>
+										</div>
+																				
+										<div class="price">
+										<?php if(!empty($product['price_discounted_it'])):?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_discounted_it'])?>
+										<?php else:?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_it'])?>
+										<?php endif;?>
+										</div>
+									</div>
+								<?php else:?>
+<!--									<div class="store-cont"><div class="item-box">&nbsp;</div></div>-->
+								<?php endif;?>
+								
+								<?php endforeach;?>
+								<div class="clear"></div>
+							</div>
+						<?php endif;?>
+						<?php endforeach;?>
+							<div class="clear"></div>
+							
+							
+							
+							
+						<?php 
+//							if(
+//									!empty($_tplvar['offer']['ABBIGLIAMENTO']) && 
+//									!empty($_tplvar['offer']['CURA DEL CORPO ']) && 
+//									!empty($_tplvar['offer']['BIKE']) && 
+//									!empty($_tplvar['offer']['ACCESSORI / RICAMBI'])):
+						?>
+						<h2 class="ftitle">Offerte</h2>
+						<?php 
+//						endif;
+						?>
+							<div class="store-cont">
+						<?php foreach($_tplvar['offer'] as $category => $products):?>
+							
+							<?php $index = 0;?>
+							<?php if(!empty($products)):?>
+							<?php $hrefCategory = str_replace(' ','-', str_replace(' /','', ucfirst(strtolower($category))));?>
+							
+							<?php shuffle($products);?>
+							
+							<?php foreach($products as $key => $product):?>
+								<?php $index++;?>
+								<?php if(!empty($product) && $index <= $rowForBox):?>
+									<div class="item-box" style="min-height: 220px;">
+										<?php $image = $this->getImageFromIdContent($product['id'], 'Large_', '100')?>
+										<?php if(!empty($image)):?>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',$product['name_it'])?>/<?php echo $product['id']?>.html">
+											<?php echo $image;?>
+										</a>
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="100" height="95">
+										<?php endif;?>
+										</p>
+										<div class="item_name">
+											<?php if($_SERVER['HTTP_HOST'] == 'pro-bike.ecm.lo'):?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ProductInfo&id=<?php echo $product['id']?>">
+											<?php else:?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',$product['name_it'])?>/<?php echo $product['id']?>.html">
+											<?php endif;?>
+												<?php echo $product['name_band'];?><br>
+												<?php echo substr($product['name_it'], 0, $_tplvar['SHOP_TRUNCATE_TEXT']);?>
+											</a>
+										</div>
+										<?php 
+										$qty = 0;
+										$qty_color = null;
+										$qty_size = null;
+										foreach ($product['magazzino'] as $giacenze)
+										{
+											$qty += $giacenze['quantita'];
+											if(!empty($giacenze['color']))
+												$qty_color[ucfirst(strtolower($giacenze['color']))] += $giacenze['quantita'];
+											if(!empty($giacenze['size']))
+												$qty_size[ucfirst(strtolower($giacenze['size']))] += $giacenze['quantita'];
+										}
+										?>
+										<div class="disp" >
+										<?php if($qty > 0):?>
+											Disponibile&nbsp;<!-- (<?php //echo $qty?>) -->
+										<?php elseif($product['magazzino'][0]['is_in_ecommerce']):?>
+											Acquistabile in negozio
+										<?php else:?>
+											<p style="color:#F9D616">Non Disponibile</p>
+										<?php endif;?>
+										</div>
+										
+						<!-- HELP PRODOTTI A CONFRONTO -->
+						<div id="hlp_offer_<?php echo $product['id']?>" style="width:auto;display:block;position:absolute;background-color:#1A1A1A;z-index:100;border:1px solid #fff;"></div>
+						<!-- HELP PRODOTTI A CONFRONTO -->
+	
+										<div class="price">
+											<a href="javascript:void(0);" onclick="javascript:
+												$('#detail_qty_<?php echo $product['id']?>').show();">
+												Taglie e colori&nbsp;(<?php echo $qty?>)
+											</a>
+											<a id="lnk_<?php echo $product['id']?>" href="javascript:void(0);" onclick="javascript:
+												$.ajax({
+													  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetListCompare',
+													  type: 'POST',
+													  dataType: 'html',
+													  data: 'id_content=<?php echo $product['id']?>',
+													  success: function(html){
+														  $('#lnk_<?php echo $product['id']?>').css('color', 'green');
+														  $('#prodicts_compared').html(html);
+														  
+															$.ajax({
+																  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetListCompare',
+																  type: 'POST',
+																  dataType: 'html',
+																  data: 'id_content=<?php echo $product['id']?>&get_help=1&offer=1',
+																  success: function(html){
+																	  $('#hlp_offer_<?php echo $product['id']?>').html(html);
+																	  $('#hlp_offer_<?php echo $product['id']?>').show();
+																  }
+																});														
+														  
+													  }
+													});
+													">
+												Confronta Prodotto
+											</a>
+										</div>
+										
+										
+										<div id="detail_qty_<?php echo $product['id']?>" style="width:auto;display:none;position:absolute;background-color:#1A1A1A;z-index:1;border:1px solid #fff;">
+										<dir id="sidebar">										
+											<div id="nav_menu-3" class="widget_nav_menu widget" style="background:transparent url(../images/border_dot_light.png) repeat-x left top">
+												<div class="winner">
+												<h4 class="wtitle">TAGLIE E COLORI</h4><br>
+													<div class="menu-abbigliamento-container">
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_color)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Colori disponibili
+														</li>
+														<?php
+															foreach ($qty_color as $key => $val):
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_size)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Taglie disponibili
+														</li>
+														<?php foreach ($qty_size as $key => $val):?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<a href="javascript:void(0);" onclick="javascript:$('#detail_qty_<?php echo $product['id']?>').hide();">Chiudi</a>
+														</li>
+													</ul>
+													</div>
+												</div>
+											</div>
+										</dir>
+										</div>
+	
+										<div class="price">
+										<?php if(!empty($product['price_discounted_it'])):?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_discounted_it'])?>
+										<?php else:?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_it'])?>
+										<?php endif;?>
+										</div>
+									</div>
+								<?php else:?>
+<!--									<div class="store-cont"><div class="item-box">&nbsp;</div></div>-->
+								<?php endif;?>
+								
+								<?php endforeach;?>
+								
+								<div class="clear"></div>
+						<?php endif;?>
+						<?php endforeach;?>							
+							</div>
+							
+							
+
+							<div class="clear"></div>
+

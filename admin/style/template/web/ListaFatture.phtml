@@ -1,0 +1,145 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+
+<!--MENU TOP-->
+    <?php echo $this->getPartial('shared/BoxSearch');?>
+<!-- / MENU TOP-->
+
+					<table cellspacing="0" cellpadding="0" style="width:auto">
+						<tr>
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaFatture';
+							$assign['order_by'] = 'fattura';
+							$assign['action'] = 'ListaFatture';
+							$assign['field_name'] = 'N. FATTURA';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>  
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaFatture';
+							$assign['order_by'] = 'nome';
+							$assign['action'] = 'ListaFatture';
+							$assign['field_name'] = 'NOME';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaFatture';
+							$assign['order_by'] = 'cognome';
+							$assign['action'] = 'ListaFatture';
+							$assign['field_name'] = 'COGNOME';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>       
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaFatture';
+							$assign['order_by'] = 'data_vendita';
+							$assign['action'] = 'ListaFatture';
+							$assign['field_name'] = 'DATA FATTURAZIONE';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>
+							<td>FATTURE</td>            
+							<td>CANCELLA</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>		
+						<tr>
+							<td><?php echo $value['fattura']?>&nbsp;</td>
+							<td><?php echo $value['nome']?>&nbsp;</td>
+                            <td><?php echo $value['cognome']?>&nbsp;</td>
+                            <td>
+                            	<?php 
+                            	if(stristr($value['data_vendita'], '.doc'))
+                            	{
+                            		$fName = APP_ROOT.'/fatture/'.$value['invoice_folder'].'/';
+                            		if(!empty($value['fattura']))
+                            			$fName .= $value['fattura'];
+                            		if(!empty($value['nome']))
+                            			$fName .= '_'.$value['nome'];
+                            		if(!empty($value['cognome']))
+                            			$fName .= '_'.$value['cognome'];
+                            		if(!empty($value['data_vendita']))
+                            			$fName .= '_'.substr($value['data_vendita'], 0, -4);
+                            		echo str_replace('-', '/', substr($value['data_vendita'], 0, -4)).' '.date("H:i:s", filemtime($fName.'.doc'));
+                            	}
+                            	else
+                            		echo $this->getFormatDate($value['data_vendita']);
+                            	?>&nbsp;
+                            </td>
+							<td>
+							<?php
+							if(true)
+							{ 
+								if(!empty($value['id_customer']))
+									$invoices = $this->getInvoiceFromIdCustomer($value, $value['fattura']);
+								else
+									$invoices = null;
+
+								if(!empty($invoices))
+								{
+								?>
+								<a href="javascript:void(0);" onclick="javascript:showHiddenDiv('<?php echo $value['fattura']?>')">FATTURE</a>
+								<div id="<?php echo $value['fattura']?>" style="visibility:hidden;position:absolute;background-color:#000000;border:1px solid #993300;width:auto;padding:20px">
+								<?php
+									foreach ($invoices as $k => $data)
+									{
+										$fDelete = base64_encode($this->getLocalPathInvoiceFromIdCustomer($value['id_customer'], $value['fattura'])).'&id_vendita='.$value['fattura'];
+										echo ' <a href="'.$data.'" target="_blank"><img src="'.$_tplvar['WWW_ROOT'].'/img/web/doc_ico.png"></a>';
+									}
+								}
+								elseif(is_file($_tplvar['APP_ROOT'].'/fatture/'.$value['invoice_folder'].'/'.$value['fattura'].'_'.$value['nome'].'_'.$value['cognome'].'_'.$value['data_vendita']))
+								{	
+									$fDelete = base64_encode($_tplvar['APP_ROOT'].'/fatture/'.$value['invoice_folder'].'/'.$value['fattura'].'_'.$value['nome'].'_'.$value['cognome'].'_'.$value['data_vendita']);
+								?>
+								<a href="javascript:void(0);" onclick="javascript:showHiddenDiv('<?php echo $value['fattura']?>')">FATTURE</a>
+								<div id="<?php echo $value['fattura']?>" style="visibility:hidden;position:absolute;background-color:#000000;border:1px solid #993300;width:auto;padding:20px">
+								<?php
+									echo ' <a href="'.$_tplvar['WWW_ROOT'].'/fatture/'.$value['invoice_folder'].'/'.$value['fattura'].'_'.$value['nome'].'_'.$value['cognome'].'_'.$value['data_vendita'].'" target="_blank"><img src="'.$_tplvar['WWW_ROOT'].'/img/web/doc_ico.png"></a>';
+								}
+								?>								
+								</div>
+								<?php 
+							}
+							?>
+							</td>
+							<td>
+								<a class="delete" href="javascript:void(0);" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['fattura'];?>')">CANCELLA</a>
+								<div id="confirm_delete_<?php echo $value['fattura'];?>" style="background-color:#4A5154;left:400px;padding:10px;border:3px solid #900;width:250px;position:absolute;visibility:hidden">
+									<b><font color="#ffffff">Sei sicuro di voler cancellare?</font></b>
+									<div style="width:200px; height:50px; margin-left:15px; margin-top:10px;">
+										<div style="float:left;width:100px; ">
+											<input type="button" value="Si" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT'].'?act=ListaFatture&delete='.$fDelete?>'" style="cursor:pointer"/>
+										</div>
+										<div style="float:left; width:100px;">
+											<input type="button" value="No" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['fattura'];?>')" style="cursor:pointer"/>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					<?php endforeach;?>						
+				</table>
+
+                <!-- Page Navigation -->
+				<?php echo $this->getPartial('shared/Paging');?>
+				<!-- /Page Navigation -->
+				
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->

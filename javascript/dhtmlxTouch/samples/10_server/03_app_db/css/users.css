@@ -1,0 +1,55 @@
+.dhx_el_label.mainlabel div{
+    font-size: 26px;
+}
+
+
+.dhx_el_label.info div{
+    font-size: 18px;
+}
+.edit div{
+    font-size:15px;
+    padding-left:2px;
+  
+}
+.add input{
+    font-size:22px;
+    width: 34px !important;
+    padding: 1px 10px;
+}
+.main input{
+    background: -moz-linear-gradient(center top , #73C0DA 0%, #118AB3 100%) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#73C0DA), color-stop(1, #118AB3));
+    box-shadow: 0 1px 1px #EAEAEA inset;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+.dhx_el_formbutton.delete input {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#CD7C7C), color-stop(1, #921313));
+    background: -o-linear-gradient(top, #CD7C7C 0% , #921313 100%);
+    background: -ms-linear-gradient(top, #CD7C7C 0% , #921313 100%);
+    background: -moz-linear-gradient(top, #CD7C7C 0% , #921313 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#CD7C7C), color-stop(1, #921313));
+    height: 34px;
+    -moz-box-shadow: inset 0px 1px 1px #e7b6b6, 0px 1px #EBEBEB;
+    -webkit-box-shadow: inset 0px 1px 1px #e7b6b6, 0px 1px #EBEBEB;
+}
+.userinfo{
+    padding: 20px;
+}
+.userinfo .row{
+    border-bottom: 1px  dashed #D3D3D3;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.userinfo .row .cell0{
+    display:inline-block;
+    width:100px;
+    color: #3B6471;
+}
+.userinfo .row .cell1{
+    display:inline-block;
+}
+

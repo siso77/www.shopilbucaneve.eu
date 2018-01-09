@@ -1,0 +1,20 @@
+<?php $_tplvar = $this->getVars();?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post" enctype="multipart/form-data" onsubmit="javascript:return validateForm()">
+<table>
+<?php if(!empty($_tplvar['msg'])):?>
+<tr>
+	<td colspan="2"><?php echo $_tplvar['msg']?></td>
+</tr>
+<?php endif;?>
+<tr>
+	<td>Carica Listino</td>
+	<td><input type="file" name="listino"></td>
+</tr>
+<tr>
+	<td>
+		<input type="submit" value="INVIA" />
+	</td>
+	<td></td>
+</tr>
+</table>
+</form>

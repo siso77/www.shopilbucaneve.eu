@@ -1,0 +1,95 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<!-- INCLUSIONE CALENDARIO -->
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+ <!-- INCLUSIONE CALENDARIO -->
+ 
+<script>window.dhx_globalImgPath = "<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/imgs/";</script>
+<link rel="STYLESHEET" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.css">
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
+
+<?php if(!empty($_tplvar['error_contenuto_precaricato'])):?>
+<b style="color:red"><?php echo $this->getText('code_not_found');?></b>
+<?php endif;?>	
+
+<?php if($_tplvar['confirm_insert']):?>
+<b style="color:red"><?php echo $this->getText('insert_succesfull');?></b>
+<?php endif;?>	
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post" enctype="multipart/form-data" onsubmit="javascript:return validateForm()">
+<?php if(!empty($_REQUEST['id_content'])):?>
+	<input type="hidden" name="id_content" value="<?php echo $_REQUEST['id_content'];?>">
+<?php endif;?>
+<?php if(!empty($_REQUEST['bar_code'])):?>
+	<input type="hidden" name="bar_code" value="<?php echo $_REQUEST['bar_code'];?>">
+<?php endif;?>
+
+<table>
+<tr>
+	<td>
+		<input type="submit" value="INVIA" />
+	</td>
+	<td></td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_images');?>
+	</td>
+	<td>
+		<?php foreach ($_tplvar['contenuto_precaricato']['images'] as $image):?>
+			<?php if($image['name'] != 'pro-bike_product_default.jpg'):?>
+				
+				<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');">
+				<img src="<?php echo $image['www_path'].'/Medium_'.$image['name']?>">
+				</a>
+				<div id="img_<?php echo $image['id']?>" style="visibility:hidden;position:absolute;border:1px solid #ffffff;padding:10px;background-color:#000000;top:10px">
+					<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');" style="align:center">Chiudi</a><br>
+					<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');" style="align:center"><img src="<?php echo $image['www_path'].'/'.$image['name']?>"></a><br>
+					<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');" style="align:center">Chiudi</a>
+				</div>
+				
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $image['id']?><?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+			<?php else:?>
+				<img src="<?php echo $image['www_path'].'/'.$image['name']?>">
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $image['id']?><?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+			<?php endif;?>
+		<?php endforeach;?>
+	</td>
+</tr>
+<?php if(empty($_tplvar['contenuto_precaricato'][0]['images'])):?>
+<tr>
+	<td valign="top" colspan="2">
+		<?php $i = 0;?>
+		<?php foreach($_tplvar['images'] as $key => $val):?>
+			<?php if(!empty($val['id'])):?>
+				<input type="hidden" name="id_img[]" value="<?php echo $val['id']?>" />
+			<?php endif;?>
+			<?php if(!empty($val['name'])):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $val['id']?><?php if(!empty($_tplvar['contenuto_precaricato'][0]['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato'][0]['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+					<img src="<?php echo $val['www_path'].'/Small_'.$val['name']?>" border="0">
+			<?php endif;?>
+			<?php if(empty($val['name'])):?>
+				Immagine <input type="file" name="img_<?php echo $i;?>">
+			<?php endif;?>
+			<?php $i++;?>
+		<br><br>
+		<?php endforeach;?>
+<!--				<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&add_img=1<?php if(!empty($_tplvar['contenuto_precaricato'][0]['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato'][0]['id_content']?><?php endif;?>">AGGIUNGI IMMAGINE</a>-->
+		<?php if(count($_tplvar['images']) > 1):?>
+<!--				<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&rem_img=1<?php if(!empty($_tplvar['contenuto_precaricato'][0]['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato'][0]['id_content']?><?php endif;?>">RIMUOVI ULTIMA IMMAGINE </a>-->
+		<?php endif;?>
+	</td>
+</tr>
+<?php endif;?>
+<tr>
+	<td>
+		<input type="submit" value="INVIA" />
+	</td>
+	<td></td>
+</tr>
+</table>
+</form>

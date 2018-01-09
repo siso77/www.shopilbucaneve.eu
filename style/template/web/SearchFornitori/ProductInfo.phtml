@@ -1,0 +1,362 @@
+<?php $_tplvar = $this->getVars();?>
+
+<h2 class="ftitle">
+<?php 
+	if(!empty($_tplvar['content']['bar_code']))
+		echo $_tplvar['content']['descrizione'];
+?>
+</h2>
+
+<div class="store-item">
+	<div>
+	
+		<?php
+		if(is_file($_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore1/'.$_tplvar['content']['codice'].".jpg"))
+			$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore1/".$_tplvar['content']['codice'].".jpg";
+		else
+		{
+			$file = WWW_IMAGE_DENDEKKER_PAHT."/img_products/".$_tplvar['content']['codice'].".jpg";
+			$file_headers = @get_headers($file);
+			if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+				$image_to_copy = null;
+			else
+				$image_to_copy = WWW_IMAGE_DENDEKKER_PAHT."/img_products/".$_tplvar['content']['codice'].".jpg";
+
+			if(!empty($image_to_copy))
+			{
+				copy($image_to_copy, $_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore1/'.$_tplvar['content']['codice'].".jpg");
+				$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore1/".$_tplvar['content']['codice'].".jpg";
+			}
+		}
+		?>
+		
+		<table style="width:100%;">
+		<tr>
+			<td valign="top" style="width:30%;padding:20px">
+				<?php if(!empty($image)):?>
+					<a style="width:384px;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' />');" title="" class="product-image lightbox grouped_elements" rel="group1">
+						<img src="<?php echo $image?>" width="384" height="384" alt="" />
+					</a>
+				<?php else:?>
+					<a style="width:284px;" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" title="" class="product-image lightbox grouped_elements" rel="group1">
+						<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="284" height="284" alt="" />
+					</a>
+				<?php endif;?>
+			</td>
+			<td valign="top" style="vertical-align:top;padding:20px">
+	          <?php if(!empty($_tplvar['content']['codice'])):?>
+	          	<b>Codice:</b> <?php echo $_tplvar['content']['codice']?><br>
+	          <?php endif;?>
+	          <?php if(!empty($_tplvar['content']['descrizione'])):?>
+	          	<b>DESCRIZIONE:</b> <?php echo $_tplvar['content']['descrizione']?><br>
+	          <?php endif;?>
+	          <?php if(!empty($_tplvar['content']['prezzo_sc']) && !empty($_SESSION['LoggedUser']['id'])):?>
+		          <?php
+		          $ricarico = 0;
+		          $ricarico_commissione_imballi_dendekker = 0;
+		          $ricarico_commissione_fissa_dendekker = 0;
+		          
+		          if(!empty($_tplvar['commissione_fissa_dendekker']))
+		          	$_tplvar['content']['prezzo_sc'] += round( $this->getRicarico($_tplvar['content']['prezzo_sc'], $_tplvar['commissione_fissa_dendekker']), 2);
+		          
+		          if(!empty($_tplvar['commissione_imballi_dendekker']))
+		          	$_tplvar['content']['prezzo_sc'] += round( $this->getRicarico($_tplvar['content']['prezzo_sc'], $_tplvar['commissione_imballi_dendekker']),2 );
+		          	
+		          if(!empty($_SESSION['LoggedUser']['sconto_fornitori_nl']))
+		          	$_tplvar['content']['prezzo_sc'] += round( $this->getRicarico($_tplvar['content']['prezzo_sc'], $_SESSION['LoggedUser']['sconto_fornitori_nl']), 2);
+		          ?>
+	          	<b>PREZZO:</b> <?php echo Currency::FormatEuro( ($_tplvar['content']['prezzo_sc']) )?><br>
+	          <?php endif;?>
+				<br><br>
+				<?php
+				$add_to_basket_url = $_tplvar['WWW_ROOT'].'ShoppingCartFornitori';
+				if(!empty($_tplvar['content']['codice']))
+				{
+					$add_to_basket_url .= '/'.$_tplvar['content']['codice'];
+				}
+				else
+					$add_to_basket_url .= '/-';
+				
+				if(!empty($_tplvar['content']['descrizione']))
+					$add_to_basket_url .= '/'.$_tplvar['content']['descrizione'];
+				else
+					$add_to_basket_url .= '-';
+				
+				$add_to_basket_url .= '/'.$_tplvar['content']['id'].'.html';
+				?>
+				<a class="pl-info" href="<?php echo $add_to_basket_url;?>" title="Aggiungi al Carrello" >
+					<img src="<?php echo $_tplvar['WWW_ROOT']?>themes/styles/common-images/carrello.gif" style="width:20px">
+				</a>				
+			</td>
+		</tr>
+		</table>
+	</div>
+	
+	<iframe src="https://www.facebook.com/plugins/like.php?href=<?php echo $_tplvar['WWW_ROOT']?>DetailFornitori/<?php echo $_tplvar['content']['codice'];?>/<?php echo str_replace(' ','%20',str_replace("'","", str_replace('"','', $_tplvar['content']['descrizione'])))?>/<?php echo $_tplvar['content']['id']?>.html"
+        scrolling="no" frameborder="0"
+        style="border:none; width:450px; height:80px"></iframe>
+</div>
+<br>
+<script type="text/javascript">
+<!--
+function validateForm()
+{
+	var email = $('#email').val();
+	var richiesta = $('#richiesta').val();
+	var captcha_code = $('#captcha_code').val();
+	var ret = true;
+	
+	if(email == '')
+	{
+		$('#email').css('border', '1px solid red');
+		ret = false;
+	}
+	else
+		$('#email').css('border', '#555555');
+	if(richiesta == '')
+	{
+		$('#richiesta').css('border', '1px solid red');
+		ret = false;
+	}
+	else
+		$('#richiesta').css('border', '#555555');
+//	if(captcha_code == '')
+//	{
+//		$('#captcha_code').css('border', '1px solid red');
+//		ret = false;
+//	}
+//	else
+//		$('#captcha_code').css('border', '#555555');
+
+	return ret;
+}
+//-->
+</script>
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=RequestInfo" method="post" onsubmit="javascript:return validateForm();">
+<input type="hidden" name="id_mag_forn" value="<?php echo $_tplvar['content']['id']?>">
+<table style="width: 100%;">
+	<tbody>
+	<tr>
+		<th colspan="2">Richiedi ulteriori informazioni su questo articolo</th>
+	</tr>
+	<tr>
+		<th align="right" width="250">Nome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="nome" value="<?php echo $_tplvar['customer_data']['nome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Cognome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="cognome" value="<?php echo $_tplvar['customer_data']['cognome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Telefono&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="telefono" value="<?php echo $_tplvar['customer_data']['telefono']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Indirizzo email *&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" id="email" name="email" value="<?php echo $_tplvar['customer_data']['email']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Localit&agrave; (Regione,Provincia o Citt&agrave;)&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="localita" value="<?php echo $_tplvar['customer_data']['localita']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right" valign="top">Richiesta *&nbsp;</th>
+		<th align="left" style="padding:6px;"><textarea rows="4" cols="26" id="richiesta" name="richiesta"><?php echo $_tplvar['customer_data']['richiesta']?></textarea></th>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<th align="left" style="padding:6px;">
+			<script type="text/javascript">
+			var RecaptchaOptions = {
+				theme : 'blackglass'
+			};
+			</script>		
+			<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=<?php echo GOOGLE_RECAPCHA_PUBLIC_KEY;?>"></script>
+			<noscript>
+			<iframe src="http://www.google.com/recaptcha/api/noscript?k=<?php echo GOOGLE_RECAPCHA_PUBLIC_KEY;?>" height="300" width="500" frameborder="0"></iframe><br>
+			<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+			<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+			</noscript>
+		</th>
+	</tr>
+	<?php if($_tplvar['error_captcha']):?>
+	<tr>
+		<th colspan="2" style="color:red;padding:6px;">Attenzione errore nell'inserimento del Captcha</th>
+	</tr>
+	<?php endif;?>
+	<tr>
+		<th>(*) Campi obbligatori</th>
+		<th style="padding:6px;"><input type="submit" value="Invia Richiesta"></th>
+	</tr>
+	<?php if($_tplvar['confirm']):?>
+	<tr>
+		<th colspan="2" style="color:green;padding:6px;">La tua richiesta &egrave; stata inviata correttamente</th>
+	</tr>
+	<?php endif;?>
+	</tbody>
+</table>
+</form>
+
+<div class="clear"></div>
+
+<style>
+.crop{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:180px;
+    height:85px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+
+<br>
+<br>
+<?php if(!empty($_tplvar['releated'])):?>
+<h2 class="ftitle">Ti consigliamo anche</h2>
+<?php endif;?>
+							<?php 
+							$rowForBox = 8;
+							?>
+							<div class="store-cont">
+							<?php foreach($_tplvar['releated'] as $key => $product):?>
+								<?php $index++;?>
+								<?php if(!empty($product) && $index <= $rowForBox):?>
+								<?php $hrefCategory = $product['name']?>
+									<div class="item-box" style="min-height: 220px;">
+										<?php $image = $this->getImageFromIdContent($product['id'], 'Large_', '100')?>
+										<?php if(!empty($image)):?>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+											<?php echo $image;?>
+										</a>
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="100" height="95">
+										<?php endif;?>
+										</p>
+										<div class="item_name">
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+												<?php echo $product['name_band'];?><br>
+												<?php echo substr($product['name_it'], 0, $_tplvar['SHOP_TRUNCATE_TEXT']);?>
+											</a>
+										</div>
+										<?php 
+										$qty = 0;
+										$qty_color = null;
+										$qty_size = null;
+										foreach ($product['magazzino'] as $giacenze)
+										{
+											$qty += $giacenze['quantita'];
+											if(!empty($giacenze['color']))
+												$qty_color[ucfirst(strtolower($giacenze['color']))] += $giacenze['quantita'];
+											if(!empty($giacenze['size']))
+												$qty_size[ucfirst(strtolower($giacenze['size']))] += $giacenze['quantita'];
+										}
+										?>										
+										<div class="disp">
+										<?php if($product['magazzino'][0]['quantita'] > 0):?>
+											Disponibile
+										<?php elseif($product['magazzino'][0]['is_in_ecommerce']):?>
+											Acquistabile in negozio
+										<?php else:?>
+											<p style="color:#F9D616">Non Disponibile</p>
+										<?php endif;?>
+										</div>
+										<div class="price">
+											<a href="javascript:void(0);" onclick="javascript:
+												$('#detail_qty_<?php echo $product['id']?>').show();">
+												Taglie e colori&nbsp;(<?php echo $qty?>)
+											</a>
+											<a id="lnk_<?php echo $product['id']?>" href="javascript:void(0);" onclick="javascript:
+												$.ajax({
+													  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetListCompare',
+													  type: 'POST',
+													  dataType: 'html',
+													  data: 'id_content=<?php echo $product['id']?>',
+													  success: function(html){
+														  $('#lnk_<?php echo $product['id']?>').css('color', 'green');
+														  $('#prodicts_compared').html(html);
+														  //$('#res_<?php echo $product['id']?>').show();
+													  }
+													});">
+												Confronta Prodotto
+											</a>
+										</div>
+										
+<!--										<div id="res_<?php echo $product['id']?>"></div>-->
+										
+										<div id="detail_qty_<?php echo $product['id']?>" style="width:auto;display:none;position:absolute;background-color:#1A1A1A;z-index:1;border:1px solid #fff;">
+										<dir id="sidebar">										
+											<div id="nav_menu-3" class="widget_nav_menu widget" style="background:transparent url(../images/border_dot_light.png) repeat-x left top">
+												<div class="winner">
+												<h4 class="wtitle">TAGLIE E COLORI</h4><br>
+													<div class="menu-abbigliamento-container">
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_color)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Colori disponibili
+														</li>
+														<?php
+															foreach ($qty_color as $key => $val):
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_size)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Taglie disponibili
+														</li>
+														<?php foreach ($qty_size as $key => $val):?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<a href="javascript:void(0);" onclick="javascript:$('#detail_qty_<?php echo $product['id']?>').hide();">Chiudi</a>
+														</li>
+													</ul>
+													</div>
+												</div>
+											</div>
+										</dir>
+										</div>
+
+										<div class="price">
+										<?php if(!empty($product['price_discounted_it'])):?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_discounted_it'])?>
+										<?php else:?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_it'])?>
+										<?php endif;?>
+										</div>
+									</div>
+								<?php else:?>
+<!--									<div class="store-cont"><div class="item-box">&nbsp;</div></div>-->
+								<?php endif;?>
+								
+								<?php endforeach;?>
+								
+								<div class="clear"></div>
+							</div>
+
+							<div class="clear"></div>

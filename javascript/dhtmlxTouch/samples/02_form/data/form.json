@@ -1,0 +1,91 @@
+[{
+	view: "textarea",
+	id: 'field_ta',
+	label: "Notes",
+	height: 60
+}, {
+	view: "text",
+	id: 'field_a',
+	label: 'from',
+	value: "Moscow"
+}, {
+	view: "text",
+	id: 'field_b',
+	label: 'to',
+	value: "Guatemala"
+}, {
+	view: "counter",
+	id: 'field_c',
+	value: 1,
+	min: 1,
+	max: 20,
+	label: 'passengers 12+',
+	labelPosition: 'left'
+}, {
+	view: "richselect",
+	id: 'field_e',
+	label: 'Type',
+	value: "1",
+	yCount: "3",
+	options: [{
+		value: "1",
+		label: "One"
+	}, {
+		value: "2",
+		label: "Two"
+	}, {
+		value: "3",
+		label: "Three"
+	}]
+}, {
+	view: "combo",
+	id: 'field_m',
+	label: 'Combo',
+	value: "One",
+	yCount: "3",
+	options: ["One", "Two", "Three"]
+}, {
+	view: "datepicker",
+	label: 'Date',
+	id: 'field_f',
+	value: new Date(2010, 7, 5)
+}, {
+	view: "toggle",
+	id: 'field_g',
+	options: ["Roundtrip", "Oneway"],
+	align: "center"
+}, {
+	view: "radio",
+	id: 'field_i',
+	value: "2",
+	labelWidth: 250,
+	height: 84,
+	options: [{
+		label: "only direct flights",
+		value: "1"
+	}, {
+		label: "any flights",
+		value: "2"
+	}]
+}, {
+	type: "clean",
+	cols: [{
+		view: "checkbox",
+		id: 'field_j',
+		labelWidth: 100,
+		label: "find hotels",
+		value: 1
+	}, {
+		view: "checkbox",
+		id: "field_k",
+		labelWidth: 100,
+		label: "find car here"
+	}]
+}, {
+	view: "button",
+	type: "form",
+	id: 'field_d',
+	label: 'Find flight',
+	align: "center",
+	inputWidth: 150
+}]

@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<script src="../../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="../../../codebase/touchui.css" type="text/css" charset="utf-8">
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ready(function(){
+				dhx.ui({
+                    type:"wide",
+                    rows:[{
+                        type:"wide",
+					    cols:[
+                            {
+                                rows:[
+                                    {view:"toolbar", type:"MainBar",cols:[
+                                        {view:"label",label:"Title"}
+                                    ]},
+                                    {id:"tmpTitle", template:"#title#"}
+                                ]
+
+							},
+							{
+                                rows:[
+                                    {view:"toolbar", type:"MainBar",cols:[
+                                        {view:"label",label:"Name"}
+                                    ]},
+                                    {id:"tmpName", template:"#name#"}
+                                ]
+
+							},
+							{
+                                 rows:[
+                                    {view:"toolbar", type:"MainBar",cols:[
+                                         {view:"label",label:"Title and Name"}
+                                    ]},
+                                    {id:"tmpTitleName", template:"#title# #name#"}
+                                ]
+
+							}
+						]},
+						{
+							view:"form", id:"formT", cols:[
+                                { },
+                                {
+                                    width: 320,
+                                    type:"clean",
+                                    rows:[
+                                        {},
+                                        { view:"text", id:"title", label: "Title" },
+                                        { view:"text", id:"name", label: "Name" },
+                                        { view:"button", label:"save", click:"$$('formT').save()" },
+                                        {}
+                                    ]
+                                },
+                                { }
+
+							]
+						}
+					]
+				})
+			
+				dhx.debug_bind = true;
+				dhx.debug_render = true;
+				
+				var data = new dhx.DataRecord({
+					id:"data",
+					name:"Stanislav Wolski",
+					title:"Mr."
+				});
+
+				$$('tmpTitle').bind(data);
+				$$('tmpName').bind(data);
+				$$('tmpTitleName').bind(data);
+				
+				$$("formT").bind(data);
+				
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,127 @@
+<?php $_tplvar = $this->getVars();?>
+
+<h2 class="ftitle">I Tuoi Dati</h2>
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=MyAccount" method="post">
+<input type="hidden" name="id_user" value="<?php echo $_tplvar['id_user']?>">
+
+Modifica Password: Inserisci la nuova password o lascia i campi vuoti</th>
+
+Password
+<input type="text" id="password" size="20" maxlength="50" name="password">
+
+Conferma Password
+<input type="text" id="confirm_password" size="20" maxlength="50" name="confirm_password">
+
+
+Selezione 1: Dettagli dell’indirizzo di fatturazione</th>
+
+Partita IVA
+<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+&nbsp;(opzionale)
+<div id="err_p_iva"></div>
+
+Nome
+<input type="text" id="name" size="36" maxlength="50" name="name" value="<?php echo $_tplvar['user_data']['name']?>">
+<div id="err_name"></div>
+
+ognome
+<input type="text" id="surname" size="36" maxlength="50" name="surname" value="<?php echo $_tplvar['user_data']['surname']?>">
+<div id="err_surname"></div>
+
+<span class="Label105" id="CustSetUp_LblCompanyName">Company Name
+<input type="text" id="company_name" size="36" maxlength="250" name="company_name" value="<?php echo $_tplvar['user_data']['']?>">
+<div id="err_company_name"></div>
+
+Indirizzo 
+<input type="text" id="address" size="36" maxlength="100" name="address" value="<?php echo $_tplvar['user_data']['address']?>">
+<div id="err_address"></div>
+
+Presso 
+
+	<input type="text" id="address_secondary" size="36" maxlength="36" name="address_secondary" value="<?php echo $_tplvar['user_data']['address_secondary']?>">
+	&nbsp;(opzionale)
+	<div id="err_address_secondary"></div>
+</td>
+
+Città
+<input type="text" id="city" size="36" maxlength="60" name="city" value="<?php echo $_tplvar['user_data']['city']?>">
+<div id="err_city"></div>
+
+<span class="Label105" id="CustSetUp_LblCounty">Stato/Provincia/Regione
+<input type="text" id="province" size="36" maxlength="60" name="province" value="<?php echo $_tplvar['user_data']['province']?>">
+<div id="err_province"></div>
+
+<span class="Label105" id="CustSetUp_LblCountry">Nazione
+<?php echo $this->getPartial('shared/CmbCountries');?>
+<div id="err_nation"></div>
+
+<span class="Label105" id="CustSetUp_LblPostCode">CAP
+<input type="text" id="cap" size="20" maxlength="12" name="cap" value="<?php echo $_tplvar['user_data']['cap']?>">
+<div id="err_cap"></div>
+
+Selezione 2: Indirizzo di spedizione (se differente da quello di fatturazione)</th>
+
+Partita IVA
+
+<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+&nbsp;(opzionale)
+<div id="err_p_iva"></div>
+							
+Nome
+<input type="text" id="name_spedizione" size="36" maxlength="50" name="name_spedizione" value="<?php echo $_tplvar['user_data']['name_spedizione']?>">
+<div id="err_name"></div>
+
+ognome
+<input type="text" id="surname_spedizione" size="36" maxlength="50" name="surname_spedizione" value="<?php echo $_tplvar['user_data']['surname_spedizione']?>">
+<div id="err_surname"></div>
+
+Indirizzo 
+<input type="text" id="address_spedizione" size="36" maxlength="100" name="address_spedizione" value="<?php echo $_tplvar['user_data']['address_spedizione']?>">
+<div id="err_address"></div>
+
+Presso 
+<input type="text" id="address_secondary_spedizione" size="36" maxlength="36" name="address_secondary_spedizione" value="<?php echo $_tplvar['user_data']['address_secondary_spedizione']?>">
+&nbsp;(opzionale)
+<div id="err_address_secondary"></div>
+
+Città
+<input type="text" id="city_spedizione" size="36" maxlength="60" name="city_spedizione" value="<?php echo $_tplvar['user_data']['city_spedizione']?>">
+<div id="err_city"></div>
+
+Stato/Provincia/Regione
+<input type="text" id="province_spedizione" size="36" maxlength="60" name="province_spedizione" value="<?php echo $_tplvar['user_data']['province_spedizione']?>">
+<div id="err_province"></div>
+
+Nazione
+
+<?php 
+$assign['suffix'] = '_spedizione';
+echo $this->getPartial('shared/CmbCountries', $assign);?>
+<div id="err_nation"></div>
+
+CAP
+<input type="text" id="cap_spedizione" size="20" maxlength="12" name="cap_spedizione" value="<?php echo $_tplvar['user_data']['cap_spedizione']?>">
+<div id="err_cap"></div>
+
+Selezione 3: Altre informazioni</th>
+
+Numero telefonico per contatto giornaliero
+<input type="text" id="phone" size="20" maxlength="20" name="phone" value="<?php echo $_tplvar['user_data']['phone']?>">
+<div id="err_phone"></div>
+
+Numero di cellulare
+<input type="text" id="mobile" size="20" maxlength="20" name="mobile" value="<?php echo $_tplvar['user_data']['mobile']?>"><span class="OptionalField1" id="CustSetUp_LblOptionalField2">&nbsp;(opzionale)
+<div id="err_mobile"></div>
+
+<input type="radio" <?php if($_tplvar['user_data']['sex'] == 'Maschio' || empty($_tplvar['user_data']['sex'])):?>checked="checked"<?php endif;?> value="Maschio" name="sex" id="sex">
+<label for="CustSetUp_RadMale">Uomo</label>
+
+
+<input type="radio" value="Femmina" name="sex" id="sex" <?php if($_tplvar['user_data']['sex'] == 'Femmina'):?>checked="checked"<?php endif;?>>
+<label for="CustSetUp_RadFemale">Donna</label>
+
+
+<button type="submit" title="Subscribe" class="button">&nbsp;&nbsp;&nbsp;<span><span>Salva</button>
+</form>
+

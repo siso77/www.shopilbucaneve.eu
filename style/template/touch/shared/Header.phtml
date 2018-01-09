@@ -1,0 +1,45 @@
+<?php $_tplvar = $this->getVars();?>
+
+				<?php if($_REQUEST['act'] == 'Home' || empty($_REQUEST['act'])):?>
+					<ul data-role="listview" data-inset="true" data-theme="b">
+	                    <li data-corners="false" data-shadow="false" data-iconshadow="false" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li">
+	                    	<a href="<?php echo $_tplvar['WWW_ROOT']?>Magazzino-Online/Lista-Prodotti.html" data-transition="flip"><H3>Magazzino</H3></a>
+	                    </li>
+	                    <li data-corners="false" data-shadow="false" data-iconshadow="false" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li">
+	                    	<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=MyAccount" data-transition="flip"><H3>My Account</H3></a>
+	                    </li>
+						<?php if(empty($_SESSION['LoggedUser'])):?>
+	                    <li data-corners="false" data-shadow="false" data-iconshadow="false" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li">
+	                    	<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Login" data-transition="flip"><H3>Log In</H3></a>
+	                    </li>
+	                    <?php else:?>
+	                    <li data-corners="false" data-shadow="false" data-iconshadow="false" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li">
+	                    	<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Orders&user_id=<?php echo $_SESSION['LoggedUser']['id']?>" data-transition="flip"><H3>Ordini</H3></a>
+	                    </li>
+	                    <li data-corners="false" data-shadow="false" data-iconshadow="false" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li">
+							<a href="javascript:void(0);" style="color:#fff;" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart';" data-transition="flip"><H3>Vai al Carrello</H3></a>
+						</li>
+	                    
+	                    <li data-corners="false" data-shadow="false" data-iconshadow="false" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li">
+	                    	<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Logout" data-transition="flip"><H3>Log Out</H3></a>
+	                    </li>
+	                    <?php endif;?>
+	                </ul>
+				<?php else:?>
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>" data-icon="home" data-iconpos="notext" data-direction="reverse" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" title="Home"></a>
+
+						<?php if($_REQUEST['act'] == 'Search'):?>
+							<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Search&set_options=1" data-transition="flip" data-rel="dialog" data-role="button" data-icon="gear" data-mini="true">Impostazioni</a>
+						<?php else:?>
+							<a href="javascript:history.go(-1)" data-transition="flip" data-role="button" data-mini="true">Back</a>
+						<?php endif;?>
+				<?php endif;?>
+				
+				<?php if(!empty($_SESSION[session_id()]['cart']['contents'])):?>
+				<!-- 
+		        	<span class="title-cart">Carrello <?php echo count($_SESSION[session_id()]['cart']['contents'])?></span>
+					<p class="cart-empty">
+						<?php echo $this->getPartial('shared/BoxCart');?>
+					</p>
+				 -->
+				<?php endif;?>

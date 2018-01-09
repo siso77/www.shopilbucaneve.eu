@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" charset="utf-8">
+			DHTMLX_SKIN = "touch";
+		</script>
+        <title>Accordion: multi</title>
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+	</head>
+	<body>
+	
+		
+		<div id="accordion_container" style="width:1024px; height:600px; overflow:hidden;">
+		<script type="text/javascript" charset="utf-8">
+
+		
+		dhx.ui({
+				container:"accordion_container",
+			    type:"wide",
+                height:600,
+				cols:[
+					{ view:"accordion",
+						type:"wide",
+						multi:true,
+                        id:"horizontal_accordion",
+						cols:[
+							{ header:"Cell A",id:"cell_a" },
+							{ header:"Cell B",id:"cell_b" },
+							{ header:"Cell C",id:"cell_c" }
+						]
+					},
+					{ view:"accordion",
+						type:"wide",
+                        id:"vertical_accordion",
+                        multi:true,
+						rows:[
+							{ header:"Cell A",id:"cell_a" },
+							{ header:"Cell B",id:"cell_b" },
+							{ header:"Cell C",id:"cell_c" }
+						]
+					}
+				]
+			});
+		</script>
+	</body>
+</html>

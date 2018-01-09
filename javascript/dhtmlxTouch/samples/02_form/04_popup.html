@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<title>Form: popup</title>
+
+	</head>
+	<body>
+
+		
+		<script type="text/javascript" charset="utf-8">
+
+        dhx.ui({
+			view:"popup",
+			id:"Menu1",
+			body:{
+				view:"list",
+				url:"menu.xml", datatype:"xml",
+				select:true, 
+				yCount:3,
+				type:{
+					width:250
+				}
+			}
+		}).hide();
+        
+        dhx.ui({
+            view:"popup",
+            id:"calendar",
+            body:{
+					width:200,
+                    height:200,
+            		view:"calendar",
+    				weekHeader:1,
+    				weekNumber:1,
+    				timeSelect:1,
+                    date:new Date(2010,07,10)
+                }
+		}).hide();		
+	
+		var ui = dhx.ui({
+			cols:[
+
+                { 	view:"form", id:"myform", width:320,scroll:true, elements:[
+
+                        { view:"richselect", name: "field_e", id:'field_e', label: 'Type', value: "1", yCount:"3", data:[
+                                { id:"1", value:"One"   },
+                                { id:"2", value:"Two"   },
+                                { id:"3", value:"Three" }
+                            ], popup:"Menu1"},
+                        { view:"combo", name: "field_m", id:'field_m', label: 'Combo', value:"1", yCount:"3", data:[
+                                { id:"1", value:"One"   },
+                                { id:"2", value:"Two"   },
+                                { id:"3", value:"Three" }
+                            ], popup:"Menu1"},
+                        { view:"datepicker", name: "field_f", label: 'Date', date:new Date(2010,07,10)},
+
+                        { view:"button", type:"form", name: "field_d", id:'field_d', label: 'Find flight', align:"center", align:"center", popup:"Menu1"}
+                    ]
+                },
+                { }
+			]
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <database>
+	<dev>
+	    <Db_type>mysql</Db_type>
+	    <Server>localhost</Server>
+	    <Database>stream_gardesana</Database>
+	    <User>sviluppo</User>
+	    <Password>B6uzx686Crfes3jC</Password>
+    </dev>
+    <pro>
+	    <Db_type>mysql</Db_type>
+	    <Server>89.46.111.19</Server>
+	    <Database>Sql975645_1</Database>
+	    <User>Sql975645</User>
+    	<Password>ur56752518</Password>
+    </pro>
+  </database>
+  <SO>
+<!-- 	 <System>WIN</System> -->
+   <System>UNIX</System>
+  </SO>
+  <smarty_tpl>
+    <debugging>0</debugging>
+    <caching>0</caching>
+    <tpl_dir>/style/template</tpl_dir>
+    <conf_dir>/style/languages</conf_dir>
+    <cache_dir>/style/cache</cache_dir>
+    <cache_lifetime>3600</cache_lifetime>
+    <template_ext>.phtml</template_ext>
+  </smarty_tpl>
+  <VirtualIncludePath>
+    <MyLibs>libs</MyLibs>
+    <PearDir>libs/ext/pear</PearDir>
+    <BarCodeGeneratorDir>libs/ext/BARCODE_GENERATOR</BarCodeGeneratorDir>
+    <BarCodeGeneratorHtmlDir>libs/ext/BARCODE_GENERATOR/html</BarCodeGeneratorHtmlDir>
+  </VirtualIncludePath>
+  <VirtualIncludes>
+    <BeanBase>BeanBase.php</BeanBase>
+    <MyAction>Action.php</MyAction>
+    <SeoEngine>SeoEngine.php</SeoEngine>
+    <Session>Session.php</Session>
+    <DB>DB.php</DB>
+    <MyDB>MyDB.php</MyDB>
+    <MySmarty>TemplateEngine.php</MySmarty>
+    <MyPager>MyPager.php</MyPager>
+    <PEARLog>Log.php</PEARLog>
+    <MyLOG>MyLog.php</MyLOG>
+    <SISO_Image>SISO_Image.php</SISO_Image>
+    <Feeds>Feeds.php</Feeds>
+<!--     <BaseBarCodeGenerator>BaseBarCodeGenerator.php</BaseBarCodeGenerator> -->
+  </VirtualIncludes>
+  <VirtualDefines>
+<!--  	<CHARSET>UTF-8</CHARSET>-->
+	<SESSION_CUSTOM_NAME>admin_stream_bucaneve</SESSION_CUSTOM_NAME>
+	<STORE_WWW_ROOT_PATH>http://www.shopilbucaneve.eu/</STORE_WWW_ROOT_PATH>
+  	<CHARSET>ISO-8859-1</CHARSET>
+    <PREFIX_META_TITLE>Stream - Bucaneve</PREFIX_META_TITLE>
+    <PREFIX_META_TITLE_SEPARATOR>-</PREFIX_META_TITLE_SEPARATOR>
+  	<USE_ZEND_CACHE>0</USE_ZEND_CACHE>
+    <WWW_INDEX>index.php</WWW_INDEX>
+    <PEAR_DIR>libs/ext/pear/</PEAR_DIR>
+    <URL_SEPARATOR></URL_SEPARATOR>
+    <INI_SET_SEPARATOR>;</INI_SET_SEPARATOR>
+    <LOG_DIR>/logs/</LOG_DIR>
+    <IF_LOG>false</IF_LOG>
+    <LOG_LEVEL>store</LOG_LEVEL>
+    <DISPLAY_ERROR_QUERY>true</DISPLAY_ERROR_QUERY>
+    <DEBUG_TIME>0</DEBUG_TIME>
+    <THEME>style4</THEME>
+	<DEFAULT_LANG>it</DEFAULT_LANG>
+    <PARAM_ACTION_REQUEST>act</PARAM_ACTION_REQUEST>
+    <DEFAULT_ACTION>Login</DEFAULT_ACTION>
+    <IMG_DIR>img</IMG_DIR>
+    <CSS_DIR>css</CSS_DIR>
+    <JS_DIR>javascript</JS_DIR>
+    <PASSWORD_SALT>a2afr24tg56r4r65wg</PASSWORD_SALT>
+    <FORM_REQUEST_TIMEOUT>120</FORM_REQUEST_TIMEOUT>
+    
+<!--    <FATTURA_TAX_IVA>1.21</FATTURA_TAX_IVA>-->
+<!--    <IVA>21</IVA>-->
+	<IVA_INTEGRATORI>10</IVA_INTEGRATORI>
+    <INCOICE_STRLEN_1_FILED>15</INCOICE_STRLEN_1_FILED>
+    <INCOICE_STRLEN_2_FILED>15</INCOICE_STRLEN_2_FILED>
+    <INCOICE_STRLEN_3_FILED>102</INCOICE_STRLEN_3_FILED>
+
+    <INCOICE_HTML_STRLEN_1_FILED>12</INCOICE_HTML_STRLEN_1_FILED>
+    <INCOICE_HTML_STRLEN_2_FILED>12</INCOICE_HTML_STRLEN_2_FILED>
+    <INCOICE_HTML_STRLEN_3_FILED>50</INCOICE_HTML_STRLEN_3_FILED>
+    
+    <LISTA_MAGAZZINO_TRUNCATE_NAME>30</LISTA_MAGAZZINO_TRUNCATE_NAME>
+    <LISTA_MAGAZZINO_TRUNCATE_DESCRIPTION>30</LISTA_MAGAZZINO_TRUNCATE_DESCRIPTION>
+    <SHOP_TRUNCATE_TEXT>50</SHOP_TRUNCATE_TEXT>
+    
+    <IT_TIMESTAMP_FORMAT>d/m/Y H:i:s</IT_TIMESTAMP_FORMAT>
+    <EN_TIMESTAMP_FORMAT>Y-m-d</EN_TIMESTAMP_FORMAT>
+    <ES_TIMESTAMP_FORMAT>Y-m-d</ES_TIMESTAMP_FORMAT>
+    <DE_TIMESTAMP_FORMAT>Y-m-d</DE_TIMESTAMP_FORMAT>
+  
+	<EMAIL_ADMIN_TO>siso77@gmail.it</EMAIL_ADMIN_TO>
+	<EMAIL_ADMIN_FROM>webagent@florsistemi.it</EMAIL_ADMIN_FROM>
+	
+    <EMAIL_ADMIN>webagent@florsistemi.it</EMAIL_ADMIN>
+    <EMAIL_ADMIN_HOST>smtp.sisoweb.it</EMAIL_ADMIN_HOST>
+    <EMAIL_ADMIN_USERNAME>postmaster@sisoweb.it</EMAIL_ADMIN_USERNAME>
+    <EMAIL_ADMIN_PASSWORD>siso051077</EMAIL_ADMIN_PASSWORD>
+    <EMAIL_FOOTER>
+   		Florsistemi |br|
+		Via Labeone, 5 - 20133 Milano (MI) |br|
+		Tel.  +39 02 74.35.51 |br|
+		Fax. +39 02 74.35.34 |br|
+	</EMAIL_FOOTER>
+	
+	<ADMIN_RAGIONE_SOCIALE>Florsistemi</ADMIN_RAGIONE_SOCIALE>
+	<ADMIN_INDIRIZZO>Via Labeone, 5 - 20133 Milano (MI)</ADMIN_INDIRIZZO>
+	<ADMIN_TELEFONO>+39 02 74.35.51</ADMIN_TELEFONO>
+	<ADMIN_P_IVA>P.IVA: </ADMIN_P_IVA>
+  </VirtualDefines>
+</root>

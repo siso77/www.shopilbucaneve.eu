@@ -1,0 +1,6 @@
+Jun 29 08:15:27|5[info]29/06/2016 08:15:27 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:46.0) Gecko/20100101 Firefox/46.0]
+Jun 29 08:15:31|5[info]29/06/2016 08:15:31 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:46.0) Gecko/20100101 Firefox/46.0]
+Jun 29 08:15:52|5[info]29/06/2016 08:15:51 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Orders][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:46.0) Gecko/20100101 Firefox/46.0]
+Jun 29 08:16:04|5[info]29/06/2016 08:16:04 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = ListaUtenti][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:46.0) Gecko/20100101 Firefox/46.0]
+Jun 29 08:16:20|5[info]29/06/2016 08:16:20 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = ListaClienti][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:46.0) Gecko/20100101 Firefox/46.0]
+Jun 29 08:16:29|5[info]29/06/2016 08:16:29 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = ListaClienti][pageID = 2][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:46.0) Gecko/20100101 Firefox/46.0]

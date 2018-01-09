@@ -1,0 +1,17 @@
+<?php $_tplvar = $this->getVars();?>
+ 							<div class="custom-formatting">
+								<h3>
+									<cufontext>Menu</cufontext>
+								</h3>
+								<ul>
+									<li <?php if($_REQUEST['article'] != 1):?>class="current_page_item"<?php endif;?>><a href="<?php echo $_tplvar['WWW_ROOT']?>La-Filosofia/La-filosofia-di-krupy.html">La Filosofia</a></li>
+									<li <?php if($_REQUEST['article'] != 2):?>class="current_page_item"<?php endif;?>><a href="<?php echo $_tplvar['WWW_ROOT']?>Le-Nostre-Radici/Le-Radici-di-Krupy.html">Le nostre radici</a></li>
+									<li <?php if($_REQUEST['article'] != 3):?>class="current_page_item"<?php endif;?>><a href="<?php echo $_tplvar['WWW_ROOT']?>L-Organizzazione/L'Organizzazione-di-Krupy.html">L'organizzazione</a></li>
+									<li <?php if($_REQUEST['article'] != 4):?>class="current_page_item"<?php endif;?>><a href="<?php echo $_tplvar['WWW_ROOT']?>Novita/Le-Novità-di-Krupy.html">Novit&aacute;</a></li>
+									<li <?php if($_REQUEST['act'] != 'RequestOrder'):?>class="current_page_item"<?php endif;?>><a href="<?php echo $_tplvar['WWW_ROOT']?>RequestOrder.html">Fai un Ordine</a></li>
+									<li <?php if($_REQUEST['act'] != 'Search'):?>class="current_page_item"<?php endif;?>><a href="<?php echo $_tplvar['WWW_ROOT']?>Negozio-Online/Lista-Prodotti.html">Negozio Online</a></li>
+									<li class="current_page_item"><a href="<?php echo $_tplvar['WWW_ROOT']?>">Krupy Food</a></li>
+									<li class="current_page_item"><a href="<?php echo $_tplvar['WWW_ROOT']?>Contatti.html">Contatti</a></li>
+								</ul>
+							</div>
+ 

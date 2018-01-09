@@ -1,0 +1,41 @@
+<?php 
+$_tplvar = $this->getVars();
+// require_once APP_ROOT.'/libs/GoogleTranslate.php';
+?>
+
+				<br>
+				<table class="list-table-detailed" style="width:100%">
+				<tr class="header-row-detailed" style="background-color:#f0f6fb;">
+					<?php
+					echo '<td class="header-cell-detailed">';
+					$assign['key_session'] = 'ChoiceUser';
+					$assign['order_by'] = 'ragione_sociale';
+					$assign['action'] = 'ChoiceUser';
+					$assign['field_name'] = 'Ragione Sociale';
+					$this->getPartial('shared/SortField', $assign);
+					echo '</td>';
+					?>
+					<td class="header-cell-detailed" style="padding:20px;width:50px;text-align:left;">Seleziona Cliente</td>
+				</tr>
+				<tr>
+					<td class="header-cell-detailed" style="height:0px;width:70px;text-align:right;">&nbsp;</td>
+				</tr>
+				<?php foreach ($_tplvar['customers'] as $key => $value):?>
+				<tr class="list-row-detailed" id="row-<?php echo $value['id']?>" <?php $style=''; if($key % 2 == 0): $style = 'background-color:#f0f6fb;'; endif;?> style="<?php echo $style;?>">
+					<td class="list-cell-detailed" style="padding:20px;"><?php echo $value['ragione_sociale']?></td>
+					
+					<td class="list-cell-detailed" style="padding:20px;text-align:left;font-weight:bold;"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ChoiceUser&use_customer=<?php echo $value['id']?>">Seleziona Cliente</a></td>
+					
+			    </tr>
+			<?php endforeach;?>
+			<tr><td>&nbsp;</td></tr>
+			</table>
+			
+		<!-- Begin ToolBarButton -->
+	    <?php 
+	    $assign['show_paging'] = true;
+	    $assign['show_switch_layout'] = false;
+	    $this->getPartial('shared/ToolBarButton', $assign);?>
+		<!-- End ToolBarButton -->
+
+<br><br>	

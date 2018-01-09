@@ -1,0 +1,252 @@
+/* GRID DETAILED */
+.list-table-detailed {
+	width:100%;
+	margin-top:0px;
+	font-size: 88%;
+}
+.header-row-detailed {
+	background: url("../images/table-header-cell.png") 0% 100% no-repeat;
+	text-align:left;
+}
+.header-cell-detailed {
+	vertical-align:middle;
+	text-align:left;
+	height: 12px;
+	position: relative;
+	border-bottom: 1px solid #E4E4E4;
+	padding:5px;
+	font-weight:bold;
+}
+.list-row-detailed{
+	height:37px;
+}
+.list-row-detailed.active {
+	color: #000;
+	background-color: #F0F0F0;
+	background: -moz-linear-gradient(#F8F8F8, #E8E8E8);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #F8F8F8), color-stop(1.0, #E8E8E8));
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-bottom-color: #D0D0D0;
+}
+.list-cell-detailed {
+	vertical-align:middle;
+	text-align:left;
+	position: relative;
+	border-bottom: 1px solid #E4E4E4;
+	padding:4px;
+	margin-top:0px;
+	max-width:170px;
+}
+.cella-info-detailed {
+	display: inline;
+	position: relative;
+	border: none;
+	padding:5px;
+	width:10px;
+	background:transparent;									          
+	height:5px;  
+	font:bold 12px/28px Arial, Helvetica, sans-serif; 
+	text-align:center; 
+	white-space:nowrap;
+	background-color:#223a92;
+	padding:5px;
+	color:#FFFFFF;
+	position:relative;
+	-webkit-border-radius: 23px;
+	-moz-border-radius: 23px;
+	border-radius: 23px;
+}
+/* GRID DETAILED */
+
+.header-table{
+	width:930px;
+}
+.header-row{
+/*	background: url("../images/table-header-cell.png") 0% 100% no-repeat;*/
+}
+.header-cell {
+	vertical-align:middle;
+	text-align:center;
+	height: auto;
+	position: relative;
+	border-bottom: 1px solid #E4E4E4;
+	padding:5px;
+	font-weight:bold;
+}
+/**/
+.list-table-grid{
+	width:450px;
+	margin-top:0px;
+	font-size: 88%;
+}
+/**/
+.list-table{
+	width:974px;
+	margin-top:0px;
+	font-size: 88%;
+}
+.list-row{
+}
+.list-row.active {
+	color: #000;
+	background-color: #F0F0F0;
+	background: -moz-linear-gradient(#F8F8F8, #E8E8E8);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #F8F8F8), color-stop(1.0, #E8E8E8));
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-bottom-color: #D0D0D0;
+}
+/**/
+.list-cell-boxed {
+	vertical-align:middle;
+	text-align:center;
+	position: relative;
+	border-bottom: none;
+	padding:2px;
+	margin-top:0px;
+	padding-left:20px;
+}
+.list-cell {
+	vertical-align:middle;
+	text-align:center;
+	position: relative;
+/* 	border-bottom: 1px solid #fff; */
+	padding:2px;
+	margin-top:0px;
+}
+
+.products-list .product-image{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+/**/
+.table-filter{}
+.cell-filter {
+	height: auto;
+	width: 1000px;
+	display: inline;
+	position: relative;
+	border: none;
+	padding:0px;
+}
+.row-filter{
+	padding:10px 0px 0px 10px;
+}
+
+
+
+.tabella{}
+.cella {
+	height: auto;
+	width: 100px;
+	display: inline;
+	position: relative;
+	border: none;
+	/*border: 1px solid red;*/
+	padding:10px;
+}
+.riga{
+	padding:30px 0px 0px 50px;
+}
+
+.cella-info-paging{
+	display: inline;
+	position: relative;
+	border: none;
+	padding:10px;
+	width:10px;
+	background:transparent;									          
+	height:10px;  
+	font:bold 11px/28px Arial, Helvetica, sans-serif; 
+	text-align:center; 
+	white-space:nowrap;
+	background-color:#223a92;
+	padding:8px;
+	color:#FFFFFF;
+	position:relative;
+	-webkit-border-radius: 23px;
+	-moz-border-radius: 23px;
+	border-radius: 23px;
+}
+
+.cella-info{
+	height: auto;
+	display: inline;
+	position: relative;
+	border: none;
+	padding:10px;
+	width:10px;
+	background:transparent;									          
+	height:20px;  
+	font:bold 18px/28px Arial, Helvetica, sans-serif; 
+	text-align:center; 
+	white-space:nowrap;
+	background-color:#223a92;
+	padding:10px;
+	color:#FFFFFF;
+	position:relative;
+	-webkit-border-radius: 23px;
+	-moz-border-radius: 23px;
+	border-radius: 23px;
+}
+
+.cella-toolbar{
+	height: auto;
+	display: inline;
+	position: relative;
+	border: none;
+	width:10px;
+	background:transparent;									          
+	height:10px;  
+	font:bold 12px/28px Arial, Helvetica, sans-serif; 
+	text-align:center; 
+	white-space:nowrap;
+	background-color:#223a92;
+	padding:8px;
+	color:#FFFFFF;
+	position:relative;
+	-webkit-border-radius: 23px;
+	-moz-border-radius: 23px;
+	border-radius: 23px;
+}
+.cella-toolbar-active{
+	height: auto;
+	display: inline;
+	position: relative;
+	border: none;
+	width:10px;
+	background:transparent;									          
+	height:10px;  
+	font:bold 12px/28px Arial, Helvetica, sans-serif; 
+	text-align:center; 
+	white-space:nowrap;
+	background-color:#ea4553;
+	padding:8px;
+	color:#FFFFFF;
+	position:relative;
+	-webkit-border-radius: 23px;
+	-moz-border-radius: 23px;
+	border-radius: 23px;
+}
+.cella-cart{
+	height: auto;
+	display: inline;
+	position: relative;
+	border: none;
+	padding:10px;
+
+	width:10px;
+	background:transparent;									          
+	height:20px;  
+	font:bold 18px/28px Arial, Helvetica, sans-serif; 
+	text-align:center; 
+	white-space:nowrap;
+	background-color:#223a92;
+	padding:10px;
+	color:#FFFFFF;
+	position:relative;
+}
+a.pl-info{color:white;text-decoration:none}
+a.pl-info:hover{text-decoration:underline}

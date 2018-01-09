@@ -1,0 +1,15 @@
+.wrapper{
+	background-image:url("images/iphone_ver.png");
+	background-repeat:no-repeat;
+	background-position:15px 15px;
+}
+.bg_wrapper{
+	background-image:url("images/ragged_edge.png"), url("images/cont_bg.png");
+	background-repeat:repeat-x,repeat;	
+	
+	-moz-box-shadow:0px 0px 20px #000;	
+	-khtml-box-shadow: 0px 0px 20px #000;
+}
+html,body{
+	background-image:url("images/bg_opti.png") ;
+}

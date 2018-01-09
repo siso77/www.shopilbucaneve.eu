@@ -1,0 +1,474 @@
+<?php $_tplvar = $this->getVars();?>
+<style>
+<!--
+.selected {
+	background-color: #B00000;
+}
+.not_selected {
+	background-color: #ADADAD;
+}
+
+td {
+	padding: 9px 12px;
+}
+-->
+</style>
+
+<div id="page-content">
+	<div id="page-content-header" class="container_24">
+		<div id="page-title">
+<!--			<h2>Dati per la Fatturazione/Spedizione</h2>-->
+		</div>
+		<p class="breadcrumbs"><span class="breadcrumb_info">Ti trovi in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Carrello</span></p>
+	</div>
+
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=CheckoutPayment" method="post" onsubmit="return checkPaymentType();">
+<input type="hidden" name="id_user" value="<?php echo $_tplvar['id_user']?>">
+<?php if(!empty($_tplvar['params_banking'])):?>
+<input type="hidden" name="params" value="<?php echo $_tplvar['params_banking']?>">
+<?php endif;?>
+
+	<div id="content-container" style="margin-left:10px">
+		<div id="main-content">
+			<div class="main-content-padding">
+				<div class="page">
+					<div class="entry">
+						<h3>Dati Personali</h3>
+						<div class="cart-contents-table-bg-img">
+
+
+
+				<table cellpadding="0" style="width:100%;">
+				<tbody style="background-color:#fff">
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left">Selezione 1: Dettagli dell’indirizzo di fatturazione</th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber">Partita IVA</span></td>
+						<td>
+							<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField3">&nbsp;(opzionale)</span>
+							<div id="err_p_iva"></div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblFirstName">Nome</span></td>
+						<td><input type="text" id="name" size="36" maxlength="50" name="name" value="<?php echo $_tplvar['user_data']['name']?>">
+						<div id="err_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname">Cognome</span></td>
+						<td><input type="text" id="surname" size="36" maxlength="50" name="surname" value="<?php echo $_tplvar['user_data']['surname']?>">
+						<div id="err_surname"></div>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrCompanyName">
+						<td align="right"><span class="Label105" id="CustSetUp_LblCompanyName">Company Name</span></td>
+						<td><input type="text" id="company_name" size="36" maxlength="250" name="company_name" value="<?php echo $_tplvar['user_data']['']?>">
+						<div id="err_company_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine1">Indirizzo </span></td>
+						<td><input type="text" id="address" size="36" maxlength="100" name="address" value="<?php echo $_tplvar['user_data']['address']?>">
+						<div id="err_address"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine2">Presso </span></td>
+						<td>
+							<input type="text" id="address_secondary" size="36" maxlength="36" name="address_secondary" value="<?php echo $_tplvar['user_data']['address_secondary']?>">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField1">&nbsp;(opzionale)</span>
+							<div id="err_address_secondary"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCity">Città</span></td>
+						<td><input type="text" id="city" size="36" maxlength="60" name="city" value="<?php echo $_tplvar['user_data']['city']?>">
+						<div id="err_city"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCounty">Stato/Provincia/Regione</span></td>
+						<td><input type="text" id="province" size="36" maxlength="60" name="province" value="<?php echo $_tplvar['user_data']['province']?>">
+						<div id="err_province"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCountry">Nazione</span></td>
+						<td><?php echo $this->getPartial('shared/CmbCountries');?>
+						<div id="err_nation"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblPostCode">CAP</span></td>
+						<td><input type="text" id="cap" size="20" maxlength="12" name="cap" value="<?php echo $_tplvar['user_data']['cap']?>">
+						<div id="err_cap"></div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left">Selezione 2: Indirizzo di spedizione (se differente da quello di fatturazione)</th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber">Partita IVA</span></td>
+						<td>
+							<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField3">&nbsp;(opzionale)</span>
+							<div id="err_p_iva"></div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblFirstName">Nome</span></td>
+						<td><input type="text" id="name_spedizione" size="36" maxlength="50" name="nome_spedizione" value="<?php echo $_tplvar['user_data']['name_spedizione']?>">
+						<div id="err_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname">Cognome</span></td>
+						<td><input type="text" id="surname_spedizione" size="36" maxlength="50" name="surname_spedizione" value="<?php echo $_tplvar['user_data']['surname_spedizione']?>">
+						<div id="err_surname"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine1">Indirizzo </span></td>
+						<td><input type="text" id="address_spedizione" size="36" maxlength="100" name="address_spedizione" value="<?php echo $_tplvar['user_data']['address_spedizione']?>">
+						<div id="err_address"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine2">Presso </span></td>
+						<td>
+							<input type="text" id="address_secondary_spedizione" size="36" maxlength="36" name="address_secondary_spedizione" value="<?php echo $_tplvar['user_data']['address_secondary_spedizione']?>">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField1">&nbsp;(opzionale)</span>
+							<div id="err_address_secondary"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCity">Città</span></td>
+						<td><input type="text" id="city_spedizione" size="36" maxlength="60" name="city_spedizione" value="<?php echo $_tplvar['user_data']['city_spedizione']?>">
+						<div id="err_city"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCounty">Stato/Provincia/Regione</span></td>
+						<td><input type="text" id="province_spedizione" size="36" maxlength="60" name="province_spedizione" value="<?php echo $_tplvar['user_data']['province_spedizione']?>">
+						<div id="err_province"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCountry">Nazione</span></td>
+						<td>
+							<?php 
+							$assign['suffix'] = '_spedizione';
+							echo $this->getPartial('shared/CmbCountries', $assign);?>
+							<div id="err_nation"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblPostCode">CAP</span></td>
+						<td><input type="text" id="cap_spedizione" size="20" maxlength="12" name="cap_spedizione" value="<?php echo $_tplvar['user_data']['cap_spedizione']?>">
+						<div id="err_cap"></div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left">Selezione 3: Altre informazioni</th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105"
+							id="CustSetUp_LblDayPhone">Numero telefonico per contatto giornaliero</span></td>
+						<td><input type="text" id="phone" size="20" maxlength="20" name="phone" value="<?php echo $_tplvar['user_data']['phone']?>">
+						<div id="err_phone"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblOtherPhone">Numero di cellulare</span></td>
+						<td><input type="text" id="mobile" size="20" maxlength="20" name="mobile" value="<?php echo $_tplvar['user_data']['mobile']?>"><span class="OptionalField1" id="CustSetUp_LblOptionalField2">&nbsp;(opzionale)</span>
+						<div id="err_mobile"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblGender">Sesso:</span>
+						</td>
+						<td>
+						<table cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td style="padding-right: 2px;">
+										<input type="radio" <?php if($_tplvar['user_data']['sex'] == 'Maschio' || empty($_tplvar['user_data']['sex'])):?>checked="checked"<?php endif;?> value="Maschio" name="sex" id="sex">
+										<label for="CustSetUp_RadMale">Uomo</label>
+									</td>
+									<td>
+										<input type="radio" value="Femmina" name="sex" id="sex" <?php if($_tplvar['user_data']['sex'] == 'Femmina'):?>checked="checked"<?php endif;?>>
+										<label for="CustSetUp_RadFemale">Donna</label>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+
+			<table class="cart" cellspacing="3" style="width:100%;background-color:#fff">
+				<tbody>
+					<tr>
+						<th style="width:70px;text-align:center;padding:15px;font-weight:bold;">Articolo</td>
+						<!-- <th style="text-align:center;padding:15px;font-weight:bold;">Descrizione</th>
+						<th style="text-align:center;padding:15px;font-weight:bold;">Colore</th> -->
+						<th style="text-align:center;padding:15px;font-weight:bold;">Quantità</th>
+						<th style="text-align:center;padding:15px;font-weight:bold;">Prezzo</th>
+						<th style="text-align:center;padding:15px;font-weight:bold;">IVA</th>
+						<th style="text-align:center;padding:15px;font-weight:bold;">Importo</th>
+					</tr>
+				<?php $j=0;?>
+				<?php //foreach ($_tplvar['products'] as $value):?>
+					<?php foreach ($_tplvar['basket'] as $key => $value):?>
+					<input type="hidden" name="id_contenuto[]" value="<?php echo $value['contenuto']['id'];?>">
+					<input type="hidden" name="id_giacenza[]" value="<?php echo $value['giacenza']['id'];?>">
+					<tr>
+						<td style="text-align:center;vertical-align:middle;">
+
+						<?php $image = $this->getImageFromVbn($value['contenuto']['vbn']);?>
+						<?php if(empty($image)):?>
+							<?php $obj_image = $this->dbGetImageFromBarCode($value['giacenza']['bar_code']);?>
+							<?php $product_image = $this->dbGetImageProductFromBarCode($value['giacenza']['bar_code']);?>
+						
+							<?php if(!empty($obj_image)):?>
+								<?php
+								$d = dir($_tplvar['APP_ROOT'].'/email_images/');
+								while (false !== ($entry = $d->read())) {
+									if($entry != '.' && $entry != '..')
+										$image = $obj_image[0]['www_path'].$obj_image[0]['name'];
+								}
+								$d->close();	
+								?>
+							<?php elseif(!empty($product_image)):?>
+								<?php $image = $product_image;?>
+							<?php else:?>
+							<?php $image = null;?>
+							<?php endif;?>
+						<?php endif;?>
+						
+						
+						<?php if(!empty($image)):?>
+							<img alt="" src="<?php echo $image;?>" width="90" class="main-pic">			
+						<?php else:?>
+							<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="90">
+						<?php endif;?>
+						</td>
+						<!-- <td style="text-align:center;vertical-align:middle;"><?php echo $value['contenuto']['nome_it']?></td>
+						<td style="text-align:center;vertical-align:middle;">
+							<?php echo $value['contenuto']['C3'];?>
+						</td> -->
+						<td style="text-align:center;vertical-align:middle;">
+							<?php echo $value['basket_qty']['sel_quantita']?>
+						</td>
+						
+						<td style="text-align:center;vertical-align:middle;">
+							<?php echo Currency::FormatEuro($value['contenuto'][$_tplvar['key_prezzo']])?>
+						</td>
+						<td style="text-align:center;vertical-align:middle;">
+							<?php echo $value['contenuto']['cod_iva']?>%
+						</td>
+						<td style="text-align:center;vertical-align:middle;">
+							<?php 
+							$prezzoIva = (str_replace(',', '.', $value['price_it_qty']) * $value['contenuto']['cod_iva']) / 100;
+							$prezzoIva = round($prezzoIva, 2);
+							?>
+							<?php echo Currency::FormatEuro(str_replace(',', '.', $value['price_it_qty']+$prezzoIva));?>
+							<?php $subTotale += str_replace(',', '.', $value['price_it_qty']+$prezzoIva);?>
+							<?php $imponibile += str_replace(',', '.', $value['price_it_qty']);?>
+						</td>
+					</tr>
+					<?php $j++;?>
+					<?php $cod_iva = $value['contenuto']['cod_iva'];?>
+					<?php endforeach;?>
+				<?php //endforeach;?>
+				
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:center;">Imponibile</td>
+						<td style="text-align:center;"><?php echo Currency::FormatEuro($imponibile)?></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<!-- 
+						<td style="text-align:center;">IVA <?php echo IVA?>%</td>
+						<td style="text-align:center;"><?php echo Currency::FormatEuro(round($imponibile * FATTURA_TAX_IVA, 2))?></td>
+						-->
+						<td style="text-align:center;">IVA <?php echo $cod_iva?>%</td>
+						<td style="text-align:center;"><?php echo Currency::FormatEuro(round($imponibile * ('0.'.$cod_iva), 2))?></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:center;">Importo Totale</td>
+						<td style="text-align:center;"><?php echo Currency::FormatEuro($subTotale)?></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			
+			<table style="background-color:#fff;width:100%">
+			<!--<tr>
+				<td colspan="2" align="center">Ti ricordiamo che il prezzo verr&aacute; maggiorato di &euro;<?php echo $_tplvar['spese_spedizione']?> per la spedizione.</td>
+			</tr>
+			-->
+			<tr>
+				<td align="right">Scegli il tipo di pagamento</td>
+				<td>
+					<select name="payment_type" id="payment_type" onchange="javascript:choicePaymentType(this)">
+					<option value="">Seleziona</option>
+					<?php foreach ($_tplvar['cmb_payment_type'] as $paymentType):?>
+						<option value="<?php echo $paymentType['name']?>"><?php echo $paymentType['name']?></option>
+					<?php endforeach;?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+				<div id="iban" style="visibility:hidden;position:absolute">
+					Hai scelto di pagare con Bonifico Bancario.<br>
+					Di seguito i dati necessari per effettuare il bonifico.<br>
+					Iban: XXXXXXXXXXXXXXXXXXXXXX<br>
+					Intestato a : <?php echo ADMIN_RAGIONE_SOCIALE?>
+				</div>
+				<div id="validation_error" style="visibility:hidden;position:absolute;color:red"></div>
+				</td>
+			</tr>
+			<script>
+			function checkPaymentType()
+			{
+				var el = document.getElementById('payment_type');
+				var el_error = document.getElementById("validation_error");
+				if(el.value == '')
+				{
+					el.style.borderColor = 'red';
+					el_error.innerHTML = 'Atenzione devi selezionare il tipo di pagamento!';
+					el_error.style.visibility = 'visible';
+					el_error.style.position = 'relative';
+					return false;
+				}
+				else
+				{
+					el_error.style.visibility = 'hidden';
+					el_error.style.position = 'absolute';
+					return true;
+				}
+			}
+							
+			function choicePaymentType(obj)
+			{
+				//var val = obj.options[obj.selectedIndex].value;
+				var payment_type = document.getElementById('payment_type');				
+				var el_error = document.getElementById("validation_error");
+				el_error.style.visibility = 'hidden';
+				el_error.style.position = 'absolute';
+				payment_type.style.borderColor = 'grey';
+				
+				var el = document.getElementById('iban');
+				if(obj.value == 'bonifico' || obj.value == 'BONIFICO')
+				{
+					if(el.style.visibility == 'visible')
+					{
+						el.style.visibility = 'hidden';
+						el.style.position = 'absolute';
+					}
+					else
+					{
+						el.style.visibility = 'visible';
+						el.style.position = 'relative';
+					}
+				}
+				else
+				{
+					el.style.visibility = 'hidden';
+					el.style.position = 'absolute';
+				}
+			}
+			</script>
+			</table>
+			<style>
+			.submit {
+				border:0px;
+				height:40px;
+				width:200px;
+				background: transparent url('<?php echo $_tplvar['WWW_ROOT']?>theme/styles/common-images/dark-button-r.png') no-repeat scroll right top;
+				color: #ACACAC;
+				padding: 0 40px 0 10px;
+				position: relative;
+				display: block;
+			}
+			.submit:hover {
+				border:0px;
+				height:40px;
+				width:200px;
+				background-position: right bottom;
+				color: #666;
+				cursor: pointer;
+			}
+			</style>
+			<br>
+			<table style="background-color:#fff;width:100%">
+			<tr>
+				<td align="right">
+					<div class="actions">
+						<button type="submit" title="Subscribe" class="button">&nbsp;&nbsp;&nbsp;<span><span>Concludi l'ordine</span></span></button>
+					</div>
+				</td>
+			</tr>
+			</table>
+			</form>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- end main-content-padding -->
+		</div>
+		<!-- end main-content -->
+		<!-- start categories -->
+		<?php //echo $this->getPartial('shared/BoxUserData');?>
+		<!-- end categories -->
+	</div>
+	<!-- end content-container -->
+	<div class="clear"></div>
+</div>
+<!-- end page-content -->
+

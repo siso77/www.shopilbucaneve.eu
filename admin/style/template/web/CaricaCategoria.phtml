@@ -1,0 +1,32 @@
+<?php $_tplvar = $this->getVars();?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+<?php if(!empty($_tplvar['data']['id']))?>
+	<input type="hidden" name="id" value="<?php echo $_tplvar['data']['id']?>">
+
+	Categoria <input type="text" name="name" value="<?php echo $_tplvar['data']['name']?>">
+	<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/it.jpg" width="30" height="18">
+
+	Descrizione <textarea name="description" rows="5" cols="40"><?php echo $_tplvar['data']['description']?></textarea>
+	<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/it.jpg" width="30" height="18">
+<br><br>
+<!-- 
+	Categoria <input type="text" name="name_en" value="<?php echo $_tplvar['data']['name_en']?>">
+	<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/en.jpg" width="30" height="18">
+
+	Descrizione <textarea name="description_en" rows="5" cols="40"><?php echo $_tplvar['data']['description_en']?></textarea>
+	<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/en.jpg" width="30" height="18">
+	<br><br>
+	Categoria Madre <select name="parent_id">
+					<option value="0"> Root </option>
+					
+					<?php foreach ($_tplvar['root_category'] as $value):?>
+					<option value="<?php echo $value['id']?>" <?php if($_tplvar['data']['parent_id'] == $value['id']):?>selected="selected"<?php endif;?>><?php echo $value['name']?></option>
+					<?php endforeach;?>
+				</select>
+ -->
+<br><br>
+	<input type="submit" name="save" value="Salva">
+	<input type="button" class="submit" name="new" value="Nuova Categoria" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>'">
+	<input type="reset" class="submit" name="cancel" value="Cancella">
+</form>
+<br><br><br><br><br><br>

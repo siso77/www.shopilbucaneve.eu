@@ -1,0 +1,27 @@
+<?php $_tplvar = $this->getVars();?>
+<?php 
+$exp = explode('&', $_SERVER['QUERY_STRING']);
+foreach ($exp as $c => $v)
+{
+	if(stristr($v, 'rowForPage'))
+		unset($exp[$c]);
+}
+$_SERVER['QUERY_STRING'] = implode('&', $exp);
+?>
+		<select name="row_for_page" id="row_for_page" onchange="javascript:changeRowForPage('row_for_page', '<?php echo $_tplvar['WWW_ROOT'].'?'.$_SERVER['QUERY_STRING'];?>');">
+			<option value="8" <?php if($_SESSION[$_REQUEST['act']]['rowForPage'] == 8):?> selected="selected"<?php endif;?>>8</option>
+			<option value="12" <?php if($_SESSION[$_REQUEST['act']]['rowForPage'] == 12):?> selected="selected"<?php endif;?>>12</option>
+			<option value="20" <?php if($_SESSION[$_REQUEST['act']]['rowForPage'] == 21):?> selected="selected"<?php endif;?>>21</option>
+			<option value="32" <?php if($_SESSION[$_REQUEST['act']]['rowForPage'] == 32):?> selected="selected"<?php endif;?>>32</option>
+			<option value="52" <?php if($_SESSION[$_REQUEST['act']]['rowForPage'] == 52):?> selected="selected"<?php endif;?>>52</option>
+			<option value="100" <?php if($_SESSION[$_REQUEST['act']]['rowForPage'] == 100):?> selected="selected"<?php endif;?>>100</option>
+		</select>
+
+		<script type="text/javascript">
+		function changeRowForPage(id, prefixUrl)
+		{
+			var selObj = document.getElementById(id);
+			var url = prefixUrl+'&rowForPage='+selObj.options[selObj.selectedIndex].value;
+			document.location.href = url;
+		}
+		</script>

@@ -1,0 +1,218 @@
+<?php  
+$_tplvar = $this->getVars();
+?>
+<?php $this->getIntlPartial('Index');?>
+							
+							<?php
+							if(!empty($_tplvar['search']['colore']))
+					    		$url .= '&colore='.$_tplvar['search']['colore'];
+							if(!empty($_tplvar['search']['tipo_colore']))
+					    		$url .= '&tipo_colore='.$_tplvar['search']['tipo_colore'];
+							if(!empty($_tplvar['search']['gm']))
+					    		$url .= '&gm='.$_tplvar['search']['gm'];
+							if(!empty($_tplvar['search']['famiglia']))
+					    		$url .= '&famiglia='.$_tplvar['search']['famiglia'];
+							if(!empty($_tplvar['search']['name']))
+					    		$url .= '&name='.$_tplvar['search']['name'];
+							if(!empty($_tplvar['search']['price_from']))
+					    		$url .= '&price_from='.$_tplvar['search']['price_from'];
+							if(!empty($_tplvar['search']['price_to']))
+					    		$url .= '&price_to='.$_tplvar['search']['price_to'];
+
+							if(!empty($_REQUEST['order_by']))
+								$url .= '&order_by='.$_REQUEST['order_by'];
+							if(!empty($_REQUEST['order_type']))
+								$url .= '&order_type='.$_REQUEST['order_type'];
+
+							if(!empty($_tplvar['only_disp']))
+					    		$url .= '&only_disp=1';
+							if(!empty($_tplvar['all_disp']))
+					    		$url .= '&all_disp=1';
+
+					    	$url .= '&search=1';
+					    	$assign['keys_search'] = $url;
+					    	?>							
+							<?php if($assign['show_switch_layout']):?>
+							<div class="toolbar-bottom">
+								<div class="toolbar">
+								    <div class="sorter">
+						                <p class="view-mode">
+ 
+											<a href="javascript:void(0);" title="Griglia" class="grid" onclick="javascript:switchLayout('<?php echo $assign['url'].$url?>', 'thumb');" 
+											<?php if(stristr($_SERVER['HTTP_USER_AGENT'],'MSIE 8') || stristr($_SERVER['HTTP_USER_AGENT'],'MSIE 7')):?>
+											style="top:0px"
+											<?php endif;?>
+											>
+								                <?php if($_SESSION['SearchFornitoriDe']['layout'] == 'thumb'):?>
+												<strong title="Lista" class="grid">
+								                <?php endif;?>
+													<span class="grid">Griglia</span>
+								                <?php if($_SESSION['SearchFornitoriDe']['layout'] == 'thumb'):?>
+												</strong>
+								                <?php endif;?>
+											</a>&nbsp;
+											
+											<a href="javascript:void(0);" title="Lista" class="list" onclick="javascript:switchLayout('<?php echo $assign['url']?>', 'boxed');"
+											<?php if(stristr($_SERVER['HTTP_USER_AGENT'],'MSIE 7')):?>
+											style="top:-18px"
+											<?php endif;?>>
+								                <?php if($_SESSION['SearchFornitoriDe']['layout'] == 'boxed'):?>
+												<strong title="Lista" class="list">
+								                <?php endif;?>
+													<span>Lista</span>
+								                <?php if($_SESSION['SearchFornitoriDe']['layout'] == 'boxed'):?>
+												</strong>
+								                <?php endif;?>
+											</a>&nbsp;
+
+											<a href="javascript:void(0);" title="Lista" class="grid-list" onclick="javascript:switchLayout('<?php echo $assign['url']?>', 'grid');"
+											<?php if(stristr($_SERVER['HTTP_USER_AGENT'],'MSIE 7')):?>
+											style="top:-18px"
+											<?php endif;?>>
+								                <?php if($_SESSION['SearchFornitoriDe']['layout'] == 'grid' || empty($_SESSION['SearchFornitoriDe']['layout'])):?>
+												<strong title="Lista" class="grid-list">
+								                <?php endif;?>
+													<span class="grid">Griglia</span>
+								                <?php if($_SESSION['SearchFornitoriDe']['layout'] == 'grid' || empty($_SESSION['SearchFornitoriDe']['layout'])):?>
+												</strong>
+								                <?php endif;?>
+											</a>&nbsp;
+											
+										</p>
+										
+										<div style="padding:5px;">
+											<?php if(!empty($_SESSION['LoggedUser']) && $_SESSION['LoggedUser']['id_type'] == 1):?>
+												<div class="cella-toolbar<?php if($_tplvar['all_disp'] || (empty($_tplvar['all_disp']) && empty($_tplvar['only_disp'])) ):?>-active<?php endif;?>">
+													<strong><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Search&all_disp=1" style="color:#fff;">Listino Gardesana</a></strong>
+											  	</div>
+											  	&nbsp;&nbsp;Visualizza Listini Fornitori Esteri
+											 <?php endif;?>
+											  	<?php if(TPL_DISPLAY_FORNITORI):?>
+											  	<div class="cella-toolbar<?php if($_REQUEST['act'] == 'SearchFornitori'):?>-active<?php endif;?>" style="margin-left:7px">
+													<strong>
+														<a href="javascript:void(0);" style="color:#fff;margin-left:3px;text-decoration:none;" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=SearchFornitori&for=1';">
+															<img src="<?php echo $_tplvar['WWW_ROOT']?>img/web/netherlands_icon.png" width="25">
+														</a>
+													</strong>
+											  	</div>
+											  	<div class="cella-toolbar<?php if($_REQUEST['act'] == 'SearchFornitoriDe'):?>-active<?php endif;?>" style="margin-left:7px">
+													<strong>
+														<a href="javascript:void(0);" style="color:#fff;text-decoration:none;" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=SearchFornitoriDe';">
+															<img src="<?php echo $_tplvar['WWW_ROOT']?>img/web/germany_icon.png" width="25">&nbsp;
+															<img src="<?php echo $_tplvar['WWW_ROOT']?>img/web/denmark_icon.png" width="25">
+														</a>
+													</strong>
+											  	</div>
+											  	<?php endif;?>
+											  	<?php if(TPL_DISPLAY_VAI_CARRELLO):?>
+											  	&nbsp;
+												<div class="cella-toolbar" style="margin-left:390px">
+													<strong><a href="javascript:void(0);" style="color:#fff;" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart';">Vai al Carrello</a></strong>
+											  	</div>
+												<?php endif;?>
+										</div>										
+										<br>
+										<div class="sort-by">
+											<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=SearchFornitoriDe" method="post" id="filter-data">
+												<input type="hidden" name="go_search" value="1">
+												<table <?php if(stristr($_SERVER['HTTP_USER_AGENT'],'MSIE 7')):?>style="padding-left:0px;margin-left:-45px;"<?php endif;?>>
+												<tr>
+													<td style="padding:5px">
+														<input type="text" name="key_search" style="background-color:#fff;font-size:12px;width:165px;" value="<?php if(!empty($_tplvar['key_search'])): echo $_tplvar['key_search']; else: echo 'Cerca...'; endif;?>" onclick="javascript:this.value = '';" onblur="javascript:if(this.value == '') this.value = 'Cerca...';">
+													</td>
+													
+													<td style="padding:5px">
+														<select name="stato" id="stato" style="font-size:12px;width:auto;">
+															<option value="empty">Categoria</option>
+															<?php foreach ($_tplvar['cmb_gm_fornitori'] as $value):?>
+																<?php if(!empty($value['stato'])):?>
+																	<option value="<?php echo $value['stato']?>" <?php if($_tplvar['search']['stato'] == $value['stato']):?>selected="selected"<?php endif;?>><?php echo $value['stato']?></option>
+																<?php endif;?>
+															<?php endforeach;?>
+														</select>
+													</td>
+													
+													<td style="padding:5px">
+													<?php 
+// 													$_SERVER['HTTP_USER_AGENT'] = 'MSIE 8';
+													?>
+														<?php if(!empty($_SESSION['LoggedUser']['id'])):?>
+																<input type="hidden" name="price_from" id="price_from" value="<?php echo $_tplvar['search']['price_from']?>">
+																<input type="hidden" name="price_to" id="price_to" value="<?php echo $_tplvar['search']['price_to']?>">
+																<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+																<script src="<?php echo $_tplvar['WWW_ROOT']?>javascript/jQuery/jqueryui/1.8/jquery-ui.min.js"></script>
+																<style type="text/css">
+																	#slider { margin: 5px;width:100px; }
+																</style>
+																<script>
+																jQuery(document).ready(function() {
+																	jQuery("#slider").slider({
+																		      range: true,
+																		      min: <?php echo $_tplvar['default_price_from']?>,
+																		      max: <?php echo $_tplvar['default_price_to']?>,
+																		      values: [ <?php echo (empty($_tplvar['search']['price_from'])) ?  $_tplvar['default_price_from'] :  $_tplvar['search']['price_from']?>, 
+																		      <?php echo (empty($_tplvar['search']['price_to'])) ?  $_tplvar['default_price_to'] :  $_tplvar['search']['price_to']?> ],
+																		      slide: function( event, ui ) { jQuery( "#slider-amount" ).html( "Prezzo da € " + ui.values[ 0 ] + " a € " + ui.values[ 1 ] ); },
+																		      stop: function(event, ui) { 
+																		    	  jQuery("#price_from").val(ui.values[ 0 ]);
+																		    	  jQuery("#price_to").val(ui.values[ 1 ]);
+																			  }
+																	});
+																});
+																</script>
+																<table width="100%">
+																<tr>
+																	<td style="" nowrap="nowrap">
+																		<div id="slider-amount">Prezzo da &euro; <?php echo (empty($_tplvar['search']['price_from'])) ?  $_tplvar['default_price_from'] :  $_tplvar['search']['price_from']?> a € <?php echo (empty($_tplvar['search']['price_to'])) ?  $_tplvar['default_price_to'] :  $_tplvar['search']['price_to']?></div>
+																	</td>
+																	<td style="padding-left:5px"><div id="slider"></div></td>
+																</tr>
+																</table>
+														<?php endif;?>
+														<td style="padding-left:25px">
+															<div class="cella-toolbar">
+																<strong><a href="javascript:void(0);" style="color:#fff;" onclick="javascript:goSearchForm();">Filtra</a></strong>
+														  	</div>&nbsp;
+														</td>
+														<td style="padding-left:5px;">
+															<div class="cella-toolbar">
+																<strong><a href="javascript:void(0);" style="color:#fff;" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=SearchFornitoriDe&reset=1';">Reset</a></strong>
+														  	</div>
+														</td>
+													</td>
+												</tr>
+												</table>
+											</form>
+										</div>
+						    		</div>
+								</div>
+								<script type="text/javascript">
+								function goSearchForm()
+								{
+									jQuery('#filter-data').submit();
+								}
+								
+								if(!jQuery('.toolbar .pager .pages').length) {
+									  jQuery('.toolbar .pager').addClass('no-pager');
+								  }	  
+								if(navigator.userAgent.indexOf('IE 7')!=-1){
+									jQuery('.sorter .view-mode .list').addClass('ie7-fix');
+								}	  
+								</script>
+							</div>
+							<?php endif;?>
+
+							<?php if($assign['show_paging']):?>
+							<div class="toolbar-bottom">
+								<div class="toolbar">
+								    <div class="sorter">
+						                <p class="view-mode">
+						                
+										</p>
+										<div class="sort-by">
+										</div>
+						    		</div>
+									<?php echo $this->getPartial('shared/Paging', $assign);?>
+								</div>
+							</div>				
+							<?php endif;?>			

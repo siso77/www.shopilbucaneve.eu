@@ -1,0 +1,3 @@
+Cufon.replace('#nav li a.level-top, #menu-wide #nav ul li.parent > a, .header .top-cart .block-title a span, .search-block-title span, .page-title h1, .page-title h2, .products-grid.grid-small-second li.item .product-name a, button.button span span, #slides .product-name a, #slides .desc, #slides .price-box .price, .col-main .product-shop .product-name a, .block-tags .actions a, .product-shop-left-col .price-box .price, .custom-text h3', {
+  fontFamily: 'Helvetica'
+});

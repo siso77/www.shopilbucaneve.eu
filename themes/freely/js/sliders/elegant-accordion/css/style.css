@@ -1,0 +1,79 @@
+
+ul.accordion li {
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+
+.elegant-slider {
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+    margin: 0 auto 2em;
+    overflow: hidden;
+    position: relative;
+}
+.accordion {
+    background: none repeat scroll 0 0 #FFFFFF;
+    clear: both;
+    list-style: none outside none;
+    margin: 0;
+    overflow: hidden;
+}
+.accordion li {
+    background-color: #FFFFFF;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 415px;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.accordion .accordion_caption {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	position: absolute;
+    bottom: 70px;
+    left: 0;
+    opacity: 0;
+	background-color: rgba(0,0,0,.9);
+    padding: 15px 45px 15px 45px !important;
+}
+
+.ie7 .accordion .accordion_caption,
+.ie8 .accordion .accordion_caption {
+	background: url("../images/pattern.png") repeat scroll 0 0 transparent;
+}
+
+
+.accordion div h3 {
+    background: none repeat scroll 0 0 transparent;
+    color: #fff;
+    font-size: 1.833em;
+    font-weight: 100;
+    margin-bottom: 0.2em;
+    opacity: 1;
+    padding: 0;
+    text-align: left;
+}
+.accordion div p {
+    color: #BBBBBB;
+    font-weight: normal;
+    letter-spacing: normal;
+    text-transform: none;
+}
+.accordion div a {
+    color: #85B602;
+    font-style: normal;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.accordion div a:hover {
+    text-decoration: underline;
+}

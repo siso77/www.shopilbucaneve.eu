@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<title>Form: onItemClick event</title>
+	</head>
+	<body>
+
+
+		<script type="text/javascript" charset="utf-8">
+		
+		
+		var ui = dhx.ui({
+
+			cols:[
+							
+                { 	view:"form", id:"myform",scroll:true, width:320, elements:[
+                    { view:"textarea", id:'field_ta', label: "Type here", labelWidth: 100},
+                    { view:"text", name:"field_a", id:'field_a', label: 'from', value: "Moscow", position: "label-left",labelWidth: 100},
+                    { view:"text", name:"field_b", id:'field_b', sameLine:true, label: 'to', value: "Guatemala", position: "label-left", labelWidth: 100},
+                    { view:"counter", name:"field_c", id:'field_c', label: 'passengers 12+', step: 1, value: 1, min: 1, max: 20, labelWidth: 130, position: "label-left", labelAlign: "left"},
+
+                    { view:"richselect", name: "field_e", id:'field_e', label: 'Type', value: "1", yCount:"3", data:[
+                            { id:"1", value:"One"   },
+                            { id:"2", value:"Two"   },
+                            { id:"3", value:"Three" }
+                        ]},
+                    { view:"combo", name: "field_m", id:'field_m', label: 'Combo', value:"1", yCount:"3", data:[
+                            { id:"1", value:"One"   },
+                            { id:"2", value:"Two"   },
+                            { id:"3", value:"Three" }
+                        ]},
+                    { view:"datepicker", name: "field_f", label: 'Date', id:'calendar',date:new Date(2010,7,10)},
+
+                    { view:"toggle", name: "field_g", id:'field_g', options: ["Roundtrip","Oneway"], values: ["left", "right"], align: "right" ,position:"label-left"},
+
+                    { view:"radio", height:80, name:"field_i", id:'field_i', labelWidth:250, labelAlign: "left",value:"2", options:[
+                        { label:"only direct flights", value: "1" },
+                        { label:"any flights", value: "2" }
+                    ] },
+                    { type:"clean",
+                        cols:[
+                            { view:"checkbox", align:"right",  name: "field_j", id:'field_j', label:"find hotels", position:"label-left",labelWidth: 100, value: 1},
+                            { view:"checkbox", align:"right", name: "field_k", id:'field_k', label:"find car here", labelWidth: 100, position: "label-left"}
+                        ]
+                    },
+                    { view:"button", type:"form", name: "field_d", id:'field_d', label: 'Find flight', align:"center", align:"center" }
+                ]},
+                { template:"<div id='actions' style='width:100%; height:100%;margin-left:150px'></div>" }
+			]
+		});
+            
+        $$("myform").attachEvent("onitemclick",function(){
+            log("onitemclick",arguments)
+        });
+        function log(ev,args){
+            var message=ev;
+            var div="<div>";
+            message+='<ul style="padding:0 0 0 22px;margin:0;font:italic 60% verdana">';
+            for (var i=0; i < args.length; i++) {
+                message+="<li>"+args[i];
+            }
+            message+='</ul><br>';
+            div+=message+"</div";
+            document.getElementById('actions').innerHTML=div+document.getElementById('actions').innerHTML;
+        }
+		</script>
+	</body>
+</html>

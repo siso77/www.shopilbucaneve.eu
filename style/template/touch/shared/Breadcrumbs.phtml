@@ -1,0 +1,39 @@
+<?php $_tplvar = $this->getVars();?>
+<?php 
+if($_REQUEST['act'] == 'MyAccount')
+	$breadcrumbs = 'My Account';
+if($_REQUEST['act'] == 'Search')
+	$breadcrumbs = 'Magazzino Online';
+if($_REQUEST['act'] == 'Login')
+	$breadcrumbs = 'Login';
+if($_REQUEST['act'] == 'CreateAccount')
+	$breadcrumbs = 'Registrazione Utente';
+if($_REQUEST['act'] == 'ShoppingCart')
+	$breadcrumbs = 'Il tuo carrello';
+if($_REQUEST['act'] == 'CheckoutShopping')
+	$breadcrumbs = 'Dati per la Fatturazione/Spedizione';
+if($_REQUEST['act'] == 'CheckoutPayment')
+	$breadcrumbs = 'Esito Ordine';
+if($_REQUEST['act'] == 'Orders')
+	$breadcrumbs = 'I miei ordini';
+?>
+	                	<!-- Begin Breadcrumbs -->
+				  		<div class="breadcrumbs">
+							<ul>
+								<li class="home">
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>" title="Home Page">Home</a><span>&nbsp;</span>
+								</li>
+								<!--<li class="category8">-->
+								<!--<a href="/" title=""></a><span>&nbsp;</span>-->
+								<!--</li>-->
+								<li class="category9">
+									<strong><?php echo $breadcrumbs?></strong>
+								</li>
+							</ul>
+						</div>
+	                	<!-- Begin Breadcrumbs -->
+
+	                    <div class="page-title category-title">
+        					<h1><?php echo $breadcrumbs?></h1>
+						</div>
+	                	

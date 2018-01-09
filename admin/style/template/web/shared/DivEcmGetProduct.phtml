@@ -1,0 +1,113 @@
+<?php $_tplvar = $this->getVars();?>
+
+
+<?php if(!empty($_tplvar['user_data'])):?>
+	<table style="width:900px;">
+	<tr>
+		<td colspan="10" valign="top" align="center" style="font-size:22px">Dettaglio Cliente</td>
+	</tr>
+	<tr>
+		<td>Nome</td>
+		<td>Cognome</td>
+		<td>Email</td>
+		<td>Indirizzo</td>
+		<td>Citt&aacute;</td>
+		<td>Provincia</td>
+		<td>Cap</td>
+		<td>Telefono</td>
+		<td>Cellulare</td>
+		<td>Sesso</td>
+	</tr>
+	<tr>
+		<td><?php echo $_tplvar['user_data']['name']?></td>
+		<td><?php echo $_tplvar['user_data']['surname']?></td>
+		<td><?php echo $_tplvar['user_data']['email']?></td>
+		<td><?php echo $_tplvar['user_data']['address']?></td>
+		<td><?php echo $_tplvar['user_data']['city']?></td>
+		<td><?php echo $_tplvar['user_data']['province']?></td>
+		<td><?php echo $_tplvar['user_data']['cap']?></td>
+		<td><?php echo $_tplvar['user_data']['phone']?></td>
+		<td><?php echo $_tplvar['user_data']['mobile']?></td>
+		<td><?php echo $_tplvar['user_data']['sex']?></td>
+	</tr>
+	</table>
+			
+<?php endif;?>
+<?php if(!empty($_tplvar['data'])):?>
+	<table style="width:490px;vertical-align: top;">
+	<tr>
+		<td colspan="2" valign="top" align="center" style="font-size:22px">Dettaglio Prodotti Acquistati</td>
+	</tr>
+	<?php foreach($_tplvar['data'] as $value):?>
+	<tr> 
+		<td>CODICE</td>
+		<td><?php echo $value['magazzino']['bar_code']?></td>
+	</tr>
+	<tr>
+		<td>QUANTITA'</td>
+		<td><?php echo $value['quantita']?>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>PREZZO</td>
+		<td><?php echo $this->getFormatPrice($value['magazzino']['price_it'])?>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>PREZZO SCONTATO</td>
+		<td><?php echo $this->getFormatPrice($value['magazzino']['price_discounted_it'])?>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>IMPORTO PAGATO</td>
+		<td><?php echo $this->getFormatPrice($value['importo'])?>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>CATEGORIA</td>
+		<td><?php echo $value['content']['name']?>&nbsp;</td>
+	</tr>
+	<!--<tr>
+		<td>FORNITORE</td>
+		<td><?php echo $value['magazzino']['fornitore']?>&nbsp;</td>
+	</tr>
+	--><tr>
+		<td>MISURA</td>
+		<td><?php echo $value['magazzino']['size']?></td>
+	</tr>
+	<tr>
+		<td>COLORE</td>
+		<td><?php echo $value['magazzino']['color']?></td>
+	</tr>
+	<!--<tr>
+		<td nowrap="nowrap">COLORE 2</td>
+		<td><?php echo $this->getColorFromIdContent($value['magazzino']['id_color_2'])?></td>
+	</tr>
+	<tr>
+		<td nowrap="nowrap">COLORE 3</td>
+		<td><?php echo $this->getColorFromIdContent($value['magazzino']['id_color_3'])?></td>
+	</tr>
+	<tr>
+		<td>PERCENTUALE SCONTO</td>
+		<td><?php echo $value['content']['content_percent_sconto']?>%</td>
+	</tr>
+	<tr>
+		<td>DDT</td>
+		<td><?php echo str_replace('|', ' / ', $value['magazzino']['ddt'])?></td>
+	</tr>
+	<tr>
+		<td>FATT. CARICO</td>
+		<td><?php echo str_replace('|', ' / ', $value['magazzino']['fattura_carico'])?></td>
+	</tr>
+	<tr>
+	</tr>
+	<tr>
+		<td>PREZZO D'ACQUISTO</td>
+		<td><?php echo $value['magazzino']['prezzo_acquisto']?></td>
+	</tr>
+	
+	<tr>
+		<td colspan="2" style="border:1px solid #fff;vertical-align: bottom;">
+			<?php echo $this->getImageFromIdContent($value['content']['id_content'], 'Large_')?>		
+		</td>
+	</tr>
+	-->
+	<?php endforeach;?>
+</table>
+<?php endif;?>

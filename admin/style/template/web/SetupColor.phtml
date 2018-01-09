@@ -1,0 +1,57 @@
+<?php $_tplvar = $this->getVars();?>
+
+
+					<table cellspacing="10" cellpadding="0">
+						<tr>
+							<td width="100">
+							<?php
+							foreach ($_tplvar['header_list'] as $key => $value)
+							{
+								foreach ($value as $k => $val)
+								{
+									if($key == 0 && $k != 'id' && $k != 'local_path' && $k != 'www_path' && $k != 'id_color' && $k != 'name')
+									{
+										$KEY_TO_DISPLAY = $k;
+										$assign['key_session'] = $_tplvar['action_class_name'];
+										$assign['order_by'] = $k;
+										$assign['action'] = $_tplvar['action_class_name'];
+										$assign['field_name'] = strtoupper($k);							
+										$this->getPartial('shared/SortField', $assign);
+									}
+								}
+							}
+							?>
+							</td>
+							<td width="100">IMMAGINE</td>
+                           <td width="100">MODIFICA</td>
+                           <td width="100">CANCELLA</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>
+					<tr>
+						<td><?php echo $value[$KEY_TO_DISPLAY]?>&nbsp;</td>
+						<?php if(!empty($value['name'])):?>
+						<td><img src="<?php echo $value['www_path'].'/Small_'.$value['name']?>" border="0"></td>
+						<?php else:?>
+						<td>NO IMAGE</td>
+						<?php endif;?>
+						<td><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupNewColor&edit=1&id=<?php echo $value['id']?>">MODIFICA</a></td>
+						<td><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupColor&delete=1&id=<?php echo $value['id']?>">CANCELLA</a></td>
+					</tr>
+					<?php endforeach;?>						
+				</table>
+				
+                <!-- Page Navigation -->
+                <?php
+                if(!empty($_REQUEST['order_by'])) 
+                	$assign['params'] = '&order_by='.$_REQUEST['order_by'];
+                if(!empty($_REQUEST['order_type'])) 
+                	$assign['params'] .= '&order_type='.$_REQUEST['order_type'];
+                	?>
+				<?php echo $this->getPartial('shared/Paging', $assign);?>
+				<!-- /Page Navigation -->
+                
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+				

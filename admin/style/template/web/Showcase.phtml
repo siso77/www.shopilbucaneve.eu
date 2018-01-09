@@ -1,0 +1,191 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+
+<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.2.js" ></script>
+<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-ui-1.7.2.custom.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/darag_drop_style.css" />
+<style>
+.crop{
+    float:left;
+    margin:.1em 2px .1em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:100px;
+    height:80px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+
+
+<script type="text/javascript" >
+$(function(){
+	$('.dragbox')
+	.each(function(){
+		$(this).hover(function(){
+			//$(this).find('h2').addClass('collapse');
+		}, function(){
+			$(this).find('h2').removeClass('collapse');
+		})
+		.find('h2').hover(function(){
+			$(this).find('.configure').css('visibility', 'visible');
+		}, function(){
+			$(this).find('.configure').css('visibility', 'hidden');
+		})
+		.click(function(){
+			//$(this).siblings('.dragbox-content').toggle();
+		})
+		.end()
+		.find('.configure').css('visibility', 'hidden');
+	});
+
+
+	
+	$('.column').sortable({
+		connectWith: '.column',
+		handle: 'h2',
+		cursor: 'move',
+		placeholder: 'placeholder',
+		forcePlaceholderSize: true,
+		opacity: 0.4,
+
+		revert: true,
+		
+		stop: function(event, ui){
+		
+			$(ui.item).find('h2').click();
+//			var sortorder='';
+
+			var param = '';
+			$(".dragbox").each(function(){
+				var content_id=$(this).attr('content_id');
+				if(content_id != '')
+					param += 'id_content[]='+content_id+'&';
+			});
+			param = param.substring(0,param.length-1);
+
+			$.ajax({
+				  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetShowcase',
+				  type: 'POST',
+				  dataType: 'html',
+				  data: param,
+				  success: function(html){
+					  $('#result').html(html);					  
+				  }
+				});	
+			
+			
+//			$('.column').each(function(){
+//				var itemorder=$(this).sortable('toArray');
+//				var columnId=$(this).attr('id');
+//				sortorder+=columnId+'='+itemorder.toString()+'&';
+//			});
+			
+		}
+	})
+	.disableSelection();
+});
+</script>
+	<div id="result"></div>
+	<div id="list_content" style="display:block;position:absolute;z-index:1000;background-color:#000000;"></div>
+<?php foreach ($_tplvar['data'] as $k => $products):?>
+
+	<h5>
+		<?php if($k == 'CURA DEL CORPO '):?>
+			OFFERTE
+		<?php else:?>
+			<?php echo $k;?>
+		<?php endif;?>
+	</h5>
+
+	<br><br>
+	<h5>
+		<span class="configure" >
+			<a href="#" onclick="
+				document.getElementById('fade').style.display='block';
+
+				$.ajax({
+					  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxListContent',
+					  type: 'POST',
+					  dataType: 'html',
+					  data: '&parent_id=<?php echo $products['parent_id']?>',
+					  success: function(html){
+					  
+						document.getElementById('fade').style.display='none';
+						$('#list_content').html(html);
+					  }
+					});">Aggiungi Nuovo Contenuto</a>
+		</span>
+	</h5>
+	<br><br>
+<?php unset($products['parent_id'])?>
+
+	<?php 
+	$prodXConteiner = ceil((count($products)/4));
+	$index = 1;
+	$columnIndex = 1;
+	$counterConteiner = 0;
+	foreach ($products as $key => $value):
+	?>
+	<?php if($key == 0):?>
+	<div class="column" id="column<?php echo $columnIndex?>">
+	<?php endif;?>
+	<?php 
+	if($prodXConteiner == $counterConteiner):
+		$columnIndex++;
+		$counterConteiner = 0;
+	?>
+	</div>
+	<div class="column" id="column<?php echo $columnIndex?>">
+	<?php endif;?>
+		<div class="dragbox" id="item<?php echo $value['id_content']?>" content_id="<?php echo $value['id_content']?>" >
+			<h2>
+				<span class="configure" >
+					<a href="javascript:void(0);" onclick="
+						document.getElementById('fade').style.display = 'block';
+						$.ajax({
+							  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetShowcase',
+							  type: 'POST',
+							  dataType: 'html',
+							  data: '&remove=1&id_content=<?php echo $value['id_content']?>',
+							  success: function(html){
+									document.getElementById('fade').style.display = 'none';
+								  $('#item<?php echo $value['id_content']?>').hide();
+							  }
+							});">Rimuovi</a>
+				</span>
+				Box <?php echo $index;?>
+			</h2>
+			<div class="dragbox-content" >
+				<p class="crop">
+				<?php 
+					$src = $this->getImagePathFromIdContent($value['id_content'], 'Large_');
+					if(!empty($src)):?>
+						<img src="<?php echo $src;?>" width="100">
+					<?php endif;?>
+				</p>
+ 				<?php echo $value['name_it']?>			
+ 				</div>
+		</div>
+	<?php $index++;?>
+	<?php $counterConteiner++;?>
+	<?php endforeach;?>
+	</div>
+	
+	<?php 
+	$columnIndexTmp = $index;
+	for ($i=$index;$i <=4;$i++):
+		$columnIndexTmp++;
+	?>
+	<div id="column<?php echo $columnIndexTmp?>" class="column">
+	</div>
+	<?php endfor;?>
+	<hr style="clear:both;" />
+
+<?php endforeach;?>
+	<hr style="clear:both;" />

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+	<title>Toolbar: in window</title>
+</head>
+<body>
+	<script>
+		dhx.ui({
+			view:"window",
+			body:"MainBar",
+			head:{
+				view:"toolbar", type:"MainBar", elements:[
+					{view:"label", label: "Backpackr", align:'left'},
+                    {view:"imagebutton", id:"input_id", src: './images/help.png', align: 'right'}
+				]
+			},
+			top:30, left:30
+		});		
+		dhx.ui({
+			view:"window",
+			body:"MainBar",
+			head:{
+				view:"toolbar", type:"MainBar", elements:[
+					{ view:"label", label: "Backpackr", align:'left'},
+					{ view:'button', label: 'Save', align: 'right'}
+				]
+			},
+			top:30, left:400
+		});			
+	
+		
+		dhx.ui({
+			view:"window",
+			body:"SubBar",
+			head:{
+				view:"toolbar", type:"SubBar", elements:[
+					{view:"label", label: "Equipment Hire", width:200, align:"left"},
+					{view:"imagebutton", id:"input_id", src: './images/help.png', align: 'right'}
+				]
+			},
+			top:265, left:30
+		});		
+		dhx.ui({
+			view:"window",
+			body:"SubBar",
+			head:{
+				view:"toolbar", type:"SubBar", elements:[
+					{view:"segmented", id:"tabs", options:[
+							{value:"tab_a", label:"Section A"},{value:"tab_b", label:"Section B"},{value:"tab_c", label:"Section C"}
+					]},
+				]
+			},
+			top:265, left:400
+		});			
+		dhx.ui({
+			view:"window",
+			body:"SubBar",
+			head:{
+				view:"toolbar", type:"SubBar", elements:[
+					{view:"label", label: "Equipment Hire", width:200, align:"left"},
+					{ view:'button', label: 'Save', align: 'right' }
+				]
+			},
+			top:500, left:30
+		});				
+
+	</script>
+
+</body>
+</html>
+

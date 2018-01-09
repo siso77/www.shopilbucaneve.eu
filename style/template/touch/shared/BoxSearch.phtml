@@ -1,0 +1,71 @@
+<?php $_tplvar = $this->getVars();?>
+<!-- APERTURA FORM DI RICERCA -->
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+	<input type="hidden" name="search" value="1" />
+	<table>
+	<tr>
+		<?php if($assign['show_combo']):?>
+		<td>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+	    	<?php echo $this->getPartial('shared/BoxSelectCategories');?>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+		</td>
+		<?php endif;?>
+		<td><input type="text" value="<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>" name="key_search" id="key_search" style="width:200px;" onblur="javascript:resetField(this, '<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>')" onclick="javascript:swapField(this, 'Cerca la parola chiave')"/></td>
+		<?php if($assign['show_calendar']):?>
+		<!-- INCLUSIONE CALENDARIO -->
+		<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+		<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+		<!-- INCLUSIONE CALENDARIO -->
+		<td>
+		<?php 
+		$dataFrom = $_tplvar['data_from'];
+		$dataTo = $_tplvar['data_to'];
+		if(empty($dataFrom))
+			$dataFrom = date('Y-m-d');
+		if(empty($dataTo))
+			$dataTo = date('Y-m-d');
+		?>
+			Dal&nbsp; <input type="text" id="data_from" class="data_from" name="data_from" value="<?php echo $dataFrom?>" style="width:70px"/>
+			&nbsp;al&nbsp;<input type="text" id="data_to" class="data_to" name="data_to" value="<?php echo $dataTo?>" style="width:70px"/>
+			<script type="text/javascript">
+		    $('#data_from').DatePicker({
+		    	format:'Y-m-d',
+		    	date: $('#data_from').val(),
+		    	current: $('#data_from').val(),
+		    	starts: 1,
+		    	position: 'r',
+		    	onBeforeShow: function(){
+		    		$('#data_from').DatePickerSetDate($('#data_from').val(), true);
+		    	},
+		    	onChange: function(formated, dates){
+		    		$('#data_from').val(formated);
+		    		$('#data_from').DatePickerHide();
+		    	}
+		    });
+		    $('#data_to').DatePicker({
+		    	format:'Y-m-d',
+		    	date: $('#data_to').val(),
+		    	current: $('#data_to').val(),
+		    	starts: 1,
+		    	position: 'r',
+		    	onBeforeShow: function(){
+		    		$('#data_to').DatePickerSetDate($('#data_to').val(), true);
+		    	},
+		    	onChange: function(formated, dates){
+		    		$('#data_to').val(formated);
+		    		$('#data_to').DatePickerHide();
+		    	}
+		    });
+		    </script>
+			<?php endif;?>
+		</td>
+		
+		<td>
+			<input type="submit" class="submit" value="CERCA" />
+			<input type="button" class="submit" value="RESET" onclick="javascript:resetFieldById('key_search', 'Cerca la parola chiave')" />
+		</td>
+	</tr>
+	</table>
+</form>
+<!-- CHIUSURA FORM DI RICERCA -->

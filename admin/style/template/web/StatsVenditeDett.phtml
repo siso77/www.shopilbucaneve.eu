@@ -1,0 +1,162 @@
+<?php
+$_tplvar = $this->getVars();
+$chart = $_tplvar['chart'];
+$chart2 = $_tplvar['chart2'];
+$chart_brands = $_tplvar['chart_brands'];
+$chart_category = $_tplvar['chart_category'];
+?>
+<html>
+<head>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].'libs/ext/open_flash_chart'?>/js/json/json2.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].'libs/ext/open_flash_chart'?>/js/swfobject.js"></script>
+	<script type="text/javascript">
+	swfobject.embedSWF(
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/open-flash-chart.swf", 
+				  "div_chart_1",
+				  "800", 
+				  "500", 
+				  "9.0.0", 
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/expressInstall.swf",
+				  {"get-data":"get_data_1"} 
+			  );
+			 
+	swfobject.embedSWF(
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/open-flash-chart.swf", 
+				  "div_chart_2",
+				  "800", 
+				  "500", 
+				  "9.0.0", 
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/expressInstall.swf",
+				  {"get-data":"get_data_2"} 
+			  );
+	
+	swfobject.embedSWF(
+			  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/open-flash-chart.swf", 
+			  "div_chart_brands",
+			  "1200", 
+			  "600", 
+			  "9.0.0", 
+			  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/expressInstall.swf",
+			  {"get-data":"get_data_brands"} 
+		  );
+	swfobject.embedSWF(
+			  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/open-flash-chart.swf", 
+			  "div_chart_category",
+			  "800", 
+			  "500", 
+			  "9.0.0", 
+			  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/expressInstall.swf",
+			  {"get-data":"get_data_category"} 
+		  );
+
+	
+	function ofc_ready() {}	 
+
+	function get_data_1() { return JSON.stringify(data_1); }
+
+	function get_data_2() { return JSON.stringify(data_2); }
+
+	function get_data_brands() { return JSON.stringify(data_brands); }
+	
+	function get_data_category() { return JSON.stringify(data_category); }
+	
+	function findSWF(movieName) {
+	  if (navigator.appName.indexOf("Microsoft")!= -1) {
+	    return window[movieName];
+	  } else {
+	    return document[movieName];
+	  }
+	}
+
+	var data_1 = <?php echo $chart->toPrettyString(); ?>;
+	var data_2 = <?php echo $chart2->toPrettyString(); ?>;
+	var data_brands = <?php echo $chart_brands->toPrettyString(); ?>;
+	var data_category = <?php echo $chart_category->toPrettyString(); ?>;
+	</script>
+</head>
+<body>
+
+<table width="90%">
+<tr>
+	<td align="center">
+		<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+			<input type="hidden" name="search" value="1" />
+			<table>
+			<tr>
+				<td>
+					<select name="year">
+						<option value="<?php echo date('Y')-3;?>" <?php if($_tplvar['year']== (date('Y')-3)):?>selected="selected"<?php endif;?>><?php echo date('Y')-3;?></option>
+						<option value="<?php echo date('Y')-2;?>" <?php if($_tplvar['year']== (date('Y')-2)):?>selected="selected"<?php endif;?>><?php echo date('Y')-2;?></option>
+						<option value="<?php echo date('Y')-1;?>" <?php if($_tplvar['year']== (date('Y')-1)):?>selected="selected"<?php endif;?>><?php echo date('Y')-1;?></option>
+						<option value="<?php echo date('Y');?>" <?php if($_tplvar['year']== (date('Y'))):?>selected="selected"<?php endif;?>><?php echo date('Y');?></option>
+					</select>
+				</td>
+				
+				<td>
+					<select name="id_brand">
+					<option value="">Marca</option>
+					<?php foreach ($_tplvar['cmb_brand'] as $brand):?>
+						<option value="<?php echo $brand['id']?>" <?php if($_tplvar['id_brand'] == $brand['id']):?>selected="selected"<?php endif;?>><?php echo $brand['name']?></option>
+					<?php endforeach;?>
+					</select>
+				</td>
+				<td>
+					<select name="id_category" id="id_category">
+						<option value="">Categoria</option>
+						<?php foreach($_tplvar['categories'] as $value):?>
+							<option 
+								value="<?php echo $value['id']?>"
+									<?php if($_tplvar['id_category'] == $value['id']):?>
+										selected="selected"
+									<?php endif;?> style="font-weight: bolder;background-color:#E6E6E6">
+							<?php echo $value['name']?></option>
+							<?php if(!empty($value['sub_category'])):?>
+								<?php foreach($value['sub_category'] as $val):?>
+								
+								<option 
+									value="<?php echo $val['id']?>"
+										<?php if($_tplvar['id_category'] == $val['id']):?>
+											selected="selected"
+										<?php endif;?>>	
+										<?php echo $val['name']?></option>				
+								<?php endforeach;?>
+							<?php endif;?>
+							
+						<?php endforeach;?>
+					</select>
+				</td>
+				
+				
+				<td>
+					<select name="operatore">
+					<option value="">Operatore</option>
+					<?php foreach ($_tplvar['users'] as $user):?>
+						<option value="<?php echo $user['username']?>" <?php if($_tplvar['operatore'] == $user['username']):?>selected="selected"<?php endif;?>><?php echo $user['username']?></option>
+					<?php endforeach;?>
+					</select>
+				</td>
+				<td>
+					<input type="submit" class="submit" value="CERCA" />
+					<input type="button" class="submit" value="RESET" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT'].'?act='.$_tplvar['action_class_name']?>&reset=1'" />
+				</td>
+			</tr>		
+			</table>
+		</form>
+	</td>
+</tr>
+<tr>
+	<td align="center"><div id="div_chart_1"></div></td>
+</tr>
+<tr>
+	<td align="center"><div id="div_chart_2"></div></td>
+</tr>
+<tr>
+	<td align="center"><div id="div_chart_category"></div></td>
+</tr>
+<tr>
+	<td align="center"><div id="div_chart_brands"></div></td>
+</tr>
+</table>
+ 
+</body>
+</html>

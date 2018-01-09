@@ -1,0 +1,60 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial($_tplvar['action_class_name']);
+?>
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+<!--MENU TOP-->
+    <?php 
+    $assign['params'] = '&get_ricarichi=1';
+    echo $this->getPartial('shared/BoxSearch', $assign);?>
+<!-- / MENU TOP-->
+				<div id="table-block">
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td>USERNAME WEB SHOP</td>
+							<td>COD.CLIENTE</td>
+                           	<td>CLIENTE</td>
+                           	<td>P.IVA</td>
+                           	<td>EMAIL</td>
+                           	<td>RICARICO FORNITORE 1</td>
+                           	<td>RICARICO FORNITORE 2</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>						
+						<tr>
+							<td><?php echo $value['username']?>&nbsp;</td>
+                            <td><?php echo $value['customer_code']?>&nbsp;</td>
+							<td><?php echo $value['nome']?>&nbsp;<?php echo $value['ragione_sociale']?>&nbsp;</td>
+                            <td><?php echo $value['p_iva']?>&nbsp;</td>
+							<td><?php echo $value['email']?>&nbsp;</td>
+							<td><?php echo $value['sconto_fornitori_nl']?>&nbsp;</td>
+							<td><?php echo $value['sconto_fornitori_de']?>&nbsp;</td>
+						</tr>
+					<?php endforeach;?>						
+					</tbody>
+				</table>
+
+                <!-- Page Navigation -->
+				<?php
+				$assign['params'] = '&get_ricarichi=1';
+				echo $this->getPartial('shared/Paging', $assign);?>
+				<!-- /Page Navigation -->
+                
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+                
+				</div>
+			</div>
+		</div><!-- end page-content -->
+		

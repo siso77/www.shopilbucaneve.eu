@@ -1,0 +1,123 @@
+<?php
+$_tplvar = $this->getVars();
+$this->getIntlPartial('FilterFields');
+?>
+<?php if(!empty($_SESSION['LoggedUser'])):?>
+						<div class="block block-vertical-nav">
+					    	<div class="block-title">
+					    		<strong><span>Filtra</span></strong>
+							</div>
+							<div class="block-content">
+								<ul id="accordion">
+									<li class="level0 nav-1 active level-top first parent">
+								    <form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Search" method="post" id="filter-data">
+
+										<div class="table-filter">
+										
+											<table cellpadding="5">
+											<tr>
+												<td style="padding:5px">TESTO</td>
+												<td style="padding:5px"><input type="text" name="key_search" value="<?php echo $_tplvar['key_search']?>" style="width:105px;"></td>
+											</tr>
+											<tr>
+												<td style="padding:5px">GRUPPO</td>
+												<td style="padding:5px">
+													<select name="gm" id="gm" style="width:110px">
+														<option value="">seleziona</option>
+														<?php foreach ($_tplvar['cmb_gm'] as $value):?>
+														<option value="<?php echo $value['id']?>" <?php if($_tplvar['search']['gm'] == $value['id']):?>selected="selected"<?php endif;?>><?php echo $value['gruppo']?></option>
+														<?php endforeach;?>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td style="padding:5px">COLORE</td>
+												<td style="padding:5px">
+													<select name="colore" id="colore" style="width:110px">
+														<option value="">seleziona</option>
+														<?php foreach ($_tplvar['cmb_colori'] as $value):?>
+														<?php if(!empty($value['value'])):?>
+																<option value="<?php echo $value['value']?>" <?php if($_tplvar['search']['colore'] == $value['value']):?>selected="selected"<?php endif;?>><?php echo $value['value']?></option>
+															<?php endif;?>
+														<?php endforeach;?>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td style="padding:5px">TONALITA'</td>
+												<td style="padding:5px">
+													<select name="tipo_colore" id="tipo_colore" style="width:110px">
+														<option value="">seleziona</option>
+														<?php foreach ($_tplvar['cmb_tipo_colori'] as $value):?>
+														<?php if(!empty($value['value'])):?>
+																<option value="<?php echo $value['value']?>" <?php if($_tplvar['search']['tipo_colore'] == $value['value']):?>selected="selected"<?php endif;?>><?php echo $value['value']?></option>
+															<?php endif;?>
+														<?php endforeach;?>
+													</select>
+												</td>
+											</tr>
+											<!-- 
+											<tr>
+												<td style="padding:5px">DISPONIBILITA'</td>
+												<td style="padding:5px">
+													<select name="disponibilita" id="disponibilita" style="width:110px">
+														<option value="">seleziona</option>
+														<option value="disponibilie">Disponibilie</option>
+														<option value="non_isponibilie">Non Disponibile</option>														
+													</select>
+												</td>
+											</tr>
+											 -->
+											<!-- 
+											<tr>
+												<td style="padding:5px">ARTICOLO</td>
+												<td style="padding:5px">
+													<select name="famiglia" id="famiglia" style="width:110px">
+													<option value="">seleziona</option>
+													<?php foreach ($_tplvar['cmb_famiglie'] as $value):?>
+														<option value="<?php echo $value['famiglia']?>" <?php if($_tplvar['search']['famiglia'] == $value['famiglia']):?>selected="selected"<?php endif;?>><?php echo $value['famiglia']?></option>
+													<?php endforeach;?>
+													</select>
+												</td>
+											</tr>
+ 											-->
+											</table>													
+
+											<div class="actions">
+												<button type="reset" title="Subscribe" class="button" onclick="javascript:resetFilter()"><span><span>Cancella</span></span></button>
+												<button type="submit" title="Subscribe" class="button" onclick="javascript:goSearch()">&nbsp;&nbsp;&nbsp;<span><span>Filtra</span></span></button>
+											</div>
+										</div>
+										</form>
+									</li>
+								</ul>
+							</div>
+						</div>	
+						
+<script type="text/javascript">
+function resetFilter()
+{
+	jQuery.fancybox.showActivity();
+	jQuery("#gm option:selected").each(function () {
+		jQuery(this).attr("selected", false);
+	});
+	jQuery("#colore option:selected").each(function () {
+		jQuery(this).attr("selected", false);
+	});
+
+	jQuery("#tipo_colore option:selected").each(function () {
+		jQuery(this).attr("selected", false);
+	});
+	
+	jQuery("#famiglia option:selected").each(function () {
+		jQuery(this).attr("selected", false);
+	});
+	location.href = '<?php $_tplvar['WWW_ROOT']?>?act=Search&reset=1';
+}
+function goSearch()
+{
+	var form = document.getElementById('filter-data');
+	form.submit();
+}
+</script>
+<?php endif;?>

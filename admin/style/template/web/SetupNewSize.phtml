@@ -1,0 +1,18 @@
+<?php $_tplvar = $this->getVars();?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+<?php if(!empty($_tplvar['data']['id']))?>
+	<input type="hidden" name="id" value="<?php echo $_tplvar['data']['id']?>">
+<br><br>
+	Taglia <input type="text" name="size" value="<?php echo $_tplvar['data']['size']?>">
+	
+	Tipo Taglia <select name="id_size_type">
+					<option value=""> Seleziona </option>
+					<?php foreach ($_tplvar['cmb_size_type'] as $value):?>
+					<option value="<?php echo $value['id']?>" <?php if($_tplvar['data']['id_type'] == $value['id']):?>selected="selected"<?php endif;?>><?php echo $value['type']?></option>
+					<?php endforeach;?>
+				</select>
+	
+<br><br>
+	<input type="submit" name="save" value="Salva">
+	<input type="reset" class="submit" name="cancel" value="Cancella">
+</form>

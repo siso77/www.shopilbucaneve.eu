@@ -1,0 +1,20 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('FilterFields');
+$key_search = $assign['key_session'];
+$order_by = $assign['order_by'];
+$action = $assign['action'];
+$field_name = $assign['field_name'];
+?>
+
+<?php if($_SESSION[$key_search]['order_type'] == 'ASC'):?>
+	<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=<?php echo $action?>&order_by=<?php echo $order_by?>&order_type=DESC" class="order"><?php echo $field_name?></a>
+	<?php if($_SESSION[$key_search]['order_by'] == $order_by):?>
+		<img src="<?php echo $_tplvar['WWW_ROOT']?>css/images/i_desc_arrow.gif" style="width:7px;height:12px;margin-top:3px">
+	<?php endif;?>
+<?php else:?>
+	<a href="<?php echo $_tplvar['WWW_ROOT'];?>?act=<?php echo $action?>&order_by=<?php echo $order_by?>&order_type=ASC" class="order"><?php echo $field_name?></a>
+	<?php if($_SESSION[$key_search]['order_by'] == $order_by):?>
+		<img src="<?php echo $_tplvar['WWW_ROOT']?>css/images/i_asc_arrow.gif" style="width:7px;height:12px;margin-top:3px">
+	<?php endif;?>
+<?php endif;?>

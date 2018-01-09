@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+		 <title>Unitlist</title>
+	</head>
+	<body>
+        <div style="border: 1px solid #ADADAD; width:800px;height:350px;margin:50px;">
+            <div id="listbox" style='width:100%; height:100%;'></div>
+        </div>
+
+		<script type="text/javascript" charset="utf-8">
+            dhx.ready(function(){   
+            	dhx.ui({
+                    container:"listbox",
+    				rows:[
+                        {
+                            view:"toolbar", type:"SubBar",elements:[
+                           
+                            {view:"label",label:"United by Author",align:"center"}
+                            ]
+                        },
+    					{ cols:[	
+    						{
+                                view:"unitlist",
+                                id:"mylist",
+                                url:"books.xml",
+                                datatype:"xml",
+                                select:false,
+                                sort:{
+                                   by:"#author#"
+                                },
+                                uniteBy:function(obj){
+                                    return obj.author.substr(0,1);
+                                },
+                                template:"<div style='float:left'><div class='title'>#title#</div> <div class='author'>#author#</div></div><div class='price'>#cprice# $</div>",
+                                type:{
+                                    height:35
+                                }
+    						}
+    					  ] }
+    				]
+    			});
+				
+         	});			
+		</script>
+	</body>
+</html>

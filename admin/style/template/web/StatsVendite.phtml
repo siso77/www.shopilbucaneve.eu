@@ -1,0 +1,110 @@
+<?php
+$_tplvar = $this->getVars();
+$chart = $_tplvar['chart'];
+$chart2 = $_tplvar['chart2'];
+
+?>
+<html>
+<head>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].'libs/ext/open_flash_chart'?>/js/json/json2.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].'libs/ext/open_flash_chart'?>/js/swfobject.js"></script>
+	<script type="text/javascript">
+	swfobject.embedSWF(
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/open-flash-chart.swf", 
+				  "div_chart_1",
+				  "800", 
+				  "400", 
+				  "9.0.0", 
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/expressInstall.swf",
+				  {"get-data":"get_data_1"} 
+			  );
+			 
+	swfobject.embedSWF(
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/open-flash-chart.swf", 
+				  "div_chart_2",
+				  "800", 
+				  "500", 
+				  "9.0.0", 
+				  "<?php echo $_tplvar['WWW_ROOT']?>libs/ext/open_flash_chart/expressInstall.swf",
+				  {"get-data":"get_data_2"} 
+			  );
+	
+	function ofc_ready() {}	 
+
+	function get_data_1() { return JSON.stringify(data_1); }
+
+	function get_data_2() { return JSON.stringify(data_2); }
+
+	function findSWF(movieName) {
+	  if (navigator.appName.indexOf("Microsoft")!= -1) {
+	    return window[movieName];
+	  } else {
+	    return document[movieName];
+	  }
+	}
+
+	var data_1 = <?php echo $chart->toPrettyString(); ?>;
+	var data_2 = <?php echo $chart2->toPrettyString(); ?>;
+	</script>
+</head>
+<body>
+
+<table width="90%">
+<tr>
+	<td align="center">
+		<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+			<input type="hidden" name="search" value="1" />
+			<table>
+			<tr>
+				<td>
+					<select name="month">
+						<option value="1" <?php if($_tplvar['month']== 1):?>selected="selected"<?php endif;?>>Gennaio</option>
+						<option value="2" <?php if($_tplvar['month']== 2):?>selected="selected"<?php endif;?>>Febbraio</option>
+						<option value="3" <?php if($_tplvar['month']== 3):?>selected="selected"<?php endif;?>>Marzo</option>
+						<option value="4" <?php if($_tplvar['month']== 4):?>selected="selected"<?php endif;?>>Aprile</option>
+						<option value="5" <?php if($_tplvar['month']== 5):?>selected="selected"<?php endif;?>>Maggio</option>
+						<option value="6" <?php if($_tplvar['month']== 6):?>selected="selected"<?php endif;?>>Giugno</option>
+						<option value="7" <?php if($_tplvar['month']== 7):?>selected="selected"<?php endif;?>>Luglio</option>
+						<option value="8" <?php if($_tplvar['month']== 8):?>selected="selected"<?php endif;?>>Agosto</option>
+						<option value="9" <?php if($_tplvar['month']== 9):?>selected="selected"<?php endif;?>>Settembre</option>
+						<option value="10" <?php if($_tplvar['month']== 10):?>selected="selected"<?php endif;?>>Ottobre</option>
+						<option value="11" <?php if($_tplvar['month']== 11):?>selected="selected"<?php endif;?>>Novembre</option>
+						<option value="12" <?php if($_tplvar['month']== 12):?>selected="selected"<?php endif;?>>Dicembre</option>
+					</select>
+					<select name="year">
+						<option value="<?php echo date('Y')-3;?>" <?php if($_tplvar['year']== (date('Y')-3)):?>selected="selected"<?php endif;?>><?php echo date('Y')-3;?></option>
+						<option value="<?php echo date('Y')-2;?>" <?php if($_tplvar['year']== (date('Y')-2)):?>selected="selected"<?php endif;?>><?php echo date('Y')-2;?></option>
+						<option value="<?php echo date('Y')-1;?>" <?php if($_tplvar['year']== (date('Y')-1)):?>selected="selected"<?php endif;?>><?php echo date('Y')-1;?></option>
+						<option value="<?php echo date('Y');?>" <?php if($_tplvar['year']== (date('Y'))):?>selected="selected"<?php endif;?>><?php echo date('Y');?></option>
+					</select>
+				</td>
+				<td>
+					<select name="operatore">
+					<option value="">Operatore</option>
+					<?php foreach ($_tplvar['users'] as $user):?>
+						<option value="<?php echo $user['username']?>" <?php if($_tplvar['operatore'] == $user['username']):?>selected="selected"<?php endif;?>><?php echo $user['username']?></option>
+					<?php endforeach;?>
+					</select>
+				</td>
+				<td>
+					<input type="submit" class="submit" value="CERCA" />
+					<input type="button" class="submit" value="RESET" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT'].'?act='.$_tplvar['action_class_name']?>&reset=1'" />
+				</td>
+			</tr>		
+			</table>
+		</form>
+	</td>
+</tr>
+<tr>
+	<td align="center"><div id="div_chart_1"></div></td>
+</tr>
+<tr>
+	<td align="center"><div id="div_chart_2"></div></td>
+</tr>
+<tr>
+	<td align="center"><div id="my_chart"></div></td>
+</tr>
+</table>
+ 
+</body>
+</html>

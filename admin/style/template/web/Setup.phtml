@@ -1,0 +1,536 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Setup" method="post">
+
+<table width="80%">
+<tr>
+	<td colspan="2" align="center"">
+		<h2>
+		<?php if($_tplvar['header_message']):?>
+			<?echo $_tplvar['header_message']?>
+		<?php else:?>
+			Modifica le impostazioni di Stream
+		<?php endif;?>
+		</h2>	
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<input type="submit" class="submit" value="Salva"/>
+		<input type="reset" class="submit reset" value="Reset" onClick="location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Setup&reset=1';" />
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Commissione Imballi Den Dekker</td>
+			</tr>
+			<?php foreach($_tplvar['commissione_imballi_dendekker'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_commissione_imballi_dendekker" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="commissione_imballi_dendekker" id="commissione_imballi_dendekker" value="<?php echo $val['name']?>" />
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&delete_cid=1&id=<?php echo $val['id']?>">Rimuovi</a>
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="commissione_imballi_dendekker" id="commissione_imballi_dendekker" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td style="border:1px solid #fff">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&add_cid=1">AGGIUNGI </a>&nbsp;&nbsp;
+				<?php if(count($_tplvar['percent_sale']) >= 1):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&rem_cid=1">RIMUOVI ULTIMO</a>
+				<?php endif;?>
+				</td>
+			</tr>
+		</table>
+	</td>
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Commissione Fissa Den Dekker</td>
+			</tr>
+			<?php foreach($_tplvar['commissione_fissa_dendekker'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_commissione_fissa_dendekker" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="commissione_fissa_dendekker" id="commissione_fissa_dendekker" value="<?php echo $val['name']?>" />
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&delete_cfd=1&id=<?php echo $val['id']?>">Rimuovi</a>
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="commissione_fissa_dendekker" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td style="border:1px solid #fff">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&add_cfd=1">AGGIUNGI </a>&nbsp;&nbsp;
+				<?php if(count($_tplvar['percent_sale']) >= 1):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&rem_cfd=1">RIMUOVI ULTIMO</a>
+				<?php endif;?>
+				</td>
+			</tr>
+		</table>	
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Commissione Scatola Den Dekker</td>
+			</tr>
+			<?php foreach($_tplvar['commissione_scatola'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_commissione_scatola" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="commissione_scatola" id="commissione_scatola" value="<?php echo $val['name']?>" />
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&delete_scid=1&id=<?php echo $val['id']?>">Rimuovi</a>
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="commissione_scatola" id="commissione_scatola" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td style="border:1px solid #fff">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&add_scid=1">AGGIUNGI </a>&nbsp;&nbsp;
+				<?php if(count($_tplvar['percent_sale']) >= 1):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&rem_scid=1">RIMUOVI ULTIMO</a>
+				<?php endif;?>
+				</td>
+			</tr>
+		</table>
+	</td>
+	<td valign="top"></td>
+</tr>
+
+
+
+
+
+
+
+
+<tr>
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Commissione Imballi Gasa</td>
+			</tr>
+			<?php foreach($_tplvar['commissione_imballi_gasa'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_commissione_imballi_gasa" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="commissione_imballi_gasa" id="commissione_imballi_gasa" value="<?php echo $val['name']?>" />
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&delete_cig=1&id=<?php echo $val['id']?>">Rimuovi</a>
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="commissione_imballi_gasa" id="commissione_imballi_gasa" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td style="border:1px solid #fff">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&add_cig=1">AGGIUNGI </a>&nbsp;&nbsp;
+				<?php if(count($_tplvar['percent_sale']) >= 1):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&rem_cig=1">RIMUOVI ULTIMO</a>
+				<?php endif;?>
+				</td>
+			</tr>
+		</table>
+	</td>
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Commissione Fissa Gasa</td>
+			</tr>
+			<?php foreach($_tplvar['commissione_fissa_gasa'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_commissione_fissa_gasa" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="commissione_fissa_gasa" id="commissione_fissa_gasa" value="<?php echo $val['name']?>" />
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&delete_cfg=1&id=<?php echo $val['id']?>">Rimuovi</a>
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="commissione_fissa_gasa" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td style="border:1px solid #fff">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&add_cfg=1">AGGIUNGI </a>&nbsp;&nbsp;
+				<?php if(count($_tplvar['percent_sale']) >= 1):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&rem_cfg=1">RIMUOVI ULTIMO</a>
+				<?php endif;?>
+				</td>
+			</tr>
+		</table>	
+	</td>
+</tr>
+
+
+
+
+
+
+
+<tr>
+<!-- 
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">IVA</td>
+			</tr>
+			<?php foreach($_tplvar['cmb_iva'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_iva" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="iva" id="iva" value="<?php echo $val['name']?>" />
+					</td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+		</table>	
+	</td>
+ -->
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Tipologie di Utenti</td>
+			</tr>
+			<?php foreach($_tplvar['user_type'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_user_type[]" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="user_type[]" id="user_type" value="<?php echo $val['name']?>" />
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&delete_ut=1&id=<?php echo $val['id']?>">Rimuovi</a>
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="user_type[]" id="user_type" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td style="border:1px solid #fff">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&add_ut=1">AGGIUNGI </a>&nbsp;&nbsp;
+				<?php if(count($_tplvar['percent_sale']) >= 1):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&rem_ut=1">RIMUOVI ULTIMO</a>
+				<?php endif;?>
+				</td>
+			</tr>
+		</table>
+	</td>
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Tipologia di pagamento</td>
+			</tr>
+			<?php foreach($_tplvar['payment_type'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_payment_type[]" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="payment_type[]" id="payment_type" value="<?php echo $val['name']?>" />
+						<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&delete_pt=1&id=<?php echo $val['id']?>">Rimuovi</a>
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="payment_type[]" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td style="border:1px solid #fff">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&add_pt=1">AGGIUNGI </a>&nbsp;&nbsp;
+				<?php if(count($_tplvar['percent_sale']) >= 1):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=Setup&rem_pt=1">RIMUOVI ULTIMO</a>
+				<?php endif;?>
+				</td>
+			</tr>
+		</table>	
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Spese di Spedizione</td>
+			</tr>
+			<?php foreach($_tplvar['spese_spedizione'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_spese_spedizione" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="spese_spedizione" id="spese_spedizione" value="<?php echo $val['name']?>" />
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="spese_spedizione" id="spese_spedizione" value="" /></td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+		</table>
+	</td>	
+
+	<td valign="top">
+		<table>
+			<tr>
+				<td style="border:1px solid #fff">Dimensioni Carrello</td>
+			</tr>
+			<?php foreach($_tplvar['altezza_carrello'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_altezza_carrello" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="altezza_carrello" id="altezza_carrello" value="<?php echo $val['name']?>" /> Altezza cm
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="altezza_carrello" id="altezza_carrello" value="" /> Altezza cm</td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			
+			<?php foreach($_tplvar['larghezza_carrello'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_larghezza_carrello" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="larghezza_carrello" id="larghezza_carrello" value="<?php echo $val['name']?>" /> Larghezza cm
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="larghezza_carrello" id="larghezza_carrello" value="" /> Larghezza cm</td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			
+			<?php foreach($_tplvar['profondita_carrello'] as $key => $val):?>
+			<tr>
+				<?php if(!empty($val['id'])):?>
+					<input type="hidden" name="id_profondita_carrello" value="<?php echo $val['id']?>" />
+				<?php endif;?>
+				<?php if(!empty($val['name'])):?>
+					<td>
+						<input type="text" name="profondita_carrello" id="profondita_carrello" value="<?php echo $val['name']?>" /> Profondit&aacute; cm
+					</td>
+				<?php endif;?>
+				<?php if(empty($val['name'])):?>
+					<td><input type="text" name="profondita_carrello" id="profondita_carrello" value="" />Profondit&aacute; cm</td>
+				<?php endif;?>
+			</tr>
+			<?php endforeach;?>
+			
+		</table>
+	</td>	
+</tr>
+
+<tr>
+	<td colspan="2">
+		<div class="separatore"></div>
+		<div style="width:1200px;font-size:9px">
+			<label for="field_1">Permessi per Tipologie di Utenti</label>
+			<table width="80%" cellpadding="10" cellspacing="0">
+			<tr><td colspan="<?php echo count($_tplvar['cmb_user_type']);?>"><div id="result_set_permessi"></div></td></tr>
+			
+			<tr>
+			<?php foreach($_tplvar['cmb_user_type'] as $key => $val):?>
+				<?php if(!empty($val['name'])):?>
+					<td nowrap="nowrap" style="padding:10px;width:80px;border-style:solid;border-color:#C0C0C0;border-width:thin"><?php echo $val['name']?></td>
+				<?php endif;?>
+			<?php endforeach;?>
+			</tr>
+			<tr>
+			<?php foreach($_tplvar['cmb_user_type'] as $key => $val):?>
+				<?php if(!empty($val['name'])):?>
+				<td width="100">
+					<table width="100%" cellpadding="0" cellspacing="0">
+						<?php 
+						$exp = explode('|', $val['permessi']);
+						foreach ($exp as $v)
+						{
+							$ex = explode('@', $v);
+							$permessi[$ex[0]] = $ex[1];
+						}
+						?>
+						<tr>
+							<td nowrap="nowrap" style="padding:10px;border-style:solid;border-color:#C0C0C0;border-width:thin">
+								<input type="checkbox" <?php if($permessi['Setup'] == 1):?>checked="checked"<?php endif;?> style="width:10px;height:10px;margin-top:10px;margin-right:10px"
+								onclick="
+								$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetPermessi',
+										  type: 'post',
+										  dataType: 'html',
+										  data: 'id_user_type=<?php echo $val['id']?>&action=Setup',
+										  success: function(html){
+											  $('#result_set_permessi').html(html);
+										  }
+										});"
+								>
+								SETUP 
+							</td>
+						</tr>
+						<tr>
+							<td nowrap="nowrap" style="padding:10px;border-style:solid;border-color:#C0C0C0;border-width:thin">
+								<input type="checkbox" <?php if($permessi['CambioLogo'] == 1):?>checked="checked"<?php endif;?> style="width:10px;height:10px;margin-top:10px;margin-right:10px"
+								onclick="
+								$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetPermessi',
+										  type: 'post',
+										  dataType: 'html',
+										  data: 'id_user_type=<?php echo $val['id']?>&action=CambioLogo',
+										  success: function(html){
+											  $('#result_set_permessi').html(html);
+										  }
+										});"
+								>
+								CAMBIO LOGO 
+							</td>
+						</tr>
+						<tr>
+							<td nowrap="nowrap" style="padding:10px;border-style:solid;border-color:#C0C0C0;border-width:thin">
+								<input type="checkbox" <?php if($permessi['ecommerce'] == 1):?>checked="checked"<?php endif;?> style="width:10px;height:10px;margin-top:10px;margin-right:10px"
+								onclick="
+								$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetPermessi',
+										  type: 'post',
+										  dataType: 'html',
+										  data: 'id_user_type=<?php echo $val['id']?>&action=ecommerce',
+										  success: function(html){
+											  $('#result_set_permessi').html(html);
+										  }
+										});"
+								>
+								GESTIONE ORDINI 
+							</td>
+						</tr>
+						<tr>
+							<td nowrap="nowrap" style="padding:10px;border-style:solid;border-color:#C0C0C0;border-width:thin">
+								<input type="checkbox" <?php if($permessi['Utenti'] == 1):?>checked="checked"<?php endif;?> style="width:10px;height:10px;margin-top:10px;margin-right:10px"
+								onclick="
+								$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetPermessi',
+										  type: 'post',
+										  dataType: 'html',
+										  data: 'id_user_type=<?php echo $val['id']?>&action=Utenti',
+										  success: function(html){
+											  $('#result_set_permessi').html(html);
+										  }
+										});"
+								>
+								GESTIONE UTENTI
+							</td>
+						</tr>
+						<tr>
+							<td nowrap="nowrap" style="padding:10px;border-style:solid;border-color:#C0C0C0;border-width:thin">
+								<input type="checkbox" <?php if($permessi['Clienti'] == 1):?>checked="checked"<?php endif;?> style="width:10px;height:10px;margin-top:10px;margin-right:10px"
+								onclick="
+								$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetPermessi',
+										  type: 'post',
+										  dataType: 'html',
+										  data: 'id_user_type=<?php echo $val['id']?>&action=Clienti',
+										  success: function(html){
+											  $('#result_set_permessi').html(html);
+										  }
+										});"
+								>
+								GESTIONE CLIENTI
+							</td>
+						</tr>
+						<tr>
+							<td nowrap="nowrap" style="padding:10px;border-style:solid;border-color:#C0C0C0;border-width:thin">
+								<input type="checkbox" <?php if($permessi['Fornitori'] == 1):?>checked="checked"<?php endif;?> style="width:10px;height:10px;margin-top:10px;margin-right:10px"
+								onclick="
+								$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetPermessi',
+										  type: 'post',
+										  dataType: 'html',
+										  data: 'id_user_type=<?php echo $val['id']?>&action=Fornitori',
+										  success: function(html){
+											  $('#result_set_permessi').html(html);
+										  }
+										});"
+								>
+								GESTIONE FORNITORI
+							</td>
+						</tr>
+
+					</table>
+				</td>
+				<?php endif;?>
+			<?php endforeach;?>
+			</tr>
+		</table>
+		</div>
+	</td>
+</tr>
+
+<tr>
+	<td colspan="2">
+		<input type="submit" class="submit" value="Salva"/>
+		<input type="reset" class="submit reset" value="Reset" onClick="location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Setup&reset=1';" />
+	</td>
+</tr>
+</table>
+
+
+
+
+</form>
+
+<div class="separatore"></div>
+
+<br />
+
+
+</div>

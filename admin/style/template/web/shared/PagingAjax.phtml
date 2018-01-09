@@ -1,0 +1,74 @@
+<?php  
+$_tplvar = $this->getVars();
+
+if(!empty($route))
+	$pagingUrl = $route.'&pageID=';
+else 
+	$pagingUrl = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&pageID=';
+
+$numViewPages = $_tplvar['numViewPage'];
+$initPages 	  = $_tplvar['curr_page'] - $numViewPages;
+?>
+<?php if($_tplvar['last_page'] > 1):?>
+
+		<a 
+			href="#"
+			onclick="
+				<?php echo $assign['js_parameter'];?>
+				ajaxSendActionPaging(
+								'GET', 
+								'<?php echo $_tplvar['WWW_ROOT']?>?act=<?php if(!empty($assign['href_action'])):?><?php echo $assign['href_action'];?><?php else:?>AjaxPortaVisione<?php endif;?>', 
+								'pageID=<?php echo '1';?>&tbl_name=<?php echo $_tplvar['tbl_name']?>&action=<?php echo $assign['action'];?>', 
+								'<?php if(!empty($assign['div_result'])):?><?php echo $assign['div_result'];?><?php else:?>result_search<?php endif;?>',
+								true);">&laquo; Prima</a>
+		
+	<?php 
+		$j = 0;	
+		for($i=$initPages;$i <= $_tplvar['tot_items'];$i++):
+	?>
+		<?php if($j <= ($numViewPages+$numViewPages) && $i > 0 && $j > 0):?>
+		
+			<?php if($i == $_tplvar['curr_page']):?>
+					<?php echo $i;?>
+			<?php else:?>
+				<?php if($_tplvar['last_page'] > 1 && $i <= $_tplvar['last_page']):?>
+					
+						<a 
+							href="#" 
+							title="<?php echo $i;?>"
+							onclick="
+								<?php echo $assign['js_parameter'];?>
+								ajaxSendActionPaging(
+												'GET', 
+												'<?php echo $_tplvar['WWW_ROOT']?>?act=<?php if(!empty($assign['href_action'])):?><?php echo $assign['href_action'];?><?php else:?>AjaxPortaVisione<?php endif;?>', 
+												'pageID=<?php echo $i;?>', 
+												'<?php if(!empty($assign['div_result'])):?><?php echo $assign['div_result'];?><?php else:?>result_search<?php endif;?>',
+												true);">
+								<?php echo $i;?>
+							</a>
+				<?php endif;?>
+			<?php endif;?>
+			
+		<?php endif;?>
+	<?php 
+		$j++;
+		endfor;
+	?>
+		<a 
+			href="#"
+			onclick="
+				<?php echo $assign['js_parameter'];?>
+				ajaxSendActionPaging(
+								'GET', 
+								'<?php echo $_tplvar['WWW_ROOT']?>?act=<?php if(!empty($assign['href_action'])):?><?php echo $assign['href_action'];?><?php else:?>AjaxPortaVisione<?php endif;?>', 
+								'pageID=<?php echo $_tplvar['last_page']?>', 
+								'<?php if(!empty($assign['div_result'])):?><?php echo $assign['div_result'];?><?php else:?>result_search<?php endif;?>',
+								true);">Ultima &raquo;</a>
+	<!-- PENSARE A FARLO DA CHIAMTA AJAX
+	<li>&nbsp;&nbsp;&nbsp;</li>
+	<li><a href="javascript:void(0);">Record per Pagina</a></li>
+	<li>
+		<?php echo $this->getPartial('shared/ComboRowForPage');?>
+	</li>
+	 -->
+<?php endif;?>

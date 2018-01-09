@@ -1,0 +1,5 @@
+Jul 08 12:37:42|5[info]08/07/2016 12:37:42 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0]
+Jul 08 12:37:46|5[info]08/07/2016 12:37:46 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0]
+Jul 08 12:37:51|5[info]08/07/2016 12:37:51 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][activate_account = 1][id_user = 213][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0]
+Jul 08 12:37:56|5[info]08/07/2016 12:37:56 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][activate_account = 1][id_user = 25][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0]
+Jul 08 12:37:59|5[info]08/07/2016 12:37:59 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][activate_account = 1][id_user = 212][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0]

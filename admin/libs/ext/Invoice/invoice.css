@@ -1,0 +1,12 @@
+/*
+PHP InvoiceIt Style Sheet
+Written by Steve Dawson - www.stevedawson.com
+*/
+
+body	{ font-family: Arial; font-size: 10pt; }
+p	{ font-family: Arial; font-size: 10pt; }
+th	{ font-family: Arial; font-size: 10pt; }
+td	{ font-family: Arial; font-size: 10pt; }
+input	{ font-family: Arial; font-size: 10pt; }
+textarea	{ font-family: Arial; font-size: 10pt; }
+.button	{ font-family: Arial; font-size: 10pt; }

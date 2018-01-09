@@ -1,0 +1,96 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<div id="page-content" class="clearfix">
+			
+			<h1>Seleziona le quantità per i libri da rendere</h1>
+			<h2>
+				<?php if($_tplvar['sub_header_message']):?>
+					<?echo $_tplvar['sub_header_message']?>
+				<?php else:?>
+					Scrivi su ogni campo e carica il &quot;Data Base&quot; <span>(Descrizione del cliente)</span>
+				<?php endif;?>
+			</h2>
+			<div class="inner-box clearfix">
+			
+<div id="form-block-div">
+
+<div class="contenitore">
+
+</div>
+
+<div class="separatore"></div>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=ResoRappresentante" method="post">
+
+<input type="hidden" name="id_rappresentante" value="<?php echo $_tplvar['id_rappresentante']?>">
+
+
+		<div class="contenitore">
+    
+	<div style="clear:left"></div>
+	<div id="table-block">
+		<table cellspacing="0" cellpadding="0" style="width:1000px">
+		<tbody>
+			<tr class="header">
+				<td>ISBN</td>    
+				<td>TITOLO</td>    
+				<td>EDITORE</td>    
+				<td>QUANTITA'</td>    
+			</tr>
+			
+		<?php foreach ($_tplvar['book_in_basket'] as $value):?>
+    	<input type="hidden" name="id_magazzino[]" value="<?php echo $value['id_magazzino']?>">
+			
+			<tr>
+				<td><?php echo $value['isbn']?></span></td>    
+				<td><?php echo substr($value['titolo'], 0, $_tplvar['TRUNCATE_PORTA_VISIONE_TITOLO'])?></td>    
+				<td><?php echo $value['casa_editrice']?></td>
+				<td>
+				<?php 
+				if($_tplvar['vendita_from'] == 'visione_cliente' && !empty($_tplvar['qty'])):?>
+					<?php
+					$value['quantita'] = $_tplvar['qty'];
+					?>
+				<?php endif;?>
+			
+				<?php if($value['quantita'] != 0):?>
+				<select name="quantita_<?php echo $value['id_magazzino']?>" style="width: 60px;height: 28px !important">
+					<?php for($i=1;$i <= $value['quantita'];$i++):?>
+					<option value="<?php echo $i;?>"><?php echo $i;?></option>
+					<?php endfor;?>
+				</select>
+				<?php endif;?>	
+				
+				</td>
+			</tr>    
+		<?php endforeach;?>
+
+			    
+		</tbody>
+		</table>
+	</div>
+	
+
+
+</div>
+    
+</div>
+
+<div class="separatore"></div>
+
+<br />
+
+
+
+<div id="submit_porta_visione" class="submit" style="position:relative;float:left; clear:both;">
+	<input type="submit" class="submit" value="Rendi Libri" />
+</div>
+	
+</div>
+</form>
+
+
+
+</div>
+
+</div>

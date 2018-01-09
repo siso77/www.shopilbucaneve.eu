@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calendar</title>
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+</head>
+<body>
+	<div id="my_area">
+		
+	</div>
+
+	<script>
+
+		dhx.ui({
+			view:"popup",
+			body:{ view:"calendar", navigation: true, timeSelect: false, weekHeader: false, weekNumber: false, date: new Date(2010, 1,14) },
+			position:"center"
+		});
+		
+	</script>
+
+</body>
+</html>
+

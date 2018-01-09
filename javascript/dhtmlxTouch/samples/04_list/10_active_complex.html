@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+        <title>ActiveContent: get values</title>
+	</head>
+	<body>
+       
+		<script type="text/javascript" charset="utf-8">
+        dhx.ready(function() {
+
+            dhx.protoUI({
+                name:"activeList"
+            },dhx.ui.list,dhx.ActiveContent);
+
+            dhx.ui({
+
+                rows: [
+                    {
+                        view:"toolbar", elements:[
+                            { view:"label", label:"Total: ", width:100},
+                            { view: "label", label: "", id:"order", width:100},
+                            { view:"button", label:"Calculate", click:calc, inputWidth: 100, align:"right"}
+                        ]
+                    },
+                    {
+                        cols: [{
+                            view: "activeList",
+                            id:"mylist",
+                            url:"books.xml",
+                            datatype:"xml",
+                            activeContent:{
+                                counterButton:{
+                                    view:"counter",
+                                    min:0, max:10,
+                                    width:130
+                                }
+                            },
+                            template: "<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div><div class='active'>{common.counterButton()}</div><div class='price'>#cprice# $</div>",
+                            type: {
+                                height:35
+                            }
+                        }
+
+                    ]}
+                ]
+            });
+
+
+        });
+
+
+        function calc(){
+            var i, id, sum, value;
+            sum =0;
+            for(i =0 ; i<  $$("mylist").dataCount(); i++){
+                id =  $$("mylist").idByIndex(i);
+                value = $$("mylist").item(id).counterButton;
+                if(value)
+                   sum += value*$$("mylist").item(id).cprice;
+            }
+            $$("order").setValue(sum+" $")
+        } 	
+		</script>
+	</body>
+</html>

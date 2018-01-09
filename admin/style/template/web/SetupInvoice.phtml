@@ -1,0 +1,26 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script type="text/javascript">
+<!--
+function sendFilter(obj)
+{
+	var id = obj.options[obj.selectedIndex].value;
+	document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&id_size_type='+id;
+}
+//-->
+</script>
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+<table width="50%">
+<tr>
+	<td colspan="2"><b>Gestione Modifica Numerazione delle Fatture</td>
+</tr>
+<tr>
+	<td>Numero Fattura (inserisci il numero che verr&aacute; associato alla prossima fattura)</td>
+	<td><input type="text" name="index_invoice" value="<?php echo $_tplvar['index']?>"></td>
+</tr>
+<tr>
+	<td colspan="2"><input type="submit" value="Salva" class="submit"></td>
+</tr>
+</table>
+</form>

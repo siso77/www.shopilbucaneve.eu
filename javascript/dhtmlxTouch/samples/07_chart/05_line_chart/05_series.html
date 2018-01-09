@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<title>Series</title>
+	<script src="../../../codebase/touchui.js" type="text/javascript"></script>
+	<link rel="STYLESHEET" type="text/css" href="../../../codebase/touchui.css">
+	<script src="../common/chartdata.js"></script>
+<body>
+    <div id="chartDiv" style="width:600px;height:250px;margin:20px"></div>
+	<script>
+        dhx.ui({
+            view:"chart",
+            container:"chartDiv",
+            type:"line",
+
+            xAxis:{
+                template:"#month#"
+            },
+            yAxis:{
+               
+            },
+            series:[
+                {
+                    value:"#companyA#",
+                    item:{
+                        borderColor: "#1293f8",
+                        color: "#ffffff"
+                    },
+                    line:{
+                        color:"#1293f8",
+                        width:3
+                    },
+                    tooltip:{
+                        template:"#companyA#"
+                    }
+                },
+                {
+                    value:"#companyB#",
+                    item:{
+                        borderColor: "#66cc00",
+                        color: "#ffffff"
+                    },
+                    line:{
+                        color:"#66cc00",
+                        width:3
+                    },
+                    tooltip:{
+                        template:"#companyB#"
+                    }
+                }
+            ],
+            data: companies
+        });
+	</script>
+</body>
+</html>
+

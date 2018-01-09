@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <title>Template view</title>
+	</head>
+	<body>
+		
+	<div id="latin_template" style="display:none;">
+	    <p>
+            Lorem ipsum dolor sit amet, vim no nominavi periculis.
+            Eu velit dictas reformidans usu. Agam disputationi nec ad, modus adipisci dissentiet eu pri.
+            Eos cu saperet sententiae, eu propriae theophrastus cum, ei vim democritum intellegebat.
+        </p>
+        <p>
+           Mel ipsum imperdiet reformidans te, ad sea augue nobis vulputate.
+           Per solet oblique abhorreant ex, illud detracto suavitate sea ne.
+           Posse ullamcorper id pro, te est iisque repudiare abhorreant. Habeo verterem expetendis eu qui, labitur sadipscing ut mei.
+        </p>
+        <p>
+            Mel meis ubique tritani ut. Cu sed oblique aliquid reprehendunt.
+            Ad libris dolores nominati ius, eu definiebas scriptorem nam, affert senserit democritum quo et.
+            Harum splendide no duo, et eum dicat assentior appellantur, et soleat laboramus quo.
+            Qui civibus gloriatur eu, has no congue dolore iudicabit, quo verear corpora ea.
+          </p>
+        <p>
+            Ea justo ludus hendrerit nam, quo graeci regione cu.
+            Ei inimicus temporibus vis, quo an soluta detracto gubergren, ei duo augue appareat.
+            Eu scriptorem referrentur ullamcorper ius, choro deserunt accusata no est.
+            Graecis nostrum salutandi id vel, mel appetere vivendum voluptaria ut, tale dictas necessitatibus qui eu.
+            Eum ignota urbanitas ne, ad mei fabellas facilisi, in elitr quaeque qui. Stet sensibus eu pri.
+         </p>
+        <p>
+            Aliquip dignissim moderatius eos te, quo postea legimus vocibus cu.
+            Sit in essent omittam, per deleniti adipiscing vituperata ne.
+            Salutandi suavitate consequuntur eos ad. Est ei salutatus corrumpit elaboraret, has in putant omittantur.
+        </p>
+        </div>
+    </div>
+		
+		<script type="text/javascript" charset="utf-8">
+
+		dhx.ui({
+            type:"wide",
+			rows:[
+				{
+					id:"content",
+					view:"template", scroll:"x",
+					url:"template_data.xml",datatype:"xml",
+					template:"html->latin_template"
+				},
+				{
+					id:"content",
+					view:"template", scroll:"y",
+					url:"template_data.xml",datatype:"xml",
+					template:"html->latin_template"
+				},
+				{
+					id:"content",
+					view:"template", scroll:"xy",
+					url:"template_data.xml",datatype:"xml",
+					template:"html->latin_template"
+				}
+			]
+		});
+		
+		
+
+		
+
+		</script>
+	</body>
+</html>

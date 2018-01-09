@@ -1,0 +1,30 @@
+<?php $_tplvar = $this->getVars();?>
+			<div id="c1-header">
+				<div id="header-content" class="container_24">
+					<div class="c1-slideshow">
+						<div class="c1-slider-navigation" style="width:940px; ">
+							<a href="#"><span id="slider-prev" class="pngfix">Precedente</span></a>
+							<a href="#"><span id="slider-next" class="pngfix">Successiva</span></a>
+						</div>
+						<ul id="c1-slider">
+						
+						<?php foreach ($_tplvar['img_slider'] as $img):?>
+							<li style="width:940px; height:360px;">
+								<div class="c1-slide-img-wrapper">
+									<img src="<?php echo $img['www_path'].'/'.$img['image_name']?>" alt="" class="slide-img" />
+								</div>
+							</li>
+						<?php endforeach;?>
+
+						</ul>
+					</div>
+					<!-- end c1-slideshow -->
+					<span id="c1-resumeButton" style=""><a href="" title="Play" class="pngfix">Play</a></span>
+					<span id="c1-pauseButton" style=""><a href="" title="Pause" class="pngfix">Pausa</a></span>
+					<div id="c1-nav" style=""></div>
+				</div>
+				<!-- end header-content -->
+				<div class="clear"></div>
+				<div id="c1-shadow" class="container_24 pngfix"> </div>
+			</div>
+			<!-- end c1-header -->

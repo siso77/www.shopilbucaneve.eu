@@ -1,0 +1,94 @@
+<?php 
+$_tplvar = $this->getVars();
+if(!empty($_REQUEST['id_category']))
+	$rowForBox = 56;
+else
+	$rowForBox = 24;
+?>
+
+<style>
+.crop{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:180px;
+    height:85px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+
+						<?php foreach($_tplvar['products'] as $category => $products):?>
+						
+							<?php if(!empty($products)):?>
+								<h2 class="ftitle">	<?php echo ucfirst(strtolower($category));?></h2>
+							<?php endif;?>
+							
+							<?php $index = 0;?>
+							<?php if(!empty($products)):?>
+							<?php $hrefCategory = str_replace(' ','-', str_replace(' /','', ucfirst(strtolower($category))));?>
+							
+							<?php shuffle($products);?>
+							
+							<div class="store-cont">
+							<?php foreach($products as $key => $product):?>
+								<?php $index++;?>
+								<?php if(!empty($product) && $index <= $rowForBox):?>
+									<div class="item-box">
+										<?php $image = $this->getImageFromIdContent($product['id'], 'Large_', '100')?>
+										<?php if(!empty($image)):?>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',$product['name_it'])?>/<?php echo $product['id']?>.html">
+											<?php echo $image;?>
+										</a>
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="100" height="95">
+										<?php endif;?>
+										</p>
+										<div class="item_name">
+											<?php if($_SERVER['HTTP_HOST'] == 'pro-bike.ecm.lo'):?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ProductInfo&id=<?php echo $product['id']?>">
+											<?php else:?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',$product['name_it'])?>/<?php echo $product['id']?>.html">
+											<?php endif;?>
+												<?php echo $product['name_band'];?><br>
+												<?php echo substr($product['name_it'], 0, $_tplvar['SHOP_TRUNCATE_TEXT']);?>
+											</a>
+										</div>
+										
+										<div class="disp">
+										<?php if($product['magazzino'][0]['quantita'] > 0):?>
+											Disponibile
+										<?php elseif($product['magazzino'][0]['is_in_ecommerce']):?>
+											Acquistabile in negozio
+										<?php else:?>
+											<p style="color:#F9D616">Non Disponibile</p>
+										<?php endif;?>
+										</div>
+	
+										<div class="price">
+										<?php if(!empty($product['price_discounted_it'])):?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_discounted_it'])?>
+										<?php else:?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_it'])?>
+										<?php endif;?>
+										</div>
+									</div>
+								<?php else:?>
+<!--									<div class="store-cont"><div class="item-box">&nbsp;</div></div>-->
+								<?php endif;?>
+								
+								<?php endforeach;?>
+								
+								<div class="clear"></div>
+							</div>
+						<?php endif;?>
+						<?php endforeach;?>
+							<div class="clear"></div>
+
+							<div class="clear"></div>
+

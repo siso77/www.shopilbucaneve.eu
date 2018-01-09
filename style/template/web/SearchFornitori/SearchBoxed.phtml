@@ -1,0 +1,262 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Login');
+$templateConfig = $_tplvar['template_config']['search'];
+?>
+
+
+						<?php if(empty($_SESSION['LoggedUser'])):?>
+						<?php endif;?>
+
+						<div class="category-products">
+							<!-- Begin ToolBarButton -->
+						    <?php 
+						    $assign['url'] = $_tplvar['WWW_ROOT'].'?act=SearchFornitori&for=1';
+						    $assign['layout_active'] = $_SESSION['Search']['layout'];
+						    $assign['show_switch_layout'] = true;
+						    $this->getPartial('SearchFornitori/ToolBarButton1', $assign);?>
+							<!-- End ToolBarButton -->
+<br>
+			<?php if(empty($_tplvar['content'])):?>
+			    <?php 
+			    $assign['err_message'] = 'Attenzione: il prodotto cercato non &eacute; al momento disponibile.';
+			    $this->getPartial('shared/ErrorMessage', $assign);
+			    ?>
+			<?php endif;?>
+
+							<!-- Begin Product Listing -->
+								
+								<table class="list-table">
+								<?php foreach ($_tplvar['content'] as $key => $value):?>
+									<?php $giacenza = $this->getGiacenzaByIdContent($value['id']);?>
+									<?php $key++;?>
+									<?php if($key == 0):?>
+									<tr>
+									<?php endif;?>
+										<td class="list-row" style="border:1px solid #e9e9e9"
+										<?php foreach ($_SESSION[session_id()]['cart']['contenuto'] as $content):?>
+										<?php if($value['id'] == $content['id']):?> background-color:#B6E9B8;<?php endif;?>
+										<?php endforeach;?>" 
+										onclick="javascript:swapClass(this, 'list-row', 'list-row active');" 
+										onmouseover="javascript:swapClass(this, 'list-row', 'list-row active');">
+
+											<table class="list-table-grid">
+											<tr style="height:154px">
+											
+											<?php if($templateConfig['FIELD_1']['is_visible']):?>
+											
+												<td class="list-cell" style="margin-left:30px;width:84px">
+													<table>													
+													<tr>
+														<td style="padding-bottom:5px">
+															<?php
+															$image = null;
+															if(is_file($_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore1/'.$value['codice'].".jpg"))
+																$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore1/".$value['codice'].".jpg";
+															else
+															{
+																$file = WWW_IMAGE_DENDEKKER_PAHT."/img_products/".$value['codice'].".jpg";
+																$file_headers = @get_headers($file);
+																if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+																	$image_to_copy = null;
+																else
+																	$image_to_copy = WWW_IMAGE_DENDEKKER_PAHT."/img_products/".$value['codice'].".jpg";
+										
+																if(!empty($image_to_copy))
+																{
+																	copy($image_to_copy, $_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore1/'.$value['codice'].".jpg");
+																	$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore1/".$value['codice'].".jpg";
+																}
+															}
+															?>
+														
+															<?php if(!empty($image)):?>
+																<a style="width:84px;text-decoration:none;" href="javascript:void();" class="lightbox" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' />');" title="" class="lightbox" rel="group1">
+																	<img src="<?php echo $image?>" width="84" height="84" style="width:84px;height:84px" alt="" />
+																</a>
+															<?php else:?>
+																<a style="width:84px;text-decoration:none;" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" title="" class="lightbox" rel="group1">
+																	<div style="width:84px;height:84px;border:1px solid #6d7a7e;text-align:center;"><div style="color:#6d7a7e;margin-top:30px;font-size:12px;">IMAGE</div></div>
+																	<!-- <img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="84" height="84" style="width:84px;height:84px" /> -->
+																</a>
+															<?php endif;?>
+														</td>
+													</tr>
+													<tr>
+														<td nowrap="nowrap" style="text-align:center">
+															<?php
+															$add_to_basket_url = $_tplvar['WWW_ROOT'].'DetailFornitori';
+															if(!empty($value['bar_code']))
+																$add_to_basket_url .= '/'.$value['bar_code'];
+															else
+																$add_to_basket_url .= '/-';
+																													
+															if(!empty($value['descrizione']))
+																$add_to_basket_url .= '/'.str_replace("'",'',str_replace('"','',str_replace('%','',str_replace('(','',$value['descrizione']))));
+															else
+																$add_to_basket_url .= '-';
+														
+															$add_to_basket_url .= '/'.$value['id'].'.html';
+															?>
+															<a class="pl-info" href="<?php echo $add_to_basket_url;?>" title="Vedi Dettaglio" >
+																<img src="<?php echo $_tplvar['WWW_ROOT']?>themes/styles/common-images/detail.gif" width="24" height="24" style="width:24px;height:24px">
+															</a>
+															<?php
+															$add_to_basket_url = $_tplvar['WWW_ROOT'].'ShoppingCartFornitori';
+															if(!empty($value['bar_code']))
+																$add_to_basket_url .= '/'.$value['bar_code'];
+															else
+																$add_to_basket_url .= '/-';
+																														
+															if(!empty($value['descrizione']))
+																$add_to_basket_url .= '/'.str_replace("'",'',str_replace('"','',str_replace('%','',str_replace('(','',$value['descrizione']))));
+															else
+																$add_to_basket_url .= '-';
+														
+															$add_to_basket_url .= '/'.$value['id'].'.html';
+															?>
+															<a class="pl-info" href="<?php echo $add_to_basket_url;?>" title="Aggiungi al Carrello" >
+																<img src="<?php echo $_tplvar['WWW_ROOT']?>themes/styles/common-images/carrello.gif" width="24" height="24" style="width:24px;height:24px">
+															</a>
+														</td>	
+													</tr>
+													</table>
+												</td>
+										<?php endif;?>
+												<td class="list-cell" style="width:160px;padding-left:0px;vertical-align:top;">
+
+													<table width="100%" style="margin-top:30px">
+
+													<?php if($templateConfig['FIELD_3']['is_visible']):?>
+													<tr>
+													  <td class="list-cell-boxed" width="20" style="text-align:left;vertical-align:top;" valign="top"><?php echo $templateConfig['FIELD_3']['value']?></td>
+											          <td class="list-cell-boxed" style="text-align:left;"><?php echo $value[$templateConfig['FIELD_3']['key']]?></td>
+											        </tr>
+													<?php endif;?>
+													
+													<?php if($templateConfig['FIELD_4']['is_visible']):?>
+											        <tr>
+											          <td class="list-cell-boxed" width="20" style="text-align:left;vertical-align:top;" valign="top"><?php echo $templateConfig['FIELD_4']['value']?></td>
+											          <td class="list-cell-boxed" style="text-align:left;">
+											          <?php if(empty($value[$templateConfig['FIELD_4']['key']])):?>
+											          	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											          <?php else:?>
+															<?php echo $value[$templateConfig['FIELD_4']['key']]?>
+													  <?php endif;?>
+											          </td>
+											        </tr>
+													<?php endif;?>
+													<?php if($templateConfig['FIELD_10']['is_visible']):?>
+											        <!-- <tr>
+											          <td class="list-cell-boxed" style="text-align:left;">Disponibilit&aacute;</td>
+													  <td class="list-cell-boxed" style="text-align:left;width:30px">
+													  	<?php if(!empty($giacenza) && $giacenza['disponibilita'] > 0):?>
+														  	<?php if($giacenza['disponibilita'] > 10):?>
+														  		<img title="Disponibilit&aacute; <?php echo $giacenza['disponibilita']?>" alt="Disponibilit&aacute;<?php echo $giacenza['disponibilita']?>" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/full_stock_level.gif" style="width:30px;margin-top:3px">
+														  	<?php elseif($giacenza['disponibilita'] <= 10 && $giacenza['disponibilita'] > 5):?>
+														  		<img title="Disponibilit&aacute; <?php echo $giacenza['disponibilita']?>" alt="Disponibilit&aacute;<?php echo $giacenza['disponibilita']?>" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/medium_stock_level.gif" style="width:30px;margin-top:3px">
+														  	<?php elseif($giacenza['disponibilita'] <= 5):?>
+														  		<img title="Disponibilit&aacute; <?php echo $giacenza['disponibilita']?>" alt="Disponibilit&aacute;<?php echo $giacenza['disponibilita']?>" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/low_stock_level.gif" style="width:30px;margin-top:3px">
+														  	<?php endif;?>
+													  	
+											          	<?php //echo $giacenza['disponibilita']?>
+											          	<?php else:?>
+											          		<img alt="Non Disponibile" title="Non Disponibile" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/low_stock_level.gif" style="width:30px;margin-top:3px">
+											          	<?php endif;?>
+											          </td>
+											        </tr> -->
+													<?php endif;?>
+													<?php if($templateConfig['FIELD_11']['is_visible']):?>
+											        <tr>
+											          <td class="list-cell-boxed" style="text-align:left;"><?php echo $templateConfig['FIELD_11']['value']?></td>
+											          <td class="list-cell-boxed" style="text-align:left;">
+														<?php if(!empty($value[$templateConfig['FIELD_11']['key']]) && !empty($_SESSION['LoggedUser']['id'])):?>
+
+												          <?php
+												          $ricarico = 0;
+												          $ricarico_commissione_imballi_dendekker = 0;
+												          $ricarico_commissione_fissa_dendekker = 0;
+												           
+												          if(!empty($_tplvar['commissione_fissa_dendekker']))
+												          	$value[$templateConfig['FIELD_11']['key']] += round( $this->getRicarico($value[$templateConfig['FIELD_11']['key']], $_tplvar['commissione_fissa_dendekker']), 2);
+												          
+												          if(!empty($_tplvar['commissione_imballi_dendekker']))
+												          	$value[$templateConfig['FIELD_11']['key']] += round( $this->getRicarico($value[$templateConfig['FIELD_11']['key']], $_tplvar['commissione_imballi_dendekker']),2 );
+												          	
+												          if(!empty($_SESSION['LoggedUser']['sconto_fornitori_nl']))
+												          	$value[$templateConfig['FIELD_11']['key']] += round( $this->getRicarico($value[$templateConfig['FIELD_11']['key']], $_SESSION['LoggedUser']['sconto_fornitori_nl']), 2);
+												          
+												          $value['prezzo_sc'] += $this->getRicaricoScatola($value['prezzo_sc'], $_tplvar['commissione_scatola_den_dekker']);
+												          ?>
+															&euro; <?php echo Currency::FormatEuro( $value[$templateConfig['FIELD_11']['key']] )?>
+														<?php endif;?>
+											          </td>
+											        </tr>
+													<?php endif;?>
+											        </table>
+											    </td>
+											    <td class="list-cell" style="width:130px;margin-left:0px;vertical-align:top;">
+											        <table width="100%" style="margin-top:30px">
+													<?php if($templateConfig['FIELD_7']['is_visible']):?>
+											        <tr>
+											          <td class="list-cell-boxed" style="text-align:left;"><?php echo $templateConfig['FIELD_7']['value']?></td>
+											          <td class="list-cell-boxed" style="text-align:left;"><?php echo $value[$templateConfig['FIELD_7']['key']]?></td>
+											        </tr>
+													<?php endif;?>
+											        <?php if($templateConfig['FIELD_5']['is_visible']):?>
+											        <tr>
+											          <td class="list-cell-boxed" style="text-align:left;"><?php echo $templateConfig['FIELD_5']['value']?></td>
+											          <td class="list-cell-boxed" style="text-align:left;"><?php echo $value[$templateConfig['FIELD_5']['key']]?></td>
+											        </tr>
+													<?php endif;?>
+													<?php if($templateConfig['FIELD_12']['is_visible']):?>
+											        <tr>
+											          <td class="list-cell-boxed" style="text-align:left;"><?php echo $templateConfig['FIELD_12']['value']?></td>
+											          <td class="list-cell-boxed" style="text-align:left;">
+														<?php if(!empty($value[$templateConfig['FIELD_12']['key']]) && !empty($_SESSION['LoggedUser']['id'])):?>
+
+												          <?php
+												          $ricarico = 0;
+												          $ricarico_commissione_imballi_dendekker = 0;
+												          $ricarico_commissione_fissa_dendekker = 0;
+												           
+												          if(!empty($_tplvar['commissione_fissa_dendekker']))
+												          	$value[$templateConfig['FIELD_12']['key']] += round( $this->getRicarico($value[$templateConfig['FIELD_12']['key']], $_tplvar['commissione_fissa_dendekker']), 2);
+												          
+												          if(!empty($_tplvar['commissione_imballi_dendekker']))
+												          	$value[$templateConfig['FIELD_12']['key']] += round( $this->getRicarico($value[$templateConfig['FIELD_12']['key']], $_tplvar['commissione_imballi_dendekker']),2 );
+												          	
+												          if(!empty($_SESSION['LoggedUser']['sconto_fornitori_nl']))
+												          	$value[$templateConfig['FIELD_12']['key']] += round( $this->getRicarico($value[$templateConfig['FIELD_12']['key']], $_SESSION['LoggedUser']['sconto_fornitori_nl']), 2);
+												          
+												          ?>
+															&euro; <?php echo Currency::FormatEuro( $value[$templateConfig['FIELD_12']['key']] )?>
+														<?php endif;?>
+											          </td>
+											        </tr>
+													<?php endif;?>													
+											        </table>
+												</td>
+											</tr>										
+											</table>
+										</td>
+									<?php if($key % 2 == 0):?>
+									</tr>
+									<tr>
+									<?php endif;?>
+									
+								<?php endforeach;?>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								</table>
+							<!-- End Product Listing -->
+							<!-- <script type="text/javascript">decorateList('products-list', 'none-recursive')</script> -->
+						
+							<!-- Begin ToolBarButton -->
+						    <?php 
+						    $assign['show_paging'] = true;
+						    $assign['show_switch_layout'] = false;
+						    $this->getPartial('shared/ToolBarButton', $assign);?>
+							<!-- End ToolBarButton -->
+						</div>

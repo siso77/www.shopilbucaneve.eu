@@ -1,0 +1,463 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Home');
+$this->getIntlPartial('Login');
+$this->getIntlPartial('FilterFields');
+$templateConfig = $_tplvar['template_config']['search'];
+$this->getIntlPartial('CheckoutShopping');
+?>
+
+<?php if(!empty($_REQUEST['error_partenza'])):?>
+<script>
+jQuery(document).ready(function(){ jQuery('#alert_calendar').show(); });
+//jQuery(document).ready(function(){ jQuery.fancybox('<div style="padding:20px;font-size:12px"><?php echo $this->getText('error_msg_partenza')?></div>'); });
+</script>
+<?php endif;?>
+
+<script type="text/javascript">
+<!--
+//document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=Search&promo=1&layout=thumb';
+//-->
+</script>
+
+<style>
+<!--
+.container_24 {
+	margin-left: 2px;
+	margin-right: auto;
+/* 	width: 1170px; */
+}
+.breadcrumbs{
+	margin-left: 0px;
+}
+.button {
+	color: #ffffff;
+	border: 1px solid black;
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font-size: 9pt;
+	padding-top: 13px;
+	padding-bottom: 0px;
+	margin-left: 3px;
+	-webkit-border-bottom-right-radius: .5em;
+	-webkit-border-top-left-radius: .5em;
+	-moz-border-bottom-right-radius: .5em;
+	border-bottom-right-radius: .5em;
+	-moz-border-top-left-radius: .5em;
+	border-top-left-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-o-box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+-->
+</style>
+
+
+			<div id="page-content">
+				<div id="page-content-header" class="container_24">
+					<div id="page-title">
+						<h2><?php echo $this->getText($_tplvar['key_title'])?></h2>
+					</div>
+					<!-- <p class="breadcrumbs"><span class="breadcrumb_info">Ti Trovin in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb"><?php echo $this->getText($_tplvar['key_title'])?></span></p> -->
+				</div>
+				<div id="content-container" class="container_24">
+
+							
+					<div id="main-content" class="grid_16 push_10">
+						<div class="main-content-padding">
+							<div class="page">
+								<div class="entry">
+								
+									<h3><?php echo $this->getText('title')?> &nbsp;&nbsp;&nbsp;</h3>
+
+										<?php //echo $_tplvar['list']?>
+
+<div id="zoom-vbn-image" class="box-img-vbn" style="top:90px;left:60px"></div>
+
+<div class="category-products">
+
+		<!-- Begin ToolBarButton -->
+		<table style="margin-top:-12px;margin-bottom:12px">
+		<tr>
+			<?php foreach ($_tplvar['cmb_gm'] as $value):?>
+				<?php if(!empty($value['gruppo'])):?>
+				
+					<?php if($value['gruppo'] == 'FIORI ITALIA EXPORT'):?>
+					<td class="button" onclick="javascript:document.location.href = '<?php echo $_tplvar['STREAM_WWW_ROOT']?>?act=Search&reset=1&origin=IT&gm=<?php echo $value['id']?>';" <?php if($_tplvar['search']['gm'] == $value['id']):?>style="background-color:#e84852;"<?php endif;?>>
+						<?php echo $this->getTranslation($value['gruppo'])?>
+					</td>
+					<?php else:?>
+					<td class="button" onclick="javascript:document.location.href = '<?php echo $_tplvar['STREAM_WWW_ROOT']?>?act=Search&reset=1&gm=<?php echo $value['id']?>';" <?php if($_tplvar['search']['gm'] == $value['id']):?>style="background-color:#e84852;"<?php endif;?>>
+						<?php echo $this->getTranslation($value['gruppo'])?>
+					</td>
+					<?php endif;?>
+					
+				<?php endif;?>
+			<?php endforeach;?>
+			<td class="button" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=Search&reset=1&only_disp=1';" <?php if($_tplvar['only_disp']):?>style="background-color:#e84852;"<?php endif;?>>
+				<?php echo $this->getTranslation('TUTTI I PRODOTTI DISPONIBILI')?>
+			</td>
+			<td class="button" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=Search&reset=1&all_disp=1';" <?php if($_tplvar['all_disp'] || (empty($_tplvar['all_disp']) && empty($_tplvar['only_disp'])) ):?>style="background-color:#e84852;"<?php endif;?>>
+				<?php echo $this->getTranslation('TUTTI I PRODOTTI PRENOTABILI')?>
+			</td>
+			<!--
+			<td class="button" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart';"><?php echo $this->getText('carrello')?></td> 
+			<td class="button" onclick="javascript:void(0);" <?php if($_tplvar['search']['gm'] == $value['id']):?>style="background-color:#e84852;"<?php endif;?>><?php echo $this->getText('fiori_recisi')?></td>
+			<td class="button" onclick="javascript:void(0);"><?php echo $this->getText('fronde_fiorite')?></td>
+			<td class="button" onclick="javascript:void(0);"><?php echo $this->getText('verde')?></td>
+			<td class="button" onclick="javascript:void(0);"><?php echo $this->getText('piante')?></td>
+			<td class="button" onclick="javascript:void(0);"><?php echo $this->getText('verde_natalizio')?></td>
+			<td class="button" onclick="javascript:void(0);"><?php echo $this->getText('accessori')?></td>
+			<td class="button" onclick="javascript:void(0);"><?php echo $this->getText('attrezzature')?></td>
+			<td class="button" onclick="javascript:void(0);"><?php echo $this->getText('book_produzione')?></td>
+			-->
+		</tr>
+		</table>
+		<br><br><br><br>
+		<?php 
+	    $assign['url'] = $_tplvar['WWW_ROOT'].'?act=Search';
+	    $assign['layout_active'] = $_SESSION['Search']['layout'];
+	    $assign['show_switch_layout'] = true;
+	    $this->getPartial('shared/ToolBarButton', $assign);?>
+		<!-- End ToolBarButton -->
+		
+		<!-- Begin Product Listing -->
+				<?php if(empty($_tplvar['content'])):?>
+				    <?php 
+				    $assign['err_message'] = 'Attenzione: il prodotto cercato non &eacute; al momento disponibile.';
+				    $this->getPartial('shared/ErrorMessage', $assign);
+				    ?>
+				<?php endif;?>
+	
+				<br>
+<script>
+var y;
+var x;
+jQuery(document).mousemove(function(event) {
+    x = event.pageX;
+});
+function centra(e, div)
+{
+	y = jQuery(e).css('top');
+	jQuery(div).css({
+		   position: "absolute",
+		   left: x-100,
+		   top: y-10
+		  });
+}
+</script>
+
+										
+<style>
+.crop{
+    float:left;
+    margin:.1em 2px .1em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:150px;
+    height:150px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+
+<style>
+.box-product-item .name a {
+	font-size: 12px;
+	color: #000;
+	text-align: left;
+	text-decoration: none;
+	display: block;
+	margin-top: 10px;
+	margin-left: 10px;
+	font-weight: 600;
+}
+.box-product-item {
+	min-height: 500px;
+	width: 312px;
+	float: left;
+	overflow: hidden;
+	margin-left: 10px;
+	margin-right: 10px;
+	background: #f0f6fb;
+	box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1);
+	margin-top: 18px;
+	margin-bottom: 18px;
+}
+.box-product-item .image {
+	text-align: left;
+	height: 23px;
+	margin-top: 20px;
+	margin-bottom: 8px;
+	margin-left: 70px;
+	float: left;
+}
+.name{
+	margin-left:4px;
+}
+.box-product-item .price {
+	display: block;
+	color: #26358f;
+	margin-top: 10px;
+	font-size: 14px;
+	font-weight: 600;
+	text-align: center;
+}
+.buttons-cart {
+	text-align: center;
+	padding: 5px;
+	background: #26358f;
+	color: #fff;
+	cursor: pointer;
+	margin: 10px;
+	margin-top: 10px;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: 600;
+	width: 75px;
+	float: left;
+}
+</style>
+
+	<!-- Begin ToolBarButton -->
+    <?php 
+    $assign['url'] = $_tplvar['WWW_ROOT'].'?act=Home';
+    $assign['layout_active'] = $_SESSION['Search']['layout'];
+    $assign['show_switch_layout'] = false;
+    $this->getPartial('shared/ToolBarButton', $assign);?>
+	<!-- End ToolBarButton -->
+	<br>
+
+<div class="category-products" style="width:100%;">
+
+	<ul class="products-grid columns3">
+	
+		<?php if(empty($_tplvar['content'])):?>
+		    <?php 
+		    $assign['err_message'] = 'Attenzione: il prodotto cercato non &eacute; al momento disponibile.';
+		    $this->getPartial('shared/ErrorMessage', $assign);
+		    ?>
+		<?php endif;?>
+
+		
+		<?php $i=1;?>
+		<?php foreach ($_tplvar['content'] as $key => $value):?>
+			<?php $giacenza = $this->getGiacenzaById($value['id']);?>
+				<!-- box -->
+				<li class="item last">
+					<div class="box-product-item">
+						<div class="view-first">
+						<div class="view-content">
+							<div class="image">
+								<?php $image = null;?>
+								<?php //$image = $this->getImageFromVbn($value['vbn']);
+		    					$image = $value['vbn_image'];
+		    					?>
+		    						<?php $product_image = $this->dbGetImageProductFromBarCode($giacenza['bar_code']);?>
+		    					
+									<?php if(!empty($product_image)):?>
+										<?php $obj_image = $this->dbGetImageFromBarCode($giacenza['bar_code']);?>
+										
+									
+										<?php if(!empty($obj_image)):?>
+											<?php
+												$d = dir($_tplvar['APP_ROOT'].'/email_images/');
+												while (false !== ($entry = $d->read())) {
+													if($entry != '.' && $entry != '..')
+														$image = $obj_image[0]['www_path'].$obj_image[0]['name'];
+												}
+												$d->close();	
+											?>
+										<?php elseif(!empty($product_image)):?>
+											<?php $image = $product_image;?>
+										<?php else:?>
+										<?php $image = null;?>
+										<?php endif;?>
+									<?php endif;?>
+
+								<?php if(!empty($image)):?>
+										<a style="text-decoration:none;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' />');" title="" class="lightbox " rel="group1">
+											<img src="<?php echo $image?>" style="width:150px;max-height:270px" alt="" />
+										</a>
+								<?php else:?>
+										<a style="text-decoration:none;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $_tplvar['WWW_ROOT']?>img/web/image_large.gif oncontextmenu=\'return false;\' />');" title="" class="lightbox " rel="group1">
+											<img src="<?php echo $_tplvar['WWW_ROOT']?>img/web/image_large.gif" style="width:150px;max-height:270px" alt="" />
+										</a>
+								<?php endif;?>
+							</div>
+							<div style="height:35px;"></div>
+							
+							<br><br><br><br><br><br><br><br><br><br>
+							<div class="name" id='productname31' style="margin-top: 40px;">
+								<a href="" title="<?php echo $value['nome_it']?>">
+									<?php if($templateConfig['FIELD_4']['is_visible']):?>
+										<?php echo $this->getTranslation($templateConfig['FIELD_4']['value'])?>: <?php echo $value['nome_it']?>
+									<?php endif;?>
+								</a>
+							</div>
+							<div class="name" id='productname31'>
+								<a href="" title="<?php echo $value['vbn']?>">
+									  <?php if(empty($value['vbn'])):?>
+							          	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							          <?php else:?>
+							          	<?php echo $this->getTranslation($templateConfig['FIELD_5']['value'])?>: <?php echo $value['vbn']?>
+							          <?php endif;?>
+								</a>
+							</div>
+
+							<div class="name" id='productname31'>
+								<?php if(!empty($giacenza['bar_code'])):?>
+								<a href="" title="<?php echo $value['bar_code']?>">
+									<?php echo $this->getTranslation($templateConfig['FIELD_2']['value'])?>: <?php echo $giacenza['bar_code']?>
+								</a>
+								<?php endif;?>
+							</div>
+							
+							
+							<?php if($templateConfig['FIELD_8']['is_visible']):?>
+					          <div class="name" id='productname31'>
+					          	<a href="" title="<?php echo $value['C4']?>">
+					          		<?php echo $this->getTranslation($templateConfig['FIELD_8']['value'])?>: <?php echo $value['C4']?>
+					          	</a>
+					          </div>
+							<?php endif;?>
+							<?php if($templateConfig['FIELD_10']['is_visible']):?>
+					          <div class="name" id='productname31'>
+					          	<a href="" title="<?php echo $value['scelta']?>">
+					          		<?php echo $this->getTranslation($templateConfig['FIELD_10']['value'])?>: <?php echo $giacenza['scelta']?>
+					          	</a>
+					          </div>
+							<?php endif;?>
+							<?php if($templateConfig['FIELD_11']['is_visible']):?>
+					          <div class="name" id='productname31'>
+					          	<a href="" title="<?php echo $value['fusto']?>">
+					          		<?php echo $this->getTranslation($templateConfig['FIELD_11']['value'])?>: <?php echo $giacenza['fusto']?>
+					          	</a>
+					          </div>
+							<?php endif;?>
+							
+							<?php if($templateConfig['FIELD_13']['is_visible']):?>
+					          <div class="name" id='productname31'>
+					          	<a href="" title="<?php echo $value['C5']?>">
+					          	<?php echo $this->getTranslation($templateConfig['FIELD_13']['value'])?>: <?php echo $giacenza['produttore']?>
+					          	</a>
+					          </div>
+							<?php endif;?>
+							
+							<?php if($templateConfig['FIELD_13']['is_visible']):?>
+					          <div class="name" id='productname31'>
+					          	<a href="" title="<?php echo $value['C5']?>">
+					          	<?php echo $this->getTranslation('Origin')?>: <?php echo $giacenza['C5']?>
+					          	</a>
+					          </div>
+							<?php endif;?>
+							<?php if($templateConfig['FIELD_9']['is_visible']):?>
+					          <div class="name" id='productname31'>
+					          	<a href="" title="<?php echo $value['openstage']?>">
+					          	<?php echo $templateConfig['FIELD_9']['value']?>: <?php echo $giacenza['openstage']?>
+					          	</a> 
+					          </div>
+							<?php endif;?>
+							
+							<?php if($templateConfig['FIELD_3']['is_visible']):?>
+					          <div class="name" id='productname31'>
+					          	<a href="" title="<?php echo round($giacenza['disponibilita'] / $giacenza['quantita'], 0)?> x <?php echo $giacenza['quantita']?>">
+					          	<?php echo $templateConfig['FIELD_3']['value']?>: <?php echo round($giacenza['disponibilita'] / $giacenza['quantita'], 0)?> x <?php echo $giacenza['quantita']?>
+					          	</a> 
+					          </div>
+							<?php endif;?>
+							
+							<br>
+							
+							<div class="price clearfix">
+								<div class="price-box">
+									<span class="regular-price" id="product-price-31">
+										<span class="price" style="color:red">
+										<?php if($templateConfig['FIELD_16']['is_visible']):?>
+												<?php if(!empty($value[$_tplvar['key_prezzo']]) && !empty($_SESSION['LoggedUser']['id'])):?>
+													<?php echo $this->getText($templateConfig['FIELD_16']['value'])?>: &euro; <?php echo $value[$_tplvar['key_prezzo']]?>
+												<?php endif;?>
+										<?php endif;?>
+										</span>
+									</span>
+								</div>
+							</div>
+							<?php
+						
+						
+							if(empty($value['id']))
+								$add_to_basket_url = $_tplvar['WWW_ROOT'].'?act=ProductInfo&id='.$value['id_content'].'';
+							else
+								$add_to_basket_url = $_tplvar['WWW_ROOT'].'?act=ProductInfo&id_giacenza='.$value['id'].'';
+								$value['id'] = $value['id_content'];
+							?>
+							<div class="buttons-cart" style="margin-left:15px">
+								<strong><a href="<?php echo $add_to_basket_url;?>" style="color:#fff;"><?php echo $this->getTranslation('Dettaglio')?></a></strong>
+							</div>
+							
+					        <?php if(!empty($giacenza) && $giacenza['disponibilita'] > 0):?>
+								<?php
+								$add_to_basket_url = $_tplvar['STREAM_WWW_ROOT'].'ShoppingCart';
+								if(!empty($value['id_famiglia']))
+								{
+									$famiglia = $this->getFamigliById($value['id_famiglia']);
+									$add_to_basket_url .= '/'.$famiglia['famiglia'];
+								}
+								else
+									$add_to_basket_url .= '/-';
+							
+								if(!empty($value['nome_it']))
+									$add_to_basket_url .= '/'.str_replace("'",'',str_replace('"','',str_replace('%','',str_replace('(','',$value['nome_it']))));
+								else
+									$add_to_basket_url .= '-';
+							
+								$add_to_basket_url .= '/'.$value['id'].'-'.$giacenza['id'].'.html';
+								?>
+								<div class="buttons-cart">
+									<strong><a href="<?php echo $add_to_basket_url;?>" style="color:#fff;"><?php echo $this->getTranslation('Acquista')?></a></strong>
+								</div>
+								<br><br>
+							<?php endif;?>							
+						</div>
+						</div>
+					</div>
+
+	</li>
+					
+		<?php endforeach;?>
+</ul>
+	<!-- Begin ToolBarButton -->
+    <?php 
+    $assign['show_paging'] = true;
+    $assign['show_switch_layout'] = false;
+    $this->getPartial('shared/ToolBarButton', $assign);?>
+	<!-- End ToolBarButton -->
+
+</div>
+											
+										
+										
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!-- end main-content-padding -->
+					</div>
+					<!-- end main-content -->
+			
+					
+				</div>
+				<!-- end content-container -->
+				<div class="clear"></div>
+			</div>
+			<!-- end page-content -->

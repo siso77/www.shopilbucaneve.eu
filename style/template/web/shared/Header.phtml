@@ -1,0 +1,110 @@
+<?php $_tplvar = $this->getVars();?>
+	        <div class="logo-block">
+	            <h1 class="logo">
+	            <strong></strong>
+	            	<a href="<?php echo $_tplvar['WWW_ROOT']?>" title="" class="logo">
+	            		<img src="<?php echo $_tplvar['WWW_ROOT']?>/css/images/logo.gif" alt="" />
+	            	</a>
+	            </h1>
+	        </div>
+			<!-- Begin Quick Access -->
+			<div class="quick-access">
+	        	<!-- Begin Top Menu -->
+	            <div class="nav-container superfish-menu" id="superfish-menu">
+					<ul id="nav">
+						<li class="homepage level-top ">
+							<a class="level-top" href="<?php echo $_tplvar['WWW_ROOT']?>"><span>Home Page</span></a>
+						</li>
+						<li class="level0 nav-1 active level-top first parent">
+							<a href="<?php echo $_tplvar['WWW_ROOT']?>Magazzino-Online/Lista-Prodotti.html" class="level-top">
+								<span>Magazzino</span> 
+							</a>
+							<!-- 
+							<ul class="level0">
+								<li class="level1 nav-1-1 active first"><a href=""><span>Lista Prodotti</span></a></li>
+								<li class="level1 nav-1-2 last"><a href="/"><span>Lista Caratteristiche</span></a></li>
+							</ul>
+							-->
+						</li>
+					
+						<li class="level0 nav-2 level-top parent">
+							<a href="#" class="level-top"><span>Contatti</span></a>
+						</li>
+					</ul>
+				</div>
+				<!-- End Top Menu -->
+				<br class="clear" />
+				<!-- Begin Button Search and Chart -->
+	            <div class="quick-access-left">
+	                <div class="top-cart-block">
+	                	<div class="top-cart">
+					        <div class="block-title no-items">
+					        	<a id="cartHeader" href="#">
+						        	<span class="title-cart">Carrello</span>
+						        	<span class="title-cart-2">Nascondi</span>
+						        	<span id="amount" class="amount"><?php echo count($_SESSION[session_id()]['cart']['contents'])?></span>
+						        	<strong class="arr-cart"></strong>
+					        	</a>
+					    	</div>
+						    <div id="topCartContent" class="block-content" style="display:none;">
+						        <div class="inner-wrapper">
+									<p class="cart-empty">
+									<div id="box-cart">
+									<?php if(empty($_SESSION[session_id()]['cart']['contents'])):?>
+										Non ci sono prodotti nel carrello.
+									<?php else:?>
+										<?php echo $this->getPartial('shared/BoxCart');?>
+									<?php endif;?>
+									</div>
+									</p>
+								</div>
+						    </div>
+						</div>
+					</div>
+					<!-- End Button Search and Chart -->
+					<!-- Begin Search Form -->
+					<div class="header-search">
+						<form id="search_mini_form" action="/" method="post">
+					        <div class="search-block-title">
+					            <span class="search-title">Cerca</span><span class="search-title-2">Nascondi</span><span class="search-arr"></span>
+					        </div>
+					        <div class="form-search inactive">
+					            <div class="input-type-block">
+					            	<input id="search" type="text" name="q" value="" class="input-text" />
+						            <button type="submit" title="Search" class="button"><span><span>Cerca</span></span></button>
+						            <div id="search_autocomplete" class="search-autocomplete"></div>
+					            </div>
+					            <ul class="links">
+					            	<li class="first last" >
+					            		<a href="/" title="Ricerca Avanzata">Ricerca Avanzata</a></li>
+					            </ul>
+					            <script type="text/javascript">
+					            //<![CDATA[
+					                var searchForm = new Varien.searchForm('search_mini_form', 'search', 'Cerca in tutto il magazzino...');
+					                searchForm.initAutocomplete('/catalogsearch/ajax/suggest/', 'search_autocomplete');
+					            //]]>
+					            </script>
+					        </div>
+						</form>
+					</div>
+					<!-- End Search Form -->
+					<p class="welcome-msg">Benvenuto su Stream!</p>
+	            </div>
+
+	            <div class="quick-access-right">
+	                <ul class="links">
+                    	<li class="first" ><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=MyAccount" title="My Account" >My Account</a></li>
+<!--                                <li ><a href="/" title="My Wishlist" >My Wishlist</a></li>-->
+<!--                                <li ><a href="/" title="Checkout" class="top-link-checkout">Checkout</a></li>-->
+						<?php if(empty($_SESSION['LoggedUser'])):?>
+                    	<li class=" last" ><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Login" title="Log In" >Log In</a></li>
+                    	<?php else:?>
+                    	<li class=" last" ><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Orders&user_id=<?php echo $_SESSION['LoggedUser']['id']?>" title="Log In" >Ordini</a></li>
+                    	<li class=" last" ><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Logout" title="Log In" >Log Out</a></li>
+                    	<?php endif;?>
+            		</ul>
+	            </div>
+	            
+	        </div>
+	        <!-- End Quick Access -->
+			<br class="clear" />	        

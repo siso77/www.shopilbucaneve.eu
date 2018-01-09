@@ -1,0 +1,68 @@
+/* All IE browsers specific css */
+
+/* Begin Buttons */
+
+.align-btn-left {
+    float: left;
+    display: inline-block;
+}
+.align-btn-right {
+    float: right;
+    display: inline-block;
+}
+#c2-slider a.dark-button {
+    display: inline-block;
+    border: 0 none;
+    font-size: 1em;
+    height: 36px;
+    line-height: 36px;
+    margin: 0;
+    overflow: visible;
+    padding: 0 0 0 8px !important;
+    position: relative;
+    text-shadow: none;
+}
+#c2-slider a.dark-button {
+    background:transparent url(../common-images/dark-button-ie-slider-l.png) no-repeat scroll left top;
+    color: #ACACAC;
+    font-weight: bold;
+}
+#c2-slider a.dark-button span {
+    display: block;
+    float: left;
+    position: relative;
+}
+#c2-slider a.dark-button span {
+    background: transparent url(../common-images/dark-button-ie-slider-r.png) no-repeat scroll right top;
+    color: #ACACAC;
+    padding: 0 50px 0 10px;
+}
+#c2-slider a.dark-button:hover {
+    background-position: left bottom;
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+}
+#c2-slider a.dark-button:hover span {
+    background-position: right bottom;
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+    height: 36px;
+}
+#c2-slider a.dark-button:focus, a.dark-button:focus span {
+    overflow: hidden;
+    outline: none;
+}
+/* End Buttons */
+
+#search input.inputbox, #search input.inputbox_focus {
+    padding:10px 0 4px 14px;
+}
+.qty .qty-box {
+    height: 29px;
+}
+.qty input.inputbox, .qty input.inputbox-focus {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}

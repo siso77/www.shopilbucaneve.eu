@@ -1,0 +1,86 @@
+/*
+ * jQuery FlexSlider v2.0
+ * http://www.woothemes.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ */
+
+ 
+/* Browser Resets */
+.ma-newproductslider-container .flex-container a:active,
+.ma-newproductslider-container .flexslider a:active,
+.ma-newproductslider-container .flex-container a:focus,
+.ma-newproductslider-container .flexslider a:focus  {outline: none;}
+.ma-newproductslider-container .slides,
+.ma-newproductslider-container .flex-control-nav,
+.ma-newproductslider-container .flex-direction-nav { list-style: none;} 
+
+/* FlexSlider Necessary Styles
+*********************************/ 
+.ma-newproductslider-container .flexslider {margin: 0; padding: 0;}
+.ma-newproductslider-container .flexslider .slides > li {display: none; -webkit-backface-visibility: hidden;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.ma-newproductslider-container .flexslider .slides img {}
+.ma-newproductslider-container .flex-pauseplay span {text-transform: capitalize;}
+
+/* Clearfix for the .slides element */
+.ma-newproductslider-container .slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
+html[xmlns] .ma-newproductslider-container .slides {display: block;} 
+* html .ma-newproductslider-container .slides {height: 1%;}
+
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+.no-js .ma-newproductslider-container .slides > li:first-child {display: block;}
+
+
+/* FlexSlider Default Theme
+*********************************/
+.ma-newproductslider-container .flexslider {margin: 0 0 20px; zoom: 1;}
+.ma-newproductslider-container .flex-viewport {max-height: 2000px; -webkit-transition: all 1s ease; -moz-transition: all 1s ease; transition: all 1s ease;}
+.ma-newproductslider-container .loading .flex-viewport {max-height: 300px;}
+.ma-newproductslider-container .flexslider .slides {zoom: 1;}
+
+.ma-newproductslider-container .carousel li { text-align: center; display: inline;}
+
+
+/* Direction Nav */
+.ma-newproductslider-container .flexslider:hover .flex-next:hover, .ma-newproductslider-container .flexslider:hover .flex-prev:hover {opacity: 1;}
+.ma-newproductslider-container .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
+
+/* Control Nav */
+.ma-newproductslider-container .flex-control-nav { background: #fff; position: absolute; bottom: -40px; left: 49%; padding: 0; text-align: center; z-index: 111; }
+.ma-newproductslider-container .flex-control-nav li { margin: 0 6px; display: inline-block; zoom: 1; *display: inline;}
+.ma-newproductslider-container .flex-control-paging li a {width: 11px; height: 11px; display: block; border: 1px solid #b6b6b6; cursor: pointer; text-indent: -9999px; -webkit-border-radius: 20px; -moz-border-radius: 20px; -o-border-radius: 20px; border-radius: 20px; }
+
+
+.ma-newproductslider-container .flex-control-thumbs {margin: 5px 0 0; position: static; overflow: hidden;}
+.ma-newproductslider-container .flex-control-thumbs li {width: 25%; float: left; margin: 0;}
+.ma-newproductslider-container .flex-control-thumbs img {width: 100%; display: block; opacity: .7; cursor: pointer;}
+.ma-newproductslider-container .flex-control-thumbs img:hover {opacity: 1;}
+.ma-newproductslider-container .flex-control-thumbs .flex-active {opacity: 1; cursor: default;}
+
+@media screen and (max-width: 860px) {
+  .ma-newproductslider-container .flex-direction-nav .flex-prev {opacity: 1; left: 0;}
+  .ma-newproductslider-container .flex-direction-nav .flex-next {opacity: 1; right: 0;}
+}
+@media screen and (max-width: 680px) {
+  
+  }
+@media screen and (max-width: 500px) { }
+@media screen and (max-width: 360px) { }
+@media screen and (max-width: 260px) { }
+  
+.ma-newproductslider-container .ma-loading {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	z-index: 99;
+	background: url(/css/images/loader.gif) no-repeat ;
+	top: 50%;
+	left: 50%;
+	margin: -8px 0 0 -8px;
+}

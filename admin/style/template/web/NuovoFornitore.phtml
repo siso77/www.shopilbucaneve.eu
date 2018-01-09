@@ -1,0 +1,36 @@
+<?php $_tplvar = $this->getVars();?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+<?php if(!empty($_tplvar['data']['id']))?>
+	<input type="hidden" name="id" value="<?php echo $_tplvar['data']['id']?>">
+
+<table>
+<tr>
+	<td>NOMINATIVO</td>
+	<td><input type="text" name="nome" value="<?php echo $_tplvar['data']['nome']?>"></td>
+</tr>
+<tr>
+	<td>INDIRIZZO</td>
+	<td><input type="text" name="indirizzo" value="<?php echo $_tplvar['data']['indirizzo']?>"></td>
+</tr>
+<tr>
+	<td>CAP</td>
+	<td><input type="text" name="cap" value="<?php echo $_tplvar['data']['cap']?>"></td>
+</tr>
+<tr>
+	<td>TELEFONO</td>
+	<td><input type="text" name="telefono" value="<?php echo $_tplvar['data']['telefono']?>"></td>
+</tr>
+<tr>
+	<td>EMAIL</td>
+	<td><input type="text" name="email" value="<?php echo $_tplvar['data']['email']?>"></td>
+</tr>
+<tr>
+	<td>P.IVA</td>
+	<td><input type="text" name="p_iva" value="<?php echo $_tplvar['data']['p_iva']?>"></td>
+</tr>
+</table>
+	
+<br><br>
+	<input type="submit" name="save" value="Salva">
+	<input type="reset" class="submit" name="cancel" value="Cancella">
+</form>

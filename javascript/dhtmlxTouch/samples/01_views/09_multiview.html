@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiview</title>
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+            html,body{
+                background-color:#ffffff;
+            }
+			.tb_sup{
+				font-size:10px;
+				text-shadow: none;
+				font-style:italic;
+			}
+    </style>
+    <script>
+			var config={
+                container:"groupBox",
+                rows:[
+                        { 	
+                            view:"toolbar", 
+                            type:"MainBar", 
+                            elements:[
+                                {view:"label", label: "Backpackr <sup class='tb_sup'>mobile</sup>", align:'left'}
+                            ]
+                        },
+                        {
+                            gravity:2,  
+                            view:"multiview",
+                            cells:[    
+                                {
+                                    id:"games",
+                                    view:"list",
+                                    url:"../04_list/games.xml",
+                                    datatype:"xml",
+                                    template:"#name#",
+                                    select:1
+                                },
+                                {   id:"video",
+                                    view:"list",
+                                    url:"../04_list/movies.xml",
+                                    datatype:"xml",
+                                    template:"#name#",
+                                    select:1
+                                },
+                                {   id:"music",
+                                    view:"list",
+                                    url:"../04_list/songs.xml",
+                                    datatype:"xml",
+                                    template:"#name#",
+                                    select:1
+                                }
+                            ]
+                        },
+                        { 
+                            view:"toolbar", 
+                            id:"BottomBar", type:"BottomBar",
+                            elements:[
+                            	{ view:"tabbar", id:'tabbar', selected: 'games', multiview:true, inputWidth:300, options: [
+                            	    { label: 'Games', src: 'imgs/tabbar/games.png', value: 'games'},
+                            	    { label: 'Video', src: 'imgs/tabbar/video.png', value: 'video'},
+                            	    { label: 'Music', src: 'imgs/tabbar/music.png', value: 'music'}
+                            		]}
+                                ]
+                        }    
+    				]
+            };
+        dhx.ready(function(){
+	
+    		
+            
+           
+            dhx.ui(config);
+           
+        });
+        
+        
+                
+    </script>
+<body>
+
+    <div style="width:320px;height:450px;border:1px solid #ADADAD; margin:50px;">
+		<div id="groupBox" style='width:100%; height:100%;'>
+		</div>
+	</div>
+
+</body>
+</html>
+

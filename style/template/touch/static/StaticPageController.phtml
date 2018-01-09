@@ -1,0 +1,80 @@
+<?php $_tplvar = $this->getVars();?>
+<style>
+<!--
+.container_24 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1170px;
+}
+-->
+</style>
+			<div id="page-content">
+				<div id="page-content-header" class="container_24" style="margin-left:180px">
+					<div id="page-title">
+						<h2><?php echo $this->getText($_tplvar['key_title'])?></h2>
+					</div>
+					<p class="breadcrumbs"><span class="breadcrumb_info">Ti Trovin in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">La Filosofia </span></p>
+				</div>
+				<div id="content-container" class="container_24">
+
+							
+					<div id="main-content" class="grid_16 push_10">
+						<div class="main-content-padding">
+							<div class="page">
+								<div class="entry">
+								
+									<h3><?php echo $this->getText($_tplvar['key_paragraph_title'])?> &nbsp;&nbsp;&nbsp;</h3>
+								
+									<p><?php echo $this->getText($_tplvar['key_body'])?></p>
+									<?php $body_evidence = $this->getText($_tplvar['key_body_evidence'])?>
+									<?php if(!empty($body_evidence)):?>
+									<div class="info">
+										<div class="msg-box-icon pngfix"><?php echo $body_evidence?></div>
+									</div>
+									<?php endif;?>
+									<p><?php echo $this->getText($_tplvar['key_body_evidence'])?></p>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!-- end main-content-padding -->
+					</div>
+					<!-- end main-content -->
+					
+					
+					
+					
+					<div id="sidebar" class="grid_8 pull_16 sidebar-box">
+						<div id="sidebarSubnav">
+
+							<?php echo $this->getPartial('shared/MenuLeft');?>
+
+							<!-- 
+							<div class="substitute_widget_class">
+								<h3 class="widgettitle"><cufon class="cufon cufon-canvas" alt="Testimonials" style="width: 108px; height: 24px;"><canvas width="138" height="26" style="width: 138px; height: 26px; top: 0px; left: -3px;"></canvas><cufontext>Testimonials</cufontext></cufon></h3>
+								<div class="textwidget">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula
+									eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
+									montes, nascetur ridiculus mus.
+									<div class="clear"></div>
+									<a class="pngfix small-light-button align-btn-right" href="#" title=""><span class="pngfix">Read more</span></a>
+									<div class="clear"></div>
+								</div>
+							</div>
+							-->
+							<div id="flickrrss" class="widget_flickrRSS substitute_widget_class">
+								<h3 class="widgettitle">
+									<cufontext>Photos</cufontext>
+								</h3>
+								<div id="flickr-images"></div>
+							</div>						
+						</div>
+						<!-- end sidebarSubnav -->
+					</div>							
+					<!-- end sidebar -->
+					
+					
+				</div>
+				<!-- end content-container -->
+				<div class="clear"></div>
+			</div>
+			<!-- end page-content -->

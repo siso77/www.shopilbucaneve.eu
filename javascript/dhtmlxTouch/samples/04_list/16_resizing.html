@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+    <title>Resizing</title>
+    <link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">     
+    <script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+
+ </head>
+ 
+ <body> 
+
+	
+	<script type="text/javascript" charset="utf-8">
+	
+	function resize(){
+		$$('list1').define("height", 300);
+        $$('list1').define("width", 500);
+		$$('list1').resize();
+
+		
+	};
+			
+	dhx.ready(function(){
+		dhx.ui({ type:"wide",
+			id:"top",
+            rows:[
+                {
+                    view:"toolbar",
+				    type:"MainBar",
+					elements:[{ view:"button", inputWidth:200, value:"Resize", click:resize}]
+                },
+                {
+                    type:"wide",
+                    cols:[
+                        {
+                            view:"list",
+						    id:"list1",
+						    view:"list",
+                            template:"<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div>",
+                            url:"books.xml",
+                            datatype:"xml",
+                            select:true,
+                            type:{
+                                height:35
+
+                            }
+                        },
+                        {}
+                    ]
+
+                },
+                {}
+
+			]
+		})
+	});
+	</script>
+  </body>
+</html>

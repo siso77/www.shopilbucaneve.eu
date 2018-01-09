@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		 <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+        <title>ActiveContent</title>
+	</head>
+	<body>
+       
+		<script type="text/javascript" charset="utf-8">
+        dhx.ready(function() {
+            /*Create new view that extends List and dhx.ActiveContent*/
+            dhx.protoUI({
+                name:"activeList"
+            },dhx.ui.list,dhx.ActiveContent);
+
+
+            dhx.ui({
+                view: "activeList",
+                id:"mylist",
+                url:"books.xml",
+                datatype:"xml",
+                activeContent:{
+                	deleteButton:{
+                		id:"deleteButtonId",
+                		view:"button",
+                		label:"Delete",
+                		width:150,
+                		earlyInit:true
+                	},
+                    editButton:{
+                		id:"editButtonId",
+                		view:"button",
+                		label:"Edit",
+                		width:150,
+                		click:editClick
+                	}
+                },
+                template: "<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div><div style='float:right'>{common.deleteButton()}</div><div style='float:right'>{common.editButton()}</div>",
+                type: {
+    			    height:35
+                }
+          
+            });
+            /*Edit click handling*/
+            function editClick(id, e){
+                var id = $$('mylist').locate(e);
+                dhx.notice("Edit "+id);
+            }
+            /*dDelete click handling*/
+            $$('deleteButtonId').attachEvent("onItemClick", function(id, e){
+                var id = $$('mylist').locate(e);
+                dhx.notice("Delete "+id);
+            });
+
+
+        });
+		</script>
+	</body>
+</html>

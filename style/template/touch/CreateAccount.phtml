@@ -1,0 +1,523 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<style>
+<!--
+td {
+	padding: 9px 12px;
+	color: #333;
+	border-top: 0px;
+}
+.grid_17 {
+	display: inline;
+	float: none;
+	position: relative;
+	margin-left: 0px;
+	margin-right: 90px;
+}
+-->
+</style>
+<script type="text/javascript">
+<!--
+onload = function(){
+	document.getElementById('username').focus();
+} 
+//-->
+
+function validadteText(obj)
+{
+	var error = document.getElementById('err_'+obj.name);
+
+	if(obj.value == '')
+	{		
+		error.innerHTML = '<span style="color:red">(*) Campo obbligatorio</span>';
+		return false;
+	}
+	else
+	{
+		error.innerHTML = '';
+		return true;
+	}
+}
+function validateEmail(obj)
+{
+	var error = document.getElementById('err_'+obj.name);
+	var r = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	if( r.test( obj.value ) )
+	{
+		error.innerHTML = '';
+	    return true;
+	}
+	else
+	{
+		error.innerHTML = '<span style="color:red">(*) Campo obbligatorio</span>';
+		return false;
+	}
+}
+function validateChekbox(obj)
+{
+	var error = document.getElementById('err_'+obj.name);
+	if(obj.checked == false)
+	{
+		error.innerHTML = '<span style="color:red">(*) Campo obbligatorio</span>';
+	    return false;
+	}
+	else
+	{
+		error.innerHTML = '';
+		return true;
+	}
+}
+
+function validateCombo(combo)
+{
+	var error = document.getElementById('err_'+obj.name);
+	var i = combo.selectedIndex;
+	if(i == 0)
+	{
+		error.innerHTML = '<span style="color:red">(*) Campo obbligatorio</span>';
+	    return false;
+	}
+	else
+	{
+		error.innerHTML = '';
+		return true;
+	}
+}
+
+function validateFormAddBasket()
+{
+	var ret = new Array();
+	
+	var username = document.getElementById('username');
+	var password = document.getElementById('password');
+	var confirm_password = document.getElementById('confirm_password');
+	var name = document.getElementById('name');
+	var surname = document.getElementById('surname');
+	var address = document.getElementById('address');
+	var address_secondary = document.getElementById('address_secondary');
+	var city = document.getElementById('city');
+	var province = document.getElementById('province');
+	var nation = document.getElementById('nation');
+	var cap = document.getElementById('cap');
+	var phone = document.getElementById('phone');
+	var mobile = document.getElementById('mobile');
+	var secret_question = document.getElementById('secret_question');
+	var secret_response = document.getElementById('secret_response');
+	var is_t_c_accepted = document.getElementById('is_t_c_accepted');
+
+	ret[0] = validateEmail(username);
+	ret[1] = validadteText(password);
+	ret[2] = validadteText(confirm_password);
+	ret[3] = validadteText(name);
+//	ret[4] = validadteText(surname);
+	ret[5] = validadteText(address);
+	//ret[6] = validadteText(address_secondary);
+	ret[7] = validadteText(city);
+	ret[8] = validadteText(nation);
+	ret[9] = validadteText(cap);
+	//ret[10] = validadteText(phone);
+	ret[11] = validadteText(mobile);
+	ret[12] = validadteText(secret_question);
+	ret[13] = validadteText(secret_response);
+
+	ret[14] = validateChekbox(is_t_c_accepted);
+	
+	for(i=0;i<=ret.length;i++)
+	{
+		if(ret[i] == false)
+		{
+			return false;
+			break;
+		}
+	}
+	return true;
+}
+</script>
+
+
+<div id="page-content">
+
+	<div id="page-content-header" class="container_24">
+		<div id="page-title">
+			<!-- <h2>Registrazione Utente</h2> -->
+		</div>
+<!--		<p class="breadcrumbs"><span class="breadcrumb_info">Ti trovi in:</span> <a href="index.php">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Registrazione Utente</span></p>-->
+	</div>
+	<div id="content-container" class="container_24">
+		<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=CreateAccount" method="post" onsubmit="return validateFormAddBasket();">
+		<div id="main-content" class="grid_17">
+			<div class="main-content-padding">
+				<div class="page">
+					<div class="entry">
+						<p>
+							Inserisci i tuoi dati qui sotto per creare un account su Krupy.it. Tutti i campi sono obbligatori se non diversamente indicato.
+						</p>
+						<?php if($_tplvar['user_exist']):?>
+						<br><br>
+						<div style="color:red">Attenzione, lo username <?php echo $_tplvar['user_data']['username']?> esiste gi&aacute;!</div>
+						<br><br>
+						<?php endif;?>
+						
+						<?php if($_REQUEST['error_tc']):?>
+						<br><br>
+						<div style="color:red">Attenzione, per poter registrare il tuo account, devi accettare i Termini e Condizioni del servizio!</div>
+						<br><br>
+						<?php endif;?>
+						
+						<?php if($_tplvar['confirm_account']):?>
+						<br><br>
+						<div style="color:green">
+							Il tuo account è stato creato con successo!<br>
+							A breve riceverai una email di conferma di attivazione del tuo account.
+						</div>
+						<br><br>
+						<?php endif;?>
+						
+						<?php if($_tplvar['user_not_active']):?>
+						<br><br>
+						<div style="color:red">Il tuo account non può essere attivato!</div>
+						<br><br>
+						<?php endif;?>
+						
+						<?php if($_tplvar['user_activated']):?>
+						<br><br>
+						<div style="color:green">Complimenti il tuo account &eacute; stato attivato con successo!</div>
+						<br><br>
+						<?php endif;?>
+
+						<table cellpadding="0" style="width: 100%;">
+							<tfoot>
+								<tr>
+									<td colspan="2">
+									<table width="100%" cellspacing="0" cellpadding="0">
+										<tfoot>
+											<tr>
+												<th align="left" style="border-top: 1px solid white;">Selezione 1: Indirizzo e-mail e password</th>
+											</tr>
+										</tfoot>
+									</table>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" style="width: 40%;"><span id="CustSetUp_LblEmailAddress">Indirizzo e-mail</span></td>
+									<td>
+										<input type="text" id="username" size="20" maxlength="100" name="username" value="<?php echo $_tplvar['user_data']['username']?>">
+										<div id="err_username"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblPassword">Crea una password</span></td>
+									<td>
+										<input type="password" id="password" size="20" maxlength="20" name="password">
+										<div id="err_password"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblConfirmPassword">Conferma Password</span></td>
+									<td><input type="password" id="confirm_password" size="20" maxlength="20" name="confirm_password">
+									<div id="err_confirm_password"></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+									<table width="100%" cellspacing="0" cellpadding="0">
+										<tfoot>
+											<tr>
+												<th align="left" style="border-top: 1px solid white;">Selezione 2: Dettagli dell’indirizzo di fatturazione</th>
+											</tr>
+										</tfoot>
+									</table>
+									</td>
+								</tr>
+								<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+									<td align="right"><span id="CustSetUp_LblVatNumber">Partita IVA</span></td>
+									<td>
+										<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+										<span id="CustSetUp_LblOptionalField3">&nbsp;(opzionale)</span>
+										<div id="err_p_iva"></div>
+										
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblFirstName">Nome (o ragione sociale se sei una societ&aacute;)</span></td>
+									<td><input type="text" id="name" size="36" maxlength="50" name="name" value="<?php echo $_tplvar['user_data']['name']?>">
+									<div id="err_name"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblSurname">Cognome</span></td>
+									<td><input type="text" id="surname" size="36" maxlength="50" name="surname" value="<?php echo $_tplvar['user_data']['surname']?>">
+									<div id="err_surname"></div>
+									</td>
+								</tr>
+								<tr style="display: none; visibility: hidden;" id="TbrCompanyName">
+									<td align="right"><span id="CustSetUp_LblCompanyName">Company Name</span></td>
+									<td><input type="text" id="company_name" size="36" maxlength="250" name="company_name" value="<?php echo $_tplvar['user_data']['']?>">
+									<div id="err_company_name"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblAddressLine1">Indirizzo </span></td>
+									<td><input type="text" id="address" size="36" maxlength="100" name="address" value="<?php echo $_tplvar['user_data']['address']?>">
+									<div id="err_address"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblAddressLine2">Presso </span></td>
+									<td>
+										<input type="text" id="address_secondary" size="36" maxlength="36" name="address_secondary" value="<?php echo $_tplvar['user_data']['address_secondary']?>">
+										<span id="CustSetUp_LblOptionalField1">&nbsp;(opzionale)</span>
+										<div id="err_address_secondary"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblCity">Città</span></td>
+									<td><input type="text" id="city" size="36" maxlength="60" name="city" value="<?php echo $_tplvar['user_data']['city']?>">
+									<div id="err_city"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblCounty">Stato/Provincia/Regione</span></td>
+									<td><input type="text" id="province" size="36" maxlength="60" name="province" value="<?php echo $_tplvar['user_data']['province']?>">
+									<div id="err_province"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblCountry">Nazione</span></td>
+									<td><?php echo $this->getPartial('shared/CmbCountries');?>
+									<div id="err_nation"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblPostCode">CAP</span></td>
+									<td><input type="text" id="cap" size="20" maxlength="12" name="cap" value="<?php echo $_tplvar['user_data']['cap']?>">
+									<div id="err_cap"></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+									<table width="100%" cellspacing="0" cellpadding="0">
+										<tfoot>
+											<tr>
+												<th align="left" style="border-top: 1px solid white;">Selezione 3: Indirizzo di spedizione (se differente da quello di fatturazione)</th>
+											</tr>
+										</tfoot>
+									</table>
+									</td>
+								</tr>
+								<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+									<td align="right"><span id="CustSetUp_LblVatNumber">Partita IVA</span></td>
+									<td>
+										<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+										<span id="CustSetUp_LblOptionalField3">&nbsp;(opzionale)</span>
+										<div id="err_p_iva"></div>
+										
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblFirstName">Nome (o ragione sociale se sei una societ&aacute;)</span></td>
+									<td><input type="text" id="name_spedizione" size="36" maxlength="50" name="name_spedizione" value="<?php echo $_tplvar['user_data']['name_spedizione']?>">
+									<div id="err_name"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblSurname">Cognome</span></td>
+									<td><input type="text" id="surname_spedizione" size="36" maxlength="50" name="surname_spedizione" value="<?php echo $_tplvar['user_data']['surname_spedizione']?>">
+									<div id="err_surname"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblAddressLine1">Indirizzo </span></td>
+									<td><input type="text" id="address_spedizione" size="36" maxlength="100" name="address_spedizione" value="<?php echo $_tplvar['user_data']['address_spedizione']?>">
+									<div id="err_address"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblAddressLine2">Presso </span></td>
+									<td>
+										<input type="text" id="address_secondary_spedizione" size="36" maxlength="36" name="address_secondary_spedizione" value="<?php echo $_tplvar['user_data']['address_secondary_spedizione']?>">
+										<span id="CustSetUp_LblOptionalField1">&nbsp;(opzionale)</span>
+										<div id="err_address_secondary"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblCity">Città</span></td>
+									<td><input type="text" id="city_spedizione" size="36" maxlength="60" name="city_spedizione" value="<?php echo $_tplvar['user_data']['city_spedizione']?>">
+									<div id="err_city"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblCounty">Stato/Provincia/Regione</span></td>
+									<td><input type="text" id="province_spedizione" size="36" maxlength="60" name="province_spedizione" value="<?php echo $_tplvar['user_data']['province_spedizione']?>">
+									<div id="err_province"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblCountry">Nazione</span></td>
+									<td>
+										<?php
+										$assign['suffix'] = '_spedizione';
+										echo $this->getPartial('shared/CmbCountries', $assign);
+										?>
+										<div id="err_nation"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblPostCode">CAP</span></td>
+									<td><input type="text" id="cap_spedizione" size="20" maxlength="12" name="cap_spedizione" value="<?php echo $_tplvar['user_data']['cap_spedizione']?>">
+									<div id="err_cap"></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+									<table width="100%" cellspacing="0" cellpadding="0">
+										<tfoot>
+											<tr>
+												<th align="left" style="border-top: 1px solid white;">Selezione 4: Altre informazioni</th>
+											</tr>
+										</tfoot>
+									</table>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span
+										id="CustSetUp_LblDayPhone">Numero telefonico per contatto giornaliero</span></td>
+									<td><input type="text" id="phone" size="20" maxlength="20" name="phone" value="<?php echo $_tplvar['user_data']['phone']?>"><span id="CustSetUp_LblOptionalField2">&nbsp;(opzionale)</span>
+									<div id="err_phone"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblOtherPhone">Numero di cellulare</span></td>
+									<td><input type="text" id="mobile" size="20" maxlength="20" name="mobile" value="<?php echo $_tplvar['user_data']['mobile']?>">
+									<div id="err_mobile"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<span id="CustSetUp_LblGender">Sesso:</span>
+									</td>
+									<td>
+									<table cellspacing="0" cellpadding="0" style="width:200px">
+										<tfoot>
+											<tr>
+												<td style="padding-right: 2px;">
+													<input type="radio" <?php if($_tplvar['user_data']['sex'] == 'Maschio' || empty($_tplvar['user_data']['sex'])):?>checked="checked"<?php endif;?> value="Maschio" name="sex" id="sex">
+													<label for="CustSetUp_RadMale">Uomo</label>
+												</td>
+												<td align="left">
+													<input type="radio" value="Femmina" name="sex" id="sex" <?php if($_tplvar['user_data']['sex'] == 'Femmina'):?>checked="checked"<?php endif;?>>
+													<label for="CustSetUp_RadFemale">Donna</label>
+												</td>
+											</tr>
+										</tfoot>
+									</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+									<table width="100%" cellspacing="0" cellpadding="0">
+										<tfoot>
+											<tr>
+												<th align="left" style="border-top: 1px solid white;">Selezione 5: Domanda di sicurezza</th>
+											</tr>
+										</tfoot>
+									</table>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span
+										id="CustSetUp_LblSecretQuestion">Domanda segreta</span></td>
+									<td><input type="text" id="secret_question" size="50" maxlength="150" name="secret_question" value="<?php echo $_tplvar['user_data']['secret_question']?>">
+									<div id="err_secret_question"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblSecretAnswer">Risposta segreta</span></td>
+									<td><input type="text" id="secret_response" size="50" maxlength="150" name="secret_response" value="<?php echo $_tplvar['user_data']['secret_response']?>">
+									<div id="err_secret_response"></div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+									<table width="100%" cellspacing="0" cellpadding="0">
+										<tfoot>
+											<tr>
+												<th align="left" style="border-top: 1px solid white;">Selezione 6: Privacy</th>
+											</tr>
+										</tfoot>
+									</table>
+									</td>
+								</tr>
+								
+								<tr>
+									<td align="right"><span id="CustSetUp_LblSecretAnswer">Termini e Condizioni</span></td>
+									<td>
+										<?php $this->getPartial('shared/TerminiCondizioni')?>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblSecretAnswer">Acconsento al trattamento dei dati</span></td>
+									<td><input type="checkbox" name="is_t_c_accepted" id="is_t_c_accepted" value="is_t_c_accepted" <?php if($_tplvar['user_data']['is_t_c_accepted']):?>checked="checked"<?php endif;?>>
+									<div id="err_is_t_c_accepted"></div>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><span id="CustSetUp_LblSecretAnswer">Voglio iscrivermi alla Newsletter</span></td>
+									<td>
+										<input type="checkbox" name="is_newsletter_subscribed" id="is_newsletter_subscribed" value="is_newsletter_subscribed" checked="checked">
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+<style>
+.submit {
+	border:0px;
+	height:40px;
+	width:200px;
+	background: transparent url('<?php echo $_tplvar['WWW_ROOT']?>theme/styles/common-images/dark-button-r.png') no-repeat scroll right top;
+	color: #ACACAC;
+	padding: 0 40px 0 10px;
+	position: relative;
+	display: block;
+}
+.submit:hover {
+	border:0px;
+	height:40px;
+	width:200px;
+	background-position: right bottom;
+	color: #666;
+	cursor: pointer;
+}
+</style>
+						<table cellspacing="0" cellpadding="3" style="text-align: left; width: 100%;">
+						<tfoot>
+							<tr>
+							<?php if($_tplvar['confirm_account']):?>
+								<td align="right">
+									<div class="actions">
+										<button type="button" title="Subscribe" class="button" onclick="document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>/'">&nbsp;&nbsp;&nbsp;<span><span>Continua a navigare il sito</span></span></button>
+									</div>
+								</td>
+							<?php else:?>
+							<td align="right">
+							<div class="actions">
+								<button type="submit" title="Subscribe" class="button">&nbsp;&nbsp;&nbsp;<span><span>Crea un account</span></span></button>
+							</div>
+							</td>
+							<?php endif;?>
+							</tr>
+						</tfoot>
+						</table>
+
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</form>	
+	
+	</div>
+</div>

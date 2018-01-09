@@ -1,0 +1,56 @@
+<?php  
+
+//$route = $_tplvar['WWW_ROOT'].$_SERVER['REQUEST_URI'];
+
+$_tplvar = $this->getVars();
+if(!empty($assign['keys_search']))
+	$key_search = $assign['keys_search'];
+	
+if(!empty($assign['order_by']))
+	$orderBy = '&order_by='.$assign['order_by'];
+if(!empty($assign['order_type']))
+	$orderType = '&order_type='.$assign['order_type'];
+	
+if(!empty($route))
+	$pagingUrl = $route.'&pageID='.$orderBy.$orderType;
+else 
+	$pagingUrl = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].$key_search.$orderBy.$orderType.'&pageID=';
+
+$numViewPages = $_tplvar['numViewPage'];
+$initPages 	  = $_tplvar['curr_page'] - $numViewPages;
+?>
+<?php //if($_tplvar['last_page'] > 1):?>
+
+	<?php if($_tplvar['last_page'] > 1 && $_REQUEST['pageID'] > 1):?>
+		<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['curr_page']-1;?>" data-role="button" data-icon="arrow-l" iconpos="notext">Prec.</a>
+	<?php endif;?>
+	
+	
+	<?php 
+		$j = 0;	
+		for($i=$initPages;$i <= $_tplvar['tot_items'];$i++):
+	?>
+		<?php if($j <= ($numViewPages+$numViewPages) && $i > 0 && $j > 0):?>
+		
+			<?php if($i == $_tplvar['curr_page']):?>
+				<a href="#" title="Pagina Corrente" data-theme="c"><?php echo $i;?></a>
+			<?php else:?>
+				<?php if($_tplvar['last_page'] > 1 && $i <= $_tplvar['last_page']):?>
+
+					<a href="<?php echo $pagingUrl;?><?php echo $i;?>" title="<?php echo $i;?>"><?php echo $i;?></a>
+					
+				<?php endif;?>
+			<?php endif;?>
+			
+		<?php endif;?>
+	<?php 
+		$j++;
+		endfor;
+	?>
+
+	<?php if($_tplvar['last_page'] > 1 && $_REQUEST['pageID'] < $_tplvar['last_page']):?>
+		<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['curr_page']+1;?>" data-role="button" data-icon="arrow-r" iconpos="notext">Succ.</a>
+	<?php endif;?>
+	<div style="margin-top:8px">
+		&nbsp;&nbsp;Pagina <?php echo $_tplvar['curr_page'];?> di <?php echo $_tplvar['last_page']?>
+	</div>

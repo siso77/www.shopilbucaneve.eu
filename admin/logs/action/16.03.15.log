@@ -1,0 +1,3 @@
+Mar 16 12:15:50|5[info]16/03/2015 12:15:50 - [UTENTE = ][REMOTE IP = 95.227.64.78][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36]
+Mar 16 12:15:54|5[info]16/03/2015 12:15:54 - [UTENTE = siso][REMOTE IP = 95.227.64.78][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36]
+Mar 16 12:15:59|5[info]16/03/2015 12:15:59 - [UTENTE = siso][REMOTE IP = 95.227.64.78][act = ListaClienti][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36]

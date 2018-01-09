@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <title>List scroll</title>
+		<style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+	</head>
+	<body>
+       
+		<script type="text/javascript" charset="utf-8">
+            dhx.ready(function() {
+                dhx.ui({
+                    view: "list",
+                    id: "mylist",
+                    url: "long_list.json",
+                    select: true,
+                    template: "#title#",
+                    select: true,
+                    type: {
+                        width: "auto"
+                    },
+                    select:true
+                });
+                
+            });
+		</script>
+	</body>
+</html>

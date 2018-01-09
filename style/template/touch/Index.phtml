@@ -1,0 +1,48 @@
+<?php
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Index');
+//_dump($_tplvar);
+//exit();
+?>	
+<!DOCTYPE html> 
+<head>
+        <title>Florsistemi - Stream Touch</title>
+		
+<!-- 		<meta charset="utf-8" /> -->
+<!--        <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+<!--        <meta name="apple-mobile-web-app-capable" content="yes" /> -->
+<!--        <meta name="apple-mobile-web-app-status-bar-style" content="black" /> -->
+        
+<!--         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.css" /> -->
+<!--         <link rel="stylesheet" href="<?php echo $_tplvar['WWW_ROOT']?>javascript/my.css" /> -->
+<!--         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+<!--         <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script> -->
+<!-- 		 <script src="<?php echo $_tplvar['WWW_ROOT']?>javascript/my.js"></script> -->        
+        
+        
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+</head>
+
+<body>
+	<div data-role="page" class="type-interior">
+	
+		<div data-theme="b" data-role="header">
+			<h3>Stream Touch - Florsistemi</h3>				
+			<?php echo $this->getPartial('shared/Header');?>
+		</div>
+		<div data-role="content" data-theme="b">
+		<div class="content-primary" data-theme="b">
+			<?php //echo $this->getPartial('shared/Breadcrumbs');?>
+			<?php $this->getPartial($_tplvar['tpl_action']);?>
+			<?php //echo $this->getPartial('shared/BoxFilter');?>
+		</div>		
+		</div>
+		<div data-theme="b" data-role="footer" data-position="fixed">
+			<h3><?php $this->getPartial('shared/Footer');?></h3>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?php
+$_tplvar = $this->getVars();
+if(!empty($route))
+	$pagingUrl = $route.'&pageID=';
+else 
+	$pagingUrl = $assign['WWW_ROOT'].'?act='.$_REQUEST['act'];
+
+$numViewPages = $assign['numViewPage'];
+$initPages 	  = $assign['curr_page'] - $numViewPages;
+?>
+<?php //if($assign['last_page'] > 1):?>
+<ul class="paginator">
+
+	<!--<span class="pages">Pagina <?php echo $assign['curr_page'];?> di <?php echo $assign['last_page'];?></span>-->
+<!--
+	<?php if($assign['last_page'] > 1 && $assign['pageIDIndex'] > 1):?>
+		<a href="<?php echo $pagingUrl.$assign['pageID'];?><?php echo $assign['curr_page']-1;?>">&laquo; Primo</a>
+	<?php endif;?>
+-->
+	<li><a href="<?php echo $pagingUrl.$assign['pageID'];?><?php echo '1';?>">&laquo; Prima</a></li>
+		
+	<?php 
+		$j = 0;	
+		for($i=$initPages;$i <= $assign['tot_items'];$i++):
+	?>
+		<?php if($j <= ($numViewPages+$numViewPages) && $i > 0 && $j > 0):?>
+		
+			<?php if($i == $assign['curr_page']):?>
+				<li class="current">
+					<?php echo $i;?>
+				</li>
+			<?php else:?>
+				<?php if($assign['last_page'] > 1 && $i <= $assign['last_page']):?>
+					<li><a href="<?php echo $pagingUrl.$assign['pageID'];?><?php echo $i;?>" title="<?php echo $i;?>"><?php echo $i;?></a></li>
+				<?php endif;?>
+			<?php endif;?>
+			
+		<?php endif;?>
+	<?php 
+		$j++;
+		endfor;
+	?>
+	<!--
+	<?php if($assign['last_page'] > 1 && $assign['pageIDIndex'] < $assign['last_page']):?>
+		<a href="<?php echo $pagingUrl.$assign['pageID'];?><?php echo $assign['curr_page']+1;?>">&raquo;</a>
+	<?php endif;?>
+	-->
+	<li><a href="<?php echo $pagingUrl.$assign['pageID'];?><?php echo $assign['last_page'];?>">Ultima &raquo;</a></li>
+	
+	<li>&nbsp;&nbsp;&nbsp;</li>
+	<li><a href="javascript:void(0);">Record per Pagina</a></li>
+	<li style="width:30px;">
+		<!-- RowForPage -->
+		<?php echo $this->getPartial('shared/ComboRowForPage');?>
+		<!-- /RowForPage -->
+	</li>	
+</ul>
+<?php //endif;?>

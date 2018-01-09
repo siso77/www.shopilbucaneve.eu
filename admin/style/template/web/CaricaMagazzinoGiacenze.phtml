@@ -1,0 +1,422 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<!-- INCLUSIONE CALENDARIO -->
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+ <!-- INCLUSIONE CALENDARIO -->
+ 
+<script>window.dhx_globalImgPath = "<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/imgs/";</script>
+<link rel="STYLESHEET" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.css">
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
+
+<?php if(!empty($_tplvar['error_contenuto_precaricato'])):?>
+<b style="color:red"><?php echo $this->getText('code_not_found');?></b>
+<?php endif;?>	
+
+<?php if($_tplvar['confirm_insert']):?>
+<b style="color:red"><?php echo $this->getText('insert_succesfull');?></b>
+<?php endif;?>	
+
+<script type="text/javascript">
+<!--
+function validateForm()
+{
+	var ret = true;
+	var qty = document.getElementById('quantita');
+	var description_it = document.getElementById('description_it');
+	var id_size_type = document.getElementById('id_size_type');
+	var id_fornitore = document.getElementsByName('id_fornitore');
+	var id_color = document.getElementById('id_color');
+	var bar_code = document.getElementById('bar_code');
+	
+	var err_quantita = document.getElementById('err_quantita');
+	var err_id_size_type = document.getElementById('err_id_size_type');
+	var err_id_fornitore = document.getElementById('err_id_fornitore');
+	var err_id_color = document.getElementById('err_id_color');
+	var err_bar_code = document.getElementById('err_bar_code');
+
+	if(bar_code.value == '')
+	{		
+		err_bar_code.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else if(bar_code.value <= 0)
+	{		
+		err_bar_code.innerHTML = '(*) Il campo non puo avere valore 0';
+		ret = false;
+	}
+	else
+		err_bar_code.innerHTML = '';
+	
+	if(id_color.value == '-')
+	{		
+		err_id_color.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_id_color.innerHTML = '';
+	
+	if(id_size_type.value == '-')
+	{		
+		err_id_size_type.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_id_size_type.innerHTML = '';
+
+
+	if(qty.value == '')
+	{		
+		err_quantita.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_quantita.innerHTML = '';
+
+	return ret;
+}
+//-->
+</script>		
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post" enctype="multipart/form-data" onsubmit="javascript:return validateForm()">
+<?php if(!empty($_REQUEST['id_content'])):?>
+	<input type="hidden" name="id_content" value="<?php echo $_REQUEST['id_content'];?>">
+<?php endif;?>
+<?php if(!empty($_REQUEST['bar_code'])):?>
+	<input type="hidden" name="bar_code" value="<?php echo $_REQUEST['bar_code'];?>">
+<?php endif;?>
+
+<?php if(empty($_REQUEST['edit'])):?>
+<table>
+<tr>
+	<td>BAR CODE</td>
+	<td>COLORE</td>
+	<td>TAGLIA</td>
+	<td>QUANTITA</td>
+	<td>QUANTITA CARICATA</td>
+	<td>PREZZO D'ACQUISTO</td>
+	<td>FORNITORE</td>
+	<td>DDT</td>
+	<td>FATTURA CARICO</td>
+	<td>OPERATORE</td>
+	<td>IMMAGINE</td>
+	<td>MODIFICA</td>
+	<td>CANCELLA</td>
+</tr>
+
+<?php foreach ($_tplvar['contenuto_precaricato'] as $giacenza):?>
+	<tr>
+		<td><?php echo $giacenza['bar_code']?></td>
+		<td><?php echo $giacenza['color']?> <?php echo $giacenza['color_2']?> <?php echo $giacenza['color_3']?></td>
+		<td><?php echo $giacenza['size']?></td>
+		<td><?php echo $giacenza['quantita']?></td>
+		<td><?php echo $giacenza['quantita_caricata']?></td>
+		<td><?php echo $giacenza['prezzo_acquisto']?></td>
+		<td><?php echo $giacenza['fornitore']?></td>
+		<td><?php echo str_replace('|', ' - ', $giacenza['ddt'])?></td>
+		<td><?php echo str_replace('|', ' / ', $giacenza['fattura_carico'])?></td>
+		<td><?php echo $giacenza['operatore']?></td>
+		<td>
+			<a href="javascript:void(0);" onclick="
+				$.ajax({
+					  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxAddImageGiacenze',
+					  type: 'GET',
+					  dataType: 'html',
+					  data: 'id_magazzino=<?php echo $giacenza['id_magazzino'];?>',
+					  success: function(html){
+						  $('#res_<?php echo $giacenza['id_magazzino'];?>').html(html);
+						  $('#res_<?php echo $giacenza['id_magazzino'];?>').show();
+					  }
+					});">IMMAGINE</a>
+			<div id="res_<?php echo $giacenza['id_magazzino']?>" style="display:block;position:absolute;background-color:#000000;"></div>
+		</td>
+		
+		<td><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&edit=1&id_content=<?php echo $_REQUEST['id_content']?>&id_magazzino=<?php echo $giacenza['id_magazzino']?>">MODIFICA</a></td>
+		<td><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&delete=1&id_content=<?php echo $_REQUEST['id_content']?>&id_magazzino=<?php echo $giacenza['id_magazzino']?>">CANCELLA</a></td>
+	</tr>
+<?php endforeach;?>
+</table>
+<?php endif;?>
+
+<?php if(!empty($_REQUEST['edit'])):?>
+<input type="hidden" name="id_magazzino" value="<?php echo $_tplvar['contenuto_precaricato'][0]['id_magazzino']?>">
+<input type="hidden" name="edit" value="1">
+<?php endif;?>
+<table>
+<tr>
+	<td colspan="2" align="center">
+		<table width="98%">
+		<tr>
+			<td>NUOVA GIACENZA</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="submit" name="invia" value="SALVA" />
+	</td>
+	<td>
+		<input type="button" class="submit" value="CANCELLA CAMPI" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>'" />
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_code');?>		
+	</td>
+	<td>
+		<?php if(!empty($_REQUEST['bar_code'])):?>
+			<input type="text" name="bar_code" id="bar_code" value="<?php echo $_REQUEST['bar_code']?>" />
+		<?php elseif(!empty($_tplvar['contenuto_precaricato'][0]['bar_code'])):?>
+			<input type="text" name="bar_code" id="bar_code" value="<?php echo $_tplvar['contenuto_precaricato'][0]['bar_code']?>" />
+		<?php elseif(!empty($_tplvar['bar_code_searched'])):?>
+			<input type="text" name="bar_code" id="bar_code" value="<?php echo $_tplvar['bar_code_searched']?>" />
+		<?php else:?>
+		
+			<input type="text" name="bar_code" id="bar_code"/>
+
+		<?php endif;?>
+		<div id="err_bar_code" style="color:#993300"></div>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_fornitore');?>
+	</td>
+	<td>
+		<?php if(!empty($_tplvar['contenuto_precaricato'][0]['fornitore'])):?>
+			<select id="id_fornitore" name="fornitore" style="width:350px;height:18px;">
+				<?php foreach ($_tplvar['cmb_dhtmlx_fornitore'] as $key => $data):?>
+				<option value="<?php echo $data['id']?>" <?php if($_tplvar['contenuto_precaricato'][0]['id_fornitore'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['data'];?></option>
+				<?php endforeach;?>
+			</select>
+			<script>
+			var z = new dhtmlXCombo("id_fornitore", "fornitore", 350);
+			z.enableFilteringMode(true);
+			</script>
+		<?php else:?>	
+			<div id="id_fornitore"></div>		
+			<script>
+			var z = new dhtmlXCombo("id_fornitore", "fornitore", 350);
+			z.addOption([<?php
+							$arrayJs = '';
+							if(!empty($_tplvar['contenuto_precaricato'][0]['id_fornitore']))
+								$arrayJs .= "['".$_tplvar['contenuto_precaricato'][0]['id_fornitore']."', '".$_tplvar['contenuto_precaricato'][0]['fornitore']."'],";
+														
+							foreach ($_tplvar['cmb_dhtmlx_fornitore'] as $key => $data)
+							{
+								if($data['id'] != $_tplvar['contenuto_precaricato'][0]['id_fornitore'])
+									$arrayJs .= "['".$data['id']."', '".htmlentities(str_replace("€", "", $data['data']), ENT_QUOTES, "UTF-8")."'],";
+								//$arrayJs .= "['".$data['id']."', '".htmlentities($data['data'], ENT_QUOTES, "UTF-8")."'],";
+							}
+							$arrayJs = substr($arrayJs, 0, -1);
+							echo $arrayJs;
+						?>]);
+			z.enableFilteringMode(true);
+			</script>
+		<?php endif;?>		
+		<div id="err_id_fornitore" style="color:#993300"></div>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_color');?>
+	</td>
+	<td>
+		<select id="id_color" name="id_color">
+			<option> - </option>
+			<?php foreach ($_tplvar['cmb_dhtmlx_color'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato'][0]['id_color'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['color'];?></option>
+			<?php endforeach;?>
+		</select>
+<!-- 
+		<select id="id_color_2" name="id_color_2">
+			<option> - </option>
+			<?php foreach ($_tplvar['cmb_dhtmlx_color'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato'][0]['id_color_2'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['color'];?></option>
+			<?php endforeach;?>
+		</select>
+		<select id="id_color_3" name="id_color_3">
+			<option> - </option>
+			<?php foreach ($_tplvar['cmb_dhtmlx_color'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato'][0]['id_color_3'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['color'];?></option>
+			<?php endforeach;?>
+		</select>
+ -->
+		<div id="err_id_color" style="color:#993300"></div>
+	</td>
+</tr>
+
+<!-- 
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_type_size');?>
+	</td>
+	<td>
+		<script type="text/javascript">
+		function getSizes(obj)
+		{
+			var id_size_type = obj.options[obj.selectedIndex].value;
+			
+			$.ajax({
+				  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetSizes',
+				  type: 'POST',
+				  dataType: "html",
+				  data: 'id_size_type='+id_size_type,
+				  success: function(html){
+					  $('#sizes').html(html);
+				  }
+				});
+		}
+		<?php if($_tplvar['contenuto_precaricato'][0]['id_size']):?>
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetSizes',
+			  type: 'POST',
+			  dataType: "html",
+			  data: 'id_size=<?php echo $_tplvar['contenuto_precaricato'][0]['id_size'];?>',
+			  success: function(html){
+				  $('#sizes').html(html);
+			  }
+			});
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetSizes',
+			  type: 'POST',
+			  dataType: "html",
+			  data: 'id_size=<?php echo $_tplvar['contenuto_precaricato'][0]['id_size'];?>&display_type=1',
+			  success: function(html){
+				  $('#size_type').html(html);
+			  }
+			});
+		<?php endif;?>
+		</script>
+		
+		
+		
+		<?php if(empty($_tplvar['contenuto_precaricato'][0]['id_size'])):?>
+		<select id="id_size_type" name="id_size_type" style="width:350px;" onchange="javascript:getSizes(this);">
+			<option> - </option>
+			<?php 
+			foreach ($_tplvar['cmb_dhtmlx_size_type'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato'][0]['id_size'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['type'];?></option>
+			<?php endforeach;?>
+		</select>
+		<?php endif;?>
+		<div id="size_type"></div>
+		<div id="sizes"></div>
+		<div id="err_id_size_type" style="color:#993300"></div>
+	</td>
+</tr>
+ -->
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_purchase_price');?>
+	</td>
+	<td>
+		<input type="text" name="prezzo_acquisto" value="<?php echo $_tplvar['contenuto_precaricato'][0]['prezzo_acquisto']?>" />
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_ddt');?> / <?php echo $this->getText('frm_data_ddt');?>
+	</td>
+	<td>
+		<?php
+		$display_data_ddt = ''; 
+		$exp = explode('|', $_tplvar['contenuto_precaricato'][0]['ddt']);
+		$ddt = $exp[0];
+		$display_data_ddt = $exp[1];
+		$data_ddt = $exp[1];
+		?>
+		<?php 
+		$data = date('d/m/Y');
+		if(empty($data_ddt))
+			$data_ddt = $data;
+		?>
+		<input type="text" name="ddt" value="<?php echo $ddt?>" /> / 
+		<input type="hidden" name="hidden_data_ddt" id="hidden_data_ddt" value="<?php echo $data_ddt?>">
+		<input type="text" id="data_ddt" class="data_ddt" name="data_ddt" value="<?php echo $display_data_ddt?>" /> (es.01/01/2000)
+   
+   
+	    <script type="text/javascript">
+	    $('#data_ddt').DatePicker({
+	    	format:'d/m/Y',
+	    	date: $('#hidden_data_ddt').val(),
+	    	current: $('#hidden_data_ddt').val(),
+	    	starts: 1,
+	    	position: 'r',
+	    	onBeforeShow: function(){
+	    		$('#data_ddt').DatePickerSetDate($('#hidden_data_ddt').val(), true);
+	    	},
+	    	onChange: function(formated, dates){
+	    		$('#data_ddt').val(formated);
+	    		$('#data_ddt').DatePickerHide();
+	    	}
+	    });
+	    </script>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_fattura_carico');?> / <?php echo $this->getText('frm_data_fattura_carico');?>
+	</td>
+	<td>
+		<?php 
+		$exp = explode('|', $_tplvar['contenuto_precaricato'][0]['fattura_carico']);
+		$fattura_carico = $exp[0];
+		$data_fattura_carico = $exp[1];
+		$display_data_fattura_carico = $exp[1];
+		
+		$data = date('d/m/Y');
+		if(empty($data_fattura_carico))
+			$data_fattura_carico = $data;
+		
+		?>
+		<input type="text" name="fattura_carico" value="<?php echo $fattura_carico?>" /> / 
+		<input type="hidden" name="hidden_data_fattura_carico" id="hidden_data_fattura_carico" value="<?php echo $data_fattura_carico?>">
+		<input type="text" name="data_fattura_carico" id="data_fattura_carico" value="<?php echo $display_data_fattura_carico?>" /> (es.01/01/2000)
+	    
+	    <script type="text/javascript">
+	    $('#data_fattura_carico').DatePicker({
+	    	format:'d/m/Y',
+	    	date: $('#hidden_data_fattura_carico').val(),
+	    	current: $('#hidden_data_fattura_carico').val(),
+	    	starts: 1,
+	    	position: 'r',
+	    	onBeforeShow: function(){
+	    		$('#data_fattura_carico').DatePickerSetDate($('#hidden_data_fattura_carico').val(), true);
+	    	},
+	    	onChange: function(formated, dates){
+	    		$('#data_fattura_carico').val(formated);
+	    		$('#data_fattura_carico').DatePickerHide();
+	    	}
+	    });
+	    </script>
+		
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_qty');?>
+	</td>
+	<td>
+		<?php 
+		if(!empty($_REQUEST['edit']))
+			$quantita = $_tplvar['contenuto_precaricato'][0]['quantita'];
+		?>
+		<input type="text" id="quantita" name="quantita" value="<?php echo $quantita?>" />
+		<div id="err_quantita" style="color:#993300"></div>
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<input type="submit" name="invia" value="SALVA" />
+	</td>
+	<td>
+		<input type="button" class="submit" value="CANCELLA CAMPI" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>'" />
+	</td>
+</tr>
+</table>
+</form>

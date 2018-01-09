@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+    <title>Resize and adjust</title>
+    <link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">     
+    <script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+      <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+ </head>
+ 
+ <body> 
+	<div id="divA" style='width:100%; height:300px; overflow:hidden;border:1px solid #ADADAD'></div>
+	<div id="divB" style='width:100%; height:300px; overflow:hidden;border:1px solid #ADADAD;margin-top:10px'></div>
+
+	<script type="text/javascript" charset="utf-8">
+	
+	function resize(){
+		list1.define("height", 200);
+		list1.resize();
+	};
+    function adjust(){
+		document.getElementById('divB').style.height="200px";
+        list2.adjust();
+    }
+			
+	dhx.ready(function(){
+		list1 =	dhx.ui({
+				container:"divA",
+				rows:[
+					{
+						view:"toolbar", 
+						type:"SubBar",
+						elements:[{ view:"button", inputWidth:200, value:"Resize", click:resize}]
+					},
+					{
+                        id:"mylist",
+                        view:"list",
+                        template:"<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div>",
+                        url:"books.xml",
+                        datatype:"xml",
+                        select:true,
+                        type:{
+                            height:35
+
+                        }
+
+					}
+			]});
+		
+		list2 =	dhx.ui({
+            container:"divB",
+            rows:[
+                {
+						view:"toolbar",
+						type:"SubBar",
+						elements:[{ view:"button", inputWidth:200, value:"Adjust", click:adjust}]
+					},
+					{
+						view:"list",
+						template:"<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div>",
+                        url:"books.xml",
+                        datatype:"xml",
+						type:{
+                            height:35
+                        }
+
+					}]
+			})
+	});
+	</script>
+  </body>
+</html>

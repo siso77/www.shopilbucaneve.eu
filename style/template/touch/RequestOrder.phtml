@@ -1,0 +1,160 @@
+<?php $_tplvar = $this->getVars();?>
+<style>
+<!--
+.container_24 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1170px;
+}
+td {
+	padding: 9px 12px;
+	color: #333;
+	border-top: 0px;
+}
+.grid_17 {
+	display: inline;
+	float: none;
+	position: relative;
+	margin-left: 0px;
+	margin-right: 90px;
+}
+input, select, textarea
+{
+	width:300px;
+}
+
+-->
+</style>
+			<div id="page-content">
+				<div id="page-content-header" class="container_24" style="margin-left:180px">
+					<div id="page-title">
+						<h2>Richiesta Ordine</h2>
+					</div>
+					<p class="breadcrumbs"><span class="breadcrumb_info">Ti Trovin in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Richiesta Ordine </span></p>
+				</div>
+				<div id="content-container" class="container_24">
+
+							
+					<div id="main-content" class="grid_16 push_10">
+						<div class="main-content-padding">
+							<div class="page">
+								<div class="entry">
+				
+									<h3>Compila il form per inviarci la tua richiesta di ordine &nbsp;&nbsp;&nbsp;</h3>
+									
+									
+									<table cellpadding="0" style="width: 100%;">
+									<tfoot>
+										<tr>
+											<td align="right" style="width: 40%;"><span id="CustSetUp_LblEmailAddress">Selziona il venditore</span></td>
+											<td>
+												<select name="venditore">
+													<option value="">Seleziona</option>
+													<?php foreach ($_tplvar['map_referrer_contacts'] as $val):?>
+														<option value="<?php echo $val?>"><?php echo $val?></option>
+													<?php endforeach;?>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><b>Dati Richiedente</b></td>
+											<td align="right">&nbsp;</td>
+										</tr>
+										<tr>
+											<td align="right"><span id="CustSetUp_LblConfirmPassword">Nome</span></td>
+											<td><input type="text" id="name" size="20" maxlength="20" name="name">
+											<div id="err_name"></div>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><span id="CustSetUp_LblConfirmPassword">Cognome</span></td>
+											<td><input type="text" id="surname" size="20" maxlength="20" name="surname">
+											<div id="err_surname"></div>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><span id="CustSetUp_LblConfirmPassword">Telefono</span></td>
+											<td><input type="text" id="phone" size="20" maxlength="20" name="phone">
+											<div id="err_phone"></div>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><b>Dati Richiesta</b></td>
+											<td align="right">&nbsp;</td>
+										</tr>										
+										<tr>
+											<td align="right"><span id="CustSetUp_LblConfirmPassword">Prodotto</span></td>
+											<td><input type="text" id="product" size="20" maxlength="20" name="product">
+											<div id="err_product"></div>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><span id="CustSetUp_LblConfirmPassword">Quantit&aacute;</span></td>
+											<td><input type="text" id="qty" size="20" maxlength="20" name="qty">
+											<div id="err_qty"></div>
+											</td>
+										</tr>
+										<tr>
+											<td align="right">Note</td>
+											<td>
+												<textarea id="note" name="note" rows="10" cols="16"></textarea>
+											</td>
+										</tr>
+										
+										<tr>
+											<td align="left" colspan="2">
+												<div style="width:520px">
+													<a class="pngfix small-dark-button align-btn-right" href="javascript:void(0);" onclick="javascript:$.fancybox.showLoading();goLogin(true);">
+													<span class="pngfix">Invia Richiesta</span>
+													</a>
+												</div>											
+											</td>
+										</tr>
+										
+										</tfoot>
+										</table>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!-- end main-content-padding -->
+					</div>
+					<!-- end main-content -->
+					
+					
+					
+					
+					<div id="sidebar" class="grid_8 pull_16 sidebar-box">
+						<div id="sidebarSubnav">
+
+							<?php echo $this->getPartial('shared/MenuLeft');?>
+
+							<!-- 
+							<div class="substitute_widget_class">
+								<h3 class="widgettitle"><cufon class="cufon cufon-canvas" alt="Testimonials" style="width: 108px; height: 24px;"><canvas width="138" height="26" style="width: 138px; height: 26px; top: 0px; left: -3px;"></canvas><cufontext>Testimonials</cufontext></cufon></h3>
+								<div class="textwidget">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula
+									eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
+									montes, nascetur ridiculus mus.
+									<div class="clear"></div>
+									<a class="pngfix small-light-button align-btn-right" href="#" title=""><span class="pngfix">Read more</span></a>
+									<div class="clear"></div>
+								</div>
+							</div>
+							-->
+							<div id="flickrrss" class="widget_flickrRSS substitute_widget_class">
+								<h3 class="widgettitle">
+									<cufontext>Photos</cufontext>
+								</h3>
+								<div id="flickr-images"></div>
+							</div>						
+						</div>
+						<!-- end sidebarSubnav -->
+					</div>							
+					<!-- end sidebar -->
+					
+					
+				</div>
+				<!-- end content-container -->
+				<div class="clear"></div>
+			</div>
+			<!-- end page-content -->

@@ -1,0 +1,22 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post" enctype="multipart/form-data">
+<input type="hidden" name="id_magazzino" value="<?php echo $_tplvar['data']['id_magazzino']?>">
+
+<table width="500">
+<?php if(!empty($_tplvar['image'])):?>
+<tr>
+	<td colspan="3">
+		<img alt="" src="<?php echo $_tplvar['image'][0]['www_path'].'/'.$_tplvar['image'][0]['name']?>">
+		<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&delete=1&id_magazzino=<?php echo $_tplvar['data']['id_magazzino']?>">CANCELLA IMMAGINE</a>
+	</td>
+</tr>
+<?php endif;?>
+<tr>
+	<td>Immagine <input type="file" name="img"></td>
+	<td><input type="submit" class="submit" value="INVIA" /></td>
+	<td><input type="button" class="submit" value="CHIUDI" onclick="javascript: var el = document.getElementById('res_<?php echo $_tplvar['data']['id_magazzino']?>');el.style.display = 'none';" /></td>
+</tr>
+</table>
+</form>

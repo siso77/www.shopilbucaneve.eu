@@ -1,0 +1,161 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+ <html lang="en">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Associazione Culturale Tangando</title>
+    <style>
+		A {
+		  font-weight : bold;
+		  color: #FFFFFF;
+		  text-decoration: none;
+		}
+
+		A:hover {
+			font-weight : bold;
+		  color: #FFFFFF;
+		  text-decoration: underline;
+		}
+	</style>
+  </head>
+  
+<body bgcolor="#FFFFFF" cellpadding="0" cellspacing="0">
+
+  		<table cellpadding="0" cellspacing="0" align="center" width="80%" style="padding: 35px 0;border:1px solid #fff" bgcolor="#8c0d0d">
+		  <tr>
+		  	<td align="center">
+
+					<table border="0" width="500" align="center" cellspacing="0" cellpadding="0">  
+					<tr> 
+						<td colspan="2" valign="top"> 
+							<table border="0" width="600" cellpadding="0" cellspacing="0"> 
+							<tr> 
+							    <td valign="middle" bgcolor="#8c0d0d">
+							     
+							    	
+									<div id="header" class="fix">
+										<div class="headline">
+											<table>
+											<tr>
+												<td>
+													<a title="Tangando" href="<? echo $_tplvar['WWW_ROOT']?>" class="home">
+														<img alt="Tangando" src="<? echo $_tplvar['WWW_ROOT']?>img/web/logo.png" width="150" border="0">
+													</a>
+												</td>
+												<td align="center" style="font-family: Thaoma, Arial, sans-serif;font-size: 15px;font-weight: bold;color: #FFFFFF;">
+													Associazione Culturale Tangando
+												</td>
+											</tr>
+											</table>
+										</div>
+									</div>
+							    	
+							    </td> 
+							    <td valign="middle" bgcolor="#FFFFFF" align="right"> 
+							    	<!-- loginbox //--> 
+								</td> 
+							</tr> 
+							</table> 
+						</td> 
+					</tr> 
+					</table> 
+		  	
+		  	
+				<table cellpadding="0" cellspacing="0" border="0" align="center" width="600" style="font-family: Helvetica, Arial, sans-serif;" bgcolor="#fff">
+			      	
+					<tr>
+					<!-- contenuto -->
+			        	<td width="580" valign="top" align="left" bgcolor="#FFFFFF" style="font-family: Helvetica, Arial, sans-serif; font-size:14px; padding: 25px 0 0; background-color:#FFF;" class="content">
+							<table cellpadding="0" cellspacing="0" border="0"  style="color: #717171; font: normal 11px Helvetica, Arial, sans-serif; margin: 0; padding: 0;" width="580">
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"></td>
+								<td style="padding: 0 0 0 0;  font-family: Helvetica, Arial, sans-serif; height:20px; line-height: 20px;" align="center" width="550" height="20" background="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/bg_date.png">
+									<!--<h3 style="color:#666; font-weight: bold; text-transform: uppercase; margin: 0; padding: 0; line-height: 10px; font-size: 13px;"><$currentdayname$> <$currentday$> <$currentmonthname$></h3>-->
+                                    <h3 style="color:#666; font-weight: bold; text-transform: uppercase; margin: 0; padding: 0; line-height: 10px; font-size: 10px;text-align:center;"><?php echo str_replace('ì', '&igrave;', strftime("%A %d %B %Y"))?></h3>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"></td>
+								<td style="padding: 20px 0 0;" align="center">			
+									<h2 style="color:#646464; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; ">
+<?php echo $_tplvar['titolo'];?>
+									</h2>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"></td>
+								<td style="padding: 10px 0 8px; background-color:#FFF;  font-size: 14px;"  valign="top" bgcolor="#FFFFFF" >
+									<p style="color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 14px;font-family: Helvetica, Arial, sans-serif; background-color:#FFF; ">
+
+
+<?php echo $_tplvar['news'];?>
+
+
+									</p>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"></td>
+							</tr>	
+<?php 
+foreach ($_tplvar['news_added'] as $key => $val):
+if($key != 'index'):
+?>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 8px 0;"  valign="top">
+								<!--<img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/img.jpg" style="border: 1px solid #e9e9e9; display: block;" border="1">-->
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 5px 0 5px;"  valign="top">
+									<img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/divider.png" style="border-top: 10px solid #fff">
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 15px 0 0;" align="left">			
+									<h2 style="color:#646464; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; ">
+<?php echo $val['titolo'];?>
+									</h2>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 10px 0 45px;"  valign="top">
+									<table cellpadding="0" cellspacing="0" border="0"  style="color: #717171; font: normal 14px Helvetica, Arial, sans-serif; margin: 0; padding: 0;" width="550">
+									<tr>
+										<td style="padding: 5px 0 7px 0px;"  valign="top" align="left">
+											<p style="color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 14px;font-family: Helvetica, Arial, sans-serif;">
+<?php echo $val['news'];?>										
+											</p>
+										</td>
+										<td valign="top" style="padding: 5px 0 7px 0px;">
+										<!--<img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/img2.jpg" style="border: 1px solid #e9e9e9; display: block;" border="1" align="right">-->
+										</td>
+									</tr>
+									</table>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+<?php endif;?>
+<?php endforeach;?>							
+							</table>	
+						</td>
+			      </tr>
+				  	<tr>
+						<td width="600" align="left" style="padding: font-size: 0; line-height: 0; height: 3px;" height="3" colspan="2"><img src="<? echo $_tplvar['WWW_ROOT']?>newsletter/images/bg_bottom.png"></td>
+				      </tr>	
+				</table>
+			<!-- footer-->
+		  	</td>
+		</tr>
+    </table>
+</div>    
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<?php $_tplvar = $this->getVars();?>
+<style>
+td{
+	padding:15px;
+}
+</style>
+<script>
+jQuery(document).ready(function() { 
+	jQuery('#username').focus();
+});
+</script>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Login" method="post">
+<div id="contact-wrapper">
+<center>
+<table width="70%" style=" background-color:#fff"">
+<tr>
+	<td><label for="username"><?php echo $this->getText('username');?> </label><em><?php echo $this->getText('username_help');?></em></td>
+	<td><input id="username" name="username" size="30" class="required" value="" /></td>
+</tr>
+<tr>
+	<td><label for="password"><?php echo $this->getText('pwd');?> </label><em><?php echo $this->getText('pwd_help');?></em></td>
+	<td><input id="password" type="password" name="password" size="30" class="required" value="" /></td>
+</tr>
+<tr>
+	<td colspan="2">
+		<?php if(!empty($_tplvar['error_message'])):?>
+		<br /><em style="color:red"><?php echo $this->getText('lbl_error_login');?></em><br />
+		<?php endif;?>	
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<div class="actions">
+			<button type="submit" title="Subscribe" class="button">&nbsp;&nbsp;&nbsp;<span><span><?php echo $this->getText('invia')?></span></span></button>
+			<button type="button" title="Subscribe" class="button" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=CreateAccount'">&nbsp;&nbsp;&nbsp;<span><span><?php echo $this->getText('registrati')?></span></span></button>
+		</div>
+	</td>
+</tr>
+</table>
+</center>
+</div>
+</form>

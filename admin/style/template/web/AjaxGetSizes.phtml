@@ -1,0 +1,22 @@
+<?php $_tplvar = $this->getVars();?>
+
+<?php if($_tplvar['display_type']):?>
+	<?php if($_tplvar['contenuto_precaricato']):?>
+		<select id="id_size_type" name="id_size_type" style="width:350px;" onchange="javascript:getSizes(this);">
+			<option> - </option>
+			<?php 
+			foreach ($_tplvar['size_types'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['id_size_type'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['type'];?></option>
+			<?php endforeach;?>
+		</select>
+		<BR>
+	<?php endif;?>
+<?php else:?>
+		<select id="id_size" name="id_size" style="width:350px;">
+			<option> Seleziona Taglia </option>
+			<?php foreach ($_tplvar['data'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['id_size'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['size'];?></option>
+			<?php endforeach;?>
+		</select>
+<?php endif;?>
+		

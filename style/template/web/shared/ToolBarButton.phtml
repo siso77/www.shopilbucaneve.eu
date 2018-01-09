@@ -1,0 +1,221 @@
+<?php  
+$_tplvar = $this->getVars();
+?>
+<?php $this->getIntlPartial('Index');?>
+
+
+							<?php
+							if(!empty($_tplvar['search']['colore']))
+					    		$url .= '&colore='.$_tplvar['search']['colore'];
+							if(!empty($_tplvar['search']['tipo_colore']))
+					    		$url .= '&tipo_colore='.$_tplvar['search']['tipo_colore'];
+							if(!empty($_tplvar['search']['gm']))
+					    		$url .= '&gm='.$_tplvar['search']['gm'];
+							if(!empty($_tplvar['search']['famiglia']))
+					    		$url .= '&famiglia='.$_tplvar['search']['famiglia'];
+							if(!empty($_tplvar['search']['name']))
+					    		$url .= '&name='.$_tplvar['search']['name'];
+							if(!empty($_tplvar['search']['price_from']))
+					    		$url .= '&price_from='.$_tplvar['search']['price_from'];
+							if(!empty($_tplvar['search']['price_to']))
+					    		$url .= '&price_to='.$_tplvar['search']['price_to'];
+
+							if(!empty($_REQUEST['order_by']))
+								$url .= '&order_by='.$_REQUEST['order_by'];
+							if(!empty($_REQUEST['order_type']))
+								$url .= '&order_type='.$_REQUEST['order_type'];
+
+							if(!empty($_tplvar['only_disp']))
+					    		$url .= '&only_disp=1';
+							if(!empty($_tplvar['all_disp']))
+					    		$url .= '&all_disp=1';
+
+					    	$url .= '&search=1';
+					    	$assign['keys_search'] = $url;
+					    	?>							
+							<?php if($assign['show_switch_layout']):?>
+
+
+
+							<div class="toolbar-bottom">
+										
+										<div>
+											<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Search" method="post" id="filter-data">
+												<input type="hidden" name="go_search" value="1">
+												<table style="width:100%;border-color:#3b3a42;margin-top:10px;margin-left:0px;left:0px">
+												<tr>
+													<td style="padding:5px">
+														<input type="text" name="key_search" style="background-color:#fff;font-size:12px;width:94%;padding:4px;" value="<?php if(!empty($_tplvar['key_search'])): echo $_tplvar['key_search']; else: echo 'Cerca...'; endif;?>" onclick="javascript:this.value = '';" onblur="javascript:if(this.value == '') this.value = 'Cerca...';">
+													</td>
+												</tr>
+												<tr>
+													<td style="padding:5px">
+														<input type="text" name="varieta" style="background-color:#fff;font-size:12px;width:94%;padding:4px;" value="<?php if(!empty($_tplvar['search']['varieta'])): echo $_tplvar['search']['varieta']; else: echo 'Cerca Varieta...'; endif;?>" onclick="javascript:this.value = '';" onblur="javascript:if(this.value == '') this.value = 'Cerca Vaieta...';">
+													</td>
+												</tr>
+												
+												<!-- 
+												<tr>													
+													<td style="padding:5px">
+														<select name="display_prod_img" id="display_prod_img" style="padding:10px;font-size:12px;width:100%;">
+															<option value="0">Tutti i Prodotti</option>
+															<option value="1" <?php if($_tplvar['search']['display_prod_img'] == 1):?>selected="selected"<?php endif;?>>Solo Prodotti con Immagini</option>
+														</select>
+													</td>
+												</tr>
+												-->
+												<?php if(TPL_DISPLAY_GM):?>
+												<tr>													
+													<td style="padding:5px">
+													<!-- 
+														<select name="gm" id="gm" style="font-size:12px;width:100%;">
+															<option value="empty">Gruppo</option>
+															<?php foreach ($_tplvar['cmb_gm'] as $value):?>
+															<option value="<?php echo $value['id']?>" <?php if($_tplvar['search']['gm'] == $value['id']):?>selected="selected"<?php endif;?>><?php echo $value['gruppo']?></option>
+															<?php endforeach;?>
+														</select>
+													 -->
+													</td>
+												</tr>
+												<?php endif;?>
+												<?php if(TPL_DISPLAY_COLORE):?>
+												<tr>	
+													<td style="padding:5px">
+														<select name="colore" id="colore" style="font-size:12px;width:100%;">
+															<option value="empty">Colore</option>
+															<option value="empty">Tutti</option>
+															<?php foreach ($_tplvar['cmb_colori'] as $value):?>
+															<?php if(!empty($value['value'])):?>
+																	<option value="<?php echo $value['value']?>" <?php if($_tplvar['search']['colore'] == $value['value']):?>selected="selected"<?php endif;?>><?php echo $value['value']?></option>
+																<?php endif;?>
+															<?php endforeach;?>
+														</select>
+													</td>
+												</tr>
+												<?php endif;?>
+												<?php if(TPL_DISPLAY_TIPO_COLORE):?>
+												<tr>
+													<td style="padding:5px">
+														<select name="tipo_colore" id="tipo_colore" style="font-size:12px;width:100%;">
+															<option value="empty">Tonalit&aacute;</option>
+															<?php foreach ($_tplvar['cmb_tipo_colori'] as $value):?>
+																<?php if(!empty($value['value'])):?>
+																<option value="<?php echo $value['value']?>" <?php if($_tplvar['search']['tipo_colore'] == $value['value']):?>selected="selected"<?php endif;?>><?php echo $value['value']?></option>
+																<?php endif;?>
+															<?php endforeach;?>
+														</select>
+													</td>
+												</tr>
+												<?php endif;?>
+												<?php if(TPL_DISPLAY_SETTORI):?>
+												<tr>
+													<td style="padding:5px">
+														<select name="id_settore" id="id_settore" style="font-size:12px;width:100%;">
+															<option value="empty">Settori</option>
+															<?php foreach ($_tplvar['cmb_settori'] as $value):?>
+																<?php if(!empty($value['settore'])):?>
+																<option value="<?php echo $value['id']?>" <?php if($_tplvar['search']['id_settore'] == $value['id']):?>selected="selected"<?php endif;?>><?php echo $value['settore']?></option>
+																<?php endif;?>
+															<?php endforeach;?>
+														</select>
+													</td>
+												</tr>
+												<?php endif;?>
+												<?php if(TPL_DISPLAY_REPARTI):?>
+												</tr>
+													<td style="padding:5px">
+														<select name="id_reparto" id="id_reparto" style="font-size:12px;width:100%;">
+															<option value="empty">Reparti</option>
+															<?php foreach ($_tplvar['cmb_reparti'] as $value):?>
+																<?php if(!empty($value['reparto'])):?>
+																<option value="<?php echo $value['id']?>" <?php if($_tplvar['search']['id_reparto'] == $value['id']):?>selected="selected"<?php endif;?>><?php echo $value['reparto']?></option>
+																<?php endif;?>
+															<?php endforeach;?>
+														</select>
+													</td>
+												</tr>
+												<?php endif;?>
+
+												<?php //if(!empty($_SESSION['LoggedUser']['id'])):?>
+												<?php if(false):?>
+												<tr>
+													<td style="padding:5px">
+														<input type="hidden" name="price_from" id="price_from" value="<?php echo $_tplvar['search']['price_from']?>">
+														<input type="hidden" name="price_to" id="price_to" value="<?php echo $_tplvar['search']['price_to']?>">
+														<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+														<script src="<?php echo $_tplvar['WWW_ROOT']?>javascript/jQuery/jqueryui/1.8/jquery-ui.min.js"></script>
+														<style type="text/css">
+															#slider { margin: 5px;width:70px; }
+														</style>
+														<script>
+														jQuery(document).ready(function() {
+															jQuery("#slider").slider({
+																      range: true,
+																      min: <?php echo $_tplvar['default_price_from']?>,
+																      max: <?php echo $_tplvar['default_price_to']?>,
+																      values: [ <?php echo (empty($_tplvar['search']['price_from'])) ?  $_tplvar['default_price_from'] :  $_tplvar['search']['price_from']?>, 
+																      <?php echo (empty($_tplvar['search']['price_to'])) ?  $_tplvar['default_price_to'] :  $_tplvar['search']['price_to']?> ],
+																      slide: function( event, ui ) { jQuery( "#slider-amount" ).html( "Prezzo da € " + ui.values[ 0 ] + " a € " + ui.values[ 1 ] ); },
+																      stop: function(event, ui) { 
+																    	  jQuery("#price_from").val(ui.values[ 0 ]);
+																    	  jQuery("#price_to").val(ui.values[ 1 ]);
+																	  }
+															});
+														});
+														</script>
+														<table width="100%">
+														<tr>
+															<td style="padding:2px;padding-left:5px" nowrap="nowrap">
+																<div id="slider-amount">Prezzo da &euro; <?php echo (empty($_tplvar['search']['price_from'])) ?  $_tplvar['default_price_from'] :  $_tplvar['search']['price_from']?> a € <?php echo (empty($_tplvar['search']['price_to'])) ?  $_tplvar['default_price_to'] :  $_tplvar['search']['price_to']?></div>
+															</td>
+															<td style="padding-left:1px"><div id="slider"></div></td>
+														</tr>
+														</table>
+													</td>
+												</tr>
+														
+												<?php endif;?>												
+												
+												<tr>
+													<td style="padding:5px">
+														<button type="submit" title="Cerca" class="button btn-cart" onclick="goSearchForm();"> <span><span>Cerca</span> </span></button>
+														<button type="button" title="Reset" class="button btn-cart" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Search&reset=1';"> <span><span>Reset</span> </span></button>													
+													</td>
+												</tr>
+												</table>
+											</form>
+										</div>
+						    		
+
+								<script type="text/javascript">
+								function goSearchForm()
+								{
+									jQuery('#filter-data').submit();
+								}
+								
+								if(!jQuery('.toolbar .pager .pages').length) {
+									  jQuery('.toolbar .pager').addClass('no-pager');
+								  }	  
+								if(navigator.userAgent.indexOf('IE 7')!=-1){
+									jQuery('.sorter .view-mode .list').addClass('ie7-fix');
+								}	  
+								</script>
+							</div>
+
+
+							<?php endif;?>
+
+							<?php if($assign['show_paging']):?>
+							<div class="toolbar-bottom">
+								<div class="toolbar">
+								    <div class="sorter" style="border:none;">
+						                <p class="view-mode">
+						                
+										</p>
+										<div class="sort-by">
+										</div>
+						    		</div>
+									<?php echo $this->getPartial('shared/Paging', $assign);?>
+								</div>
+							</div>				
+							<?php endif;?>			

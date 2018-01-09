@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+        <title>List</title>
+	</head>
+	<body>
+        <div style="border: 1px solid #ADADAD; width:800px;height:250px;margin:50px;">
+            <div id="listbox" style='width:100%; height:100%;'></div>
+        </div>
+
+		<script type="text/javascript" charset="utf-8">
+            dhx.ready(function(){
+                dhx.ui({
+                    container:"listbox",
+    				id:"books",
+                    view:"list",
+                    template:"<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div><div class='price'>#cprice# $</div>",
+
+                    url:"books.xml",
+                    datatype:"xml",
+                    type:{
+                        height: 35
+                    },
+                    select:1
+    			});
+            });
+            
+			
+			
+		</script>
+	</body>
+</html>

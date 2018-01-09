@@ -1,0 +1,220 @@
+<?php $_tplvar = $this->getVars();?>
+				<?php 
+				$qty_colors = null;
+				$qty_sizes = null;
+				$brands = null;
+				$prices = null;
+				foreach($_tplvar['products'] as $category => $products):
+
+					foreach($products as $key => $product):
+				?>
+				<?php
+					$qty_prod = 1;
+					if(!empty($product['price_discounted_it']))
+					{
+						$exp = explode(',', $product['price_discounted_it']);
+						$price = $product['price_discounted_it'];
+					}
+					elseif(!empty($product['price_it']))
+					{
+						$exp = explode(',', $product['price_it']);
+						$price = $product['price_it'];
+					}
+					if($exp[0] <= 100)
+						$prices['100'][$price] += $qty_prod;
+					elseif($exp[0] <= 500)
+						$prices['500'][$price] += $qty_prod;
+					elseif($exp[0] <= 1000)
+						$prices['1000'][$price] += $qty_prod;
+					elseif($exp[0] <= 2000)
+						$prices['2000'][$price] += $qty_prod;
+					elseif($exp[0] <= 100000)
+						$prices['max'][$price] += $qty_prod;
+
+					foreach ($product['magazzino'] as $giacenze)
+					{
+						if(!empty($giacenze['color']))
+							$qty_colors[ucfirst(strtolower($giacenze['color']))] += $giacenze['quantita'];
+						if(!empty($giacenze['size']))
+							$qty_sizes[ucfirst(strtolower($giacenze['size']))] += $giacenze['quantita'];
+					}
+					if(!empty($product['name_band']))
+					{
+						$brands[ucfirst(strtolower($product['name_band']))]['qty'] += $qty_prod;
+						$brands[ucfirst(strtolower($product['name_band']))]['id'] = $product['id_brand'];
+					}
+				?>
+				<?php 
+					endforeach;
+				endforeach;
+				ksort($brands);
+				ksort($prices['max']);
+				ksort($prices['100']);
+				ksort($prices['500']);
+				ksort($prices['1000']);
+				ksort($prices['2000']);
+				?>			
+				<div id="nav_menu-3" class="widget_nav_menu widget">
+					<div class="winner">
+						<h4 class="wtitle">PRODUTTORE&nbsp;</h4>
+						<div class="menu-abbigliamento-container">
+							<ul id="menu-abbigliamento" class="menu">
+							<?php foreach ($brands as $key => $value):?>
+							<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+								<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=HomeFiltred&id_category=<?php echo $_REQUEST['id_category']?>&id_brand=<?php echo $value['id']?>"><?php echo $key?> (<?php echo $value['qty']?>) &nbsp;</a>
+							</li>
+							<?php endforeach;?>
+							</ul>
+						</div>
+						&nbsp;
+					</div>
+				</div>
+
+				<div id="nav_menu-3" class="widget_nav_menu widget">
+					<div class="winner">
+						<h4 class="wtitle">PREZZO&nbsp;</h4>
+						<div class="menu-abbigliamento-container">
+						
+							<ul id="menu-abbigliamento" class="menu">
+							
+								<?php if(!empty($prices['100'])):?>
+								<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+									<?php 
+									$count_100 = count($prices['100'])-1;
+									$i = 0;
+									$_qty = 0;
+									$text = null;
+									
+									foreach ($prices['100'] as $key => $value):?>
+									<?php
+									if($i == 0)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key).' - ';
+										$start = $key;
+									}
+									if($i == $count_100)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key);
+										$end = $key;
+									}
+									$_qty += $value;
+
+									$i++; 
+									endforeach;?>
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=HomeFiltred&id_category=<?php echo $_REQUEST['id_category']?>&price_from=<?php echo $start?>&price_to=<?php echo $end?>"><?php echo $text?> (<?php echo $_qty?>) &nbsp;</a>								
+								</li>
+								<?php endif;?>
+
+								<?php if(!empty($prices['500'])):?>
+								<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+									<?php 
+									$count_500 = count($prices['500'])-1;
+									$_qty = 0;
+									$i = 0;
+									$text = null;
+									foreach ($prices['500'] as $key => $value):?>
+									<?php
+									if($i == 0)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key).' - ';
+										$start = $key;
+									}
+									if($i == $count_500)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key);
+										$end = $key;
+									}
+									$_qty += $value;
+									$i++; 
+									endforeach;?>
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=HomeFiltred&id_category=<?php echo $_REQUEST['id_category']?>&price_from=<?php echo $start?>&price_to=<?php echo $end?>"><?php echo $text?> (<?php echo $_qty?>) &nbsp;</a>								
+								</li>
+								<?php endif;?>
+
+								<?php if(!empty($prices['1000'])):?>
+								<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+									<?php 
+									$count_1000 = count($prices['1000'])-1;
+									$i = 0;
+									$_qty = 0;
+									$text = null;
+									foreach ($prices['1000'] as $key => $value):?>
+									<?php
+									if($i == 0)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key).' - ';
+										$start = $key;
+									}
+									if($i == $count_1000)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key);
+										$end = $key;
+									}
+									$_qty += $value;
+									$i++; 
+									endforeach;?>
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=HomeFiltred&id_category=<?php echo $_REQUEST['id_category']?>&price_from=<?php echo $start?>&price_to=<?php echo $end?>"><?php echo $text?> (<?php echo $_qty?>) &nbsp;</a>								
+								</li>
+								<?php endif;?>
+								
+								<?php if(!empty($prices['2000'])):?>
+								<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+									<?php 
+									$count_2000 = count($prices['2000'])-1;
+									$i = 0;
+									$_qty = 0;
+									$text = null;
+									foreach ($prices['2000'] as $key => $value):?>
+									<?php
+									if($i == 0)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key).' - ';
+										$start = $key;
+									}
+									if($i == $count_2000)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key);
+										$end = $key;
+									}
+									$_qty += $value;
+									$i++; 
+									endforeach;?>
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=HomeFiltred&id_category=<?php echo $_REQUEST['id_category']?>&price_from=<?php echo $start?>&price_to=<?php echo $end?>"><?php echo $text?> (<?php echo $_qty?>) &nbsp;</a>								
+								</li>
+								<?php endif;?>
+								
+								<?php if(!empty($prices['max'])):?>
+								<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+									<?php 
+									$count_max = count($prices['max'])-1;
+									$i = 0;
+									$_qty = 0;
+									$text = null;
+									foreach ($prices['max'] as $key => $value):?>
+									<?php
+									if($i == 0)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key).' - ';
+										$start = $key;
+									}
+									if($i == $count_max)
+									{
+										$text .= '&euro; '.$this->getFormatPrice($key);
+										$end = $key;
+									}
+									$_qty += $value;
+									$i++; 
+									endforeach;?>
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=HomeFiltred&id_category=<?php echo $_REQUEST['id_category']?>&price_from=<?php echo $start?>&price_to=<?php echo $end?>"><?php echo $text?> (<?php echo $_qty?>) &nbsp;</a>								
+								</li>
+								<?php endif;?>
+							</ul>
+
+						</div>
+						&nbsp;
+					</div>
+				</div>
+<?php 
+//_dump($prices);
+//exit();
+?>			

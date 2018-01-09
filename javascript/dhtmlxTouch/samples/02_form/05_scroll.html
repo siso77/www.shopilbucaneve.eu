@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<title>Form</title>
+	</head>
+	<body>
+		<style>
+			html {
+				overflow:scroll;
+			}
+		
+        html,body{
+            background-color:#ffffff;
+        }
+        </style>
+          
+		<script type="text/javascript" charset="utf-8">
+		var ui = dhx.ui({
+			view:"window",
+            head:"Scrollable form",
+            width:400,
+            height: 400,
+            body:{
+                view:"form", id:"myform",  scroll:true, elements:[
+                        { view:"text", name:"field_a", id:'field_a', label: 'from', value: "Moscow", position: "label-left",  labelWidth: 100},
+                        { view:"text", name:"field_b", id:'field_b', sameLine:true, label: 'to', value: "Guatemala", position: "label-left", labelWidth: 100},
+                        { view:"counter", name:"field_c", id:'field_c', label: 'passengers 12+', step: 1, value: 1, min: 1, max: 20, labelWidth: 135, position: "label-left", labelAlign: "left",labelPosition:"left"},
+
+                        { view:"richselect", name: "field_e", id:'field_e', label: 'Type', value: "1", yCount:"3", data:[
+                                { id:"1", value:"One"   },
+                                { id:"2", value:"Two"   },
+                                { id:"3", value:"Three" }
+                            ]},
+                        { view:"combo",sameLine:true, name: "field_m", id:'field_m', label: 'Combo', value:"1", yCount:"3", data:[
+                                { id:"1", value:"One"   },
+                                { id:"2", value:"Two"   },
+                                { id:"3", value:"Three" }
+                            ]},
+                        { view:"datepicker",sameLine:false, name: "field_f", label: 'Date', id:'calendar',date:new Date(2010,07,10)},
+
+                        { view:"toggle", name: "field_g", id:'field_g', options: ["Roundtrip","Oneway"], align: "right" ,position:"label-left"},
+                          { view:"textarea", id:'field_ta', label: "Notes", labelWidth: 100, height:80},
+                        { view:"radio", height:80, name:"field_i", id:'field_i', labelWidth: 250, labelAlign: "left",value:"2", options:[
+                            { label:"only direct flights", value: "1" },
+                            { label:"any flights", value: "2" }
+                        ] },
+                        { view:"checkbox",  name: "field_j", id:'field_j', label:"find hotels", position:"label-left",labelWidth: 100,labelAlign:"left", value: 1},
+                        { view:"checkbox", name: "field_k", id:'field_k', label:"find car here", labelWidth: 100,labelAlign:"left", position: "label-left",sameLine:true},
+
+                        { view:"button", type:"form", id:'field_d', label: 'Find flight', align:"center", align:"center", inputWidth:150}
+                    ]
+			    }
+			});
+		</script>
+	</body>
+</html>

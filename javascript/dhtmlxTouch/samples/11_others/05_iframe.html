@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<title>Iframe view</title>
+	</head>
+	<body>
+	<div id="scrollV" style="height:600px;width:600px"></div>
+	
+		<script type="text/javascript" charset="utf-8">
+			dhx.ready(function(){
+				dhx.ui({
+					container:"scrollV",
+					rows:[
+						{ view:"toolbar" , id:"top", type:"MainBar", elements:[
+							{ view:"segmented", id:"control1", options:[
+                                {value:"http://scheduler-net.com/", 	label:"DHX", selected:true},
+								{value:"http://bing.com", 	label:"Bing"}
+							]}
+						]
+					},
+					{ view:"iframe", id:"bottom", src:"http://scheduler-net.com/" }
+					]
+				});
+ 
+				$$("control1").attachEvent("onAfterTabClick",function(id, key){
+					$$('bottom').define("src", key);
+				});
+			});
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<?php $_tplvar = $this->getVars();?>
+<script type="text/javascript">
+<!--
+function sendFilter(obj)
+{
+	var id = obj.options[obj.selectedIndex].value;
+	
+	document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?><?php if(!empty($_REQUEST['history'])):?>&history=1<?php endif;?>&id_category='+id;
+}
+//-->
+</script>
+<table>
+<tr>
+	<td nowrap="nowrap">Filtra contenuti per</td>
+	<td>
+		<!-- <select name="id_category" onchange="javascript:sendFilter(this)"> -->
+		<select name="id_category" id="key_search_id_category">
+			<option value="">-</option>
+			<?php foreach($_tplvar['cmb_category'] as $value):?>
+				<option 
+					value="<?php echo $value['id']?>"
+						<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_category'] == $value['id']):?>
+							selected="selected"
+						<?php endif;?> style="font-weight: bold;background-color:#E6E6E6">
+				<?php echo $value['name']?></option>
+				<?php if(!empty($value['sub_category'])):?>
+					<?php foreach($value['sub_category'] as $val):?>
+					
+					<option 
+						value="<?php echo $val['id']?>"
+							<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_category'] == $val['id']):?>
+								selected="selected"
+							<?php endif;?>>	
+							<?php echo $val['name']?></option>				
+					<?php endforeach;?>
+				<?php endif;?>
+				
+			<?php endforeach;?>
+		</select>		
+	</td>
+</tr>
+</table>

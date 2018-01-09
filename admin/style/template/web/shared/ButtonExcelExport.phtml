@@ -1,0 +1,21 @@
+<?php $_tplvar = $this->getVars();?>
+<?php 
+$URL = $assign['url'];
+if(!empty($assign['text']))
+	$text = $assign['text'];
+else
+	$text = 'ESPORTA (.xls)';
+
+if(!empty($assign['text2']))
+	$text2 = $assign['text2'];
+else
+	$text2 = 'ESPORTA (.xlsx)';
+?>
+<ul class="paginator" style="margin-top:10px;">
+	<li>
+		<a href="<?php echo $URL;?>&type=xls"><?php echo $text?></a>
+	</li>
+	<li>
+		<a href="<?php echo $URL;?>&type=xlsx"><?php echo $text2?></a>
+	</li>
+</ul>

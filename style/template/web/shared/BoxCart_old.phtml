@@ -1,0 +1,100 @@
+<?php
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Index');
+?>
+<p class="empty"><?php echo $this->getTranslation('Hai aggiunto');?> <?php echo count($_SESSION[session_id()]['basket'])?> <?php echo $this->getTranslation('prodotto/i');?></p>
+<ol id="cart-sidebar" class="mini-products-list">
+	<?php 
+	
+	$session = $_SESSION[session_id()]['basket'];
+	unset($session['n_carrelli']);
+	unset($session['perc_occupazione']);
+	
+	foreach($session as $prod):?>
+	<li class="item last odd">
+		<a href="javascript:void(0);" title="Htc Mobile 1120" class="product-image">
+			<?php //$image = $this->getImageFromVbn($prod['contenuto']['vbn']);?>
+			
+			<?php
+			if(!empty($prod['giacenza']))
+				$bar_code = $prod['giacenza']['bar_code'];
+			else
+				$bar_code = $prod['contenuto']['vbn']['vbn'];
+			?>			
+			<?php $image = null;?>
+			<?php $image = $this->getImageFromVbn($prod['giacenza']['vbn']);?>
+			<?php $product_image = $this->dbGetImageProductFromBarCode($prod['giacenza']['bar_code']);?>
+			
+			<?php if(!empty($product_image)):?>
+				<?php $obj_image = $this->dbGetImageFromBarCode($prod['giacenza']['bar_code']);?>
+				<?php $product_image = $this->dbGetImageProductFromBarCode($prod['giacenza']['bar_code']);?>
+			
+				<?php if(!empty($obj_image)):?>
+					<?php
+					$d = dir($_tplvar['APP_ROOT'].'/email_images/');
+					while (false !== ($entry = $d->read())) {
+						if($entry != '.' && $entry != '..')
+							$image = $obj_image[0]['www_path'].$obj_image[0]['name'];
+					}
+					$d->close();	
+					?>
+				<?php elseif(!empty($product_image)):?>
+					<?php $image = $product_image;?>
+				<?php else:?>
+				<?php $image = null;?>
+				<?php endif;?>
+			<?php endif;?>					
+			
+			
+			<?php if(!empty($image)):?>
+				<img alt="<?php echo $prod['giacenza']['descrizione']?>" src="<?php echo $image;?>" width="50" height="50">
+			<?php else:?>
+				<img alt="<?php echo $prod['giacenza']['descrizione']?>" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="50" height="50">
+			<?php endif;?>
+		</a>
+		<div class="product-details">
+			<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart&delete=1&delete_from_box=1&id_giacenza=<?php echo $prod['giacenza']['id']?>" title="<?php echo $this->getTranslation('Rimuovi');?>" onclick="return confirm('<?php echo $this->getTranslation('Sei sicuro di voler rimuovere il prodotto selezionato');?>?');" class="btn-remove">
+				<?php echo $this->getTranslation('Rimuovi');?>
+			</a>
+			<!-- <a href="" title="Edit item" class="btn-edit"><?php echo $this->getTranslation('Modifica');?></a> -->
+			<p class="product-name"><a href="javascript:void(0);"><?php echo $prod['giacenza']['descrizione'].' '.$prod['contenuto']['descrizione_it']?></a></p>
+			Quantit&agrave; <?php echo $prod['basket_qty']['sel_quantita']?> 
+			<div class="truncated">
+				<div class="truncated_full_value">
+					<dl class="item-options">
+						<?php if(!empty($prod['contenuto']['vbn'])):?>
+							<dt><?php echo $this->getTranslation('VBN');?></dt>
+							<dd><?php echo $prod['contenuto']['vbn']?></dd>
+						<?php endif;?>						
+						<?php if(!empty($prod['giacenza']['C4'])):?>
+							<dt><?php echo $this->getTranslation('Altezza');?></dt>
+							<dd><?php echo $prod['giacenza']['C4']?></dd>
+						<?php endif;?>						
+						<?php if(!empty($prod['giacenza']['dimensione'])):?>
+							<dt><?php echo $this->getTranslation('Dimensione');?></dt>
+							<dd><?php echo $prod['giacenza']['dimensione']?></dd>
+						<?php endif;?>						
+						<?php if(!empty($prod['giacenza']['C5'])):?>
+							<dt><?php echo $this->getTranslation('Provenienza');?></dt>
+							<dd><?php echo $prod['giacenza']['C5']?></dd>
+						<?php endif;?>						
+						<?php if(!empty($prod['giacenza']['scelta'])):?>
+							<dt><?php echo $this->getTranslation('Scelta');?></dt>
+							<dd><?php echo $prod['giacenza']['scelta']?></dd>
+						<?php endif;?>
+						<?php if(!empty($prod['giacenza']['fusto'])):?>
+							<dt><?php echo $this->getTranslation('Fusto');?></dt>
+							<dd><?php echo $prod['giacenza']['fusto']?></dd>
+						<?php endif;?>
+					</dl>
+				</div>
+				<!-- <a href="#" onclick="return false;" class="details"><?php echo $this->getTranslation('Dettaglio');?></a> -->
+			</div>
+		</div>
+	</li>
+	<?php endforeach;?>
+</ol>
+<div class="actions_checkout">
+	<p class="subtotal">
+	<button type="button" title="Checkout" class="button" onclick="setLocation('<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart')"><span><span><?php echo $this->getTranslation('Vai in cassa');?></span></span></button>
+</div>

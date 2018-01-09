@@ -1,0 +1,43 @@
+<?php $_tplvar = $this->getVars();?>
+
+	<div id="elencoUtente">
+		<h2 style="font-size: 13px; color: rgb(153, 153, 153);">
+			<div id="ricerca_utente_loading" style="float: right; font-size: 11px; font-weight: normal;"> </div>
+			<div style="float: left;">
+			<img border="0" align="absmiddle" src="<?php echo $_tplvar['WWW_ROOT'];?>img/ico/bullet_toggle_minus.png"/>
+			RICERCA NEWSLETTER
+			</div>
+		<br style="clear: both;"/>
+		</h2>
+	<div id="ricerca_utente">
+	<form action="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter" method="post">
+	<input type="hidden" name="search" value="1">
+		<div style="border: 1px solid rgb(153, 153, 153); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+			<fieldset style="border: 0px none ; margin: 0px; padding: 5px;">
+				<table style="text-align: left;">
+				<tr>
+					<th style="width: 160px; vertical-align: top;color: #9C8460">Titolo</th>
+					<th style="width: 120px; vertical-align: top;color: #9C8460">Ogetto</th>
+					<th style="width: 160px; vertical-align: top;color: #9C8460">Data</th>
+					<th> </th>
+				</tr>
+				<tr>
+					<td style="vertical-align: top;">
+						<input name="titolo" value="<?php echo $_tplvar['search_newsletter']['keys']['titolo'];?>" type="text" style="width: 160px;"/>
+					</td>
+					<td style="vertical-align: top;">
+						<input name="object" value="<?php echo $_tplvar['search_newsletter']['keys']['object'];?>" type="text" style="width: 160px;"/>
+					</td>
+					<td style="vertical-align: top;">
+						<input type="submit" value="Go"/>
+						<input class="submit" type="button" value="Azzera Ricerca" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1&reset=1'"/>
+					</td>
+					<td style="vertical-align: top;">
+						<input class="submit" type="button" value="Nuova Newsletter" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&new=1'"/>
+					</td>
+				</tr>
+				</table>
+			</fieldset>
+		</div>
+	</form>
+	</div>

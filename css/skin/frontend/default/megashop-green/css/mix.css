@@ -1,0 +1,125 @@
+.mix_container{
+	width:1000px;
+	height:227px;
+	position:relative;
+	margin-top:15px;
+}
+.mix_container .price-box .regular-price .price{color:#fff;}
+.mix_nav {
+    height: 74px;
+    position: absolute;
+    right: 0;
+    top: 75px;
+    width: 100%;
+    z-index:0;
+}
+.mix_wrapper .jcarousel-prev {
+    background: url("../images/scrollerNav.gif") no-repeat scroll left top transparent;
+    border: 0 none;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    position: absolute;
+    right: 51px;
+    text-indent: -9999px;
+    top: -51px;
+    width: 25px;
+    z-index: 1;
+	-moz-transition: all 400ms ease-in-out 0s;
+	-ms-transition: all 400ms ease-in-out 0s;
+	-o-transition: all 400ms ease-in-out 0s;
+	transition: all 400ms ease-in-out 0s;
+}
+.mix_wrapper .jcarousel-next {
+    background: url("../images/scrollerNav.gif") no-repeat scroll right top transparent;
+    border: 0 none;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    position: absolute;
+    right: 0;
+    text-indent: -9999px;
+    top: -51px;
+    width: 25px;
+    z-index: 1;
+	-moz-transition: all 400ms ease-in-out 0s;
+	-ms-transition: all 400ms ease-in-out 0s;
+	-o-transition: all 400ms ease-in-out 0s;
+	transition: all 400ms ease-in-out 0s;
+}
+.viewall {
+    background: url("../images/scrollerNav.gif") no-repeat scroll center top transparent;
+    border: 0 none;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    position: absolute;
+    right: 26px;
+    text-indent: -9999px;
+    top:6px;
+    width: 24px;
+    z-index: 1;
+	-moz-transition: all 400ms ease-in-out 0s;
+	-ms-transition: all 400ms ease-in-out 0s;
+	-o-transition: all 400ms ease-in-out 0s;
+	transition: all 400ms ease-in-out 0s;
+}
+.viewall:hover{background-position:center bottom;} 
+.mix_wrapper .jcarousel-prev.jcarousel-prev-disabled-horizontal {
+    background-position: left top;
+}
+/*.mix_wrapper .jcarousel-prev.jcarousel-prev-disabled-horizontal{background-color:#ccc;}
+.mix_wrapper .jcarousel-next.jcarousel-next-disabled-horizontal:hover{background-color:#ccc;}
+.mix_wrapper .jcarousel-next.jcarousel-next-disabled-horizontal{background-color:#ccc;}*/
+.mix_wrapper .jcarousel-next:hover{background-position:right bottom;} 
+.mix_wrapper .jcarousel-prev:hover {background-position:left bottom;}
+.mix_nav span:hover{
+	opacity:1.0;
+}
+.mix_wrapper .jcarousel-clip{overflow:hidden;}
+.mix_wrapper{
+	width:100%;
+	height:230px;
+	position:relative;
+	margin:0px auto;
+}
+.mix_wrapper ul li{
+	margin-right:10px;
+	color: #FFFFFF;
+    float: left;
+    font-size: 16px;
+    font-weight: normal;
+    height: 221px;
+    overflow: hidden;
+    padding:0 0 10px 0;
+    position: relative;
+    text-decoration: none;
+    text-transform: capitalize;
+    width: 242px!important;
+}
+.mix_wrapper ul li a {
+    color: #FFFFFF;
+    display: block;
+    font: 13px/1.55 'Droid Sans',arial,helvetica,sans-serif;
+    margin-bottom: 20px;
+    outline: medium none;
+    text-align:center;
+}
+.mix_wrapper ul li a img{
+}
+.mix_wrapper ul li a img:hover{
+	opacity:1.0;
+}
+.mix_wrapper ul li a.product-image{
+    color: #FFFFFF;
+    display: block;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    outline: medium none;
+    padding: 5px;
+	border: 1px solid #DAD8D8;
+	width:230px;
+	height:217px;
+	background:#fff;
+}
+.mix_wrapper button.button span{box-shadow:none;}
+/* Specific style for the examples */

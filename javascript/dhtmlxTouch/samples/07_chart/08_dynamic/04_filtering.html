@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<title>Filtering</title>
+	<script src="../../../codebase/touchui.js" type="text/javascript"></script>
+	<link rel="STYLESHEET" type="text/css" href="../../../codebase/touchui.css">
+	<script src="../common/chartdata.js"></script>
+<body>
+    <div id="chartDiv" style="width:600px;height:250px;margin:20px"></div>
+    <div style='margin-left:20px'>
+        <input type="button" value="show all" onclick="$$('chart').filter();">
+        <input type="button" value="show sales > 50" onclick="filter1()">
+        <input type="button" value="show sales < 70" onclick="filter2()">
+	</div>
+	<script>
+        dhx.ui({
+            id:"chart",
+            container:"chartDiv",
+            view:"chart",
+            type:"bar",
+            value:"#sales#",
+            label:"#sales#",
+            color:"#color#",
+            radius:0,
+            barWidth:40,
+            tooltip:{
+                template:"#sales#"
+            },
+            yAxis:{},
+            xAxis:{
+                title:"Sales per year",
+                template:"'#year#"
+            },
+            padding:{
+                left:30,
+                right:10,
+                top:50
+            },
+            data: dataset_colors
+        });
+        function filter1(){
+		    $$('chart').filter(function(obj){
+                return obj.sales >50;
+            });
+        }
+        function filter2(){
+            $$('chart').filter(function(obj){
+                return obj.sales < 70;
+            });
+        }
+	</script>
+</body>
+</html>

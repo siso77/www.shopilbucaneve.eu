@@ -1,0 +1,3 @@
+Dec 14 14:19:38|5[info]14/12/2016 14:19:38 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Dec 14 14:19:49|5[info]14/12/2016 14:19:49 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Dec 14 14:20:24|5[info]14/12/2016 14:20:24 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = CaricaListinoDenDekker][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]

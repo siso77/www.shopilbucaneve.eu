@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Modal window</title>
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+<body>
+	
+	<script type="text/javascript" charset="utf-8">
+	dhx.ready(openModal);
+
+
+	var x=100, y=100;
+	function openModal(){
+		dhx.ui({
+			id:"w1",
+			view:"window",
+			head:{ view:"toolbar", type:"SubBar", elements:[
+
+				{ view:"button", label:"Close", click:"closeModal", align:"right", inputWidth:80 }
+			]},
+			modal:true,
+			body:{
+                type:"clean",
+                rows:[
+                    {template:"Click on Create button to open a new modal window"},
+                    { view:"button", type:"round", label:"Create", click:"openModal", inputWidth:100},
+                    {}
+                ]
+
+            },
+			top:y, left:x
+		});
+		x+=50; y+=50;
+	}
+	function closeModal(){
+		this.getParent().getParent().close();
+		x-=50; y-=50;
+	}
+	</script>
+
+</body>
+</html>
+

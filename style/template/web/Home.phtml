@@ -1,0 +1,50 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Home');
+$this->getIntlPartial('Login');
+$this->getIntlPartial('FilterFields');
+$templateConfig = $_tplvar['template_config']['search'];
+?>
+	<!-- Start WOWSlider.com BODY section -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/engine1/style.css" />
+	<!-- <script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/engine1/jquery.js"></script> -->
+
+	<div id="wowslider-container1">
+	<div class="ws_images"><ul>
+	<li><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/images/img_2076.jpg" alt="IMG_2076" title="Il Bucaneve Arte & Natura" id="wows1_0"/></li>
+	<li><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/images/img_2077.jpg" alt="IMG_2077" title="Il Bucaneve Arte & Natura" id="wows1_1"/></li>
+	<li><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/images/img_2099.jpg" alt="IMG_2099" title="Il Bucaneve Arte & Natura" id="wows1_2"/></li>
+	<li><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/images/img_2103.jpg" alt="IMG_2103" title="Il Bucaneve Arte & Natura" id="wows1_3"/></li>
+	<li><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/images/img_2153.jpg" alt="IMG_2153" title="Il Bucaneve Arte & Natura" id="wows1_4"/></li>
+	<li><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/images/img_2172.jpg" alt="IMG_2172" title="Il Bucaneve Arte & Natura" id="wows1_5"/></li>
+	<li><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/images/img_2183.jpg" alt="IMG_2183" title="Il Bucaneve Arte & Natura" id="wows1_6"/></li>
+	</ul></div>
+	<div class="ws_bullets"><div>
+	<a href="#" title="IMG_2076"><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/tooltips/img_2076.jpg" alt="IMG_2076"/>1</a>
+	<a href="#" title="IMG_2077"><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/tooltips/img_2077.jpg" alt="IMG_2077"/>2</a>
+	<a href="#" title="IMG_2099"><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/tooltips/img_2099.jpg" alt="IMG_2099"/>3</a>
+	<a href="#" title="IMG_2103"><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/tooltips/img_2103.jpg" alt="IMG_2103"/>4</a>
+	<a href="#" title="IMG_2153"><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/tooltips/img_2153.jpg" alt="IMG_2153"/>5</a>
+	<a href="#" title="IMG_2172"><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/tooltips/img_2172.jpg" alt="IMG_2172"/>6</a>
+	<a href="#" title="IMG_2183"><img src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/data1/tooltips/img_2183.jpg" alt="IMG_2183"/>7</a>
+	</div></div>
+
+	<div class="ws_shadow"></div>
+	</div>
+	
+	<script>
+	jQuery(window).ready(function(){
+		
+		
+		jQuery("a").each(function(idx) {
+			if (jQuery(this).text() == "WOWSlider.com") {
+				jQuery(this).text(' ');
+				jQuery(this).css('display', 'none');
+				jQuery(this).attr('href', '');
+			}
+		});
+	});
+	</script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/engine1/wowslider.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/slider/engine1/script.js"></script>
+	<!-- End WOWSlider.com BODY section -->

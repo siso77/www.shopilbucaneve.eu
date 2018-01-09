@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<title>Template view</title>
+	</head>
+	<body>
+		
+		<script type="text/javascript" charset="utf-8">
+        dhx.ui({
+            view:"window",
+            head:false,
+            position:"center",
+            width:450,
+            height:400,
+            body:{
+                id:"top",
+                rows:[
+
+                    {
+                        id:"content",
+                        view:"template",
+                        template:"<p>Press load button</p>",
+                        waitMessage:true
+                    },
+                    {
+                        view:"toolbar",
+                        id:"SubBar",
+                        type:"SubBar",
+                        elements:[
+                            { view:"label", label: "Template view", align:'left'},
+                            { view:"button", label: "Load page", id:"load", align:'right' ,click:"loadPage()",width:200}
+                        ]
+                        }
+                ]
+            }
+
+		});
+		
+		
+		
+	
+		function loadPage(){
+			$$("content").define("src","static.html");
+		}
+		
+
+		</script>
+
+	</body>
+</html>

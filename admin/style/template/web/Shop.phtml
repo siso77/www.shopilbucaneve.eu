@@ -1,0 +1,879 @@
+<?php 
+$_tplvar = $this->getVars();
+?>
+<script type="text/javascript">
+onload = function(){
+	document.getElementById('bar_code').focus();
+} 
+function validateFormAddBasket()
+{
+	var qty = document.getElementById('quantita');
+	var total = document.getElementById('total');
+
+	var error_qty = document.getElementById('err_quantita');
+	var error_total = document.getElementById('err_total');
+	
+	if(qty.value == 0)
+	{		
+		error_qty.innerHTML = '(*) Campo obbligatorio';
+		return false;
+	}
+	else
+		error_qty.innerHTML = '';
+	
+	if(total.value == '' || total.value == '0,00')
+	{		
+		error_total.innerHTML = '(*) Campo obbligatorio';
+		return false;
+	}
+	else
+		error_total.innerHTML = '';
+
+	return true;
+}
+function validateFormSale(callBack)
+{
+	if(callBack == null)
+		callBack = false;
+	
+	var tipo_pagamento = document.getElementById('tipo_pagamento');
+	var error_tipo_pagamento = document.getElementById('err_tipo_pagamento');
+	
+	if(tipo_pagamento.value == 0 || tipo_pagamento.value == '')
+	{		
+		error_tipo_pagamento.innerHTML = '(*) Il campo TIPO DI PAGAMENTO e\' obbligatorio';
+		return false;
+	}
+	else
+		error_tipo_pagamento.innerHTML = '';
+
+	if(callBack == true)
+	{	
+//		var rif_scontrino = document.getElementById('rif_scontrino');
+//		var err_rif_scontrino = document.getElementById('err_rif_scontrino');
+//		if(rif_scontrino.value == 0 || rif_scontrino.value == '')
+//		{		
+//			err_rif_scontrino.innerHTML = '(*) Il campo SCONTRINO e\' obbligatorio';
+//			return false;
+//		}
+//		else
+//			err_rif_scontrino.innerHTML = '';	
+	}
+	if(callBack)
+		showInvoiceData();
+
+	return true;
+}
+
+function validateInvoiceData()
+{
+	var rif_scontrino = document.getElementById('rif_scontrino');
+	var err_rif_scontrino = document.getElementById('err_rif_scontrino');
+	if(rif_scontrino.value == 0 || rif_scontrino.value == '')
+	{		
+		err_rif_scontrino.innerHTML = '(*) Il campo SCONTRINO e\' obbligatorio';
+		return false;
+	}
+	else
+		err_rif_scontrino.innerHTML = '';
+	return true;
+}
+
+function showInvoiceData()
+{
+	var el = document.getElementById('invoice_data');
+	el.style.visibility = 'visible';
+}
+</script>
+<style>
+table, tbody, tfoot{
+	background:transparent none repeat scroll 0 0;
+	border:1px solid #fff;
+	font-size:12px;
+	margin:10px;
+	padding:10px;
+	outline-color:-moz-use-text-color;
+	outline-style:none;
+	outline-width:0;
+	vertical-align:baseline;
+}
+tr, th, td {
+	background:transparent none repeat scroll 0 0;
+	border-bottom:0px solid #fff;
+	margin:0px;
+	padding:3px;
+}
+</style>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Shop" method="post" name="shop">
+
+<?php if(empty($_tplvar['data']) && empty($_tplvar['data_in_basket']) && empty($_tplvar['customer_data_searched']) && empty($_tplvar['list_customer']) && empty($_tplvar['edit_customer'])):?>
+
+<table width="80%">
+<tr>
+	<td align="center">
+		<?php if($_tplvar['confirm_insert']):?>
+		<b style="color:red"><?php echo $this->getText('insert_succesfull');?></b>
+		<?php endif;?>
+		
+		<?php if($_tplvar['error']):?>
+		<b style="color:red">Non hai aggiunto prodotti!</b>
+		<?php endif;?>
+		
+		<?php if($_tplvar['search_empty'] && empty($_tplvar['contents'])):?>
+		<b style="color:red">Prodotto non trovato!</b>
+		<?php endif;?>
+	</td>
+</tr>
+<tr>
+	<td align="center">
+		BAR CODE&nbsp;<input type="text" name="bar_code" id="bar_code">&nbsp;
+		NOME PRODOTTO&nbsp;<input type="text" name="prod_name" id="prod_name">&nbsp;
+		
+		<input type="submit" name="search" value="CERCA" />&nbsp;
+		<input class="submit" type="button" value="RESET" />&nbsp;
+		<input type="button" class="submit" value="VAI IN CASSA" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Shop&show_cart=1'">&nbsp;
+	</td>
+</tr>
+</table>
+<table width="80%" height="auto">
+<?php if(!empty($_tplvar['contents'])):?>
+<tr>
+	<td align="center">BAR CODE</td>
+	<td align="center">NOME</td>
+	<td align="center">DESCRIZIONE</td>
+	<td align="center">TAGLIA</td>
+	<td align="center">COLORE</td>
+	<td align="center">PREZZO</td>
+	<td align="center">PREZZO SCONTATO</td>
+	<td align="center">QUANTITA'</td>
+	<td align="center">CATEGORIA</td>
+	<td align="center">MARCA</td>
+	<td align="center">VENDI</td>
+</tr>
+<?php foreach ($_tplvar['contents'] as $key => $value):?>
+<tr <?php if($key % 2):?>style="background-color: #2F2F2F;"<?php endif;?>>
+		<td align="center">
+	        <?php echo $value['bar_code']?>
+		</td>
+		<td align="center">
+	        <?php echo $value['name_it']?>
+		</td>
+		<td align="center">
+	        <?php echo $value['description_it']?>
+		</td>
+		<td align="center"><?php echo $value['size']?></td>
+		<td align="center"><?php echo $value['color']?></td>
+		<td align="center"><?php echo $this->getFormatPrice($value['price_it'])?></td>
+		<td align="center"><?php echo $this->getFormatPrice($value['price_discounted_it'])?></td>
+		<td align="center"><?php echo $value['quantita']?></td>
+		<td align="center"><?php echo $value['name']?></td>
+		<td align="center"><?php echo $value['name_band']?></td>
+		<td align="center" class="actions" nowrap="nowrap">
+			<a class="edit" href="<?php echo $_tplvar['WWW_ROOT']?>?act=Shop&search=1&bar_code=<?php echo $value['bar_code']?>">VENDI</a>
+		</td>
+	</tr>	
+<?php endforeach;?>		
+<?php endif;?>
+</table>
+<?php else:?>
+
+
+<table width="90%">
+<?php 
+if($_tplvar['data_in_basket'] || !empty($_tplvar['customer_data_searched']) || !empty($_tplvar['list_customer']) || !empty($_tplvar['edit_customer'])):?>
+<tr>
+	<td colspan="2" align="center">
+		BAR CODE&nbsp;<input type="text" name="bar_code" id="bar_code">&nbsp;
+		NOME PRODOTTO&nbsp;<input type="text" name="prod_name" id="prod_name">&nbsp;
+		
+		<input type="submit" name="search" value="CERCA" />&nbsp;
+		<input class="submit" type="button" value="RESET" />&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td colspan="6">
+		<table width="97%" style="margin:10px" style="border:1px solid #993300">
+		<tr>
+			<td colspan="9" align="center" style="font-size:16px">Prodotti Aggiunti</td>
+		</tr>
+		<tr>
+			<td width="100" nowrap="nowrap"><?php echo $this->getText('BAR_CODE')?></td>
+			<td width="100" nowrap="nowrap"><?php echo $this->getText('NAME')?></td>
+			<td width="100" nowrap="nowrap"><?php echo $this->getText('SIZE')?></td>
+			<td width="100" nowrap="nowrap"><?php echo $this->getText('COLOR')?></td>
+			<td width="100" nowrap="nowrap"><?php echo $this->getText('QUANTITA')?></td>
+			<td width="150" nowrap="nowrap">IMPORTO</td>
+			<td width="150" nowrap="nowrap">&nbsp;</td>
+		</tr>
+		<?php
+		$total = 0.0; 
+		foreach ($_tplvar['data_in_basket'] as $key => $value):
+		$total = $total + str_replace(',', '.', $value['total']);
+		?>
+		<tr>
+			<td><?php echo $value['bar_code']?></td>
+			<td><?php echo substr($value['name_it'], 0, $_tplvar['LISTA_MAGAZZINO_TRUNCATE_NAME'])?></td>
+			<td><?php echo $value['size']?></td>
+			<td>
+			<?php echo $value['color'].' - '?>
+			<?php echo $this->getColorFromIdContent($value['id_color_2']).' - '?>
+			<?php echo $this->getColorFromIdContent($value['id_color_3'])?>
+			</td>
+			<td><?php echo $value['quantita']?></td>
+			<td><?php echo $value['total']?></td>
+			<td><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Shop&delete=1&bar_code_searched=<?php echo $_tplvar['bar_code_searched']?>&bar_code=<?php echo $value['bar_code']?>"><?php echo $this->getText('DELETE')?></td>
+		</tr>
+		<?php endforeach;?>
+		<tr>
+			<td colspan="7">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="5" nowrap="nowrap" align="right"><?php echo $this->getText('CHANGE_PRICE')?></td>
+			<td><?php echo $this->getFormatPrice($total);?></td>
+			<td nowrap="nowrap">&nbsp;</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td align="right" nowrap="nowrap">
+		<?php echo $this->getText('PAYMENT_TYPE')?>
+		<select name="tipo_pagamento" id="tipo_pagamento">
+			<option value=""> Seleziona </option>
+			<?php foreach ($_tplvar['cmb_payment_type'] as $value):?>
+				<option value="<?php echo $value['name']?>" <?php if($_tplvar['sales_data']['tipo_pagamento'] == $value['name']):?>selected="selected"<?php endif;?>><?php echo $value['name']?></option>			
+			<?php endforeach;?>
+		</select>
+		<div id="err_tipo_pagamento" style="color:#993300"></div>
+	</td>
+	<td align="right"></td>
+</tr>
+<tr>	
+	<td colspan="6" align="right">&nbsp;</td>
+</tr>
+<!--<tr>-->
+<!--	<td align="right">&nbsp;</td>-->
+<!--	<td align="right">&nbsp;</td>-->
+<!--	<td colspan="3" align="left" nowrap="nowrap">-->
+<!--		MEZZO CEDENTE <input type="radio" name="mezzo" value="mezzo_cedente" <?php if($_tplvar['mezzo'] == 'mezzo_cedente' || empty($_tplvar['mezzo'])):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;-->
+<!--		MEZZO CESSIONARIO <input type="radio" name="mezzo" value="mezzo_cessionario" <?php if($_tplvar['mezzo'] == 'mezzo_cessionario'):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;-->
+<!--		MEZZO VETTORE <input type="radio" name="mezzo" value="mezzo_vettore" <?php if($_tplvar['mezzo'] == 'mezzo_vettore'):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;-->
+<!--		MEZZO ALTRO <input type="radio" name="mezzo" value="mezzo_altro" <?php if($_tplvar['mezzo'] == 'mezzo_altro'):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;-->
+<!--	</td>-->
+<!--	<td align="right">&nbsp;</td>-->
+<!--</tr>-->
+<tr>	
+	<td colspan="6" align="right">&nbsp;</td>
+</tr>
+<tr>	
+	<td colspan="6" align="right">
+		<input type="submit" name="vendi" value="VENDI" onclick="javascript:return validateFormSale(false);">&nbsp;
+		<input type="button" class="submit" value="VENDI E STAMPA FATTURA" onclick="javascript:return validateFormSale(true);">&nbsp;
+<!--		<input type="button" class="submit" name="vendi" value="AGGIUNGI PRODOTTO" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Shop'">&nbsp;-->
+		<input type="button" class="submit" value="NUOVO CLIENTE" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCliente&from=Shop';">
+
+<div id="invoice_data" style="top:200px;left:100px;background-color:#000000;<?php if($_tplvar['customer_not_found']):?>visibility:visible;<?php else:?>visibility:hidden;<?php endif;?>position:absolute;border:1px solid rgb(153, 51, 0);">
+	<table style="margin:10px;" width="400" height="200">
+	<tr>
+		<td colspan="4" align="center">RICERCA IL CLIENTE</td>
+	</tr>
+	<tr>
+		<td><?php echo $this->getText('NOME')?></td>
+		<td><input type="text" name="search_nome" value="<?php echo $_tplvar['customer_data_searched']['nome']?>"></td>
+		<td><?php echo $this->getText('COGNOME')?></td>
+		<td><input type="text" name="search_cognome" value="<?php echo $_tplvar['customer_data_searched']['cognome']?>"></td>
+	</tr>
+	<tr>
+		<td colspan="4" align="center">
+			<input type="submit" name="generate_invoice" value="INVIA">&nbsp;
+			<input type="reset" class="submit" value="CHIUDI" onclick="javascript:document.getElementById('invoice_data').style.visibility = 'hidden'">
+		</td>
+	</tr>
+	</table>
+</div>
+<div id="invoice_list_customer" style="top:200px;left:100px;background-color:#000000;<?php if($_tplvar['list_customer']):?>visibility:visible;<?php else:?>visibility:hidden;<?php endif;?>position:absolute;border:1px solid rgb(153, 51, 0);">
+	<table style="margin:10px;" width="900">
+	<tr>
+		<td align="right">Fattura N.</td>
+		<td align="left"><input type="text" id="invoice_num" name="invoice_num" value="<?php echo $_tplvar['invoice_num'];?>"></td>
+		<td align="right">
+			SCONTRINO <input type="text" name="rif_scontrino" id="rif_scontrino" value="<?php echo $_tplvar['rif_scontrino']?>">
+			<div id="err_rif_scontrino" style="color:#993300"></div>
+		</td>
+		<td align="right">
+				DEL <input type="text" id="data_rif_scontrino" name="data_rif_scontrino" value="<?php echo !empty($_tplvar['data_rif_scontrino'])? $_tplvar['data_rif_scontrino']: date('d/m/Y')?>">&nbsp;
+				<!-- INCLUSIONE CALENDARIO -->
+				<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+				<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+				<!-- INCLUSIONE CALENDARIO -->
+				<script type="text/javascript">
+			    $('#data_rif_scontrino').DatePicker({
+			    	format:'d/m/Y',
+			    	date: $('#data_rif_scontrino').val(),
+			    	current: $('#data_rif_scontrino').val(),
+			    	starts: 1,
+			    	position: 'r',
+			    	onBeforeShow: function(){
+			    		$('#data_rif_scontrino').DatePickerSetDate($('#data_rif_scontrino').val(), true);
+			    	},
+			    	onChange: function(formated, dates){
+			    		$('#data_rif_scontrino').val(formated);
+			    		$('#data_rif_scontrino').DatePickerHide();
+			    	}
+			    });
+			    </script>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left">MEZZO CEDENTE <input type="radio" id="cf_mezzo" name="cf_mezzo" value="mezzo_cedente" checked="checked"></td>
+		<td align="left">MEZZO CESSIONARIO <input type="radio" id="cf_mezzo" name="cf_mezzo" value="mezzo_cessionario"></td>
+		<td align="left">MEZZO VETTORE <input type="radio" id="cf_mezzo" name="cf_mezzo" value="mezzo_vettore"></td>
+		<td align="left">MEZZO ALTRO <input type="radio" id="cf_mezzo" name="cf_mezzo" value="mezzo_altro"></td>
+	</tr>
+	
+	<tr>
+		<td colspan="4" align="center">CLIENTI TROVATI</td>
+	</tr>
+	<tr>
+		<td><?php echo $this->getText('NOME')?></td>
+		<td><?php echo $this->getText('COGNOME')?></td>
+		<td>INDIRIZZO</td>
+		<td>SELEZIONA</td>
+	</tr>
+	<?php foreach ($_tplvar['list_customer'] as $customer):?>
+	<tr>
+		<td><?php echo $customer['nome']?></td>
+		<td><?php echo $customer['cognome']?></td>
+		<td><?php echo $customer['indirizzo']?></td>
+		<td><a href="javascript:void(0);" onclick="javascript:goInvoice('<?php echo $_tplvar['WWW_ROOT'].'?act=Shop&customer_selected='.$customer['id']?>&id_vendita=<?php echo $_tplvar['id_vendita']?>&data_rif_scontrino=<?php echo $_tplvar['data_rif_scontrino']?>&rif_scontrino=<?php echo $_tplvar['rif_scontrino']?>&mezzo=<?php echo $_tplvar['mezzo']?>');">SELEZIONA</a></td>
+	</tr>
+	<?php endforeach;?>
+	<script>
+	function goInvoice(url)
+	{
+		for(var i = 0; i < document.shop.cf_mezzo.length; i++) {
+			if(document.shop.cf_mezzo[i].checked) {
+				mezzo = document.shop.cf_mezzo[i].value;
+			}
+		}
+	
+		var el_rif = document.getElementById('rif_scontrino');
+		var el_data_rif = document.getElementById('data_rif_scontrino');
+		var el = document.getElementById('invoice_num');
+	
+		var err_rif_scontrino = document.getElementById('err_rif_scontrino');
+		if(el_rif.value == 0 || el_rif.value == '')
+		{		
+			err_rif_scontrino.innerHTML = '(*) Il campo SCONTRINO e\' obbligatorio';
+			return false;
+		}
+		else
+			err_rif_scontrino.innerHTML = '';	
+		
+		document.location.href = url+'&invoice_num='+el.value+'&rif_scontrino='+el_rif.value+'&data_rif_scontrino='+el_data_rif.value+'&mezzo='+mezzo;
+	}
+	</script>
+	<tr>
+		<td colspan="4" align="center">
+			<input type="reset" class="submit" value="CHIUDI" onclick="javascript:document.getElementById('invoice_list_customer').style.visibility = 'hidden'">
+		</td>
+	</tr>
+	</table>
+</div>
+
+
+
+
+
+
+<!-- STEP PER L'EVENTUALE MODIFICA DEL CLIENTE PRIMA DI STAMPARE LA FATTURA -->
+<div id="invoice_edit_customer" style="top:200px;left:100px;background-color:#000000;<?php if($_tplvar['edit_customer']):?>visibility:visible;<?php else:?>visibility:hidden;<?php endif;?>position:absolute;border:1px solid rgb(153, 51, 0);">
+
+<table>
+<tr>
+	<td colspan="2" align="center">MODIFICA I DATI DEL CLIENTE</td>
+</tr>
+<tr>
+	<td>
+		<table style="margin:10px;" width="900" height="400">
+		<tr>
+			<td width="100"><?php echo $this->getText('NOME')?></td>
+			<td width="200"><input type="text" name="edit_customer_nome" id="edit_customer_nome" value="<?php echo $_tplvar['edit_customer']['nome']?>"></td>
+			<td><?php echo $this->getText('COGNOME')?></td>
+			<td><input type="text" name="edit_customer_cognome" id="edit_customer_cognome" value="<?php echo $_tplvar['edit_customer']['cognome']?>"></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('CITTA')?></td>
+			<td><input type="text" name="edit_customer_citta" id="edit_customer_citta" value="<?php echo $_tplvar['edit_customer']['citta']?>"></td>
+			<td><?php echo $this->getText('INDIRIZZO')?></td>
+			<td><input type="text" name="edit_customer_indirizzo" id="edit_customer_indirizzo" value="<?php echo $_tplvar['edit_customer']['indirizzo']?>"></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('CAP')?></td>
+			<td><input type="text" name="edit_customer_cap" id="edit_customer_cap" value="<?php echo $_tplvar['edit_customer']['cap']?>"></td>
+			<td><?php echo $this->getText('PROVINCIA')?></td>
+			<td><input type="text" name="edit_customer_provincia" id="edit_customer_provincia" value="<?php echo $_tplvar['edit_customer']['provincia']?>"></td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap"><?php echo $this->getText('FISSO')?></td>
+			<td><input type="text" name="edit_customer_fisso" id="edit_customer_fisso" value="<?php echo $_tplvar['edit_customer']['fisso']?>"></td>
+			<td><?php echo $this->getText('CELLULARE')?></td>
+			<td><input type="text" name="edit_customer_cellulare" id="edit_customer_cellulare" value="<?php echo $_tplvar['edit_customer']['cellulare']?>"></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('EMAIL')?></td>
+			<td><input type="text" name="edit_customer_email" id="edit_customer_email" value="<?php echo $_tplvar['edit_customer']['email']?>"></td>
+			<td nowrap="nowrap"><?php echo $this->getText('C_FISC_PIVA')?></td>
+			<td><input type="text" name="edit_customer_codice_fiscale" id="edit_customer_codice_fiscale" value="<?php echo $_tplvar['edit_customer']['codice_fiscale']?>"></td>
+		</tr>
+		<tr>
+			<td colspan="4" align="left">LUOGO DI DESTINAZIONE DELLA MERCE</td>
+		</tr>
+		
+		<tr>
+			<?php
+			$exp = explode(' ', $_tplvar['edit_customer']['text_spedizione']); 
+			?>
+			<td>NOME</td>
+			<td><input type="text" name="edit_customer_nome_spedizione" id="edit_customer_nome_spedizione" value="<?php echo $exp[0]?>" /></td>
+			<td>COGNOME</td>
+			<td><input type="text" name="edit_customer_cognome_spedizione" id="edit_customer_cognome_spedizione" value="<?php echo $exp[1]?>" /></td>
+		</tr>
+		<tr>
+			<td>CITTA'</td>
+			<td><input type="text" name="edit_customer_citta_spedizione" id="edit_customer_citta_spedizione" value="<?php echo $_tplvar['edit_customer']['citta_spedizione']?>" /></td>
+			<td>INDIRIZZO</td>
+			<td><input type="text" name="edit_customer_indirizzo_spedizione" id="edit_customer_indirizzo_spedizione" value="<?php echo $_tplvar['edit_customer']['indirizzo_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>CAP</td>
+			<td><input type="text" name="edit_customer_cap_spedizione" id="edit_customer_cap_spedizione" value="<?php echo $_tplvar['edit_customer']['cap_spedizione']?>" /></td>
+			<td>PROVINCIA</td>
+			<td><input type="text" name="edit_customer_provincia_spedizione" id="edit_customer_provincia_spedizione" value="<?php echo $_tplvar['edit_customer']['provincia_spedizione']?>" /></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td align="center">
+		<input type="button" class="submit" value="Invia" onclick="javascript:sendEditCustomer();">
+	</td>
+</tr>
+</table>
+
+</div>
+	<script>
+	function sendEditCustomer()
+	{
+		var edit_customer_nome = $('#edit_customer_nome').val();
+		var edit_customer_cognome = $('#edit_customer_cognome').val();
+		var edit_customer_citta = $('#edit_customer_citta').val();
+		var edit_customer_indirizzo = $('#edit_customer_indirizzo').val();
+		var edit_customer_cap = $('#edit_customer_cap').val();
+		var edit_customer_provincia = $('#edit_customer_provincia').val();
+		var edit_customer_fisso = $('#edit_customer_fisso').val();
+		var edit_customer_cellulare = $('#edit_customer_cellulare').val();
+		var edit_customer_email = $('#edit_customer_email').val();
+		var edit_customer_codice_fiscale = $('#edit_customer_codice_fiscale').val();
+		var edit_customer_nome_spedizione = $('#edit_customer_nome_spedizione').val();
+		var edit_customer_cognome_spedizione = $('#edit_customer_cognome_spedizione').val();
+		var edit_customer_citta_spedizione = $('#edit_customer_citta_spedizione').val();
+		var edit_customer_indirizzo_spedizione = $('#edit_customer_indirizzo_spedizione').val();
+		var edit_customer_cap_spedizione = $('#edit_customer_cap_spedizione').val();
+		var edit_customer_provincia_spedizione = $('#edit_customer_provincia_spedizione').val();
+		
+		var invoice_num = "<?php echo $_tplvar['invoice_num']?>";
+		var rif_scontrino = "<?php echo $_tplvar['rif_scontrino']?>";
+		var data_rif_scontrino = "<?php echo $_tplvar['data_rif_scontrino']?>";
+		var id_vendita = "<?php echo $_tplvar['id_vendita']?>";
+		var mezzo = "<?php echo $_tplvar['mezzo']?>";
+
+		 url = '<?php echo $_tplvar['WWW_ROOT'].'?act=Shop';?>&invoice_num='+invoice_num;
+		 url += '&rif_scontrino='+rif_scontrino;
+		 url += '&data_rif_scontrino='+data_rif_scontrino;
+		 url += '&mezzo='+mezzo;
+		 url += '&id_vendita='+id_vendita;
+		 url += '&edit_customer=1&id_customer=<?php echo $_tplvar['edit_customer']['id'];?>';
+
+		 url += '&edit_customer_nome='+edit_customer_nome;
+		 url += '&edit_customer_cognome='+edit_customer_cognome;
+		 url += '&edit_customer_citta='+edit_customer_citta;
+		 url += '&edit_customer_indirizzo='+edit_customer_indirizzo;
+		 url += '&edit_customer_cap='+edit_customer_cap;
+		 url += '&edit_customer_provincia='+edit_customer_provincia;
+		 url += '&edit_customer_fisso='+edit_customer_fisso;
+		 url += '&edit_customer_cellulare='+edit_customer_cellulare;
+		 url += '&edit_customer_email='+edit_customer_email;
+		 url += '&edit_customer_codice_fiscale='+edit_customer_codice_fiscale;
+		 url += '&edit_customer_nome_spedizione='+edit_customer_nome_spedizione;
+		 url += '&edit_customer_cognome_spedizione='+edit_customer_cognome_spedizione;
+		 url += '&edit_customer_citta_spedizione='+edit_customer_citta_spedizione;
+		 url += '&edit_customer_indirizzo_spedizione='+edit_customer_indirizzo_spedizione;
+		 url += '&edit_customer_cap_spedizione='+edit_customer_cap_spedizione;
+		 url += '&edit_customer_provincia_spedizione='+edit_customer_provincia_spedizione;
+		 document.location.href = url;
+	}
+	</script>
+<!-- STEP PER L'EVENTUALE MODIFICA DEL CLIENTE PRIMA DI STAMPARE LA FATTURA -->
+
+
+
+<div id="invoice_new_customer" style="top:200px;left:100px;background-color:#000000;<?php if($_tplvar['customer_not_found']):?>visibility:visible;<?php else:?>visibility:hidden;<?php endif;?>position:absolute;border:1px solid rgb(153, 51, 0);">
+
+<!--<input type="hidden" name="rif_scontrino" value="<?php echo $_tplvar['rif_scontrino']?>">-->
+<!--<input type="hidden" name="data_rif_scontrino" value="<?php echo $_tplvar['data_rif_scontrino']?>">-->
+<?php if(!empty($_tplvar['id_vendita'])):?>
+<input type="hidden" name="id_vendita" value="<?php echo $_tplvar['id_vendita']?>">
+<?php endif;?>
+
+<?php if(!empty($_tplvar['mezzo'])):?>
+<input type="hidden" name="mezzo" value="<?php echo $_tplvar['mezzo']?>">
+<?php endif;?>
+
+<table>
+<tr>
+	<td colspan="2" align="center">INSERISCI I DATI DEL CLIENTE</td>
+</tr>
+<tr>
+	<td>
+		<table style="margin:10px;" width="900" height="400">
+		<tr>
+			<td width="100"><?php echo $this->getText('NOME')?></td>
+			<td width="200"><input type="text" name="nome" value="<?php echo $_tplvar['customer_data_searched']['nome']?>"></td>
+			<td><?php echo $this->getText('COGNOME')?></td>
+			<td><input type="text" name="cognome" value="<?php echo $_tplvar['customer_data_searched']['cognome']?>"></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('CITTA')?></td>
+			<td><input type="text" name="citta"></td>
+			<td><?php echo $this->getText('INDIRIZZO')?></td>
+			<td><input type="text" name="indirizzo"></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('CAP')?></td>
+			<td><input type="text" name="cap"></td>
+			<td><?php echo $this->getText('PROVINCIA')?></td>
+			<td><input type="text" name="provincia"></td>
+		</tr>
+		<tr>
+			<td nowrap="nowrap"><?php echo $this->getText('FISSO')?></td>
+			<td><input type="text" name="fisso"></td>
+			<td><?php echo $this->getText('CELLULARE')?></td>
+			<td><input type="text" name="cellulare"></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('EMAIL')?></td>
+			<td><input type="text" name="email"></td>
+			<td nowrap="nowrap"><?php echo $this->getText('C_FISC_PIVA')?></td>
+			<td><input type="text" name="codice_fiscale"></td>
+		</tr>
+		<!--
+		<tr>
+			<td><?php echo $this->getText('STATO')?></td>
+			<td><input type="text" name="stato"></td>
+		</tr>
+		-->
+		<tr>
+			<td colspan="4" align="left">LUOGO DI DESTINAZIONE DELLA MERCE</td>
+		</tr>
+		
+		<tr>
+			<td>NOME</td>
+			<td><input type="text" name="nome_spedizione" id="nome_spedizione" value="<?php echo $_tplvar['cliente']['text_spedizione']?>" /></td>
+			<td>COGNOME</td>
+			<td><input type="text" name="cognome_spedizione" id="cognome_spedizione" value="<?php echo $_tplvar['cliente']['text_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>CITTA'</td>
+			<td><input type="text" name="citta_spedizione" id="citta_spedizione" value="<?php echo $_tplvar['cliente']['citta_spedizione']?>" /></td>
+			<td>INDIRIZZO</td>
+			<td><input type="text" name="indirizzo_spedizione" id="indirizzo_spedizione" value="<?php echo $_tplvar['cliente']['indirizzo_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>CAP</td>
+			<td><input type="text" name="cap_spedizione" id="cap_spedizione" value="<?php echo $_tplvar['cliente']['cap_spedizione']?>" /></td>
+			<td>PROVINCIA</td>
+			<td><input type="text" name="provincia_spedizione" id="provincia_spedizione" value="<?php echo $_tplvar['cliente']['provincia_spedizione']?>" /></td>
+<!--			<td>STATO</td>-->
+<!--			<td><input type="text" name="stato_spedizione" id="stato_spedizione" value="<?php echo $_tplvar['cliente']['stato_spedizione']?>" /></td>-->
+		</tr>
+		</table>
+	</td>
+	<td>
+		<table>
+		<tr>
+			<td align="right">Fattura N.</td>
+			<td align="left"><input type="text" name="invoice_num" value="<?php echo $_tplvar['invoice_num']?>"></td>
+		</tr>
+		<tr>
+			<td align="right">DATA FATTURA</td>
+			<td align="left"><input type="text" name="null" value="<?php echo date('d/m/Y')?>" disabled="disabled"></td>
+		</tr>
+		<tr>
+			<td align="right">MEZZO CEDENTE</td>
+			<td align="left"><input type="radio" name="mezzo" value="mezzo_cedente" <?php if($_tplvar['mezzo'] == 'mezzo_cedente' || empty($_tplvar['mezzo'])):?> checked="checked"<?php endif;?>></td>
+		</tr>
+		<tr>
+			<td align="right">MEZZO CESSIONARIO</td>
+			<td align="left"><input type="radio" name="mezzo" value="mezzo_cessionario" <?php if($_tplvar['mezzo'] == 'mezzo_cessionario'):?> checked="checked"<?php endif;?>></td>
+		</tr>
+		<tr>
+			<td align="right">MEZZO VETTORE</td>
+			<td align="left"><input type="radio" name="mezzo" value="mezzo_vettore" <?php if($_tplvar['mezzo'] == 'mezzo_vettore'):?> checked="checked"<?php endif;?>></td>
+		</tr>
+		<tr>
+			<td align="right">MEZZO ALTRO</td>
+			<td align="left"><input type="radio" name="mezzo" value="mezzo_altro" <?php if($_tplvar['mezzo'] == 'mezzo_altro'):?> checked="checked"<?php endif;?>></td>
+		</tr>
+		<tr>
+			<td align="right">SCONTRINO</td>
+			<td align="left">
+				<input type="text" name="rif_scontrino" id="rif_scontrino" value="<?php echo $_tplvar['rif_scontrino']?>">
+				<div id="err_rif_scontrino" style="color:#993300"></div>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">DEL</td>
+			<td align="left">
+				<input type="text" id="data_rif_scontrino" name="data_rif_scontrino" value="<?php echo !empty($_tplvar['data_rif_scontrino'])? $_tplvar['data_rif_scontrino']: date('d/m/Y')?>">&nbsp;
+				<!-- INCLUSIONE CALENDARIO -->
+				<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+				<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+				<!-- INCLUSIONE CALENDARIO -->
+				<script type="text/javascript">
+			    $('#data_rif_scontrino').DatePicker({
+			    	format:'d/m/Y',
+			    	date: $('#data_rif_scontrino').val(),
+			    	current: $('#data_rif_scontrino').val(),
+			    	starts: 1,
+			    	position: 'r',
+			    	onBeforeShow: function(){
+			    		$('#data_rif_scontrino').DatePickerSetDate($('#data_rif_scontrino').val(), true);
+			    	},
+			    	onChange: function(formated, dates){
+			    		$('#data_rif_scontrino').val(formated);
+			    		$('#data_rif_scontrino').DatePickerHide();
+			    	}
+			    });
+			    </script>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+<!--		<input type="submit" name="create_customer" value="INVIA"  onclick="javascript:return validateInvoiceData();">&nbsp;-->
+		<input type="submit" name="create_customer" value="INVIA" >&nbsp;
+		<input type="reset" class="submit" value="CHIUDI" onclick="javascript:document.getElementById('invoice_new_customer').style.visibility = 'hidden'">
+	</td>
+</tr>
+</table>
+
+</div>
+<br>
+		
+	</td>
+</tr>
+</table>
+<?php else:?>
+<!-- PRIMO STEP CON I DATI DEL PRODOTTO -->
+<table width="80%">
+<tr>
+	<td align="center"><input type="text" name="bar_code" value="<?php echo $_tplvar['bar_code_searched'];?>">&nbsp;<input type="submit" name="search" value="CERCA" />&nbsp;<input type="button" class="submit" value="RESET" /></td>
+</tr>
+</table>	
+<table>
+<tr>
+	<td colspan="2" align="right" style="font-size:16px;" height="50">BAR CODE <?php echo $_tplvar['bar_code_searched'];?></td>
+	<td align="right" style="font-size:16px;" height="50">&nbsp;</td>
+</tr>
+
+<tr>
+	<td>
+	<?php if($_tplvar['data'][0]['images'][0]['name'] != 'pro-bike_product_default.jpg' && !empty($_tplvar['data'][0]['images'][0]['name'])):?>
+		<img src="<?php echo $_tplvar['data'][0]['images'][0]['www_path'].'/Large_'.$_tplvar['data'][0]['images'][0]['name']?>">
+	<?php elseif(!empty($_tplvar['data'][0]['images'][0]['name'])):?>
+		<img src="<?php echo $_tplvar['data'][0]['images'][0]['www_path'].'/'.$_tplvar['data'][0]['images'][0]['name']?>">
+	<?php endif;?>
+	</td>
+	<td style="vertical-align:top">
+		<table width="300" style="margin:10px">
+		<tr>
+			<td width="150"><?php echo $this->getText('NAME')?></td>
+			<td><?php echo html_entity_decode($_tplvar['data'][0]['name_it'])?></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('DESCRIPTION')?></td>
+			<td><?php echo $_tplvar['data'][0]['description_it']?></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('BRAND')?></td>
+			<td><?php echo $_tplvar['data'][0]['name_brand']?></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->getText('CATEGORY')?></td>
+			<td><?php echo $_tplvar['data'][0]['name']?></td>
+		</tr>
+		</table>
+	</td>
+	<td style="vertical-align:top">
+		<?php if(count($_tplvar['data_magazzino']) > 0 && $_tplvar['data_magazzino'][0]['quantita'] > 0):?>
+		<input type="hidden" name="id_magazzino" value="<?php echo $_tplvar['data_magazzino'][0]['id_magazzino']?>">
+		<table style="border:1px solid #993300;">
+		<tr>
+			<td colspan="3">&nbsp;</td>
+		</tr>		
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200"><a href="javascript:void(0);" onclick="javascript:showHiddenDiv('image_bar_code');"><?php echo $this->getText('BAR_CODE')?></a>
+			<div id="image_bar_code" style="text-align:center;padding:50px;visibility:hidden;position:absolute;width:300px;height:100px;background-color:#fff">
+				<?php
+				$_tplvar['BaseBarCodeGenerator']->configureCode39($_tplvar['data_magazzino'][0]['bar_code']);
+				$_tplvar['BaseBarCodeGenerator']->output();
+				?>
+				<br><br><br>
+				<a href="javascript:void(0);" onclick="javascript:window.open('<?php echo $_tplvar['WWW_ROOT']?>?act=PrintBarcode&code=<?php echo $_tplvar['data_magazzino'][0]['bar_code']?>')">STAMPA</a>
+				&nbsp;&nbsp;
+				<a href="javascript:void(0);" onclick="javascript:showHiddenDiv('image_bar_code');">CHIUDI</a>
+				</div>
+			
+			</td>
+			<td width="200"><?php echo $this->getText('COLOR')?></td>
+			<td width="200"><?php echo $this->getText('SIZE')?></td>
+		</tr>
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td><?php echo $_tplvar['data_magazzino'][0]['bar_code']?></td>
+			<td>
+				<?php echo $_tplvar['data_magazzino'][0]['color']?>
+				<?php
+					$img_2 = $this->getColorFromIdContent($_tplvar['data_magazzino'][0]['id_color_2']);
+					if(!empty($img_2)) 
+						echo ' - '.$img_2;
+				?>
+				<?php
+					$img_3 = $this->getColorFromIdContent($_tplvar['data_magazzino'][0]['id_color_3']);
+					if(!empty($img_3))
+						echo ' - '.$this->getColorFromIdContent($_tplvar['data_magazzino'][0]['id_color_3']);
+					?>
+			</td>
+			<td><?php echo $_tplvar['data_magazzino'][0]['size'];?></td>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200"><?php echo $this->getText('PRICE')?></td>
+			<td width="200" colspan="2" style="font-size:16px"><?php echo $_tplvar['data_magazzino'][0]['price_it']?> &euro;</td>
+		</tr>
+		<?php if($_tplvar['data_magazzino'][0]['percentuale_sconto'] != '-'):?>
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200">
+				<a href="javascript:void(0);" onclick="javascipt:showHiddenDiv('div_price_discounted');"><?php echo $this->getText('PRICE_DISCOUNTED')?></a>
+			</td>
+			<td width="200" colspan="2" style="font-size:16px">
+				<div id="div_price_discounted" style="visibility:hidden">
+					<?php echo $_tplvar['data_magazzino'][0]['price_discounted_it']?> &euro;
+				</div>
+			</td>
+		</tr>
+		<input type="hidden" name="percentuale_sconto" value="<?php echo $_tplvar['data_magazzino'][0]['percentuale_sconto']?>">
+		<input type="hidden" name="ddt" value="<?php echo $_tplvar['data_magazzino'][0]['ddt']?>">
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200"><?php echo $this->getText('PERCENT_DISCOUNT')?></td>
+			<td width="200" colspan="2" style="font-size:16px"><?php echo $_tplvar['data_magazzino'][0]['percentuale_sconto']?>%</td>
+		</tr>
+		
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200"><?php echo $this->getText('TOTAL')?></td>
+			<td width="200" colspan="2" style="font-size:16px"><input type="text" name="personal_price" id="personal_price" value="<?php echo $_tplvar['data_magazzino'][0]['price_it'];?>" onblur="javascript:var obj = document.getElementById('quantita');obj.options[0].selected = true;var obj = document.getElementById('total').value = '';"></td>
+		</tr>
+
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200"><?php echo $this->getText('QUANTITA')?></td>
+			<td width="200" colspan="2">
+				<select name="quantita" id="quantita" onchange="javascript:calculateBasket(this, 'total')">
+				<option value="0">SELEZIONA</option>
+				<?php for($i = 1;$i<=$_tplvar['data_magazzino'][0]['quantita'];$i++):?>
+				<option value="<?php echo $i?>"<?php if($_tplvar['sales_data']['quantita'] == $i):?>selected="selected"<?php endif;?>><?php echo $i?></option>
+				<?php endfor;?>
+				</select><div id="err_quantita" style="color:#993300"></div>
+			</td>
+		</tr>
+		<script type="text/javascript">
+		function calculateBasket(obj, id_to_display)
+		{
+			var price = document.getElementById('personal_price');
+			var qty = obj.options[obj.selectedIndex].value;
+			total = (parseFloat(price.value.replace(",", ".")) * qty)+'';
+			
+			var el = document.getElementById(id_to_display);
+			total = (total.indexOf(".")>=0)?total+"0":total+".00";
+			el.value = total.replace(".", ",");
+		}
+		</script>
+		
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200"><?php echo $this->getText('CHANGE_PRICE')?></td>
+			<td width="200" colspan="2">
+				<input type="text" name="total" id="total" value="<?php echo $_tplvar['sales_data']['total'];?>">
+				<div id="err_total" style="color:#993300"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="10">&nbsp;</td>
+			<td width="200" colspan="3" align="center">
+				<input type="submit" name="add_to_basket" value="AGGIUNGI PRODOTTO" onclick="javascript:return validateFormAddBasket();">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">&nbsp;</td>
+		</tr>
+		<?php endif;?>
+		</table>
+		<?php elseif($_tplvar['magazzino_empty'] || $_tplvar['data_magazzino'][0]['quantita'] <= 0):?>
+		<table width="300" height="200">
+		<tr>
+			<td colspan="3" style="border:1px solid #993300;"><?php echo $this->getText('magazzino_empty');?></td>
+		</tr>		
+		</table>
+		
+		<table width="90%" style="border:0px solid #000000">
+		<tr>
+			<td>
+				<input type="button" class="submit" value="VAI IN CASSA" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Shop&show_cart=1'">&nbsp;
+			</td>
+		</tr>		
+		</table>
+		
+		<?php endif;?>
+	</td>
+</tr>
+<tr>
+	<td colspan="3">&nbsp;</td>
+</tr>
+</table>
+
+<?php endif;?>
+
+<?php endif;?>
+
+</form>

@@ -1,0 +1,185 @@
+<?php $_tplvar = $this->getVars();?>
+
+<div id="subhead" class="content fix">
+	<div id="subnav" class="fix">
+		<ul>
+		<?php foreach($_tplvar['cmb_categories'] as $value):?>
+		<?php if($value['id'] != 165):?>
+			<li class="page_item page-item-130">
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>Categories/<?php echo str_replace('/', '-', $value['name'])?>/<?php echo $value['id']?>.html" title="<?php echo $value['name']?>"><?php echo $value['name']?></a>
+			</li>		
+		<?php endif;?>
+			<?php //foreach($value['sub_category'] as $val):?>							
+				<?php //echo $val['name']?>
+			<?php //endforeach;?>
+		<?php endforeach;?>
+			<li class="page_item page-item-130">
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>Offerte/Le migliori offerte/Offerte.html" title="Le migliori offerte di pro bike">Offerte</a>
+			</li>		
+			<li class="page_item page-item-130">
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>Marchi/Visualizza Tutti i Marchi/Marchi.html" title="Guarda Tutti i Marchi">Visualizza tutti i Marchi</a>
+			</li>		
+			<li class="page_item page-item-130">
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>Mercatino-Usato/occasioni bici usate/1.html" title="Guarda Tutte le bici usate di pro bike">Mercatino dell'usato</a>
+			</li>		
+			<li class="page_item page-item-130">
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>Stolen-Bike/annunci bici rubate/1.html" title="Guarda tutti gli annunci di bici rubate di pro bike">Stolen Bike</a>
+			</li>		
+		</ul>
+	</div><!-- /sub nav -->		
+</div>
+
+<!-- GESTIONE BREADCRUMB -->
+<?php 
+if(!empty($_tplvar['content'][0]))
+	$content = $_tplvar['content'][0];
+if(!empty($_REQUEST['breadcrumb1']))
+	$category = $this->getCategoryByName($_REQUEST['breadcrumb1']);	
+
+if(!empty($category) && $category[0]['parent_id'] != 0)
+	$root_category = $this->getCategoryById($category[0]['parent_id']);
+elseif($category[0]['parent_id'] == 0 && $_REQUEST['act'] == 'ProductInfo')
+{
+	$root_category = $category[0];
+	$category = array($this->getCategoryById($content['id_category']));
+	$_REQUEST['breadcrumb1'] = $category[0]['name'];
+}
+
+if(empty($root_category) && !empty($content))
+	$root_category = $this->getCategoryById($category[0]['parent_id']);
+
+$i = 0;
+$breadcrumb[$i]['name'] = 'Home';
+$breadcrumb[$i]['href'] = ' ';
+$i++;
+
+if(!empty($root_category))
+{
+	$breadcrumb[$i]['name'] = $root_category['name'];
+	$breadcrumb[$i]['href'] = 'Categories/'.$root_category['name'].'/'.$root_category['id'].'.html';
+	$i++;
+}
+if(!empty($_REQUEST['breadcrumb1']))
+{
+	$breadcrumb[$i]['name'] = $_REQUEST['breadcrumb1'];
+	$breadcrumb[$i]['href'] = 'Categories/'.$category[0]['name'].'/'.$category[0]['id'].'.html';
+	$i++;
+}
+if(!empty($_REQUEST['breadcrumb2']))
+{
+	$breadcrumb[$i]['name'] = $_REQUEST['breadcrumb2'];
+	$breadcrumb[$i]['href'] = 'Detail/'.$category[0]['name'].'/'.$_REQUEST['breadcrumb2'].'/'.$content['id'].'.html';
+	$i++;
+}
+if($_REQUEST['act'] == 'Offer')
+{
+	$breadcrumb[$i]['name'] = 'Le migliori offerte di Pro Bike';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+}
+if($_REQUEST['act'] == 'Brand')
+{
+	$breadcrumb[$i]['name'] = 'Tutti i Marchi di Pro Bike';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+}
+
+if($_REQUEST['act'] == 'Login')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Login';
+	$breadcrumb[$i]['href'] = '?act=Login';
+	$i++;
+}
+if($_REQUEST['act'] == 'Preferred')
+{
+	$breadcrumb[$i]['name'] = 'Lista Preferiti';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+}
+if($_REQUEST['act'] == 'ShoppingCart' && empty($_REQUEST['id']))
+{
+	$breadcrumb[$i]['name'] = 'Carrello';
+	$breadcrumb[$i]['href'] = '?act=ShoppingCart';
+	$i++;
+}
+if($_REQUEST['act'] == 'CheckoutShopping')
+{
+	$breadcrumb[$i]['name'] = 'Carrello';
+	$breadcrumb[$i]['href'] = '?act=CheckoutShopping';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Riepilogo';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+}
+if($_REQUEST['act'] == 'CheckoutPayment')
+{
+	$breadcrumb[$i]['name'] = 'Conferma Ordine';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+}
+
+if($_REQUEST['act'] == 'MyAccount')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$breadcrumb[$i]['href'] = '?act=MyAccount';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Pagina iniziale del mio account';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+}
+if($_REQUEST['act'] == 'CreateAccount')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$breadcrumb[$i]['href'] = '?act=CreateAccount';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Registrazione utente';
+	$breadcrumb[$i]['href'] = '?act=CreateAccount';
+	$i++;
+}
+if($_REQUEST['act'] == 'Orders')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$breadcrumb[$i]['href'] = '?act=MyAccount';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Ordini effettuati';
+	$breadcrumb[$i]['href'] = '?act=Orders';
+	$i++;
+}
+if($_REQUEST['act'] == 'search')
+{
+	$breadcrumb[$i]['name'] = 'Ricerca Prodotti';
+	$breadcrumb[$i]['href'] = '';
+	$i++;
+	$breadcrumb[$i]['name'] = $_tplvar['key_search'];
+	$breadcrumb[$i]['href'] = '';
+	$i++;	
+}
+
+
+foreach ($breadcrumb as $key => $value)
+{
+	if(empty($value['href']))
+		$html .= '<li class="page_item page-item-130" style="padding: 7px;">';
+	else
+		$html .= '<li class="page_item page-item-130"">';
+	if(!empty($value['href']))
+		$html .= '<a href="'.$_tplvar['WWW_ROOT'].$value['href'].'" title="'.str_replace('-', ' ', $value['name']).'">';
+	$html .= $value['name'];
+	if(!empty($value['href']))
+		$html .= '</a>';
+	$html .= '</li>';
+	if($key < (count($breadcrumb)-1))
+		$html .= '<li class="page_item page-item-130" style="padding: 7px;">&raquo;</li>';
+}
+?>
+<div class="content fix" style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-size:11px;font-weight:400">
+	<div id="subnav" class="fix">
+		<ul>
+			<?php echo $html;?>		
+		</ul>
+	</div><!-- /sub nav -->		
+</div>
+<!-- GESTIONE BREADCRUMB -->

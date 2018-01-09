@@ -1,0 +1,178 @@
+/* IE 6 & 7 specific css */
+
+
+#slogan {
+    margin-top: -6px;
+}
+#top .phone-number {
+    padding-top:4px;
+}
+#dropdown-holder ul {
+    padding-top:6px;
+}
+.dropdown {
+    line-height: 31px;
+}
+.short-title h3 span {
+    padding-top: 5px;
+    height: 24px;
+    line-height: 22px;
+}
+.sidebar-cont-box-wide .content-padding {
+    padding-top: 5px;
+}
+#page_content h2,
+#post_content h2 {
+    margin-top: 5px;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 8px 0 -5px;
+    padding-bottom: 0;
+}
+.textwidget {
+    padding: 10px 0;
+}
+#bottom_widgets h3 {
+    padding-bottom: 12px;
+    margin-top: 5px;
+}
+.thumbsWrapper {
+    padding: 6px 20px;
+}
+.entry {
+    padding: 5px 0 2px;
+}
+.postmetadata {
+    margin: 15px 0 20px !important;
+    padding: 5px 20px !important;
+}
+.comment {
+    padding-top: 0;
+}
+#categoryLinks {
+    margin: 10px 0 0 40px;
+}
+.portfolioItemWrapper {
+    margin: 10px 20px;
+}
+#sidebarSubnav .custom-formatting a {
+    padding: 3px 5px 5px 30px;
+}
+#sidebarSubnav .custom-formatting ul {
+    padding-top: 0;
+}
+#sidebarSubnav .custom-formatting li {
+    background-position: 5px 9px;
+}
+#sidebarSubnav .custom-formatting li li {
+    background-position: 20px 9px;
+}
+#sidebarSubnav .custom-formatting li li li {
+    background-position: 35px 9px;
+}
+#sidebarSubnav .custom-formatting li li li li {
+    background-position: 50px 9px;
+}
+#sidebarSubnav .custom-formatting li li li li li {
+    background-position: 75px 9px;
+}
+#sidebarSubnav .custom-formatting li:hover {
+    background-position: 5px 9px;
+}
+#sidebarSubnav .custom-formatting li li:hover {
+    background-position: 20px 9px;
+}
+#sidebarSubnav .custom-formatting li li li:hover {
+    background-position: 35px 9px;
+}
+#sidebarSubnav .custom-formatting li li li li:hover {
+    background-position: 50px 9px;
+}
+#sidebarSubnav .custom-formatting li li li li li:hover {
+    background-position: 75px 9px;
+}
+#sidebarSubnav .custom-formatting a {
+    padding-left: 22px;
+}
+#recentcomments li span {
+    padding-left: 7px;
+    display: inline-block;
+}
+#piecemaker-header {
+    margin-bottom: 54px;
+}
+#home-page-content  {
+    margin-top:30px;
+}
+.home-page-divider  {
+    margin:9px auto -10px;
+}
+h2.large-text {
+    line-height: 16px;
+}
+.featured-text {
+    font-size: 14px;
+    line-height: 25px;
+    margin-bottom: -10px;
+}
+#content-container  {
+    margin-top: 9px;
+    margin-bottom: -10px;
+}
+#content-container .cont_col_1_title, #content-container .cont_col_2_title, #content-container .cont_col_3_title {
+    margin:15px 0 -2px;
+    padding:5px 0 0;
+}
+.piecemaker-slider  {
+    height:655px !important;
+}
+#bottom-bg  {
+    margin-top: 35px;
+    padding-bottom: 10px;
+}
+.bottom-col-title h3 {
+    margin: 7px 0 2px;
+    padding-bottom:2px;
+}
+#page-content #page-title h2 {
+    margin: 0 20px;
+    font-size: 28px;
+    line-height: 42px;
+}
+.js_on #page-content #page-title h2 {
+    margin: -2px 20px;
+    font-size: 34px;
+}
+.breadcrumbs  {
+    margin:21px 20px 0;
+}
+.post-top  {
+    padding-bottom:6px;
+}
+.custom-formatting, .substitute_widget_class {
+    padding:2px 20px;
+}
+#sidebarSubnav h3 {
+    margin: 3px 0 2px;
+    padding-bottom: 6px;
+    line-height: 7px;
+}
+.custom-formatting, .substitute_widget_class {
+    padding:8px 20px;
+}
+.widget_tag_cloud {
+    padding:14px 20px;
+}
+#c2-slider .slide-desc h2 {
+    padding-top: 5px;
+    padding-bottom: 9px;
+}
+#c2-slider .slide-desc p {
+    margin-bottom: 1px;
+}
+#c2-header  {
+    margin-bottom: 8px;
+}
+#home-page-content select.postform {
+    margin: 7px 0 0;
+}

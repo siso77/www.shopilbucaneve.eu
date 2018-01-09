@@ -1,0 +1,223 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<script type="text/javascript">
+<!--
+onload = function(){
+	document.getElementById('username').focus();
+} 
+//-->
+
+function validadteText(obj)
+{
+	var error = document.getElementById('err_'+obj.name);
+
+	if(obj.value == '')
+	{		
+		error.innerHTML = '(*) Campo obbligatorio';
+		return false;
+	}
+	else
+	{
+		error.innerHTML = '';
+		return true;
+	}
+}
+function validateEmail(obj)
+{
+	var error = document.getElementById('err_'+obj.name);
+	var r = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	if( r.test( obj.value ) )
+	{
+		error.innerHTML = '';
+	    return true;
+	}
+	else
+	{
+		error.innerHTML = '(*) Campo obbligatorio';
+		return false;
+	}
+}
+function validateFormAddBasket()
+{
+	var ret = new Array();
+	
+	var phone = document.getElementById('phone');
+	var description = document.getElementById('description');
+	var name = document.getElementById('name');
+	var price = document.getElementById('price');
+
+	ret[0] = validadteText(phone);
+	ret[1] = validadteText(description);
+	ret[2] = validadteText(name);
+	ret[3] = validadteText(price);
+	
+
+	for(i=0;i<=ret.length;i++)
+	{
+		if(ret[i] == false)
+		{
+			return false;
+			break;
+		}
+	}
+	return true;
+}
+</script>
+
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaMercatino" method="post" onsubmit="return validateFormAddBasket();" enctype="multipart/form-data">
+	
+<h2>Inserisci i dati della tua bici usata</h2>
+
+
+<?php if($_tplvar['confirm']):?>
+<br><br>
+<div style="color:green">
+	Il tuo annuncio è stato creato con successo!<br>
+	A breve verrà controllato dalla nostra redazione e pubblicato.
+</div>
+<br><br>
+<?php endif;?>
+<?php if(!empty($_tplvar['contenuto_precaricato'])):?>
+<input type="hidden" name="id" value="<?php echo $_tplvar['contenuto_precaricato']['id']?>">
+<?php endif;?>
+
+<table cellspacing="0" cellpadding="0" style="border:0px;text-align: left; width: 100%;">
+	<tbody>
+		<tr>
+			<td align="left">
+			<table cellpadding="30" style="border:0px;width: 100%;">
+				<tbody>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname">Telefono Fisso</span></td>
+						<td>
+							<input type="text" id="phone" size="36" maxlength="50" name="phone" value="<?php echo $_tplvar['user_data']['phone']?>">
+							<div id="err_phone"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname">Telefono Cellulare</span></td>
+						<td>
+							<input type="text" id="mobile" size="36" maxlength="50" name="mobile" value="<?php echo $_tplvar['user_data']['mobile']?>">
+							<div id="err_mobile"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 40%;"><span class="Label105" id="CustSetUp_LblEmailAddress">Nome Prodotto</span></td>
+						<td>
+							<input type="text" id="name" size="36" maxlength="100" name="name" value="<?php echo $_tplvar['contenuto_precaricato']['name']?>">
+							<div id="err_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblPassword">Descrizione Prodotto</span></td>
+						<td>
+							<textarea rows="4" cols="38" id="description" name="description"><?php echo $_tplvar['contenuto_precaricato']['description']?></textarea>
+							<div id="err_description"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblConfirmPassword">Categoria</span></td>
+						<td>
+							<select name="category" id="category">
+								<?php foreach ($_tplvar['cmb_categories'] as $category):?>
+								<?php if($category['name'] != 'CURA DEL CORPO '):?>
+									<option value="<?php echo $category['name']?>" <?php if($category['name'] == $_tplvar['contenuto_precaricato']['category']):?>selected="selected"<?php endif;?>><?php echo $category['name']?></option>
+								<?php endif;?>
+								<?php endforeach;?>
+							</select>
+							<div id="err_category"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblFirstName">Marca</span></td>
+						<td>
+							<input type="text" id="brand" size="36" maxlength="50" name="brand" value="<?php echo $_tplvar['contenuto_precaricato']['brand']?>">
+							<div id="err_brand"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname">Prezzo</span></td>
+						<td>
+							<input type="text" id="price" size="36" maxlength="50" name="price" value="<?php echo $_tplvar['contenuto_precaricato']['price']?>">
+							<div id="err_price"></div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td valign="top" align="right">Inserici le immagini del prodotto</td>
+						<td>
+							<?php foreach ($_tplvar['contenuto_precaricato']['images'] as $image):?>
+								<?php if($image['name'] != 'pro-bike_product_default.jpg'):?>
+									
+									<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');">
+									<img src="<?php echo $image['www_path'].'/Medium_'.$image['name']?>">
+									</a>
+									<div id="img_<?php echo $image['id']?>" style="visibility:hidden;position:absolute;border:1px solid #ffffff;padding:10px;background-color:#000000;top:10px">
+										<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');" style="align:center">Chiudi</a><br>
+										<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');" style="align:center"><img src="<?php echo $image['www_path'].'/'.$image['name']?>"></a><br>
+										<a href="#" onclick="showHiddenDiv('img_<?php echo $image['id']?>');" style="align:center">Chiudi</a>
+									</div>
+									
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $image['id']?><?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+								<?php else:?>
+									<img src="<?php echo $image['www_path'].'/'.$image['name']?>">
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $image['id']?><?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+								<?php endif;?>
+							<?php endforeach;?>
+						</td>
+					</tr>
+					<?php if(empty($_tplvar['contenuto_precaricato'][0]['images'])):?>
+						<?php $i = 0;?>
+						<?php foreach($_tplvar['images'] as $key => $val):?>
+						<tr>
+							<td valign="top"align="right" style="padding:10px;">Immagine <?php echo $key+1;?></td>
+							<td style="padding:10px;">
+							<?php if(!empty($val['id'])):?>
+								<input type="hidden" name="id_img[]" value="<?php echo $val['id']?>" />
+							<?php endif;?>
+							<?php if(!empty($val['name'])):?>
+									<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $val['id']?><?php if(!empty($_tplvar['contenuto_precaricato'][0]['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato'][0]['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+									<img src="<?php echo $val['www_path'].'/Small_'.$val['name']?>" border="0">
+							<?php endif;?>
+							<?php if(empty($val['name'])):?>
+									<input type="file" name="img_<?php echo $i;?>">
+							<?php endif;?>
+							<?php $i++;?>
+							</td>
+						</tr>
+						<?php endforeach;?>
+					<tr>
+						<td align="right" style="padding:10px;"><a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&add_img=1<?php if(!empty($_tplvar['contenuto_precaricato'][0]['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato'][0]['id_content']?><?php endif;?>">AGGIUNGI IMMAGINE</a></td>
+						<?php if(count($_tplvar['images']) > 1):?>
+							<td style="padding:10px;"><a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&rem_img=1<?php if(!empty($_tplvar['contenuto_precaricato'][0]['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato'][0]['id_content']?><?php endif;?>">RIMUOVI ULTIMA IMMAGINE </a></td>
+						<?php endif;?>
+					</tr>
+					<?php endif;?>
+					
+					<tr>
+						<td colspan="2" align="center">
+							<input type="submit" class="Button7" value="Invia">
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+</form>
+</div>
+<div class="clear"></div>
+
+<div class="clear"></div>
+</div>
+<div class="tags">&nbsp;</div>
+</div>
+
+
+</div>
+<!--post --></div>

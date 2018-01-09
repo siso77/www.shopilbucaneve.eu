@@ -1,0 +1,89 @@
+<?php $_tplvar = $this->getVars();?>
+<style>
+<!--
+.container_24 {
+	margin-left: 2px;
+	margin-right: auto;
+/* 	width: 1170px; */
+}
+.breadcrumbs{
+	margin-left: 0px;
+}
+input{
+	background-color: #fbfaf8;
+	width:479px;
+	padding: 5px;
+	margin:2px;
+}
+textarea{
+	width:479px;
+	background-color: #fbfaf8;
+	padding: 5px;
+	margin:2px;
+	border: 2px inset;
+}
+select{
+	width:495px;
+	padding: 5px;
+	height: 25px;
+	margin:2px;
+}
+-->
+</style>
+			<div id="page-content" style="padding-left:20px;">
+				<div id="page-content-header" class="container_24">
+					<div id="page-title">
+						<h2><?php echo $this->getText($_tplvar['key_title'])?></h2>
+					</div>
+					<p class="breadcrumbs"><span class="breadcrumb_info">Ti Trovin in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb"><?php echo $this->getText($_tplvar['key_title'])?></span></p>
+				</div>
+				<div id="content-container" class="container_24">
+
+							
+					<div id="main-content" class="grid_16 push_10">
+						<div class="main-content-padding">
+							<div class="page">
+								<div class="entry">
+								
+									<h3><?php echo $this->getText($_tplvar['key_paragraph_title'])?> &nbsp;&nbsp;&nbsp;</h3>
+								
+									<p><?php echo $this->getText($_tplvar['key_body'])?></p>
+									<?php $body_evidence = $this->getText($_tplvar['key_body_evidence'])?>
+									<?php if(!empty($body_evidence)):?>
+									<div class="info">
+										<div class="msg-box-icon pngfix"><?php echo $body_evidence?></div>
+									</div>
+									<?php endif;?>
+									<p><?php echo $this->getText($_tplvar['key_body_evidence'])?></p>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!-- end main-content-padding -->
+					</div>
+					<!-- end main-content -->
+					
+					
+					
+<!-- 					
+					<div id="sidebar" class="grid_8 pull_16 sidebar-box">
+						<div id="sidebarSubnav">
+
+							<?php echo $this->getPartial('shared/MenuLeft');?>
+							<div id="flickrrss" class="widget_flickrRSS substitute_widget_class">
+								<h3 class="widgettitle">
+									<cufontext>Photos</cufontext>
+								</h3>
+								<div id="flickr-images"></div>
+							</div>						
+						</div>
+					</div>
+-->
+					<!-- end sidebar -->
+					
+					
+				</div>
+				<!-- end content-container -->
+				<div class="clear"></div>
+			</div>
+			<!-- end page-content -->

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Popup</title>
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+<body>
+	<blockquote>
+		<input type="button" class="dhx_native_button" value="show 1" onclick=" $$('win1').show()">
+		<input type="button" class="dhx_native_button" value="show 2" onclick=" $$('win2').show()">
+	</blockquote>
+	<script>
+	
+		dhx.ui({
+			view:"popup",
+			id:"win1",
+			body:{ template:"<img src='../01_views/imgs/image001.jpg' style='height:100%;width:100%'>"}
+		});
+
+		dhx.ui({
+			id:"win2",
+			view:"popup",
+			body:{ template:"<img src='../01_views/imgs/image005.jpg' style='height:100%;width:100%'>" },
+			left:500
+		});
+		
+
+		
+
+		
+	</script>
+
+</body>
+</html>
+

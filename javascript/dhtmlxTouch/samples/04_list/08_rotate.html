@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+        <title>Rotate</title>
+	</head>
+	<body>
+       
+		<script type="text/javascript" charset="utf-8">
+dhx.ready(function() {
+    dhx.ui({
+       
+        rows: [
+            {
+                cols: [
+                {
+                    id:"mylist",
+                    view:"list",
+                    template:"<div class='title inline'>#title#</div> <div class='author inline'>by #author#</div>",
+                    url:"books.xml",
+                    datatype:"xml",
+                    type:{
+                        height: 23
+                    },
+                    select:1
+                },
+                {}
+            ]
+            },
+            {}
+        ]
+    });
+    
+    function rotate(mode){
+        var list = $$("mylist");
+    	if (mode)
+    		list.customize({
+    			template:"<div class='title inline'>#title#</div> <div class='author inline'>by #author#</div>",
+    			height:23
+			});
+    	else
+    		list.customize({
+    			template:"<div class='title'>#title#</div><div class='author'>by #author#</div>",
+    			height:35
+    		});
+
+    	list.render();
+	};
+	dhx.attachEvent("onRotate", rotate);
+
+	if(!dhx.ui.orientation)
+		rotate(false);
+		
+		
+});
+            
+					
+			
+			
+			
+		</script>
+	</body>
+</html>

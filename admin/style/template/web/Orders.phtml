@@ -1,0 +1,174 @@
+<?php $_tplvar = $this->getVars();?>
+
+
+
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+
+<!--BOX PER LA RICERCA-->
+	<?php 
+	$assign['show_combo'] = false;
+	$assign['show_calendar'] = false;
+	$assign['show_combo_brand'] = false;	
+	$assign['show_checkboxes'] = false;
+	$assign['show_fornitori'] = false;
+	?>
+    <?php //echo $this->getPartial('shared/BoxSearch', $assign);?>
+<!--BOX PER LA RICERCA-->
+
+					<table cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="50">
+						<?php
+						$assign['key_session'] = 'Orders';
+						$assign['order_by'] = 'id';
+						$assign['action'] = 'Orders';
+						$assign['field_name'] = '#ID';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td width="150">
+						<?php
+						$assign['key_session'] = 'Orders';
+						$assign['order_by'] = 'data_inserimento_riga';
+						$assign['action'] = 'Orders';
+						$assign['field_name'] = 'DATA';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td width="100">
+						<?php
+						$assign['key_session'] = 'Orders';
+						$assign['order_by'] = 'importo';
+						$assign['action'] = 'Orders';
+						$assign['field_name'] = 'IMPORTO';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td nowrap="nowrap">
+						<?php
+						$assign['key_session'] = 'Orders';
+						$assign['order_by'] = 'pagato';
+						$assign['action'] = 'Orders';
+						$assign['field_name'] = 'MODALITA\' DI PAGAMENTO';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						</td>
+						<td width="100">CLIENTE</td>
+						<td nowrap="nowrap">PRODOTTI GARDESANA ACQUISTATI</td>
+						<td nowrap="nowrap">PRODOTTI FORNITORI ACQUISTATI</td>
+						<td nowrap="nowrap">SPEDISCI ORDINE</td>
+                        <td width="100">CANCELLA</td>
+					</tr>
+					<script>
+					function swapCheckbox(div_id, action, id)
+					{
+						$.ajax({
+							  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxEcmSetOption',
+							  type: 'POST',
+							  dataType: 'html',
+							  data: 'id='+id+'&action='+action,
+							  success: function(html){
+								  if($('#'+div_id).css('background-color') == 'rgb(34, 139, 34)')
+									  	$('#'+div_id).css('background-color', '#FF0000');
+								  else
+									  	$('#'+div_id).css('background-color', '#228b22');
+								  $('#'+div_id).html(html);								  
+							  }
+							});	
+					}
+					</script>
+				<?php foreach ($_tplvar['list'] as $key => $value):?>	
+					<tr>
+						<td>
+                            #<?php echo $value['id'];?>
+						</td>
+						<td nowrap="nowrap">
+                            <?php
+                            	$exp = explode(' ', $value['data_inserimento_riga']); 
+                            	echo $this->getFormatDate($value['data_inserimento_riga']);
+                            ?>
+						</td>
+						<td><?php echo $this->getFormatPrice($value['importo']);?></td>
+						<td><?php echo $value['tipo_pagamento'];?></td>
+						<td nowrap="nowrap">
+							<a href="javascript:void(0);" onclick="javascript:
+							$.fancybox.showLoading();
+							$.ajax({
+								  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxEcmGetProduct',
+								  type: 'POST',
+								  dataType: 'html',
+								  data: 'id_user=<?php echo $value['user_data']['id'];?>',
+								  success: function(html){
+								  	  $.fancybox(html);
+									  //$('#user_<?php echo $value['user_data']['id'];?>').html(html);
+									  //$('#user_<?php echo $value['user_data']['id'];?>').show();
+								  }
+								});">
+								<?php echo $value['user_anag_data']['name'].' '.$value['user_anag_data']['surname'];?>
+							</a>
+							<div id="user_<?php echo $value['user_data']['id'];?>" style="border:1px solid #993300;background: url('<?php echo $_tplvar['WWW_ROOT']?>theme/styles/<?php echo $_tplvar['theme']?>/images/back.png') repeat scroll transparent;background-color:#fff;left:20px;display:none;position:absolute;z-index:1000"></div>
+						</td>
+                       	<td class="actions" nowrap="nowrap">
+
+							<a class="edit" href="javascript:void(0);" onclick="
+									$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxEcmGetProduct',
+										  type: 'POST',
+										  dataType: 'html',
+										  data: 'id_order=<?php echo $value['id'];?>',
+										  success: function(html){
+										 		$.fancybox(html);
+											  //$('#giacenze_<?php echo $value['id'];?>').html(html);
+											  //$('#giacenze_<?php echo $value['id'];?>').show();
+										  }
+										});">PRODOTTI GARDESANA AQUISTATI</a>
+							<div id="giacenze_<?php echo $value['id'];?>" style="border:1px solid #993300;background: url('<?php echo $_tplvar['WWW_ROOT']?>theme/styles/<?php echo $_tplvar['theme']?>/images/back.png') repeat scroll transparent;background-color:#fff;left:20px;display:none;position:absolute;z-index:1000"></div>
+						</td>
+						<td class="actions" nowrap="nowrap">
+							<script>
+							var html_ordini_fornitori = '<?php if(!empty($value['ordine_magazzino_gasa']) && $value['ordine_magazzino_gasa'] != array()):?><table><tr><td>Ordine n.</td><td>Importo</td><td>Modalit&aacute; di Pagamento</td><td>Stato</td></tr><tr><td><?php echo $value['id']?></td><td><?php echo $value['importo']?></td><td><?php echo $value['tipo_pagamento']?></td><td><?php if($ordini['spedito']):?>Spedito<?php else:?>In Lavorazione<?php endif;?></td></tr><tr><td colspan="4"><table width="300"><tr><td colspan="7">Magazzino Gasa</td></tr><?php foreach($value['ordine_magazzino_gasa'] as $k => $val):?><?php if($k == 0):?><tr><td>Codice</td><td>Bar Code</td><td>Descrizione</td><td>Qta Acquistata</td><td>Importo</td><td>Nota</td><td>Indispensabile x Spedizione</td></tr><?php endif;?><tr><td><?php echo $val['giacenza']['codice']?></td><td><?php echo $val['giacenza']['bar_code']?></td><td><?php echo $val['giacenza']['descrizione']?></td><td><?php if(!empty($val['quantita'])) echo $val['quantita'].' Sc.'; elseif(!empty($val['quantita_pianale'])) echo $val['quantita_pianale'].' Pi.';?></td><td><?php echo $val['importo']?></td><td><?php echo $val['nota']?></td><td><?php if(!empty($val['indispensabile'])) echo 'Si'; else echo 'No';?></td></tr><?php endforeach;?></table></td></tr></table><?php endif;?><?php if(!empty($value['ordine_magazzino_den_dekker']) && $value['ordine_magazzino_den_dekker'] != array()):?><table><tr><td>Ordine n.</td><td>Importo</td><td>Modalit&aacute; di Pagamento</td><td>Stato</td></tr><tr><td><?php echo $value['id']?></td><td><?php echo $value['importo']?></td><td><?php echo $value['tipo_pagamento']?></td><td><?php if($ordini['spedito']):?>Spedito<?php else:?>In Lavorazione<?php endif;?></td></tr><tr><td colspan="4"><table width="300"><tr><td colspan="7">Magazzino Den Dekker</td></tr><?php foreach($value['ordine_magazzino_den_dekker'] as $k => $val):?><?php if($k == 0):?><tr><td>Codice</td><td>Bar Code</td><td>Descrizione</td><td>Qta Acquistata</td><td>Importo</td><td>Nota</td><td>Indispensabile x Spedizione</td></tr><?php endif;?><tr><td><?php echo $val['giacenza']['codice']?></td><td><?php echo $val['giacenza']['bar_code']?></td><td><?php echo $val['giacenza']['descrizione']?></td><td><?php if(!empty($val['quantita'])) echo $val['quantita'].' Sc.'; elseif(!empty($val['quantita_pianale'])) echo $val['quantita_pianale'].' Pi.';?></td><td><?php echo $val['importo']?></td><td><?php echo $val['nota']?></td><td><?php if(!empty($val['indispensabile'])) echo 'Si'; else echo 'No';?></td></tr><?php endforeach;?></table></td></tr></table><?php endif;?>';
+							</script>
+							<a class="edit" href="javascript:void(0);" onclick="$.fancybox(html_ordini_fornitori);">PRODOTTI FORNITORI ESTERI AQUISTATI</a>
+						</td>
+						<td class="actions" nowrap="nowrap">
+							<a class="delete" href="<?php echo $_tplvar['WWW_ROOT'].'?act=SendOrder&id='.$value['id'];?>">SPEDISCI ORDINE</a>
+						</td>
+                        <td class="actions" nowrap="nowrap">
+                        	<script type="text/javascript">
+                        	html_delete_<?php echo $value['id'];?> = '<div style="left:400px;padding:10px;width:250px;"><b>Sei sicuro di voler cancellare?</b><div style="width:200px; height:50px; margin-left:15px; margin-top:10px;"><div style="float:left;width:100px;"><input type="button" value="Si" onclick="javascript:document.location.href = \'<?php echo $_tplvar['WWW_ROOT']?>?act=Orders&delete=1&id=<?php echo $value['id']?>\'" style="cursor:pointer" /></div></div></div>';
+                        	</script>
+							<a class="delete" href="javascript:void(0);" onclick="javascript:$.fancybox(html_delete_<?php echo $value['id'];?>);">CANCELLA</a>
+						</td>
+					</tr>
+				<?php endforeach;?>						
+				</table>
+
+                <!-- Page Navigation -->
+                <?php
+                if(!empty($_REQUEST['id_category'])) 
+                	$assign['params'] = '&id_category='.$_REQUEST['id_category'];
+                ?>
+				<?php echo $this->getPartial('shared/Paging', $assign);?>
+				<!-- /Page Navigation -->
+				
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+
+				

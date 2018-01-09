@@ -1,0 +1,2 @@
+feb 06 14:56:59|PEAR_LOG_SQL[info] E' stata eseguita la query: [ UPDATE users SET id_type = 1,id_anag = 2,username = 'simona',password = '3506e1dff0db4e4d78412e2feb7c0a95a2afr24tg56r4r65wg',last_access = '2013-02-06 14:56:59',operatore = 'siso',data_inserimento_riga = '2011-06-14',data_modifica_riga = '2013-02-06',is_active = 1 WHERE id = 2 ] dall'utente di dominio [   ]
+feb 06 15:00:11|PEAR_LOG_SQL[info] E' stata eseguita la query: [ INSERT INTO newsletters (id,object,date_last_modify) VALUES (116,'Tangando mascherando','2013-02-06 15:00:11') ] dall'utente di dominio [   ]

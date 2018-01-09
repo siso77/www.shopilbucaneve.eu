@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+		<title>Layout: borders</title>
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ui({
+				type:"head", rows:[
+					{ 	template:"A" },
+					{ 
+						type:"wide", cols:[
+						{ 	
+							rows:[
+								{ template:"B" },
+								{ template:"C" },
+								{ template:"D" }
+							]
+						},
+						{	
+							type:"wide",
+							rows:[
+								{ 
+									type:"clean", cols:[
+										{ template:"E" },
+										{ template:"F" }
+									]
+								},
+								{ template:"G" }
+							]
+						}
+					]},
+				]
+			});
+			//
+		</script>
+	</body>
+</html>

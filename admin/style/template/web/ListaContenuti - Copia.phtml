@@ -1,0 +1,253 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>
+
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+
+<!--BOX PER LA RICERCA-->
+	<?php 
+	$assign['show_combo'] = true;
+	$assign['show_calendar'] = true;
+	$assign['show_combo_brand'] = true;	
+	?>
+    <?php echo $this->getPartial('shared/BoxSearch', $assign);?>
+<!--BOX PER LA RICERCA-->
+<?php
+$params = '';
+if(!empty($_tplvar['id_category']))
+	$params .= '&id_category='.$_tplvar['id_category'];
+if(!empty($_tplvar['id_brand']))
+	$params .= '&id_brand='.$_tplvar['id_brand'];
+?>
+<style>
+.crop{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:180px;
+    height:110px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+					<table cellspacing="0" cellpadding="0">
+					<tr>
+						<td>IMMAGINE</td>
+						<td width="230">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'content.name_it';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'NOME';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>                        
+						<td width="230">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'content.description_it';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'DESCRIZIONE';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<!--<td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'magazzino.quantita';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'QUANTITA\' RIMANENTE';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'magazzino.quantita_caricata';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'QUANTITA\' CARICATA';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						--><td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'content.price_it';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'PREZZO';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>                        
+						<td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'content.price_discounted_it';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'PREZZO SCONTATO';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>                        
+						<td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'category.name';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'CATEGORIA';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>                        
+						<!--<td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'fornitore.nome';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'FORNITORE';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						-->
+						<td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'content.id_brand';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'MARCA';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td width="100">
+						<?php
+						$assign['key_session'] = 'ListaContenuti';
+						$assign['order_by'] = 'content.data_modifica_riga';
+						$assign['action'] = 'ListaContenuti';
+						$assign['field_name'] = 'DATA MODIFICA';
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td width="100">GIACENZE</td>
+                        <td width="100">MODIFICA</td>
+                        <td width="100">CANCELLA</td>
+					</tr>
+				<?php foreach ($_tplvar['list'] as $value):?>	
+					<tr>
+						<td>
+							<p class="crop">
+								<?php 
+									$src = $this->getImagePathFromIdContent($value['id_content'], 'Large_');
+									if(!empty($src)):?>
+									<img src="<?php echo $src;?>" width="100">
+								<?php endif;?>
+							</p>
+						</td>
+						<td>
+                            <a href="javascript:void(0);" onclick="
+                                var el = document.getElementById('name_<?php echo $value['id']?>');
+                                el.style.visibility = 'visible';
+                                el.style.position = 'relative';">
+                            	<?php echo substr($value['name_it'], 0, $_tplvar['LISTA_MAGAZZINO_TRUNCATE_NAME'])?>...&nbsp;
+                            </a>
+                            <div id="name_<?php echo $value['id']?>" style="visibility:hidden;width:300px;border:1px solid #2388FF;position:absolute">
+                            	<?php echo $value['name_it']?><br>
+                            	<a href="javascript:void(0);" onclick="
+                                var el = document.getElementById('name_<?php echo $value['id']?>');
+                                el.style.visibility = 'hidden';
+                                el.style.position = 'absolute';">CHIUDI</a>
+                            </div>
+						</td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="
+                                var el = document.getElementById('description_<?php echo $value['id']?>');
+                                el.style.visibility = 'visible';
+                                el.style.position = 'relative';">
+                            	<?php echo substr($value['description_it'], 0, $_tplvar['LISTA_MAGAZZINO_TRUNCATE_DESCRIPTION'])?>...&nbsp;
+                            </a>
+                            <div id="description_<?php echo $value['id']?>" style="visibility:hidden;width:300px;border:1px solid #2388FF;position:absolute">
+                            	<?php echo $value['description_it']?><br>
+                            	<a href="javascript:void(0);" onclick="
+                                var el = document.getElementById('description_<?php echo $value['id']?>');
+                                el.style.visibility = 'hidden';
+                                el.style.position = 'absolute';">CHIUDI</a>
+                            </div>
+                        </td>
+                        <td><?php echo $this->getFormatPrice($value['price_it'])?></td>
+                        <td><?php echo $this->getFormatPrice($value['price_discounted_it'])?></td>
+                        <td><?php echo $value['name']?></td>
+                        <td><?php echo $value['name_band']?></td>
+                        <td><?php echo $this->getFormatDate($value['data_modifica_riga'])?>&nbsp;</td>
+						<td class="actions" nowrap="nowrap">
+							<a class="edit" href="javascript:void(0);" onclick="
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetGiacenze',
+										  type: 'POST',
+										  dataType: 'html',
+										  data: 'id_content=<?php echo $value['id'];?>',
+										  success: function(html){
+											  $('#giacenze_<?php echo $value['id'];?>').html(html);
+											  $('#giacenze_<?php echo $value['id'];?>').show();
+										  }
+										});">GIACENZE</a>
+							<div id="giacenze_<?php echo $value['id'];?>" style="border:1px solid #993300;background-color:#000000;left:20px;display:none;position:absolute;"></div>
+						</td>
+                        
+                       	<td class="actions" nowrap="nowrap">                        
+                       		<a href="<?php echo $_tplvar['WWW_ROOT'].'?act=CaricaMagazzino&id_content='. $value['id']?>">MODIFICA</a>
+						</td>
+                        <td class="actions" nowrap="nowrap">
+							<a class="delete" href="javascript:void(0);" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')">CANCELLA</a>
+							<div id="confirm_delete_<?php echo $value['id'];?>" style="background-color:#4A5154;left:400px;padding:10px;border:3px solid #900;width:250px;position:absolute;visibility:hidden">
+								<b><font color="#ffffff">Sei sicuro di voler cancellare?</font></b>
+								
+								<div style="width:200px; height:50px; margin-left:15px; margin-top:10px;">
+								
+									<div style="float:left;width:100px;">
+									<input type="button" value="Si" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=ListaContenuti&delete=1&id=<?php echo $value['id']?>'" style="cursor:pointer" />
+									</div>
+									<div style="float:left; width:100px;">
+									<input type="button" value="No" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')" style="cursor:pointer"/>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				<?php endforeach;?>						
+
+				</table>
+
+                <!-- Page Navigation -->
+                <?php
+                if(!empty($_REQUEST['id_category'])) 
+                	$assign['params'] = '&id_category='.$_REQUEST['id_category'];
+                ?>
+				<?php echo $this->getPartial('shared/Paging', $assign);?>
+				<!-- /Page Navigation -->
+				
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+
+		

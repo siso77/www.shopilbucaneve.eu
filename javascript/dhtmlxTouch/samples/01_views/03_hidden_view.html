@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+		<title>Hidden view</title>
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ui({
+				type:"head", rows:[
+					{ view:"toolbar", elements:[
+						{view:"button", label:"Show C column", click:"$$('hide_me').show();",inputWidth:200, align:"right" },
+						{view:"button", label:"Hide C column", click:"$$('hide_me').hide();",inputWidth:200 }
+					]},
+					{ 
+						type:"wide", cols:[
+							{ width:100, template:"A" },
+							{ template:"B" , gravity:2 },
+							{ width:100, template:"C", id:"hide_me", hidden:true},
+							{ template:"D", gravity:2 },
+							{ width:100, template:"E"},
+						]
+					},
+					{ 	height:30, template:"bottom bar" },
+				]
+			});
+			
+			
+		</script>
+	</body>
+</html>

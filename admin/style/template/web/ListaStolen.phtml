@@ -1,0 +1,175 @@
+<?php $_tplvar = $this->getVars();?>
+
+<!--<link rel="stylesheet" href="<?php echo $_tplvar['wp_external_root']?>wp-content/plugins/fancybox-for-wordpress/css/fancybox.css" type="text/css" media="screen" />-->
+<!--<style type="text/css">-->
+<!--	div#fancy_inner {border-color:#BBBBBB}-->
+<!--	div#fancy_close {right:-15px;top:-12px}-->
+<!--	div#fancy_bg {background-color:#FFFFFF}-->
+<!--</style>-->
+<!--<script type='text/javascript' src='<?php echo $_tplvar['wp_external_root']?>wp-content/plugins/fancybox-for-wordpress/js/jquery.fancybox-1.2.6.min.js?ver=1.3.2'></script>-->
+<!-- Fancybox for WordPress v2.7.5 -->
+
+
+<script type="text/javascript">
+//	jQuery.noConflict();
+//	jQuery(function(){
+//			jQuery.fn.getTitle = function() {
+//			var arr = jQuery("a.fancybox");
+//			jQuery.each(arr, function() {
+//				var title = jQuery(this).children("img").attr("title");
+//				jQuery(this).attr('title',title);
+//			})
+//		}
+
+//		var thumbnails = 'a:has(img)[href$=".bmp"],a:has(img)[href$=".gif"],a:has(img)[href$=".jpg"],a:has(img)[href$=".jpeg"],a:has(img)[href$=".png"],a:has(img)[href$=".BMP"],a:has(img)[href$=".GIF"],a:has(img)[href$=".JPG"],a:has(img)[href$=".JPEG"],a:has(img)[href$=".PNG"]';
+//		jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();
+//
+//			jQuery("a.fancybox").fancybox({
+//			'imageScale': true,
+//			'padding': 10,
+//			'zoomOpacity': true,
+//			'zoomSpeedIn': 500,
+//			'zoomSpeedOut': 500,
+//			'zoomSpeedChange': 300,
+//			'overlayShow': true,
+//			'overlayColor': "#666666",
+//			'overlayOpacity': 0.3,
+//			'enableEscapeButton': true,
+//			'showCloseButton': true,
+//			'hideOnOverlayClick': true,
+//			'hideOnContentClick': false,
+//			'frameWidth':  560,
+//			'frameHeight':  340,
+//			'centerOnScroll': true
+//		});
+//
+//})
+</script>
+<script>
+function swapCheckbox(div_id, action, id)
+{
+	$('#loading_'+div_id).show();
+	$('#loading_'+div_id).css('position', 'relative');
+	
+	$('#'+div_id).css('position', 'absolute');
+	$('#'+div_id).hide();
+	$.ajax({
+		  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxPublishStolen',
+		  type: 'POST',
+		  dataType: 'html',
+		  data: 'id='+id,
+		  success: function(html){
+			  if($('#'+div_id).css('background-color') == 'rgb(255, 0, 0)')
+			  	$('#'+div_id).css('background-color', '#228b22');
+			  else
+			  	$('#'+div_id).css('background-color', '#FF0000');
+
+			  $('#'+div_id).css('position', 'relative');
+			  $('#'+div_id).show();
+			  $('#loading_'+div_id).css('position', 'absolute');
+			  $('#loading_'+div_id).hide();
+		  }
+		});	
+}
+</script>
+<!-- END Fancybox for WordPress -->
+<?php if(empty($_tplvar['data'])):?>
+<h2 class="ftitle">Non ci sono annunci</h2>
+<?php endif;?>
+<?php foreach ($_tplvar['data'] as $content):?>
+	<div class="store-item">
+		<div class="box01">
+			<h2 class="ftitle">
+				<?php 
+				if(!empty($content['brand']))
+					echo $content['brand'].' - ';
+				echo $content['name'];
+				?>
+			</h2>
+			<div class="main-desc">
+				<?php foreach ($content['images'] as $key => $image):?>
+				<a class="fancybox"
+					href="<?php echo $image['www_path'].'/'.$image['name'];?>"
+					rel="fancybox" title="<?php echo $image['name']?>">
+				
+					<img alt=""
+						src="<?php echo $image['www_path'].'/Small_'.$image['name'];?>"
+						title="<?php echo $image['name']?>"> 
+				</a>
+				<?php endforeach;?>
+			</div>
+			<div class="clear"></div>
+			<p>
+				Descrizione: <?php echo $content['description'];?>
+			</p>
+			<div class="clear"></div>
+			<p>
+			Prezzo: <?php echo $content['price'];?> &euro;
+			</p>
+
+			<div class="clear"></div>
+			Nominativo: <?php echo $content['user_data']['name']?> <?php echo $content['user_data']['surname']?>
+			<div class="clear"></div>
+			<?php if(!empty($content['user_data']['phone'])):?>
+			<div class="clear"></div>
+			Telefono Fisso: <?php echo $content['user_data']['phone']?>
+			<div class="clear"></div>
+			<?php endif;?>
+			<?php if(!empty($content['user_data']['mobile'])):?>
+			<div class="clear"></div>
+			Telefono Cellulare: <?php echo $content['user_data']['mobile']?>
+			<div class="clear"></div>
+			<?php endif;?>
+			
+			<hr>
+			Stato Annuncio			
+			<div id="div_is_publish_<?php echo $content['id'];?>" 
+					style="height:15px;width:15px;background-color:<?php if($content['is_publish'] == 1):?>#228b22<?php else:?>#FF0000<?php endif;?>;cursor:pointer;" 
+					onclick="swapCheckbox('div_is_publish_<?php echo $content['id'];?>', 'is_publish', '<?php echo $content['id'];?>');">&nbsp;</div>
+			<div id="loading_div_is_publish_<?php echo $content['id'];?>" style="position:absolute;display:none;">
+				<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/loading.gif" width="30">
+			</div>
+			
+			<br>
+			<div class="clear"></div>
+			
+				<a href="javascript:void(0);"
+				onclick="						
+				$.ajax({
+					  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxPublishStolen',
+					  type: 'POST',
+					  dataType: 'html',
+					  data: 'id=<?php echo $content['id']?>&action=reject',
+					  success: function(html){
+						  if($('#<?php echo $content['id']?>').css('background-color') == 'rgb(255, 0, 0)')
+						  	$('#<?php echo $content['id']?>').css('background-color', '#228b22');
+						  else
+						  	$('#<?php echo $content['id']?>').css('background-color', '#FF0000');
+
+						  $('#<?php echo $content['id']?>').css('position', 'relative');
+						  $('#<?php echo $content['id']?>').show();
+						  $('#loading_<?php echo $content['id']?>').css('position', 'absolute');
+						  $('#loading_<?php echo $content['id']?>').hide();
+
+						  if(html == 1)
+						  	$('#lnk_<?php echo $content['id']?>').html('Disattiva Annuncio');
+						  else
+						  	$('#lnk_<?php echo $content['id']?>').html('Riattiva Annuncio');
+					  }
+					});">
+						<p id="lnk_<?php echo $content['id']?>"><?php if($content['is_active'] == 1):?>Depubblica Annuncio<?php else:?>Pubblica Annuncio<?php endif;?></p>
+					</a>
+			<div class="clear"></div>
+			<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaStolen&id=<?php echo $content['id']?>">Modifica</a>
+			&nbsp;<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaStolen&id=<?php echo $content['id']?>&delete=1">Cancella</a>
+		</div>
+	</div>
+	<div class="clear"></div>
+<?php endforeach;?>
+<!-- Page Navigation -->
+<?php 
+$assign['route'] = $_tplvar['WWW_ROOT'].'/Stolen-Bike/annunci%20bici%20rubate/';
+$assign['params'] = '.html';
+?>
+<?php echo $this->getPartial('shared/Paging', $assign);?>
+<!-- /Page Navigation -->

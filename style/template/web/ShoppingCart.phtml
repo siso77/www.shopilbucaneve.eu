@@ -1,0 +1,291 @@
+<?php 
+$_tplvar = $this->getVars();
+?>
+
+<style>
+<!--
+.selected {
+	background-color: #B00000;
+}
+.not_selected {
+	background-color: #ADADAD;
+}
+
+td {
+	padding: 9px 12px;
+	color: #333;
+	border-top: 1px solid white;
+}
+.container_24 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+}
+-->
+</style>
+
+<div id="page-content" style="padding-left: 20px;">
+	<div id="page-content-header" class="container_24">
+		<div id="page-title">
+			<h2><?php echo $this->getText('shopping_chart_title');?></h2>
+		</div>
+<!--		<p class="breadcrumbs"><span class="breadcrumb_info">Ti trovi in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Carrello</span></p>-->
+	</div>
+
+	<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart" method="post" id="shopping-cart">
+	<?php if(!empty($_tplvar['params_banking'])):?>
+	<input type="hidden" name="params" value="<?php echo $_tplvar['params_banking']?>">
+	<?php endif;?>
+
+	<div>
+		<div class="entry">
+			<p>
+				<?php echo $this->getText('shopping_chart_text_refresh');?>
+			</p>
+		</div>
+		<div id="main-content" class="grid_17">
+			<div class="main-content-padding">
+				<div class="page">
+					<div class="entry">
+						<br>
+						<div class="cart-contents-table-bg-img">
+									
+						<table cellspacing="3" width="75%">
+							<tbody>
+								<tr>
+									<th style="width:70px;text-align:center;"><?php echo $this->getText('shopping_chart_table_articolo');?></td>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_desc');?></th>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_q_imb');?></th>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_qta');?></th>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_prezzo');?></th>
+									<?php if($_SESSION['LoggedUser']['is_foreign'] == 0):?>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_iva');?></th>
+									<?php endif;?>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_p_tot');?></th>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_delete');?></th>
+								</tr>
+							<?php 
+							$j=0;
+							$peso_spedizione = 0;
+							?>
+							<?php //foreach ($_tplvar['products']['contents'] as $value):?>
+								<?php 
+								$basket = $_tplvar['basket'];
+								unset($basket['n_carrelli']);
+								unset($basket['perc_occupazione']);
+								foreach ($basket as $key => $value):
+								$peso_spedizione += $value['giacenza']['peso']*$value['basket_qty']['sel_quantita'];
+								?>
+								<?php $content = $this->getContentById($value['giacenza']['id_content']);?>
+								<input type="hidden" name="id_contenuto[]" value="<?php echo $value['giacenza']['id_content'];?>">
+								<input type="hidden" name="id_giacenza[]" value="<?php echo $value['giacenza']['id'];?>">
+								<tr>
+									<td style="text-align:center;">
+									
+									<?php $image = null;?>
+								<?php $vbn_image = $this->getImageFromVbn($content['vbn']);?>
+									<?php $obj_image = $this->dbGetImageFromBarCode($bar_code);?>
+									<?php $product_image = $this->dbGetImageProductFromBarCode($bar_code);?>
+									<?php if(!empty($obj_image)):?>
+										<?php $image = $obj_image[0]['www_path'].$obj_image[0]['name'];?>
+									<?php elseif(!empty($product_image)):?>
+										<?php $image = $product_image;?>
+									<?php else:?>
+									<?php $image = null;?>
+									<?php endif;?>
+									<?php if(!empty($image)):?>
+									<a style="text-decoration:none;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' />');" title="" class="product-image">
+										<img class="firstImg" src="<?php echo $image?>" alt="" />
+									<?php else:?>
+									<?php if(!empty($vbn_image)):?>
+									<!--  onmouseout="jQuery('#zoom-vbn-image').hide();" onmouseover="jQuery('#zoom-vbn-image').html('<img src=\'<?php echo $vbn_image?>\' width=\'440\' oncontextmenu=\'return false;\'>');jQuery('#zoom-vbn-image').show('slow');" -->
+										<a style="width:14px;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $vbn_image?> oncontextmenu=\'return false;\' width=640/>');" title="" class="product-image">
+											<img id="image_custom" src="<?php echo $vbn_image?>" alt="" style="width:90px;height:85px;" width="90" height="85" oncontextmenu="return false;"/>
+										</a>
+									<?php endif;?>
+									<?php if (empty($image) && empty($vbn_image)):?>
+										<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="90" height="85">
+									<?php endif;?>
+									<?php endif;?>
+									</td>
+									<td style="text-align:center;"><?php echo $value['giacenza']['descrizione']?></td>
+									
+									<td style="text-align:center;">
+										<?php
+										include_once(APP_ROOT."/beans/content.php");
+										$Bean = new content(MyDB::connect(), $value['giacenza']['id_content']);
+										$content = $Bean->vars();
+										//$content = $Bean->dbFree(MyDB::connect(), "SELECT * FROM content WHERE id = '".$value['giacenza']['id_content']."'");
+										?>
+										<?php echo $content['qta_min_ord']?>
+									</td>
+									<td style="text-align:center;">
+
+									<input type="text" name="quantita[]" value="<?php echo $value['basket_qty']['sel_quantita']?>">
+									
+									<!-- 
+									<?php $index = round($value['giacenza']['disponibilita'] / $content['qta_min_ord'], 0, PHP_ROUND_HALF_DOWN);?>
+									<select name="quantita[]" id="quantita">
+											<option value="0" <?php if($value['basket_qty']['sel_quantita'] == 0):?>selected="selected"<?php endif;?>>0</option>
+											<?php for($i = 1;$i<=$index;$i++):?>
+											<?php if(empty($value['basket_qty']['sel_quantita']) &&  $i == 1):?>
+												<option value="<?php echo $i?>" selected="selected"><?php echo $i?></option>
+											<?php else:?>
+												<option value="<?php echo $i?>" <?php if($value['basket_qty']['sel_quantita'] == $i):?>selected="selected"<?php endif;?>><?php echo $i?></option>
+											<?php endif;?>
+											<?php endfor;?>
+										</select>	
+										 -->		
+									</td>
+									<td style="text-align:center;">
+											<?php echo Currency::FormatEuro($value['giacenza'][$_tplvar['key_prezzo']])?>
+									</td>
+									<?php if($_SESSION['LoggedUser']['is_foreign'] == 0):?>
+									<td style="text-align:center;">
+										<?php echo $value['giacenza']['cod_iva']?>%
+									</td>
+									<?php endif;?>
+									<td style="text-align:center;">
+
+										<?php 
+										$value['price_it_qty'] = $value['giacenza'][$_tplvar['key_prezzo']]*$value['basket_qty']['sel_quantita'];
+										if($_SESSION['LoggedUser']['is_foreign'] == 0)
+										{
+											$prezzoIva = (str_replace(',', '.', $value['price_it_qty']) * $value['giacenza']['cod_iva']) / 100;
+											$prezzoIva = round($prezzoIva, 2);
+											$prezzoIvaImponibile = $prezzoIva;
+										}
+										$prezzoIva = 0;
+										?>
+										<?php echo Currency::FormatEuro(str_replace(',', '.', $value['price_it_qty']+$prezzoIva));?>
+										<?php $subTotale += str_replace(',', '.', $value['price_it_qty']+$prezzoIva);?>
+										<?php $imponibile += str_replace(',', '.', $value['price_it_qty']);?>
+									</td>
+									
+									<td style="text-align:center;">
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart&delete=1&id_content=<?php echo $value['giacenza']['id']?>&id_giacenza=<?php echo $value['giacenza']['id']?>">Elimina</a>
+									</td>
+								</tr>
+								<?php $j++;?>
+								<?php $cod_iva = $value['giacenza']['cod_iva'];?>
+								<?php endforeach;?>
+							<?php //endforeach;?>
+							
+							<?php if(!empty($value['giacenza']) && $value['giacenza'] != array() && !empty($imponibile)):?>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><?php echo $this->getText('shopping_chart_table_imponibile')?></td>
+									<td><?php echo Currency::FormatEuro($imponibile)?></td>
+									<td>&nbsp;</td>
+								</tr>
+								<?php if($_SESSION['LoggedUser']['is_foreign'] == 0):?>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<!-- <td>IVA <?php echo IVA?>%</td> -->
+									<td><?php echo $this->getText('shopping_chart_table_iva')?> <?php echo $cod_iva?>%</td>
+									<!-- <td><?php //echo Currency::FormatEuro(round($imponibile * FATTURA_TAX_IVA, 2))?></td> -->
+									<td><?php echo Currency::FormatEuro(round( $imponibile * ('0.'.$cod_iva) , 2))?></td>
+									<td>&nbsp;</td>
+								</tr>
+								<?php endif;?>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td><?php echo $this->getText('shopping_chart_table_tot')?></td>
+									<td><?php echo Currency::FormatEuro($subTotale + round( $imponibile * ('0.'.$cod_iva) , 2))?></td>
+									<td>&nbsp;</td>
+								</tr>
+								<?php endif;?>
+								
+								<tr>
+									<td nowrap="nowrap" align="right" colspan="10">
+										<div class="actions">
+											<button value="<?php echo $this->getTranslation('Vai in cassa')?>" class="button btn-cart" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=CheckoutShopping<?php if(!empty($_tplvar['params_banking'])):?>&params=<?php echo $_tplvar['params_banking']?><?php endif;?>';return false;"><span><span>Vai in Cassa</span></span></button>
+											<button value="<?php echo $this->getTranslation('Aggiuorna quantita')?>" class="button btn-cart" onclick="jQuery('#shopping-cart').submit();"><span><span><?php echo $this->getTranslation('Aggiuorna quantita')?></span></span></button>
+											<button value="<?php echo $this->getTranslation('Continua lo shopping')?>" class="button btn-cart" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>Magazzino-Online/Lista-Prodotti.html<?php if(!empty($_tplvar['params_banking'])):?>&params=<?php echo $_tplvar['params_banking']?><?php endif;?>';return false;"><span><span><?php echo $this->getTranslation('Continua lo shopping')?></span></span></button>
+											<button value="<?php echo $this->getTranslation('Stampa il carrello')?>" class="button btn-cart" onclick="javascript: window.open('<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart&print_orders=1', '', '');"><span><span><?php echo $this->getTranslation('Stampa il carrello')?></span></span></button>
+										</div>
+										
+									</td>
+								</tr>
+						</table>
+						</form>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- end main-content-padding -->
+		</div>
+		<!-- end main-content -->
+		<!-- start categories -->
+		<?php //echo $this->getPartial('shared/BoxUserData');?>
+		<!-- end categories -->
+	</div>
+	<!-- end content-container -->
+	<div class="clear"></div>
+</div>
+<!-- end page-content -->
+<br>
+<br>
+
+<table style="width:780px">
+	<tr>
+		<td colspan="8" style="text-align:center;">
+			<div id="page-title">
+				<h2>TOTALE CARRELLO</h2>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6">&nbsp;</td>
+		<td style="width:110px;text-align:right;" nowrap="nowrap">Totale Merce</td>
+		<td style="width:120px"><?php echo Currency::FormatEuro($subTotale_for+subTotale_for_de+$subTotale+round( $imponibile * ('0.'.$cod_iva) , 2))?></td>
+	</tr>
+	<!-- <tr>
+		<td>&nbsp;</td>
+		<td>IVA <?php echo IVA?>%</td>
+		<td>IVA <?php echo $cod_iva?>%</td>
+		<td><?php //echo Currency::FormatEuro(round($imponibile * FATTURA_TAX_IVA, 2))?></td>
+		<td><?php //echo Currency::FormatEuro(round( $imponibile * ('0.'.$cod_iva) , 2))?></td>
+	</tr>
+	 -->
+	<!--<tr>
+		<td colspan="6">&nbsp;</td>
+		<td style="width:110px;text-align:right;" nowrap="nowrap">Spese Spedizione</td>
+		<td style="width:120px">
+			<?php
+			include_once(APP_ROOT.'/beans/ApplicationSetup.php');
+			$BeanApplicationSetup = new ApplicationSetup();
+			$speseSpedizione = $BeanApplicationSetup->dbGetAllByField(MyDB::connect(), 'spese_spedizione');
+			if($speseSpedizione[0]['name'] != '0,00' && $speseSpedizione[0]['name'] > 0)
+			{
+				$speseSpedizioneIva = round( $speseSpedizione[0]['name'] * ('0.'.$cod_iva) , 2);
+				$speseSpedizione[0]['name'] = $speseSpedizione[0]['name']+$speseSpedizioneIva;
+				echo Currency::FormatEuro($speseSpedizione[0]['name']);
+			}
+			?>
+		</td>
+	</tr>
+
+	--><!--<tr>
+		<td colspan="6">&nbsp;</td>
+		<td style="width:110px;text-align:right;" nowrap="nowrap">Totale Spesa</td>
+		<td><?php echo Currency::FormatEuro($subTotale_for+subTotale_for_de+$subTotale+$prezzoIvaImponibile+$speseSpedizione[0]['name'])?></td>
+		</tr>								
+--></table>
+	

@@ -1,0 +1,129 @@
+<?php $_tplvar = $this->getVars();
+$ordini = $_tplvar['data']['ordini'][0];
+?>
+<style>
+.container_24 {
+	margin-left: auto;
+	margin-right: auto;
+}
+.detail-orders td {
+	padding: 9px 12px;
+	color: #333;
+}
+td{
+padding:10px;
+}
+</style>
+<div class=detail-ordini>
+<?php if(!empty($ordini['ordini_gardesana'])):?>
+<ol class=products-list id=products-list>
+	<li class=item><table width=700>
+			<tr>
+				<td nowrap=nowrap align=center>Ordine N.</td>
+				<td nowrap=nowrap align=center>Modalit&aacute; di
+					Pagamento</td>
+				<td nowrap=nowrap align=center>Stato</td>
+				<td nowrap=nowrap align=center>Traking</td>
+			</tr>
+			<tr>
+				<td nowrap=nowrap align=center><?php echo $ordini['id']?>
+			</td>
+			<td nowrap=nowrap align=center><?php echo $ordini['tipo_pagamento']?>
+			</td>
+			<td nowrap=nowrap align=center><?php if($ordini['spedito']):?>Spedito
+			con <?php echo $ordini['corriere']?>
+			<?php else:?>In Lavorazione<?php endif;?>
+			</td>
+			<td nowrap=nowrap align=center><?php echo $ordini['traking']?>
+				</td>
+			</tr>
+			<tr>
+				<td nowrap=nowrap align=center>Variet&aacute;</td>
+				<td nowrap=nowrap align=center>Prezzo</td>
+				<td nowrap=nowrap align=center>Quantit&aacute;</td>
+				<td nowrap=nowrap align=center>Importo</td>
+			</tr>
+			<?php $totale = 0;?>
+			<?php foreach ($ordini['ordini_gardesana']['ordini_magazzino'] as $ordine):?>
+			<tr>
+				<td nowrap=nowrap align=center><?php echo str_replace("+", "", str_replace("'", "", $ordine['content']['nome_it']))?>
+			</td>
+			<td nowrap=nowrap align=center><?php echo Currency::FormatEuro((str_replace(',','.',$ordine['ordine_magazzino']['importo'])/$ordine['ordine_magazzino']['quantita']))?>
+			</td>
+			<td nowrap=nowrap align=center><?php echo $ordine['ordine_magazzino']['quantita']?>
+			</td>
+			<td nowrap=nowrap align=center><?php echo Currency::FormatEuro($ordine['ordine_magazzino']['importo'])?>
+			</td>
+			<?php $totale += str_replace(',', '.', $ordine['ordine_magazzino']['importo']);?>
+			</tr>
+			<?php endforeach;?>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>Importo</td>
+				<td><?php echo Currency::FormatEuro($totale);?>
+							</td>
+						</tr>
+					</table>
+				</li>
+			</ol>
+			<br>
+			<?php endif;?>
+			<?php if(!empty($ordini['ordini_den_dekker'])):?>
+			<table width=700>
+				<tr>
+					<td nowrap=nowrap align=center>Ordine n.</td>
+					<td nowrap=nowrap align=center>Modalit&aacute; di
+						Pagamento</td>
+					<td nowrap=nowrap align=center>Stato</td>
+				</tr>
+				<tr>
+					<td nowrap=nowrap align=center><?php echo $ordini['id']?>
+			</td>
+			<td nowrap=nowrap align=center><?php echo $ordini['tipo_pagamento']?>
+			</td>
+			<td nowrap=nowrap align=center><?php if($ordini['spedito']):?>Spedito<?php else:?>In
+			Lavorazione<?php endif;?>
+				</td>
+			</tr>
+			<tr>
+				<td nowrap=nowrap align=center colspan=3>Prodotti
+					Acquistati</td>
+				</td>
+			<tr>
+				<td nowrap=nowrap align=center colspan=3>
+				<table width=100%>
+			<?php foreach($ordini['ordini_den_dekker']['ordini_magazzino'] as $key => $val):?>
+			<?php if($key == 0):?>
+			<tr>
+				<td nowrap=nowrap align=center>Descrizione</td>
+				<td nowrap=nowrap align=center><?php if(!empty($val['ordine_magazzino']['quantita_pianale'])):?>Quantita Pianali<?php else:?>Quantita Imaballi<?php endif;?> </td>
+				<td nowrap=nowrap align=center>Importo</td>
+				<td nowrap=nowrap align=center>Nota</td>
+				<td nowrap=nowrap align=center>Indispensabile x Spedizione</td>
+			</tr>
+			<?php endif;?>
+			<tr>
+				<td nowrap=nowrap align=center><?php echo $val['magazzino']['descrizione']?></td>
+				<td nowrap=nowrap align=center><?php if(!empty($val['ordine_magazzino']['quantita_pianale'])):?>
+				<?php echo $val['ordine_magazzino']['quantita_pianale']?>
+				<?php else:?>
+				<?php echo $val['ordine_magazzino']['quantita']?>
+				<?php endif;?>
+				</td>
+				<td nowrap=nowrap align=center><?php echo $val['ordine_magazzino']['importo']?></td>
+				<td nowrap=nowrap align=center><?php echo $val['ordine_magazzino']['nota']?></td>
+				<td nowrap=nowrap align=center><?php if(!empty($val['ordine_magazzino']['indispensabile'])):?>Si<?php else:?>No<?php endif;?></td>
+			</tr>
+			
+			<?php endforeach;?>
+			</table>
+		
+		</td>
+	
+	</tr>
+
+</table>
+
+<?php endif;?>
+</div>

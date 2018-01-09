@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<title>Style presets</title>
+	<script src="../../../codebase/touchui.js" type="text/javascript"></script>
+	<link rel="STYLESHEET" type="text/css" href="../../../codebase/touchui.css">
+	<script src="../common/chartdata.js"></script>
+<body>
+
+    <div style="padding: 20px 20px 0;">
+        <b>Preset:</b>
+        <select id="preset" onchange="drawChart(this.value)">
+            <option value="plot" selected>plot</option>
+            <option value="diamond">diamond</option>
+            <option value="simple">simple</option>
+        </select>
+    </div>
+    <div id="chartDiv" style="width:600px;height:250px;margin:20px"></div>
+	<script>
+	    var chart;
+	    dhx.ready(
+	        function(){
+                drawChart("plot");
+	        }
+	    );
+        function drawChart(preset){
+            if(chart)
+                 chart.destructor();
+            chart = dhx.ui({
+                view:"chart",
+                container:"chartDiv",
+                id:"chart",
+                type:"line",
+                value:"#sales#",
+                preset: preset,
+                xAxis:{
+                    template:"'#year#"
+                },
+                yAxis:{
+                    start:0,
+                    end:100,
+                    step:10,
+                    template:function(obj){
+                        return (obj%20?"":obj)
+                    }
+                },
+                data: dataset
+            });
+        }
+	</script>
+</body>
+</html>

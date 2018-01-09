@@ -1,0 +1,66 @@
+<?php  
+$_tplvar = $this->getVars();
+if(!empty($route))
+	$pagingUrl = $route.'&pageID=';
+else 
+	$pagingUrl = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&pageID=';
+
+
+
+$numViewPages = $_tplvar['numViewPage'];
+$initPages 	  = $_tplvar['curr_page'] - $numViewPages;
+?>
+
+<div>
+	<span>Totale record trovati <?php echo $_tplvar['tot_items'];?></span>&nbsp;-&nbsp;
+	<span>Pagina <?php echo $_tplvar['curr_page'];?> di <?php echo $_tplvar['last_page'];?></span>&nbsp;-&nbsp;
+	
+	<a href="<?php echo $pagingUrl;?><?php echo '1';?>">Prima</a>
+
+	<?php if($_tplvar['last_page'] > 1 && $_REQUEST['pageID'] > 1):?>
+		<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['curr_page']-1;?>">&laquo;</a>
+	<?php endif;?>
+		
+	<?php 
+		$j = 0;	
+		for($i=$initPages;$i <= $_tplvar['tot_items'];$i++):
+	?>
+		<?php if($j <= ($numViewPages+$numViewPages) && $i > 0 && $j > 0):?>
+		
+			<?php if($i == $_tplvar['curr_page']):?>
+				<span class="current">
+					<font size="4"><b><?php echo $i;?></b></font>
+				</span>
+			<?php else:?>
+				<?php if($_tplvar['last_page'] > 1 && $i <= $_tplvar['last_page']):?>
+					<a href="<?php echo $pagingUrl;?><?php echo $i;?>" title="<?php echo $i;?>"><?php echo $i;?></a>
+				<?php endif;?>
+			<?php endif;?>
+			
+		<?php endif;?>
+	<?php 
+		$j++;
+		endfor;
+	?>
+
+	<?php if($_tplvar['last_page'] > 1 && $_REQUEST['pageID'] < $_tplvar['last_page']):?>
+		<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['curr_page']+1;?>">&raquo;</a>
+	<?php endif;?>
+
+	<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['last_page'];?>">Ultima</a>
+	
+	<select style="font-size: 12px;" onchange="javascript:changeRowForPage(this);">
+		<option value="5" <?php if($_tplvar['row_for_page'] == '5'):?> selected="selected"<?php endif;?>>5</option>
+		<option value="10" <?php if($_tplvar['row_for_page'] == '10'):?> selected="selected"<?php endif;?>>10</option>
+		<option value="25" <?php if($_tplvar['row_for_page'] == '25'):?> selected="selected"<?php endif;?>>25</option>
+		<option value="50" <?php if($_tplvar['row_for_page'] == '50'):?> selected="selected"<?php endif;?>>50</option>
+		<option value="100" <?php if($_tplvar['row_for_page'] == '100'):?> selected="selected"<?php endif;?>>100</option>
+	</select>
+	<script type="text/javascript">
+	function changeRowForPage(combo)
+	{
+		rowForPage = combo.options[combo.selectedIndex].value;
+		document.location.href = '<?php echo $_tplvar['WWW_ROOT'];?>?act=<?php echo $_tplvar['current_action'];?>&rowForPage='+rowForPage;
+	}
+	</script>
+</div>					

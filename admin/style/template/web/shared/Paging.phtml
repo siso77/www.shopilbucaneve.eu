@@ -1,0 +1,74 @@
+<?php  
+$_tplvar = $this->getVars();
+if(!empty($route))
+	$pagingUrl = $route.'&pageID=';
+else 
+	$pagingUrl = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&pageID=';
+
+$params = '';
+if(!empty($assign['params']))
+	$params = $assign['params'];
+
+$numViewPages = $_tplvar['numViewPage'];
+$initPages 	  = $_tplvar['curr_page'] - $numViewPages;
+
+?>
+
+<style>
+span:hover{
+	font-size:16px;
+	color:#B00000;
+}
+</style>
+<?php if($_tplvar['last_page'] > 1):?>
+
+
+	<!--<span class="pages">Pagina <?php echo $_tplvar['curr_page'];?> di <?php echo $_tplvar['last_page'];?></span>-->
+<!--
+	<?php if($_tplvar['last_page'] > 1 && $_REQUEST['pageID'] > 1):?>
+		<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['curr_page']-1;?><?php echo $params;?>">&laquo; Primo</a>
+	<?php endif;?>
+-->
+	<a href="<?php echo $pagingUrl;?><?php echo '1';?><?php echo $params;?>"><span style="padding:6px;">Prima</span></a>
+		
+	<?php if($_tplvar['curr_page'] > 1):?>
+		<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['curr_page']-1;?><?php echo $params;?>"><span style="padding:6px">&laquo;</span></a>
+	<?php endif;?>		
+		
+	<?php 
+		$j = 0;	
+		for($i=$initPages;$i <= $_tplvar['tot_items'];$i++):
+	?>
+		<?php if($j <= ($numViewPages+$numViewPages) && $i > 0 && $j > 0):?>
+		
+			<?php if($i == $_tplvar['curr_page']):?>
+	
+					<span style="font-size:16px;padding:6px"><?php echo $i;?></span>
+				
+			<?php else:?>
+				<?php if($_tplvar['last_page'] > 1 && $i <= $_tplvar['last_page']):?>
+					<a href="<?php echo $pagingUrl;?><?php echo $i;?><?php echo $params;?>" title="<?php echo $i;?>"><span style="padding:6px;"><?php echo $i;?></span></a>
+				<?php endif;?>
+			<?php endif;?>
+			
+		<?php endif;?>
+	<?php 
+		$j++;
+		endfor;
+	?>
+
+	<?php if($_tplvar['last_page'] > 1 && $_REQUEST['pageID'] < $_tplvar['last_page']):?>
+		<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['curr_page']+1;?><?php echo $params;?>"><span style="padding:6px">&raquo;</span></a>
+	<?php endif;?>
+
+	<a href="<?php echo $pagingUrl;?><?php echo $_tplvar['last_page'];?><?php echo $params;?>"><span style="padding:6px">Ultima</span></a>
+
+	&nbsp;&nbsp;&nbsp;
+	<a href="javascript:void(0);">Record per Pagina</a>
+	
+		<!-- RowForPage -->
+		<?php echo $this->getPartial('shared/ComboRowForPage');?>
+		<!-- /RowForPage -->
+	
+
+<?php endif;?>

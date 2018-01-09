@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>DataView: events</title>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+</head>
+<body>
+	
+	
+	<script>
+        function log(ev,args){
+            var message=ev;
+            var div="<div>";
+            message+='<ul style="padding:0 0 0 22px;margin:0;font:italic 60% verdana">';
+            for (var i=0; i < args.length; i++) {
+                message+="<li>"+args[i];
+            };
+            message+='</ul>';
+            div+=message+"</div";
+            document.getElementById('actions').innerHTML=div+document.getElementById('actions').innerHTML;
+        }
+		dhx.ui({
+            rows:[
+                {
+                    view:"toolbar",
+                    elements:[
+                        {view:"toolbar", elements:[{
+                            view:"label", label:"Dataview events sample"
+                        }]}
+                    ]
+                },{
+                    type: "wide",
+                    height:300,
+                    cols:[
+                        {
+                            view:"dataview",
+                            id:'mydataview',
+                            type:{
+                                template:"<span class='dhx_strong'>#Maintainer#</span>#Package# <span class='dhx_light'>#Version#</span>",
+                                height:40
+                            },
+                            url:"./data.xml",
+                            datatype:"xml",
+                            width:480
+                        },
+                        {
+                            template:"<div id='actions'></div>",
+                            scroll:"y"
+                        }
+                    ]
+                },
+                {}
+            ]
+
+		});
+        
+        $$("mydataview").attachEvent('onitemclick',function(){
+            log('onitemclick',arguments);
+        })
+        $$("mydataview").attachEvent('onbeforeselect',function(id){
+            if (id==2) return false;
+            else {
+                log('onbeforeselect',arguments);
+                return true;
+            }
+        })
+        $$("mydataview").attachEvent('onafterselect',function(){
+            log('onafterselect',arguments);
+        })
+		
+	</script>
+
+</body>
+</html>
+

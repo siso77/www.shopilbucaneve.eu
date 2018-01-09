@@ -1,0 +1,82 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script type="text/javascript">
+<!--
+function sendFilter(obj)
+{
+	var id = obj.options[obj.selectedIndex].value;
+	document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&id_size_type='+id;
+}
+//-->
+</script>
+<div style="width:900px;top:0px;">
+	Filtra contenuti per
+			<select name="id_size_type" onchange="javascript:sendFilter(this)">
+			<option value="">-</option>
+			<?php foreach($_tplvar['cmb_size'] as $value):?>
+				<option 
+					value="<?php echo $value['id']?>"
+						<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_size_type'] == $value['id']):?>
+							selected="selected"
+						<?php endif;?>>
+				<?php echo $value['type']?></option>
+			<?php endforeach;?>
+		</select>
+</div>
+					<table cellspacing="10" cellpadding="0">
+					<?php foreach ($_tplvar['list'] as $key => $value):?>
+					<tr>
+						<td width="120" colspan="3"><?php echo $key?></td>
+					</tr>
+					<?php if(is_array($value['size'])):?>
+					<tr>
+						<td colspan="6">
+							<table width="100%">
+							<tr>
+								<td>
+								<?php
+								$assign['key_session'] = $_tplvar['action_class_name'];
+								$assign['order_by'] = 'size';
+								if(!empty($_REQUEST['id_size_type']))
+									$assign['action'] = $_tplvar['action_class_name'].'&id_size_type='.$_REQUEST['id_size_type'];
+								else
+									$assign['action'] = $_tplvar['action_class_name'];
+								$assign['field_name'] = 'TGLIA';							
+								$this->getPartial('shared/SortField', $assign);
+								?>
+								</td>
+								<td width="100">MODIFICA</td>
+								<td width="100">CANCELLA</td>
+							</tr>
+							<?php foreach ($value['size'] as $val):?>
+							<tr>
+								<td width="120"><?php echo $val['size']?></td>
+								<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=SetupNewSize&edit=1&id=<?php echo $val['id']?>">MODIFICA</a></td>
+								<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&delete=1&id=<?php echo $val['id']?>">CANCELLA</a></td>
+							</tr>
+							<?php endforeach;?>
+							</table>
+						</td>
+					</tr>
+					<?php endif;?>
+					<?php endforeach;?>						
+
+				</table>
+				
+                <!-- Page Navigation -->
+                <?php
+                if(!empty($_REQUEST['order_by'])) 
+                	$assign['params'] = '&order_by='.$_REQUEST['order_by'];
+                if(!empty($_REQUEST['order_type'])) 
+                	$assign['params'] .= '&order_type='.$_REQUEST['order_type'];
+                if(!empty($_REQUEST['pageID'])) 
+                	$assign['params'] .= '&pageID='.$_REQUEST['pageID'];
+                	?>
+				<?php echo $this->getPartial('shared/Paging', $assign);?>
+				<!-- /Page Navigation -->
+                
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+				

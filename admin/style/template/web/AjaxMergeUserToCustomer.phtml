@@ -1,0 +1,344 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('ListaClienti');
+?>
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer" method="post">
+	<input type="hidden" name="search" value="1">
+	<table>
+	<tr>
+		<td>
+			<input type="text" value="Cerca la parola chiave" name="key_search_merge_user" id="key_search_merge_user" style="width:200px;" onblur="javascript:if(this.value == '')resetField(this, 'Cerca la parola chiave')" onclick="javascript:swapField(this, 'Cerca la parola chiave')">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="button" class="submit" value="CERCA" onclick="
+					$.fancybox.showLoading();
+					$.ajax({
+					  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+					  type: 'POST',
+					  dataType: 'html',
+					  data: 'search=1&id_user=<?php echo $_tplvar['id_user'];?>&key_search='+$('#key_search_merge_user').val(),
+					  success: function(html){		
+					  	$.fancybox( html );
+					  }
+					});">
+		</td>
+	</tr>		
+	</tbody></table>
+</form>
+
+				<?php if(!empty($_tplvar['current_customer']) && $_tplvar['current_customer'] != array()):?>
+				<table cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<td colspan="4">Cliente Associato</td>
+					</tr>
+					<tr>
+						<td>Ragione Sociale</td>
+						<td><?php echo $_tplvar['current_customer']['ragione_sociale'];?></td>
+						<td>P.IVA</td>
+						<td><?php echo $_tplvar['current_customer']['p_iva'];?></td>
+					</tr>
+				</tbody>
+				</table>
+				<?php endif;?>
+				<div id="table-block">
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<?php
+							foreach ($_tplvar['header_list'] as $key => $value)
+							{
+								foreach ($value as $k => $val)
+								{
+									if(
+										$key == 0 && 
+										$k != 'id' && 
+										$k != 'data_modifica_riga' && 
+										$k != 'operatore' && 
+										$k != 'is_active' &&
+										$k != 'indirizzo' &&
+										$k != 'p_iva' &&
+										$k != 'codice_fiscale' &&
+										$k != 'nome' &&
+										$k != 'cognome' &&
+										$k != 'stato' &&
+										$k != 'citta' &&
+										$k != 'cap' &&
+										$k != 'indirizzo_spedizione' &&
+										$k != 'cap_spedizione' &&
+										$k != 'citta_spedizione' &&
+										$k != 'percentuale_sconto' &&
+										$k != 'provincia_spedizione' &&
+										$k != 'stato_spedizione' &&
+										$k != 'customer_code' &&
+										$k != 'fax' &&
+										$k != 'text_spedizione' &&
+										$k != 'registred_from' &&
+										$k != 'is_agent' &&
+										$k != 'data_inserimento_riga'										)
+									{
+
+								   	?>
+								   	<td nowrap="nowrap">
+								   	<?php 
+										$KEY_TO_DISPLAY = $k;
+										$assign['key_session'] = $_tplvar['action_class_name'];
+										$assign['order_by'] = $k;
+										$assign['action'] = $_tplvar['action_class_name'];
+										$assign['field_name'] = $this->getText($k);							
+										$this->getPartial('shared/SortField', $assign);
+								   ?>
+								   &nbsp;</td>
+								   <?php 
+									}
+								}
+							}
+							
+							?>
+                           <td>Dettaglio</td>
+                           <td>Collega</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>						
+						<tr>
+                            <td><?php echo $value['ragione_sociale']?>&nbsp;</td>
+                            <td><?php echo $value['provincia']?>&nbsp;</td>
+							<td><?php echo $value['cellulare']?>&nbsp;</td>
+							<td><?php echo $value['fisso']?>&nbsp;</td>
+							<td><?php echo $value['email']?>&nbsp;</td>
+							<td><?php echo $value['listino']?>&nbsp;</td>
+							<td class="actions">&nbsp;</td>
+							<td class="actions">&nbsp;</td>
+							<td class="actions">&nbsp;</td>
+							<td class="actions">&nbsp;</td>
+							
+							<td class="actions">
+								<a class="delete" href="javascript:void(0);" onclick="javascript:showHiddenDiv('detail_<?php echo $value['id'];?>')">Dettaglio</a>
+								<div id="detail_<?php echo $value['id'];?>" style="background-color:#fff;top:0px;left:300px;padding:10px;border:3px solid #fff;width:500px;position:absolute;visibility:hidden">
+								<div style="text-align: center"><a href="javascript:void(0);" onclick="javascript:showHiddenDiv('detail_<?php echo $value['id'];?>')">CHIUDI</a></div>
+									<table style="width:475px">
+									<tr>
+										<td><?php echo $this->getText('nome')?></td>
+										<td><?php echo $value['nome']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('cognome')?></td>
+										<td><?php echo $value['cognome']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('codice_fiscale')?></td>
+										<td><?php echo $value['codice_fiscale']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('p_iva')?></td>
+										<td><?php echo $value['p_iva']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('indirizzo')?></td>
+										<td><?php echo $value['indirizzo']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('provincia')?></td>
+										<td><?php echo $value['provincia']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('stato')?></td>
+										<td><?php echo $value['stato']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('citta')?></td>
+										<td><?php echo $value['citta']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('cap')?></td>
+										<td><?php echo $value['cap']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('cellulare')?></td>
+										<td><?php echo $value['cellulare']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('fisso')?></td>
+										<td><?php echo $value['fisso']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('email')?></td>
+										<td><?php echo $value['email']?></td>
+									</tr>
+									<tr>
+										<td>PRESSO</td>
+										<td><?php echo $value['text_spedizione']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('indirizzo_spedizione')?></td>
+										<td><?php echo $value['indirizzo_spedizione']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('cap_spedizione')?></td>
+										<td><?php echo $value['cap_spedizione']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('citta_spedizione')?></td>
+										<td><?php echo $value['citta_spedizione']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('provincia_spedizione')?></td>
+										<td><?php echo $value['provincia_spedizione']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('stato_spedizione')?></td>
+										<td><?php echo $value['stato_spedizione']?></td>
+									</tr>
+									<tr>
+										<td><?php echo $this->getText('data_inserimento_riga')?></td>
+										<td><?php echo $this->getFormatDate($value['data_inserimento_riga'])?></td>
+									</tr>
+									</table>
+									<div style="text-align: center"><a href="javascript:void(0);" onclick="javascript:showHiddenDiv('detail_<?php echo $value['id'];?>')">CHIUDI</a></div>
+								</div>
+							</td>
+                            <td class="actions">
+                            	<a class="edit"
+                            	 href="javascript:void(0);"
+                            	 onclick="					
+	                            	$.fancybox.showLoading();
+									$.ajax({
+									  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+									  type: 'POST',
+									  dataType: 'html',
+									  data: 'merge=1&id_user=<?php echo $_tplvar['id_user'];?>&id_customer=<?php echo $value['id']?>',
+									  success: function(html){		
+									  	$.fancybox( html );
+									  }
+									});
+                            	 ">Collega</a> 
+                            </td>
+						</tr>
+					<?php endforeach;?>						
+					</tbody>
+				</table>
+				
+				
+				
+<style>
+span:hover{
+	font-size:16px;
+	color:#B00000;
+}
+</style>
+<?php 
+$numViewPages = $_tplvar['numViewPage'];
+$initPages 	  = $_tplvar['curr_page'] - $numViewPages;
+
+?>
+<?php if($_tplvar['last_page'] > 1):?>
+
+
+	<a href="javascript:void(0);"
+	onclick="$.fancybox.showLoading();
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+			  type: 'GET',
+			  dataType: 'html',
+			  data: 'id_user=<?php echo $_tplvar['id_user'];?>&pageID=<?php echo '1';?>',
+			  success: function(html){		
+			  	$.fancybox( html );
+			  }
+			});"><span style="padding:6px;">Prima</span></a>
+		
+	<?php if($_tplvar['curr_page'] > 1):?>
+		<a href="javascript:void(0);"
+		onclick="$.fancybox.showLoading();
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+			  type: 'GET',
+			  dataType: 'html',
+			  data: 'id_user=<?php echo $_tplvar['id_user'];?>&pageID=<?php echo $_tplvar['curr_page']-1;?>',
+			  success: function(html){		
+			  	$.fancybox( html );
+			  }
+			});"><span style="padding:6px">&laquo;</span></a>
+	<?php endif;?>		
+		
+	<?php 
+		$j = 0;	
+		for($i=$initPages;$i <= $_tplvar['tot_items'];$i++):
+	?>
+		<?php if($j <= ($numViewPages+$numViewPages) && $i > 0 && $j > 0):?>
+		
+			<?php if($i == $_tplvar['curr_page']):?>
+	
+					<span style="font-size:16px;padding:6px"><?php echo $i;?></span>
+				
+			<?php else:?>
+				<?php if($_tplvar['last_page'] > 1 && $i <= $_tplvar['last_page']):?>
+					<a href="javascript:void(0);"
+					onclick="$.fancybox.showLoading();
+					$.ajax({
+						  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+						  type: 'GET',
+						  dataType: 'html',
+						  data: 'id_user=<?php echo $_tplvar['id_user'];?>&pageID=<?php echo $i;?>',
+						  success: function(html){		
+						  	$.fancybox( html );
+						  }
+						});"><span style="padding:6px;"><?php echo $i;?></span></a>
+				<?php endif;?>
+			<?php endif;?>
+			
+		<?php endif;?>
+	<?php 
+		$j++;
+		endfor;
+	?>
+
+	<?php if($_tplvar['last_page'] > 1 && $_REQUEST['pageID'] < $_tplvar['last_page']):?>
+		<a href="javascript:void(0);"
+			onclick="$.fancybox.showLoading();
+			$.ajax({
+				  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+				  type: 'GET',
+				  dataType: 'html',
+				  data: 'id_user=<?php echo $_tplvar['id_user'];?>&pageID=<?php echo $_tplvar['curr_page']+1;?>',
+				  success: function(html){		
+				  	$.fancybox( html );
+				  }
+				});"><span style="padding:6px">&raquo;</span></a>
+	<?php endif;?>
+
+	<a href="javascript:void(0);"
+		onclick="$.fancybox.showLoading();
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+			  type: 'GET',
+			  dataType: 'html',
+			  data: 'id_user=<?php echo $_tplvar['id_user'];?>&pageID=<?php echo $_tplvar['last_page'];?>',
+			  success: function(html){		
+			  	$.fancybox( html );
+			  }
+			});"><span style="padding:6px">Ultima</span></a>
+
+	&nbsp;&nbsp;&nbsp;
+	<a href="javascript:void(0);">Record per Pagina</a>
+	
+		<!-- RowForPage -->
+		<?php echo $this->getPartial('shared/ComboRowForPage');?>
+		<!-- /RowForPage -->
+	
+
+<?php endif;?>				
+				
+                
+				</div>
+			

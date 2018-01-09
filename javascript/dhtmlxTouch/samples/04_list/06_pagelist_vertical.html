@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">		
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <title>PageList: vertical location</title>
+		<style>
+		html,body{
+            background-color:#ffffff;
+        }
+		.dhx_list_frame_item{
+			background-color:#565656;
+		}
+		html,body{
+			height:100%;
+			width:100%;
+		}
+        </style>
+	</head>
+	<body>
+       
+
+		<script type="text/javascript" charset="utf-8">
+			var sources = [
+				{id:1,img:"../01_views/imgs/image001.jpg"},
+				{id:2,img:"../01_views/imgs/image002.jpg"},
+				{id:3,img:"../01_views/imgs/image003.jpg"},
+				{id:4,img:"../01_views/imgs/image004.jpg"},
+				{id:5,img:"../01_views/imgs/image005.jpg"},
+				{id:6,img:"../01_views/imgs/image006.jpg"}
+			]
+			function img(obj){
+				return '<img src="'+obj.img+'" width="300" height="222" >'
+			}
+			function img_v(obj){
+				return '<img src="'+obj.img+'" width="295" height="230"/>'
+			}
+            dhx.ready(function(){
+                dhx.ui({
+                    cols:[	
+    						{
+							width:300,
+								rows:[{
+									
+									height:230,
+									view:"pagelist", 
+									scroll:"y",
+    								data:sources,
+									datatype:"json",
+    								template:img_v,
+									type:{
+										css:"frame",
+										height:230
+									},
+									panel:{
+										align:"right"
+									}
+								}]
+    						},
+							{
+								width:300,
+								view:"pagelist", 
+								scroll:"y",
+    							data:sources,
+								datatype:"json",
+    							template:img_v,
+								type:{
+									css:"",
+									height:230
+								},
+								panel:false
+							}
+					]
+	
+       			});
+				
+            });
+            
+			
+			
+		</script>
+	</body>
+</html>

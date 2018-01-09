@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+	<title>Style presets</title>
+	<script src="../../../codebase/touchui.js" type="text/javascript"></script>
+	<link rel="STYLESHEET" type="text/css" href="../../../codebase/touchui.css">
+	<script src="../common/chartdata.js"></script>
+<body>
+     <div style="padding: 10px 20px;">
+        <b>Preset:</b>
+        <select id="preset" onchange="drawChart(this.value)">
+            <option value="round" selected>round</option>
+            <option value="square">square</option>
+            <option value="diamond">diamond</option>
+        </select>
+    </div>
+    <div id="chartDiv" style="width:600px;height:250px;margin:20px"></div>
+	<script>
+	    var chart;
+	    drawChart("round");
+        function drawChart(preset){
+            if(chart)
+                 chart.destructor();
+            chart = dhx.ui({
+                view:"chart",
+                container:"chartDiv",
+                id:"chart",
+                type:"scatter",
+                value:"#b#",
+                xValue: "#a#",
+                yAxis:{
+                    title:"Value Y"
+                },
+                xAxis:{
+                    title:"Value X"
+                },
+                preset:preset,
+                data: scatter_dataset
+            });
+        }
+	</script>
+</body>
+</html>

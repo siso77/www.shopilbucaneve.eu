@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#jsddm
+{	margin: 0;
+	padding: 0;
+	
+	width:1100px;
+}
+
+#jsddm li
+{	float: left;
+	list-style: none;
+	font: 1.1em Tahoma, Arial;
+	margin-left: 0px;
+}
+
+#jsddm li a
+{	display: block;
+	
+	padding: 6px 14px;
+	text-decoration: none;
+	color: #ffffff;
+	white-space: nowrap}
+
+#jsddm li a:hover
+{	background: #2e2e2e}
+
+#jsddm li ul
+{	margin: 0;
+	padding: 0;
+	position: absolute;
+	visibility: hidden;
+	border-top: 1px solid white}
+
+#jsddm li ul li
+{	float: none;
+	display: inline}
+
+#jsddm li ul li a
+{	width: auto;
+	background: #577d96;
+	color: #ffffff}
+
+#jsddm li ul li a:hover
+{	background: #2e2e2e}

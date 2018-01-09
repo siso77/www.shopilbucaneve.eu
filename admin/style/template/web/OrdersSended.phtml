@@ -1,0 +1,222 @@
+<?php $_tplvar = $this->getVars();?>
+
+<!--<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>-->
+<script type="text/javascript" src="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/lib/jquery-1.7.2.min.js"></script>
+<!-- Add mousewheel plugin (this is optional) -->
+<script type="text/javascript" src="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+<!-- Add fancyBox main JS and CSS files -->
+<script type="text/javascript" src="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/jquery.fancybox.js?v=2.0.6"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/jquery.fancybox.css?v=2.0.6" media="screen" />
+<!-- Add Button helper (this is optional) -->
+<link rel="stylesheet" type="text/css" href="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.2" />
+<script type="text/javascript" src="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.2"></script>
+<!-- Add Thumbnail helper (this is optional) -->
+<link rel="stylesheet" type="text/css" href="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.2" />
+<script type="text/javascript" src="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.2"></script>
+<!-- Add Media helper (this is optional) -->
+<script type="text/javascript" src="<?php echo STORE_WWW_ROOT_PATH.$_tplvar['JS_DIR'];?>/fancyapps-fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.0"></script>
+
+
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+
+<!--BOX PER LA RICERCA-->
+	<?php 
+	$assign['show_combo'] = false;
+	$assign['show_calendar'] = false;
+	$assign['show_combo_brand'] = false;	
+	$assign['show_checkboxes'] = false;
+	$assign['show_fornitori'] = false;
+	?>
+    <?php //echo $this->getPartial('shared/BoxSearch', $assign);?>
+<!--BOX PER LA RICERCA-->
+
+					<table cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="50">
+						<?php
+						$assign['key_session'] = 'OrdersSended';
+						$assign['order_by'] = 'id';
+						$assign['action'] = 'OrdersSended';
+						$assign['field_name'] = '#ID';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td width="150">
+						<?php
+						$assign['key_session'] = 'OrdersSended';
+						$assign['order_by'] = 'data_inserimento_riga';
+						$assign['action'] = 'OrdersSended';
+						$assign['field_name'] = 'DATA';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td width="100">
+						<?php
+						$assign['key_session'] = 'OrdersSended';
+						$assign['order_by'] = 'importo';
+						$assign['action'] = 'OrdersSended';
+						$assign['field_name'] = 'IMPORTO';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						<td nowrap="nowrap">
+						<?php
+						$assign['key_session'] = 'OrdersSended';
+						$assign['order_by'] = 'pagato';
+						$assign['action'] = 'OrdersSended';
+						$assign['field_name'] = 'MODALITA\' DI PAGAMENTO';							
+						$assign['params'] = $params;
+						$this->getPartial('shared/SortField', $assign);
+						?>
+						</td>
+						</td>
+						<td width="100">CLIENTE</td>
+						<td width="100">OPERATORE</td>
+<!--                        <td width="100">MODIFICA</td>-->
+						<td nowrap="nowrap">PRODOTTI ACQUISTATI</td>
+						<td nowrap="nowrap">SPEDISCI ORDINE</td>
+                        <td width="100">CANCELLA</td>
+					</tr>
+					<script>
+					function swapCheckbox(div_id, action, id)
+					{
+						$.ajax({
+							  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxEcmSetOption',
+							  type: 'POST',
+							  dataType: 'html',
+							  data: 'id='+id+'&action='+action,
+							  success: function(html){
+								  if($('#'+div_id).css('background-color') == 'rgb(34, 139, 34)')
+									  	$('#'+div_id).css('background-color', '#FF0000');
+								  else
+									  	$('#'+div_id).css('background-color', '#228b22');
+								  $('#'+div_id).html(html);								  
+							  }
+							});	
+					}
+					</script>
+				<?php foreach ($_tplvar['list'] as $key => $value):?>	
+					<tr <?php if($key % 2):?>style="background-color: #2F2F2F;"<?php endif;?>>
+						<td>
+                            # <?php echo $value['id'];?>
+						</td>
+						<td nowrap="nowrap">
+                            <?php
+                            	$exp = explode(' ', $value['data_inserimento_riga']); 
+                            	echo $this->getFormatDate($value['data_inserimento_riga']);
+                            ?>
+						</td>
+						<td><?php echo $this->getFormatPrice($value['importo']);?></td>
+						<td><?php echo $value['tipo_pagamento'];?></td>
+						
+<!--						<td align="center">-->
+<!--							<div id="div_pagato_<?php echo $value['id'];?>" -->
+<!--									style="float:left;height:15px;width:15px;background-color:<?php if($value['pagato'] == 1):?>#228b22<?php else:?>#FF0000<?php endif;?>;cursor:pointer;" -->
+<!--									onclick="swapCheckbox('div_pagato_<?php echo $value['id'];?>', 'pagato', '<?php echo $value['id'];?>');">&nbsp;</div>-->
+<!--						</td>-->
+<!--						<td align="center">-->
+<!--							<div id="div_spedito_<?php echo $value['id'];?>" -->
+<!--									style="float:left;height:15px;width:15px;background-color:<?php if($value['spedito'] == 1):?>#228b22<?php else:?>#FF0000<?php endif;?>;cursor:pointer;" -->
+<!--									onclick="swapCheckbox('div_spedito_<?php echo $value['id'];?>', 'spedito', '<?php echo $value['id'];?>');">&nbsp;</div>-->
+<!--						</td>-->
+<!--						<td align="center">-->
+<!--							<div id="div_fatturato_<?php echo $value['id'];?>" -->
+<!--									style="float:left;height:15px;width:15px;background-color:<?php if($value['fatturato'] == 1):?>#228b22<?php else:?>#FF0000<?php endif;?>;cursor:pointer;" -->
+<!--									onclick="swapCheckbox('div_fatturato_<?php echo $value['id'];?>', 'fatturato', '<?php echo $value['id'];?>');">&nbsp;</div>-->
+<!--						</td>-->
+						<td nowrap="nowrap">
+							<a href="javascript:void(0);" onclick="javascript:
+							$.fancybox.showLoading();
+							$.ajax({
+								  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxEcmGetProduct',
+								  type: 'POST',
+								  dataType: 'html',
+								  data: 'id_user=<?php echo $value['user_data']['id'];?>',
+								  success: function(html){
+								  		$.fancybox(html);
+									  //$('#user_<?php echo $value['user_data']['id'];?>').html(html);
+									  //$('#user_<?php echo $value['user_data']['id'];?>').show();
+								  }
+								});">
+								<?php echo $value['user_anag_data']['name'].' '.$value['user_anag_data']['surname'];?>
+							</a>
+							<div id="user_<?php echo $value['user_data']['id'];?>" style="border:1px solid #993300;background-color:#000000;left:20px;display:none;position:absolute;z-index:1000"></div>
+						</td>
+						<td><?php echo $value['operatore'];?></td>
+
+<!--						<td align="center">-->
+<!--							<div id="div_is_in_ecommerce_<?php echo $value['id'];?>" -->
+<!--									style="height:15px;width:15px;background-color:<?php if($value['is_in_ecommerce'] == 1):?>#2388FF<?php else:?>#ffffff<?php endif;?>;cursor:pointer;" -->
+<!--									onclick="swapCheckbox('div_is_in_ecommerce_<?php echo $value['id'];?>', 'is_in_ecommerce', '<?php echo $value['id'];?>');">&nbsp;</div>-->
+<!--						</td>-->
+<!--						<td align="center">-->
+<!--							<div id="div_is_in_evidence_<?php echo $value['id'];?>" -->
+<!--									style="height:15px;width:15px;background-color:<?php if($value['is_in_evidence'] == 1):?>#2388FF<?php else:?>#ffffff<?php endif;?>;cursor:pointer;" -->
+<!--									onclick="swapCheckbox('div_is_in_evidence_<?php echo $value['id'];?>', 'is_in_evidence', '<?php echo $value['id'];?>');">&nbsp;</div>-->
+<!--						</td>-->
+<!--						<td align="center">-->
+<!--							<div id="div_is_invisible_<?php echo $value['id'];?>" -->
+<!--									style="height:15px;width:15px;background-color:<?php if($value['is_invisible'] == 1):?>#2388FF<?php else:?>#ffffff<?php endif;?>;cursor:pointer;" -->
+<!--									onclick="swapCheckbox('div_is_invisible_<?php echo $value['id'];?>', 'is_invisible', '<?php echo $value['id'];?>');">&nbsp;</div>-->
+<!--						</td>-->
+                                               
+<!--                       	<td class="actions" nowrap="nowrap">                        -->
+<!--                       		<a href="<?php echo $_tplvar['WWW_ROOT'].'?act=CaricaMagazzino&id_content='. $value['id']?>">MODIFICA</a>-->
+<!--						</td>-->
+                       	<td class="actions" nowrap="nowrap">                        
+						
+							<a class="edit" href="javascript:void(0);" onclick="
+									$.fancybox.showLoading();
+									$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxEcmGetProduct',
+										  type: 'POST',
+										  dataType: 'html',
+										  data: 'id_order=<?php echo $value['id'];?>',
+										  success: function(html){
+										  		$.fancybox(html);
+											  //$('#giacenze_<?php echo $value['id'];?>').html(html);
+											  //$('#giacenze_<?php echo $value['id'];?>').show();
+										  }
+										});">PRODOTTI AQUISTATI</a>
+							<div id="giacenze_<?php echo $value['id'];?>" style="border:1px solid #993300;background-color:#000000;left:20px;display:none;position:absolute;z-index:1000"></div>
+						</td>
+						<td class="actions" nowrap="nowrap">
+							<a class="delete" href="<?php echo $_tplvar['WWW_ROOT'].'?act=SendOrder&id='.$value['id'];?>">SPEDISCI ORDINE</a>
+						</td>
+                        <td class="actions" nowrap="nowrap">
+							<script type="text/javascript">
+							html_delete_<?php echo $value['id'];?> = '<div style="left:400px;padding:10px;width:250px;"><b>Sei sicuro di voler cancellare?</b><div style="width:200px; height:50px; margin-left:15px; margin-top:10px;"><div style="float:left;width:100px;"><input type="button" value="Si" onclick="javascript:document.location.href = \'<?php echo $_tplvar['WWW_ROOT']?>?act=OrdersSended&delete=1&id=<?php echo $value['id']?>\'" style="cursor:pointer" /></div></div></div>';
+							</script>
+							<a class="delete" href="javascript:void(0);" onclick="javascript:$.fancybox(html_delete_<?php echo $value['id'];?>);">CANCELLA</a>
+						</td>
+					</tr>
+				<?php endforeach;?>						
+
+				</table>
+
+                <!-- Page Navigation -->
+                <?php
+                if(!empty($_REQUEST['id_category'])) 
+                	$assign['params'] = '&id_category='.$_REQUEST['id_category'];
+                ?>
+				<?php echo $this->getPartial('shared/Paging', $assign);?>
+				<!-- /Page Navigation -->
+				
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+
+				

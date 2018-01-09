@@ -1,0 +1,48 @@
+<?php 
+$_tplvar = $this->getVars();
+
+$key_search = $assign['key_session'];
+$order_by = $assign['order_by'];
+$params = $assign['params'];
+$action = $assign['action'];
+$field_name = $assign['field_name'];
+?>
+
+<?php if($_SESSION[$key_search]['order_type'] == 'ASC'):?>
+	<a href="javascript:void(0);" class="order" onclick="
+		document.getElementById('fade').style.display='block';
+
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $action?>',
+			  type: 'POST',
+			  dataType: 'html',
+			  data: '&order_by=<?php echo $order_by?>&order_type=DESC<?php echo $params?>',
+			  success: function(html){
+					document.getElementById('fade').style.display='none';
+				  $('#list_content').html(html);
+			  }
+			});">
+		<?php echo $field_name?>
+	</a>
+	<?php if($_SESSION[$key_search]['order_by'] == $order_by):?>
+		<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_desc.png">
+	<?php endif;?>
+<?php else:?>
+	<a href="javascript:void(0);" class="order" onclick="
+		document.getElementById('fade').style.display='block';
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $action?>',
+			  type: 'POST',
+			  dataType: 'html',
+			  data: '&order_by=<?php echo $order_by?>&order_type=ASC<?php echo $params?>',
+			  success: function(html){
+				document.getElementById('fade').style.display='none';
+				  $('#list_content').html(html);
+			  }
+			});">
+		<?php echo $field_name?>
+	</a>
+	<?php if($_SESSION[$key_search]['order_by'] == $order_by):?>
+		<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/s_asc.png">
+	<?php endif;?>
+<?php endif;?>

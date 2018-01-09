@@ -1,0 +1,202 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Login');
+$templateConfig = $_tplvar['template_config']['search'];
+?>
+<style>
+.crop{
+    float:left;
+    margin:.1em 2px .1em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:150px;
+    height:150px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+<div class="category-products">
+	<!-- Begin ToolBarButton -->
+    <?php 
+    $assign['url'] = $_tplvar['WWW_ROOT'].'?act=SearchFornitoriDe&for=1';
+    $assign['layout_active'] = $_SESSION['Search']['layout'];
+    $assign['show_switch_layout'] = true;
+    $this->getPartial('SearchFornitoriDe/ToolBarButton1', $assign);?>
+	<!-- End ToolBarButton -->
+	<br>
+			<?php if(empty($_tplvar['content'])):?>
+			    <?php 
+			    $assign['err_message'] = 'Attenzione: il prodotto cercato non &eacute; al momento disponibile.';
+			    $this->getPartial('shared/ErrorMessage', $assign);
+			    ?>
+			<?php endif;?>
+	
+	<!-- Begin Product Listing -->
+	<table class="list-table">
+		<?php $i=1;?>
+		<?php foreach ($_tplvar['content'] as $key => $value):?>
+			<?php if($i == 1):?>
+			<tr>
+			<?php endif;?>
+					<td
+						<?php foreach ($_SESSION[session_id()]['cart']['contenuto'] as $content):?>
+						<?php endforeach;?> class="list-row" style="border:1px solid #fff;vertical-align:top;" onclick="javascript:swapClass(this, 'list-row', 'list-row active');" onmouseover="jQuery('#box-<?php echo $value['id']?>').css('border', '1px solid #e9e9e9');jQuery('#box-view-detail<?php echo $value['id']?>').css('display', 'block');" onmouseout="jQuery('#box-<?php echo $value['id']?>').css('border', '1px solid #fff');jQuery('#box-view-detail<?php echo $value['id']?>').css('display', 'none');">
+					<div id="box-<?php echo $value['id']?>" style="border:1px solid #fff;height:auto;">												
+						<table style="width:190px;margin-left:4px">
+						<tr>
+							<td class="list-cell-boxed"  style="width:184px;height:180px">
+								<?php
+								$image = null;
+								if(is_file($_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore2/'.$value['codice']."P.jpg"))
+									$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore2/".$value['codice']."P.jpg";
+								else
+								{
+									$file = WWW_IMAGE_GASA_PAHT.$value['codice']."P.jpg";
+									$file_headers = @get_headers($file);
+									
+									if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+										$image_to_copy = null;
+									else
+										$image_to_copy = WWW_IMAGE_GASA_PAHT.$value['codice']."P.jpg";
+										
+									if(!empty($image_to_copy))
+									{
+										copy($image_to_copy, $_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/fornitore2/'.$value['codice']."P.jpg");
+										$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/fornitore2/".$value['codice']."P.jpg";
+									}
+								}
+								?>
+							
+								<?php if(!empty($image)):?>
+<!-- 									<p class="crop"> -->
+									<p style="width:184px;">
+										<a style="text-decoration:none;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' />');" title="" class="lightbox " rel="group1">
+											<img src="<?php echo $image?>" style="width:184px;max-height:270px" alt="" />
+										</a>
+									</p>
+								<?php else:?>
+									<a style="text-decoration:none;" href="javascript:void(0);">
+										<div style="margin: 0px 0px 14px 0px;width:184px;height:138px;border:1px solid #6d7a7e;text-align:center;padding:0px;"><div style="color:#6d7a7e;margin-top:60px;font-size:30px;">IMAGE</div></div>
+									</a>
+								<?php endif;?>
+							</td>
+						</tr>
+						<?php if($templateConfig['FIELD_4']['is_visible']):?>
+						<tr>
+						  <td class="list-cell-boxed">
+				          <?php if(empty($value[$templateConfig['FIELD_4']['key']])):?>
+				          	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				          <?php else:?>
+				          	<?php echo $templateConfig['FIELD_4']['value']?>: <?php echo $value[$templateConfig['FIELD_4']['key']]?>
+				          <?php endif;?>
+				          </td>
+						</tr>
+						<?php endif;?>
+						<?php if($templateConfig['FIELD_2']['is_visible']):?>
+						<tr>
+				          <td class="list-cell-boxed">
+				          	<?php echo $templateConfig['FIELD_2']['value']?>: <?php echo $value[$templateConfig['FIELD_2']['key']]?>
+				          </td>
+						</tr>
+						<?php endif;?>
+						<?php if($templateConfig['FIELD_3']['is_visible']):?>
+						<tr>
+				          <td class="list-cell-boxed">
+				          	<?php echo $templateConfig['FIELD_3']['value']?>: <?php echo $value[$templateConfig['FIELD_3']['key']]?>
+				          </td>
+						</tr>
+						<?php endif;?>
+						<?php if($templateConfig['FIELD_9']['is_visible']):?>
+						<tr>
+							<td class="list-cell-boxed"> 
+								<?php if(!empty($value[$templateConfig['FIELD_9']['key']]) && !empty($_SESSION['LoggedUser']['id'])):?>
+									<?php echo $templateConfig['FIELD_9']['value']?>:
+							          <?php
+							          $ricarico = 0;
+							          $ricarico_commissione_imballi_gasa = 0;
+							          $ricarico_commissione_fissa_gasa = 0;
+							          
+							          if(!empty($_tplvar['commissione_fissa_gasa']))
+							          	$value[$templateConfig['FIELD_9']['key']] += $this->getRicarico($value[$templateConfig['FIELD_9']['key']], $_tplvar['commissione_fissa_gasa']);
+							          
+							          if(!empty($_tplvar['commissione_imballi_gasa']))
+							          	$value[$templateConfig['FIELD_9']['key']] += $this->getRicarico($value[$templateConfig['FIELD_9']['key']], $_tplvar['commissione_imballi_gasa']);
+							          
+							          if(!empty($_SESSION['LoggedUser']['sconto_fornitori_de']))
+							          	$value[$templateConfig['FIELD_9']['key']] += $this->getRicarico($value[$templateConfig['FIELD_9']['key']], $_SESSION['LoggedUser']['sconto_fornitori_de']);
+							          ?>
+								
+									&euro; <?php echo Currency::FormatEuro( $value[$templateConfig['FIELD_9']['key']] )?>
+								<?php endif;?>
+							</td>
+						</tr>
+						<?php endif;?>
+						<tr>
+							<td class="list-cell-boxed">
+								<?php
+								$add_to_basket_url = $_tplvar['WWW_ROOT'].'DetailFornitoriDe';
+								if(!empty($value['codice']))
+									$add_to_basket_url .= '/'.$value['codice'];
+								else
+									$add_to_basket_url .= '/-';
+							
+								if(!empty($value['descrizione']))
+									$add_to_basket_url .= '/'.str_replace("'",'',str_replace('"','',str_replace('%','',str_replace('(','',$value['descrizione']))));
+								else
+									$add_to_basket_url .= '-';
+							
+								$add_to_basket_url .= '/'.$value['id'].'.html';
+								?>
+								<div class="cella-toolbar">
+									<strong><a href="<?php echo $add_to_basket_url;?>" style="color:#fff;">Dettaglio</a></strong>
+								</div>&nbsp;
+								
+								<?php
+								$add_to_basket_url = $_tplvar['WWW_ROOT'].'ShoppingCartFornitoriDe';
+								if(!empty($value['codice']))
+									$add_to_basket_url .= '/'.$value['codice'];
+								else
+									$add_to_basket_url .= '/-';
+								
+							
+								if(!empty($value['descrizione']))
+									$add_to_basket_url .= '/'.str_replace("'",'',str_replace('"','',str_replace('%','',str_replace('(','',$value['descrizione']))));
+								else
+									$add_to_basket_url .= '-';
+							
+								$add_to_basket_url .= '/'.$value['id'].'.html';
+								?>
+								<div class="cella-toolbar">
+									<strong><a href="<?php echo $add_to_basket_url;?>" style="color:#fff;">Acquista</a></strong>
+								</div>
+							</td>	
+						</tr>											
+						</table>
+						<br>
+					</div>
+				</td>
+			<?php if($i == 4):?>
+			<?php $i=1;?>
+			</tr>
+			<?php else:?>
+				<?php $i++;?>
+			<?php endif;?>
+		<?php endforeach;?>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		</table>
+
+	<!-- End Product Listing -->
+	<!-- <script type="text/javascript">decorateList('products-list', 'none-recursive')</script> -->
+
+	<!-- Begin ToolBarButton -->
+    <?php 
+    $assign['show_paging'] = true;
+    $assign['show_switch_layout'] = false;
+    $this->getPartial('shared/ToolBarButton', $assign);?>
+	<!-- End ToolBarButton -->

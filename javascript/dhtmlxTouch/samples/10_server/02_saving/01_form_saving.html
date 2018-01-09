@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<script src="../../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="../../../codebase/touchui.css" type="text/css" charset="utf-8">
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ready(function(){
+				dhx.ui({
+                    view:"window",
+                    width:400,
+                    height:250,
+                    head:false,
+                    position:"center",
+                    body:{
+                        rows:[
+                            {view:"toolbar", type:"MainBar", elements:[
+                                {view:"button", label:"Save", click:"save_sample" },
+                                {view:"button", label:"Reload", click:"reload_sample" }
+                            ]},
+                            {
+                                view:"form", id:"myform", elements:[
+                                    {},
+                                    { view:"text", label:"Name", id:"name"},
+                                    { view:"text", label:"Age",  id:"age"},
+                                    { view:"text", label:"City", id:"city"},
+                                    {}
+                                ]
+                            }
+                        ]
+                    }
+				});
+				
+				reload_sample();
+				
+			});
+			
+			function save_sample(){
+				dhx.ajax().post("data.php?action=update", $$('myform').getValues());
+			};
+			function reload_sample(){
+				$$('myform').clear();
+				$$('myform').load('data.php?action=get&id=1');
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<?php
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Index');
+$this->getIntlPartial('Login');
+?>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<?php echo $this->getEncoding();?>
+	<?php $this->getPartial('shared/MetaTag');?>
+
+	
+	<!--**************************** STANDARD CSS & JS ****************************-->	
+	<!-- <link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/theme/custom.css" media="all" /> -->
+	<!--[if IE 9]>
+	<!--<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/theme/custom-ie9.css" media="all" /> -->
+	<![endif]-->
+	<!--[if IE 8]>
+	<!--<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/theme/custom-ie8.css" media="all" /> -->
+	<![endif]-->
+	<!--[if IE 7]>
+	<!--<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/theme/custom-ie7.css" media="all" /> -->
+	<![endif]-->
+	
+	<!--<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/jquery.fancybox-1.3.4.pack.js"></script> -->
+	<!--<link media="all" href="<?php echo $_tplvar['WWW_ROOT']?>css/theme/jquery.fancybox-1.3.4.css" type="text/css" rel="stylesheet"> -->
+	<!--<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/jscolor/jscolor.js"></script> -->
+	<!--<link media="all" href="<?php echo $_tplvar['WWW_ROOT']?>css/theme/styles.css" type="text/css" rel="stylesheet"> -->
+	<!--<link href="<?php echo $_tplvar['WWW_ROOT']?>javascript/jQuery/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/> -->
+	<!--<script src="<?php echo $_tplvar['WWW_ROOT']?>javascript/jQuery/jqueryui/1.8/jquery-ui.min.js"></script> -->
+	<!--**************************** STANDARD CSS & JS ****************************-->
+	<?php $this->getPartial('shared/HederaPageJavascript');?>
+
+
+
+<!-- 	<link href='http://fonts.googleapis.com/css?family=Molengo'	rel='stylesheet' type='text/css'> -->
+	<link href="<?php echo $_tplvar['WWW_ROOT']?>img/web/favico.png" rel="icon" type="image/x-icon" />
+	
+	<link rel="icon" href="<?php echo $_tplvar['WWW_ROOT']?>img/web/favicon.ico" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="shortcut icon" href="<?php echo $_tplvar['WWW_ROOT']?>img/web/favicon.ico" type="image/x-icon" />
+
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/styles.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/skin.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/light_box.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/widgets.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/elastislide.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/mix.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/skeleton.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/magicat.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/print.css" media="print" />
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/prototype/prototype.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/lib/ccard.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/prototype/validation.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/scriptaculous/builder.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/scriptaculous/effects.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/scriptaculous/dragdrop.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/scriptaculous/controls.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/varien/js.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/varien/form.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/varien/menu.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/mage/translate.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/mage/cookies.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/js/common.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/js/light_box.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/js/select-menu.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/js/tipsy.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/js/jquery.elastislide.js"></script>
+	<!--[if lt IE 8]>
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/styles-ie.css" media="all" />
+	<![endif]-->
+	<!--[if lt IE 7]>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/ds-sleight.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT']?>javascript/theme/ie6.js"></script>
+	<![endif]-->
+	
+</head>
+<body class=" catalog-category-view categorypath-sunglasses-html category-sunglasses">
+	<div id="messageBox">
+		<div class="message_inner">Your item succesfully added on your shopping cart</div>
+	</div>
+	
+	<div class="wrapper eleven columns  container">
+		<noscript>
+			<div class="global-site-notice noscript">
+				<div class="notice-inner">
+					<p>
+						<strong>JavaScript seems to be disabled in your browser.</strong><br />
+						You must have JavaScript enabled in your browser to utilize the
+						functionality of this website.
+					</p>
+				</div>
+			</div>
+		</noscript>
+		<div class="page sixteen columns">
+
+			<div class="header-container">
+
+				<div class="header">
+					<div class="content">
+						<div class="quickPan">
+							<div class="quick-access">
+								<ul class="links">
+									<li class="first"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=MyAccount" title="My Account">My Account</a></li>
+									<li><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Orders&user_id=<?php echo $_SESSION['LoggedUser']['id'];?>" title="Odrini" class="my-wishlist">Ordini</a></li>
+									<li><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart" title="Carrello" class="top-link-checkout">Carrello</a></li>
+									<?php if(!empty($_SESSION['LoggedUser']['customer_data']['id_agent'])):?>
+									<li class=" last">
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ChoiceUser" title="Log In">Cambia Cliente</a>
+									</li>
+									<?php endif;?>
+									<li class=" last">
+										<?php if(!empty($_SESSION['LoggedUser']['id'])):?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Logout" title="Log In">Log Out</a>
+										<?php else:?>
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Login" title="Log In">Log In</a>
+										<?php endif;?>									
+									</li>
+								</ul>
+
+								<div class="quick_right">
+									<div style="padding:15px">
+										<?php if(!empty($_SESSION['LoggedUser']['id'])):?>
+											<?php echo 'Benvenuto '.substr($_SESSION['LoggedUser']['customer_data']['ragione_sociale'], 0, 45);?>
+										<?php else:?>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<?php endif;?>
+									</div>
+									<!-- 
+									<div class="header_currency">
+										<div class="block block-currency">
+											<div class="currency_pan">
+												<span class="currencyName">Currency: </span><span>USD</span>
+											</div>
+											<div class="currency_detial" style="display: none;">
+												<a title="British Pound Sterling" class="currency_icon" href="">£</a>
+												<a title="Euro" class="currency_icon" href="">€</a>
+												<a title="US Dollar" class="currency_icon   selected" href="">$</a>
+											</div>
+										</div>
+										<script type="text/javascript">
+											jQuery(function() {
+												jQuery(".block-currency").hover(function() {
+													jQuery(this).addClass('active');
+													jQuery(".currency_detial").stop(true, true).delay(300).slideDown(500, "easeOutBounce");
+													},  
+													function() {
+													jQuery(".currency_detial").stop(true, true).delay(300).fadeOut(100, "easeInCubic");
+													});
+											});
+										</script>
+									</div>
+									-->
+								</div>
+							</div>
+							<div id="search-bar">
+								<div class="block block-cart header_cart">
+									<div class="block-content_pan">
+
+										<?php
+										$session = $_SESSION[session_id()]['basket'];
+										unset($session['n_carrelli']);
+										unset($session['perc_occupazione']);
+										?>
+										<div class="summary">
+											<h2 class="classy">
+												<a href="" id="top-cart-amount">(<?php echo count($session)?>)</a><span class="Itext"><?php echo $this->getTranslation('prodotto/i');?></span>
+											</h2>
+										</div>
+										<?php 
+											if(!empty($session)):?>
+											<div class="remain_cart" id="minicart" style="display: none;">
+												<?php echo $this->getPartial('shared/BoxCart');?>
+											</div>
+										<?php else:?>
+											<div class="remain_cart" id="minicart">
+												<p class="empty"><?php echo $this->getTranslation('Non ci sono prodotti nel carrello.');?></p>
+											</div>
+										<?php endif;?>
+										
+									</div>
+								</div>
+								<script type="text/javascript">
+									jQuery(function() {
+										jQuery(".header_cart").hover(function() {
+											jQuery(this).addClass('active');
+											jQuery("#minicart").stop(true, true).delay(300).slideDown(500, "easeOutBounce");
+											},  
+											function() {
+											jQuery("#minicart").stop(true, true).delay(300).fadeOut(100, "easeInCubic");
+											});
+									});
+								</script>
+								<div class="top-bar" style="border:none;">
+								
+								</div>
+							</div>
+						</div>
+						<div id="logo">
+							<a href="<?php echo $_tplvar['WWW_ROOT']?>" title="<?php echo $_tplvar['PREFIX_META_TITLE']?>" class="logo">
+								<strong></strong>
+								<img src="<?php echo $_tplvar['WWW_ROOT']?>img/web/custom_logo/logo.png" alt="<?php echo $_tplvar['PREFIX_META_TITLE']?>" style="  width: 261px;margin-top: 15px;margin-bottom: -13px;margin-left: 2px;"/>
+							</a>
+						</div>
+					</div>
+					<script type="text/javascript">
+						//<![CDATA[
+						(function($j){
+							$j(document).ready(function(){
+									$j('#nav').mobileMenu();
+							});
+							})(jQuery);
+						//]]>
+					</script>
+					<div class="main_nav">
+						<div class="nav-container">
+							<ul id="nav">
+
+								<li class="home "><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Home">Home</a></li>
+								<li class="home "><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ChiSiamo">Chi Siamo</a></li>
+								<li class="home <?php if($_tplvar['CURRENT_ACTION'] == 'Search' && (empty($_REQUEST['stato']) || $_REQUEST['stato'] != 'P')):?>active<?php endif;?>"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Search">Web Shop</a></li>
+								<li class="home <?php if($_tplvar['CURRENT_ACTION'] == 'Search' && $_REQUEST['stato'] == 'P'):?>active<?php endif;?>"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Search&stato=P">Offerte</a></li>
+								<li class="home "><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Contatti">Contatti</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<script type="text/javascript">
+			jQuery(function() {
+				jQuery(".login_pan").hover(function() {
+					jQuery(this).addClass('active_box');
+					jQuery(".header_login_box").stop(true, true).delay(300).slideDown(500, "easeOutBounce");
+					}, 
+					function() {
+					jQuery(".header_login_box").stop(true, true).delay(300).fadeOut(100, "easeInCubic");
+					});
+					if(jQuery('.account_box').length > 0){
+						jQuery('.login_pan').addClass('active_pan');
+					};
+		
+			});
+			</script>
+			<div class="main-container col2-left-layout sixteen columns">
+				<div class="main">
+
+					<div class="col-main <?php if($_tplvar['CURRENT_ACTION'] == 'Home' || $_tplvar['CURRENT_ACTION'] == 'Contatti'):?>sixteen<?php else:?>twelve<?php endif;?> columns">
+						<div class="category-products">
+						
+							<!-- LISTA PRODOTTI -->
+							<div id="swich_layout">
+							<?php $this->getPartial($_tplvar['tpl_action']);?>
+							</div>
+							<!-- LISTA PRODOTTI -->
+
+						</div>
+					</div>
+					<!-- BEGIN COLONNA SX -->
+										
+					<div class="col-left sidebar four columns">
+						<div class="magicat-container">
+							<div class="block">
+								<?php foreach ($_tplvar['cmb_gm'] as $value):?>
+									<?php if($_tplvar['search']['gm'] == $value['id']):?>
+									<div class="block-title cat_heading">
+										<strong><span><?php echo $value['gruppo']?></span> </strong>
+									</div>
+									<?php endif;?>
+								<?php endforeach;?>
+							</div>
+						</div>
+						
+						<div class="block block-layered-nav">
+							<?php if(TPL_DISPLAY_GM && $_tplvar['CURRENT_ACTION'] != 'Home' && $_tplvar['CURRENT_ACTION'] != 'Contatti'):?>
+							<div class="block-title">
+								<strong><span>Ricerca Prodotti</span> </strong>
+							</div>
+							<div class="block-content">
+							
+								<!-- Begin ToolBarButton -->
+								<?php 
+								$assign['url'] = $_tplvar['WWW_ROOT'].'?act=Search';
+								$assign['layout_active'] = $_SESSION['Search']['layout'];
+								$assign['show_switch_layout'] = true;
+								$this->getPartial('shared/ToolBarButton', $assign);?>
+								<!-- End ToolBarButton -->
+							
+							</div>
+							<?php endif;?>
+							<?php if(TPL_DISPLAY_GM && $_tplvar['CURRENT_ACTION'] != 'Home' && $_tplvar['CURRENT_ACTION'] != 'Contatti'):?>
+									<div class="block-title">
+										<strong><span>Categorie</span> </strong>
+									</div>
+										
+									<table style="width:100%;border-color:#3b3a42;margin-top:10px;margin-left:0px;left:0px">
+									<?php if(TPL_DISPLAY_GM):?>
+									<tr>													
+										<td style="padding:5px" colspan="2">
+										
+											<style>
+											.tb-gruppi-merceologici{padding-top:0px;padding-bottom:0px}
+											.lnk-gruppi-merceologici{color:grey;}
+											.lnk-gruppi-merceologici:hover{font-weight:bold;}
+											</style>
+											
+											<div id="accordian">
+												<ul>
+													<?php foreach ($_tplvar['menu'] as $key => $value):?>	
+													<li>
+														<div style="border-top: 1px solid grey;background: #F9F9F9;padding: 5px;">
+															<h3>
+																 <a class="lnk-gruppi-merceologici" style="font-weight:bold;font-size:12px;<?php if($_tplvar['search']['gm'] == $value['id']):?>color:#333333;<?php endif;?>" href="<?php echo $_tplvar['WWW_ROOT']?>?act=Search&id_settore=empty&gm=<?php echo $value['id']?>"><?php echo $value['gruppo']?></a> 
+<!--																<a class="lnk-gruppi-merceologici" style="font-weight:bold;font-size:12px;<?php if($_tplvar['search']['gm'] == $value['id']):?>color:#333333;<?php endif;?>" href="javascript:void(0);"><?php echo $value['gruppo']?></a>-->
+															</h3>
+															<ul <?php if($_tplvar['menu_gm_selected'] == $value['id']):?>class="active"<?php endif;?>>
+																<li>
+																	<?php foreach ($value['famiglie'] as $val):?>
+																	<a class="lnk-gruppi-merceologici" style="margin-left:10%;<?php if($_tplvar['search']['famiglia'] == $val['id']):?>font-weight:bold;font-size:12px;color:#333333;<?php endif;?>" href="<?php echo $_tplvar['WWW_ROOT']?>?act=Search&id_settore=empty&famiglia=<?php echo $val['id']?>&gm=<?php echo $value['id']?>">- <?php if(empty($val['famiglia'])) echo 'Altro'; else echo $val['famiglia'];?></a><br>
+																	<?php endforeach;?>
+																</li>
+															</ul>
+														</div>
+													</li>
+													<?php endforeach;?>		
+												</ul>
+											</div>
+											
+											<!-- prefix free to deal with vendor prefixes -->
+											<script src="<?php echo $_tplvar['WWW_ROOT']?>javascript/amenu/prefixfree-1.0.7.js" type="text/javascript" type="text/javascript"></script>
+											
+											<script>
+											/*jQuery time*/
+											jQuery(document).ready(function(){
+												jQuery("#accordian ul ul").slideUp();
+
+												jQuery(".active").slideDown();
+												
+												jQuery("#accordian h3").click(function(){
+													//slide up all the link lists
+													jQuery("#accordian ul ul").slideUp();
+													//slide down the link list below the h3 clicked - only if its closed
+													if(!jQuery(this).next().is(":visible"))
+													{
+														jQuery(this).next().slideDown();
+													}
+												})
+											})
+											</script>
+
+										</td>
+									</tr>
+									<?php endif;?>
+									</table>
+							<?php endif;?>	
+																			
+						</div>
+					</div>
+					<!-- END COLONNA SX -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 
+	<div class="footer_top">
+
+		<div class="free-shipping">
+			Spedizioni in tutta Italia <span>&nbsp;</span>
+		</div>
+		<form action="" method="post" id="newsletter-validate-detail">
+			<div class="form-subscribe">
+				<h3>Iscriviti alle nostre newsletter</h3>
+				<div class="input-box">
+					<input type="text" name="email" id="newsletter"
+						title="Sign up for our newsletter"
+						class="input-text required-entry validate-email" />
+
+					<button type="submit" title="Submit" class="button">
+						<span><span>Submit</span> </span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+ -->
+	<div class="footer-container">
+		<div class="footer container">
+			<div class="f-left bottom_links sixteen columns">
+			<!-- 
+				<div class="footer-content">
+					<div class="footer-content">
+						<div class="block_1">
+							<h3>Chi Siamo</h3>
+							<ul class="footer_links">
+								<li><a href="aboutus.html">Chi Siamo</a></li>
+								<li><a href="aboutus.html">Servizio Clienti</a></li>
+								<li><a href="aboutus.html">Privacy & Policy</a></li>
+							</ul>
+						</div>
+						<div class="block_1">
+							<h3>Servizio Clienti</h3>
+							<ul class="footer_links">
+								<li><a href="aboutus.html">Acquisti e Resi</a></li>
+								<li><a href="contacts.html">Contatti</a></li>
+							</ul>
+						</div>
+						<div class="block_1">
+							<h3>Termini &amp; Condizioni</h3>
+							<ul class="footer_links">
+								<li><a href="aboutus.html">Termini &amp; Condizioni</a></li>
+							</ul>
+						</div>
+						<div class="block_1 block_1">
+							<h3>Chi Siamo</h3>
+							<p>
+								Il mondo della natura, dei fiori, delle piante e degli animali tutto sotto lo stesso tetto.
+								Il tetto di Garden Planet che da piu' di 30 anni...<a class="readMore" href="<?php echo $_tplvar['WWW_ROOT']?>?act=ChiSiamo">leggi tutto</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="block_3">
+
+						<h3 class="title">Seguici sui Social...</h3>
+						<ul class="social-links">
+							<li><a href="www.facebook.com/gardenplanetgrugliasco" data-tooltip="Seguici su facebook"><img src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/images/facebook.png" alt="facebook" /> </a></li>
+
+							<li><a href="#" data-tooltip="Subscribe to RSS feed"><img src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/images/rss.png" alt="RSS" /> </a></li>
+							<li><a href="#" data-tooltip="Follow us on twitter"><img src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/images/twitter.png" alt="twitter" /> </a></li>
+							<li><a href="#" data-tooltip="Follow us on Dribbble"><img src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/images/dribbble.png" alt="dribbble" /> </a></li>
+							<li><a href="#" data-tooltip="Follow us on Youtube"><img src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/images/youtube.png" alt="youtube" /> </a></li>
+
+						</ul>
+						<div class="payment_block">
+							<img src="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/images/payment.png" alt="Payment" />
+						</div>
+
+					</div>
+				</div>
+				 -->
+				<div class="footer_bottom">
+					<!-- 
+					<div class="footer_bottom_left">
+						<p>
+							<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Home">Home</a><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Home">Chi Siamo</a><a href="#">Contatti</a>
+						</p>
+					</div>
+					 -->
+					&copy; 2014 <a title="Florsistemi" href="http://www.florsistemi.it">Florsistemi</a>. All Rights Reserved.
+				</div>
+			</div>
+		</div>
+		<div id="back-top">
+			<a href="javascript%20void_(0).html"></a>
+		</div>
+</body>
+</html>

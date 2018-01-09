@@ -1,0 +1,5 @@
+Dec 30 13:00:07|5[info]30/12/2017 13:00:07 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Dec 30 13:00:12|5[info]30/12/2017 13:00:12 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Dec 30 13:00:26|5[info]30/12/2017 13:00:26 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Orders][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Dec 30 13:00:34|5[info]30/12/2017 13:00:34 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Setup][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Dec 30 13:00:54|5[info]30/12/2017 13:00:54 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = ControllerError][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]

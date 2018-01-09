@@ -1,0 +1,592 @@
+<?php $_tplvar = $this->getVars();?>
+
+<?php if(!empty($_tplvar['is_ajax'])):?>
+<input type="hidden" name="is_ajax" value="1">
+<?php endif;?>
+<?php if(!empty($_tplvar['is_ajax'])):?>
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/styles.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/skin.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/light_box.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/widgets.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/elastislide.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/mix.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/skeleton.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/magicat.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT']?>css/skin/frontend/default/megashop-green/css/print.css" media="print" />
+<?php endif;?>
+
+<style>
+<!--
+.buttons-cart {
+	text-align: center;
+	padding: 5px;
+	background: #26358f;
+	color: #fff;
+	cursor: pointer;
+	margin: 0px;
+	margin-top: 10px;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: 600;
+	width: 75px;
+	float: left;
+}
+
+-->
+</style>
+
+
+<?php if(!empty($_REQUEST['error_friends'])):?>
+<script>
+jQuery(document).ready(function() {
+	jQuery('#err-1-send-to-friends').show(500);
+});
+</script>
+<div id="err-1-send-to-friends" style="position:absolute;display:none;top:10%;left:25%;padding:25px;background-color:#fff;border:1px solid #0e0ef6">
+<table style="margin-top:-12px;margin-bottom:12px;margin-right: 3px;"><tr><td style="padding:18px;font-size:14px;"><?php echo $this->getTranslation('Attenzione: la mail del destinatario non &eacute; una mail valida!')?></td></tr><tr><td style="font-size:14px;"><div class="buttons-cart" style="margin-left:50px;"><a href="javascript:void(0);" onclick="jQuery('#err-1-send-to-friends').hide(500);" style="color:#fff;"><?php echo $this->getTranslation('Chiudi')?></a></strong></div></td></tr></table>
+</div>			
+<?php endif;?>
+<?php if(!empty($_REQUEST['error_personal'])):?>
+<script>
+jQuery(document).ready(function() {
+	jQuery('#err-2-send-to-friends').show(500);
+});
+</script>
+<div id="err-2-send-to-friends" style="position:absolute;display:none;top:10%;left:25%;padding:25px;background-color:#fff;border:1px solid #0e0ef6">
+<table style="margin-top:-12px;margin-bottom:12px;margin-right: 3px;"><tr><td style="padding:18px;font-size:14px;"><?php echo $this->getTranslation('Attenzione: la tua mail non &eacute; una mail valida!')?></td></tr><tr><td style="font-size:14px;"><div class="buttons-cart" style="margin-left:50px;"><a href="javascript:void(0);" onclick="jQuery('#err-2-send-to-friends').hide(500);" style="color:#fff;"><?php echo $this->getTranslation('Chiudi')?></a></strong></div></td></tr></table>
+</div>			
+<?php endif;?>
+<?php if(!empty($_REQUEST['confirm'])):?>
+<script>
+jQuery(document).ready(function() {
+	jQuery('#cnf-send-to-friends').show(500);
+});
+</script>
+<div id="cnf-send-to-friends" style="position:absolute;display:none;top:10%;left:25%;padding:25px;background-color:#fff;border:1px solid #0e0ef6">
+<table style="margin-top:-12px;margin-bottom:12px;margin-right: 3px;"><tr><td style="padding:18px;font-size:14px;"><?php echo $this->getTranslation('Email inviata correttamente!')?></td></tr><tr><td style="font-size:14px;"><div class="buttons-cart" style="margin-left:50px;"><a href="javascript:void(0);" onclick="jQuery('#cnf-send-to-friends').hide(500);" style="color:#fff;"><?php echo $this->getTranslation('Chiudi')?></a></strong></div></td></tr></table>
+</div>			
+<?php endif;?>
+
+<h2 class="ftitle" style="margin-left:20px">
+<?php 
+	if(!empty($_tplvar['content'][0]['nome_it']))
+		echo str_replace("\\", "", $_tplvar['content'][0]['nome_it']).' - ';
+
+	echo $_tplvar['content'][0]['C1'];
+?>
+</h2>
+<?php //$giacenza = $this->getGiacenzaById($_tplvar['content'][0]['id_gicenza']);?>
+<?php $content = $this->getContentById($_tplvar['content'][0]['id']);?>
+<div class="store-item">
+	<div>
+		<?php 
+		$bar_code = null;
+		$bar_code = $_tplvar['content'][0]['vbn'];
+		if(empty($bar_code))
+			$bar_code = $_tplvar['content'][0]['bar_code'];
+		?>	
+		<?php $image = null;?>
+		<?php $vbn_image = $this->getImageFromVbn($content['vbn']);?>
+	  	<?php if($_tplvar['content'][0]['have_image']):?>
+			<?php $obj_image = $this->dbGetImageFromBarCode($bar_code);?>
+			<?php $product_image = $this->dbGetImageProductFromBarCode($bar_code);?>
+			<?php if(!empty($obj_image)):?>
+				<?php $image = $obj_image[0]['www_path'].$obj_image[0]['name'];?>
+			<?php elseif(!empty($product_image)):?>
+				<?php $image = $product_image;?>
+			<?php else:?>
+			<?php $image = null;?>
+			<?php endif;?>
+		<?php endif;?>	
+		
+		<table <?php if(empty($_tplvar['is_ajax'])):?>style="width:100%;"<?php endif;?>>
+		<tr>
+			<td valign="top" style="width:30%;padding:20px">
+				<?php if(!empty($image)):?>
+					<a style="width:384px;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' />');" title="" class="product-image lightbox grouped_elements" rel="group1">
+						<img src="<?php echo $image?>" width="227" alt="" />
+					</a>
+				<?php else:?>
+				<?php if(!empty($vbn_image)):?>
+				<!--  onmouseout="jQuery('#zoom-vbn-image').hide();" onmouseover="jQuery('#zoom-vbn-image').html('<img src=\'<?php echo $vbn_image?>\' width=\'440\' oncontextmenu=\'return false;\'>');jQuery('#zoom-vbn-image').show('slow');" -->
+					<a style="width:14px;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $vbn_image?> oncontextmenu=\'return false;\' width=640/>');" title="" class="product-image">
+						<img id="image_custom" src="<?php echo $vbn_image?>" alt="" style="width:220px;height:200px;" width="220" height="200" oncontextmenu="return false;"/>
+					</a>
+				<?php endif;?>
+				<?php endif;?>
+				<?php if(empty($image) && empty($vbn_image)):?>
+				<a style="width:284px;" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" title="" class="product-image lightbox grouped_elements" rel="group1">
+					<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="227" alt="" />
+				</a>
+				<?php endif;?>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" style="vertical-align:top;padding:20px;font-size:16px;line-height: 22px;">
+		
+	          <?php if(!empty($_tplvar['content'][0]['vbn'])):?>
+			  		VBN: <b><?php echo $_tplvar['content'][0]['vbn']?></b><br>
+	          <?php endif;?>
+	          
+		      <?php if(!empty($_tplvar['content'][0]['bar_code'])):?>
+		          	Codice Articolo: <b><?php echo $_tplvar['content'][0]['bar_code']?></b><br>
+			  <?php endif;?>
+	          
+	          <?php if(!empty($_tplvar['content'][0]['descrizione'])):?>
+	          	<?php echo str_replace("\\", "", $this->getTranslation('Descrizione'))?>: <b><?php echo str_replace("\\", "", $_tplvar['content'][0]['descrizione'])?></b><br>
+	          <?php endif;?>
+	          
+	          
+			  <?php if($templateConfig['FIELD_6']['is_visible']):?>
+			          <?php echo $this->getTranslation('Gruppo Merceologico')?>: <?php echo $this->getTranslation($_tplvar['content'][0]['C3'])?><br>
+			  <?php endif;?>
+
+	          <?php if(!empty($_tplvar['content'][0]['gruppo'])):?>
+	          	<?php echo $this->getTranslation('Categoria')?>: <b><?php echo $_tplvar['content'][0]['gruppo']?></b><br>
+	          <?php endif;?>
+	          <?php if(!empty($_tplvar['content'][0]['id_gm'])):?>
+								Famiglia: 
+									<?php 
+									$famiglia = $this->getFamigliById($_tplvar['content'][0]['id_famiglia']);
+									if (empty($famiglia['famiglia']) || $famiglia['famiglia'] == '')
+										$famiglia['famiglia'] = 'Altro';
+									echo $famiglia['famiglia'];
+									?>
+								<br>
+							<?php endif;?>
+	          <?php if(!empty($_tplvar['content'][0]['C1'])):?>
+	          	<?php echo $this->getTranslation('Variet&agrave;')?>: <b><?php echo $_tplvar['content'][0]['C1']?></b><br>
+	          <?php endif;?>
+	          
+	          <?php if(!empty($_tplvar['content'][0]['C3'])):?>
+	          	<?php echo $this->getTranslation('Altezza')?>: <b><?php echo $_tplvar['content'][0]['C3']?> <?php echo $_tplvar['content'][0]['tipo_colore'];?></b><br>
+	          <?php endif;?>
+
+	          <?php if(!empty($_tplvar['content'][0]['C4'])):?>
+	          	<?php echo $this->getTranslation('Dimensione')?>: <b><?php echo $_tplvar['content'][0]['C4']?></b><br>
+	          <?php endif;?>
+	          
+	          <?php if(!empty($_tplvar['content'][0]['C2'])):?>
+	          	<?php echo $this->getTranslation('Varie')?>: <b><?php echo $_tplvar['content'][0]['C2']?></b><br>
+	          <?php endif;?>
+	          
+	          <?php if(!empty($_tplvar['content'][0]['scelta'])):?>
+	          	<?php echo $this->getTranslation('Scelta')?>: <b><?php echo $_tplvar['content'][0]['scelta']?></b><br>
+	          <?php endif;?>
+
+	          <?php if(!empty($_tplvar['content'][0]['fusto'])):?>
+	          	<?php echo $this->getTranslation('Fusto')?>: <b><?php echo $_tplvar['content'][0]['fusto']?></b><br>
+	          <?php endif;?>
+
+	          <?php if(!empty($_tplvar['content'][0]['C5'])):?>
+	          	<?php echo $this->getTranslation('Produttore')?>: <b><?php echo $_tplvar['content'][0]['C5']?></b><br>
+	          <?php endif;?>
+	          
+	          <?php if(!empty($_tplvar['content'][0]['openstage'])):?>
+	          	<?php echo $this->getTranslation('Open Stage')?>: <b><?php echo $_tplvar['content'][0]['openstage']?></b><br>
+	          <?php endif;?>
+	          <?php if(!empty($_tplvar['content'][0]['quantita_mazzo'])):?>
+	          	<?php echo $this->getTranslation("Quantita Mazzo")?>: <b><?php echo $_tplvar['content'][0]['quantita_mazzo']?></b><br>
+	          <?php endif;?>
+	          
+	          <?php if(!empty($_tplvar['content'][0]['disponibilita'])):?>
+	          	<table>
+	          	<tr>
+	          		<td><?php echo $this->getTranslation('Disponibilita')?>:</td>
+	          		<td style="padding-left:10px;">
+	          		
+					<?php if($_tplvar['content'][0]['stato'] == 'V'):?>
+						Disponibile solo in negozio
+	          		<?php else:?>
+					  	<?php if(!empty($_tplvar['content'][0]) && $_tplvar['content'][0]['disponibilita'] > 0):?>
+						  	<?php if($_tplvar['content'][0]['disponibilita'] >= 10):?>
+						  		<img title="Disponibilità <?php echo $_tplvar['content'][0]['disponibilita']?>" alt="<?php echo $_tplvar['content'][0]['disponibilita']?>" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/full_stock_level.gif" width="30" style="margin-top:3px;width:30px;">
+						  	<?php elseif($_tplvar['content'][0]['disponibilita'] < 10 && $_tplvar['content'][0]['disponibilita'] >= 5):?>
+						  		<img title="Disponibilità <?php echo $_tplvar['content'][0]['disponibilita']?>" alt="<?php echo $_tplvar['content'][0]['disponibilita']?>" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/medium_stock_level.gif" width="30" style="margin-top:3px;width:30px;">
+						  	<?php elseif($_tplvar['content'][0]['disponibilita'] < 5):?>
+						  		<img title="Disponibilità <?php echo $_tplvar['content'][0]['disponibilita']?>" alt="<?php echo $_tplvar['content'][0]['disponibilita']?>" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/low_stock_level.gif" width="30" style="margin-top:3px;width:30px;">
+						  	<?php endif;?>
+			          	<?php else:?>
+			          		<img alt="Non Disponibile" title="Non Disponibile" src="<?php echo $_tplvar['WWW_ROOT']?>css/images/low_stock_level.gif" width="30" style="margin-top:3px;width:30px;">
+			          	<?php endif;?>
+			        <?php endif;?>
+	          		</td>
+	          	</tr>
+	          	</table>
+	          <?php endif;?>
+	          
+	          <?php if(!empty($_tplvar['content'][0][$_tplvar['key_prezzo']]) && !empty($_SESSION['LoggedUser']['id'])):?>
+	          	<?php echo $this->getTranslation('Prezzo')?>: <b style="color:red;"><?php echo Currency::FormatEuro($_tplvar['content'][0][$_tplvar['key_prezzo']])?></b><br>
+	          <?php endif;?>
+				
+				<?php
+				if(empty($_tplvar['is_ajax']))
+				{
+					$add_to_basket_url = $_tplvar['WWW_ROOT'].'ShoppingCart';
+					if(!empty($_tplvar['content'][0]['id_famiglia']))
+					{
+						$famiglia = $this->getFamigliById($_tplvar['content'][0]['id_famiglia']);
+						$add_to_basket_url .= '/'.$famiglia['famiglia'];
+					}
+					else
+						$add_to_basket_url .= '/-';
+					
+					if(!empty($_tplvar['content'][0]['nome_it']))
+						$add_to_basket_url .= '/'.$_tplvar['content'][0]['nome_it'];
+					else
+						$add_to_basket_url .= '-';
+					
+					$add_to_basket_url .= '/'.$_tplvar['content'][0]['id'].'-'.$_tplvar['content'][0]['id'].'.html';
+				?>
+
+					<div class="buttons-cart" style="float: left;">
+						<strong><a href="<?php echo $add_to_basket_url;?>" style="color:#fff;"><?php echo $this->getTranslation('Acquista')?></a></strong>
+					</div>
+				<?php 
+				}
+				?>		
+				<?php if(empty($_tplvar['is_ajax'])):?>
+				<div class="buttons-cart" style="float: left;width: 115px;margin-left:10px;">
+					<strong><a href="javascript:void(0);" onclick="jQuery('#send-to-friends').show(500);" style="color:#fff;"><?php echo $this->getTranslation('Invia a un amico')?></a></strong>
+				</div>
+				<?php endif;?>
+				
+				<div id="send-to-friends" style="position:absolute;display:none;top:10%;left:25%;padding:25px;background-color:#fff;border:1px solid #0e0ef6">
+				
+					<form action="<?php echo $_tplvar['WWW_ROOT'];?>?act=SendToFriends" method="post" id="frm-send-to-friends">
+					<?php if(!empty($_tplvar['content'][0]['id'])):?>
+						<input type="hidden" name="id_giacenza" value="<?php echo $_tplvar['content'][0]['id']?>">
+					<?php else:?>
+						<input type="hidden" name="id" value="<?php echo $_tplvar['content'][0]['id_content']?>">
+					<?php endif;?>
+					<table style="margin-top:-12px;margin-bottom:12px;margin-right: 3px;">
+					<tr>
+						<td style="padding:18px;font-size:14px;">
+							<table>
+							<tr>
+								<td colspan="2"><?php echo $this->getTranslation('Inserici la mail di un tuo amico o collega di lavoro e condividi questo prodotto')?></td>
+							</tr>
+							<tr>
+								<td><?php echo $this->getTranslation('La tua Mail')?><?php echo $this->getTranslation(' o il tuo Nome e Cognome')?>:</td>
+								<td><input type="text" name="personal_email"></td>
+							</tr>
+							<tr>
+								<td><?php echo $this->getTranslation('La Mail del destinatario')?>:</td>
+								<td><input type="text" name="frined_email"></td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-left: 18px;font-size:14px;">
+							<div class="buttons-cart">
+								<a href="javascript:void(0);" onclick="jQuery('#frm-send-to-friends').submit();" style="color:#fff;"><?php echo $this->getTranslation('Invia')?></a></strong>
+							</div>
+							<div class="buttons-cart" style="margin-left:10px;">
+								<a href="javascript:void(0);" onclick="jQuery('#send-to-friends').hide(500);" style="color:#fff;"><?php echo $this->getTranslation('Chiudi')?></a></strong>
+							</div>
+						</td>
+					</tr>
+					</table>
+					</form>
+				</div>				
+				
+			</td>
+		</tr>
+		</table>
+		<style>
+		body {
+			background: #fff;
+			font: 11px/1.55 'Droid Sans',arial, helvetica, sans-serif;
+			color: #333;
+			text-align: left;
+			border-top: 5px solid #333333;
+		}
+		</style>
+		<?php if(!empty($_tplvar['content'][0]['note'])):?>
+			<span style="font-size:14px;text-align:left;"><span style="font-size: 100%;"><?php echo $this->getTranslation("Note")?></span>: <?php echo $_tplvar['content'][0]['note']?></span><br><br>
+		<?php endif;?>		
+	</div>
+	
+<?php //if(empty($_tplvar['is_ajax'])):?>
+	<iframe src="https://www.facebook.com/plugins/like.php?href=<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $_tplvar['content'][0]['name'];?>/<?php echo str_replace(' ','%20',str_replace("'","", str_replace('"','', $_tplvar['content'][0]['name_it'])))?>/<?php echo $_tplvar['content'][0]['id']?>.html" scrolling="no" frameborder="0" style="border:none; width:450px; height:80px;margin-left:20px"></iframe>
+<?php //endif;?>
+</div>
+<br>
+
+
+<?php //if(empty($_tplvar['is_ajax'])):?>
+<script type="text/javascript">
+<!--
+function validateForm()
+{
+	var email = $('#email').val();
+	var richiesta = $('#richiesta').val();
+	var captcha_code = $('#captcha_code').val();
+	var ret = true;
+	
+	if(email == '')
+	{
+		$('#email').css('border', '1px solid red');
+		ret = false;
+	}
+	else
+		$('#email').css('border', '#555555');
+	if(richiesta == '')
+	{
+		$('#richiesta').css('border', '1px solid red');
+		ret = false;
+	}
+	else
+		$('#richiesta').css('border', '#555555');
+//	if(captcha_code == '')
+//	{
+//		$('#captcha_code').css('border', '1px solid red');
+//		ret = false;
+//	}
+//	else
+//		$('#captcha_code').css('border', '#555555');
+
+	return ret;
+}
+//-->
+</script>
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=RequestInfo" method="post" onsubmit="javascript:return validateForm();">
+<?php if(!empty($_tplvar['is_ajax'])):?>
+	<input type="hidden" name="is_ajax" value="1">
+<?php endif;?>
+
+<?php if(!empty($_tplvar['content'][0]['id'])):?>
+	<input type="hidden" name="id_giacenza" value="<?php echo $_tplvar['content'][0]['id']?>">
+<?php else:?>
+	<input type="hidden" name="id" value="<?php echo $_tplvar['content'][0]['id_content']?>">
+<?php endif;?>
+
+<table style="width: 100%;margin-left:20px;font-size:14px">
+	<tbody>
+	<tr>
+		<th colspan="2" align="center">Richiedi ulteriori informazioni su questo articolo</th>
+	</tr>
+	<tr>
+		<th colspan="2">&nbsp;</th>
+	</tr>
+	<tr>
+		<th align="right" width="250">Nome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="nome" value="<?php echo $_tplvar['customer_data']['nome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Cognome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="cognome" value="<?php echo $_tplvar['customer_data']['cognome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Telefono&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="telefono" value="<?php echo $_tplvar['customer_data']['telefono']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Indirizzo email *&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" id="email" name="email" value="<?php echo $_tplvar['customer_data']['email']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Localit&agrave; (Regione,Provincia o Citt&agrave;)&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="localita" value="<?php echo $_tplvar['customer_data']['localita']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right" valign="top">Richiesta *&nbsp;</th>
+		<th align="left" style="padding:6px;"><textarea rows="4" cols="26" id="richiesta" name="richiesta"><?php echo $_tplvar['customer_data']['richiesta']?></textarea></th>
+	</tr>
+	<tr>
+		<th colspan="2" align="left" style="padding:6px;">
+			<script type="text/javascript">
+			var RecaptchaOptions = {
+				theme : 'blackglass'
+			};
+			</script>		
+			<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=<?php echo GOOGLE_RECAPCHA_PUBLIC_KEY;?>"></script>
+			<noscript>
+			<iframe src="http://www.google.com/recaptcha/api/noscript?k=<?php echo GOOGLE_RECAPCHA_PUBLIC_KEY;?>" height="300" width="500" frameborder="0"></iframe><br>
+			<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+			<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+			</noscript>
+		</th>
+	</tr>
+	<?php if($_tplvar['error_captcha']):?>
+	<tr>
+		<th colspan="2" style="color:red;padding:6px;">Attenzione errore nell'inserimento del Captcha</th>
+	</tr>
+	<?php endif;?>
+	<tr>
+		<th>(*) Campi obbligatori</th>
+		<th style="padding:6px;"><input type="submit" value="Invia Richiesta"></th>
+	</tr>
+	<?php if($_tplvar['confirm']):?>
+	<tr>
+		<th colspan="2" style="color:green;padding:6px;">La tua richiesta &egrave; stata inviata correttamente</th>
+	</tr>
+	<?php endif;?>
+	</tbody>
+</table>
+</form>
+
+<div class="clear"></div>
+
+<style>
+.crop{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:180px;
+    height:85px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+
+<br>
+<br>
+<?php if(!empty($_tplvar['releated'])):?>
+<h2 class="ftitle">Ti consigliamo anche</h2>
+<?php endif;?>
+							<?php 
+							$rowForBox = 8;
+							?>
+							<div class="store-cont">
+							<?php foreach($_tplvar['releated'] as $key => $product):?>
+								<?php $index++;?>
+								<?php if(!empty($product) && $index <= $rowForBox):?>
+								<?php $hrefCategory = $product['name']?>
+									<div class="item-box" style="min-height: 220px;">
+										<?php $image = $this->getImageFromIdContent($product['id'], 'Large_', '100')?>
+										<?php if(!empty($image)):?>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+											<?php echo $image;?>
+										</a>
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="100" height="95">
+										<?php endif;?>
+										</p>
+										<div class="item_name">
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+												<?php echo $product['name_band'];?><br>
+												<?php echo substr($product['name_it'], 0, $_tplvar['SHOP_TRUNCATE_TEXT']);?>
+											</a>
+										</div>
+										<?php 
+										$qty = 0;
+										$qty_color = null;
+										$qty_size = null;
+										foreach ($product['magazzino'] as $giacenze)
+										{
+											$qty += $giacenze['quantita'];
+											if(!empty($giacenze['color']))
+												$qty_color[ucfirst(strtolower($giacenze['color']))] += $giacenze['quantita'];
+											if(!empty($giacenze['size']))
+												$qty_size[ucfirst(strtolower($giacenze['size']))] += $giacenze['quantita'];
+										}
+										?>										
+										<div class="disp">
+										<?php if($product['magazzino'][0]['quantita'] > 0):?>
+											Disponibile
+										<?php elseif($product['magazzino'][0]['is_in_ecommerce']):?>
+											Acquistabile in negozio
+										<?php else:?>
+											<p style="color:#F9D616">Non Disponibile</p>
+										<?php endif;?>
+										</div>
+										<div class="price">
+											<a href="javascript:void(0);" onclick="javascript:
+												$('#detail_qty_<?php echo $product['id']?>').show();">
+												Taglie e colori&nbsp;(<?php echo $qty?>)
+											</a>
+											<a id="lnk_<?php echo $product['id']?>" href="javascript:void(0);" onclick="javascript:
+												$.ajax({
+													  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetListCompare',
+													  type: 'POST',
+													  dataType: 'html',
+													  data: 'id_content=<?php echo $product['id']?>',
+													  success: function(html){
+														  $('#lnk_<?php echo $product['id']?>').css('color', 'green');
+														  $('#prodicts_compared').html(html);
+														  //$('#res_<?php echo $product['id']?>').show();
+													  }
+													});">
+												Confronta Prodotto
+											</a>
+										</div>
+										
+<!--										<div id="res_<?php echo $product['id']?>"></div>-->
+										
+										<div id="detail_qty_<?php echo $product['id']?>" style="width:auto;display:none;position:absolute;background-color:#1A1A1A;z-index:1;border:1px solid #fff;">
+										<dir id="sidebar">										
+											<div id="nav_menu-3" class="widget_nav_menu widget" style="background:transparent url(../images/border_dot_light.png) repeat-x left top">
+												<div class="winner">
+												<h4 class="wtitle">TAGLIE E COLORI</h4><br>
+													<div class="menu-abbigliamento-container">
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_color)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Colori disponibili
+														</li>
+														<?php
+															foreach ($qty_color as $key => $val):
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_size)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Taglie disponibili
+														</li>
+														<?php foreach ($qty_size as $key => $val):?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<a href="javascript:void(0);" onclick="javascript:$('#detail_qty_<?php echo $product['id']?>').hide();">Chiudi</a>
+														</li>
+													</ul>
+													</div>
+												</div>
+											</div>
+										</dir>
+										</div>
+
+										<div class="price">
+										<?php if(!empty($product['price_discounted_it'])):?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_discounted_it'])?>
+										<?php else:?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_it'])?>
+										<?php endif;?>
+										</div>
+									</div>
+								<?php else:?>
+<!--									<div class="store-cont"><div class="item-box">&nbsp;</div></div>-->
+								<?php endif;?>
+								
+								<?php endforeach;?>
+								
+								<div class="clear"></div>
+							</div>
+<?php //endif;?>
+							<div class="clear"></div>

@@ -1,0 +1,621 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<script>window.dhx_globalImgPath = "<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/imgs/";</script>
+<link rel="STYLESHEET" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.css">
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
+
+
+		<div id="page-content" class="clearfix">
+			
+			<h1 style="padding-left:30px;">Cerca il rappresentante</h1>
+			
+			<h2>Compila il campo con il nome del rappresentante da cercare</h2>
+			<div class="inner-box clearfix">
+
+                
+                
+			
+<div id="form-block-div">
+<?php if(empty($_tplvar['list'])):?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaRappresentanti" method="post">
+<div>
+	<label for="field_1">Nome</label>
+	<?php if(!empty($_tplvar['rappresentante']['nome'])):?>
+		<select id="id_rappresentante_nome" name="nome">
+			<option value="<?php echo $_tplvar['rappresentante']['nome'];?>"><?php echo $_tplvar['rappresentante']['nome'];?></option>
+		</select>
+	<?php else:?>
+		<div id="id_rappresentante_nome"></div>		
+	<?php endif;?>		
+	<script>
+	var z = new dhtmlXCombo("id_rappresentante_nome", "nome", 350);
+	z.addOption([<?php
+					$arrayJs = '';
+					foreach ($_tplvar['cmb_dhtmlx_rapp_nome'] as $key => $data)
+						$arrayJs .= "['".$data['data']."', '".$data['data']."'],";
+					$arrayJs = substr($arrayJs, 0, -1);
+					echo $arrayJs;
+				?>]);
+	z.enableFilteringMode(true);
+	
+//	z.enableFilteringMode(true, "<?php echo $_tplvar['WWW_ROOT'];?>/action/CompleteCombo.php?tbl_name=rappresentante&field=nome", true);
+	</script>
+</div>
+<div>
+	<label for="field_1">Cognome</label>
+	<?php if(!empty($_tplvar['rappresentante']['cognome'])):?>
+		<select id="id_rappresentante_cognome" name="cognome">
+			<option value="<?php echo $_tplvar['rappresentante']['cognome'];?>"><?php echo $_tplvar['rappresentante']['cognome'];?></option>
+		</select>
+	<?php else:?>
+		<div id="id_rappresentante_cognome"></div>		
+	<?php endif;?>		
+	<script>
+	var z = new dhtmlXCombo("id_rappresentante_cognome", "cognome", 350);
+	z.addOption([<?php
+					$arrayJs = '';
+					foreach ($_tplvar['cmb_dhtmlx_rapp_cognome'] as $key => $data)
+						$arrayJs .= "['".$data['data']."', '".$data['data']."'],";
+					$arrayJs = substr($arrayJs, 0, -1);
+					echo $arrayJs;
+				?>]);
+	z.enableFilteringMode(true);
+	
+//	z.enableFilteringMode(true, "<?php echo $_tplvar['WWW_ROOT'];?>/action/CompleteCombo.php?tbl_name=rappresentante&field=cognome", true);
+	</script>
+</div>
+
+<div class="submit">
+<input type="submit" class="submit" value="Cerca" />
+</div>
+</form>
+
+<br><br><br><br><br><br><br>
+<div class="separatore"></div>
+
+<?php else:?>
+<?php 
+/**
+ * Logica per gestire il caso in cui ho il nome del rappresentante in GET
+ */
+$params = '';
+if(!empty($_REQUEST['nome']))
+	$params = '&nome='.$_REQUEST['nome'];
+if(!empty($_REQUEST['cognome']))
+	$params = '&cognome='.$_REQUEST['cognome'];
+if(!empty($_REQUEST['cognome']) || !empty($_REQUEST['nome']))
+	$params .= '&reload_search=1';
+/**
+ * Logica per gestire il caso in cui ho il nome del rappresentante in GET
+ */
+?>
+<?php foreach ($_tplvar['list'] as $val):?>
+<h2><?php echo $val['nome']?> <?php echo $val['cognome']?></h2><br>
+<div id="form-block-div" style="width:1000px;">
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaRappresentanti" method="post">
+<input type="hidden" name="edit" value="1">
+<input type="hidden" name="id" value="<?php echo $val['id']?>">
+<table cellpadding="0" cellspacing="10">
+<tr>
+	<td>Nome</td>
+	<td>Cognome</td>
+	<td>Indirizzo</td>
+</tr>
+<tr>
+	<td><input name="nome" type="text" value="<?php echo $val['nome']?>"></td>
+	<td><input name="cognome" type="text" value="<?php echo $val['cognome']?>"></td>
+	<td><input name="indirizzo" type="text" value="<?php echo $val['indirizzo']?>"></td>
+</tr>
+<tr>	
+	<td>Citt&agrave;</td>
+	<td>CAP</td>
+	<td>Cellulare</td>
+</tr>
+<tr>	
+	<td><input name="citta" type="text" value="<?php echo $val['citta']?>"></td>
+	<td><input name="cap" type="text" value="<?php echo $val['cap']?>"></td>
+	<td><input name="cellulare" type="text" value="<?php echo $val['cellulare']?>"></td>
+</tr>
+<tr>	
+	<td>Telefono Fisso</td>
+	<td>Email</td>
+	<td>Precentuale Provvigioni</td>
+</tr>
+<tr>	
+	<td><input name="fisso" type="text" value="<?php echo $val['fisso']?>"></td>
+	<td><input name="email" type="text" value="<?php echo $val['email']?>"></td>
+	<td><input name="percentuale_provvigioni" type="text" value="<?php echo $val['percentuale_provvigioni']?>"></td>
+</tr>
+<tr>
+	<td colspan="3">
+		<div class="submit">
+			<input type="submit" class="submit" value="Salva"/>
+		</div>
+		
+		<div class="submit">
+			<input type="reset" class="submit reset" value="Reset"/>
+		</div>
+		
+		<div class="submit">
+			<?php 
+			$assign['id'] 			= $val['id'];
+			$assign['div_id'] 		= 'id_div_porta_visione_rapp';
+			$assign['key_tbl_name'] = 'assegna_tbl_name';
+			$assign['tbl_name'] 	= 'magazzino';
+			$assign['key_action'] 	= 'assegna_action';
+			$assign['action'] 		= 'cerca_libro';
+			?>
+			
+			<input type="reset" class="submit reset" value="Assegna Libri" 
+			onclick="javascript:
+								show_div_cerca_ajax(
+													'<?php echo $assign['div_id']?>', 
+													'isbn', 
+													'<?php echo $val['id']?>', 
+													'text_message_search', 
+													'<span>Cerca il libro da assegnare al rappresentante</span>',
+													'rappresentante', 
+													'<?php echo $_tplvar['WWW_ROOT']?>');"/>
+			<script src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>
+			<?php if(!empty($assign['action'])):?>
+				<input type="hidden" name="<?php echo $assign['key_action']?>" id="<?php echo $assign['key_action']?>" value="<?php echo $assign['action']?>">
+			<?php endif;?>
+			<?php if(!empty($assign['tbl_name'])):?>
+				<input type="hidden" name="<?php echo $assign['key_tbl_name']?>" id="<?php echo $assign['key_tbl_name']?>" value="<?php echo $assign['tbl_name']?>">
+			<?php endif;?>
+
+			<?php $this->getPartial('shared/DivCercaLibroRappresentante', $assign);?>
+		</div>
+		
+		<div class="submit">
+			<?php 
+			$assign['id'] 						= $val['id'];
+			$assign['div_id'] 					= 'id_div_reso_rapp';
+			$assign['id_text_message_search'] 	= 'text_message_search_reso_rapp';
+			$assign['id_submit_button'] 		= 'div_cerca_libro_submit_reso_rapp';
+			$assign['ajax_action'] 				= 'AjaxResoRappresentante';
+			$assign['id_result_search'] 		= 'result_search_reso_rapp';
+			?>
+			<input type="button" class="submit reset" value="Rendi Libri" 
+			onclick="javascript:
+								show_div_cerca_ajax(
+													'<?php echo $assign['div_id']?>', 
+													'isbn', 
+													'<?php echo $val['id']?>', 
+													'text_message_search_reso_rapp', 
+													'<span>Cerca il libro da rendere</span>',
+													'reso_rappresentante', 
+													'<?php echo $_tplvar['WWW_ROOT']?>');"/>
+
+			<input type="hidden" name="tbl_name" id="tbl_name" value="magazzino_rappresemtanti">
+			<input type="hidden" name="action" id="action" value="cerca_libro">
+			<?php $this->getPartial('shared/DivCercaLibro', $assign);?>
+		</div>
+		
+	</td>
+</tr>
+</table>
+</form>
+</div>     
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+<div id="table-block">
+</div>   
+
+<?php if($val['storico_assegnati'] != array()):?>
+<br><br><br><br><br>
+<div id="table-block" style="width:1000px;">
+<h2>Storico Libri/DVD/Riviste assegnati</h2>
+<br>
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+                        	<td>ISBN</td>
+							<td>TITOLO</td>
+							<td>PREZZO</td>
+							<td>QUANTITA'</td>
+							<td>DATA VISIONE</td>
+                            <td>DATA CARICO</td>
+                            <td>AZIONI</td>
+                            <td>DOCUMENTI</td>
+						</tr>
+						<?php foreach ($_tplvar['list_storico_assegnati'] as $value):?>
+						<?php 
+						$assign['id'] = $value['id'];
+						$assign['div_id'] = 'id_div_porta_visione';
+						$assign['id_text_message_search'] = 'text_message_search_rappresentanti';
+						$assign['prefix'] = 'rapp_';
+						?>
+						
+                        <tr>
+							<td><?php echo $value['isbn']?></td>
+                            <td><?php echo $value['titolo']?></td>
+                            <td><?php echo $this->getFormatPrice($value['prezzo'])?></td>
+                            <td>
+                            	<?php if($value['quantita']<=0):?>
+                            		<?php if(file_exists($_tplvar['APP_ROOT'].'/documenti_rappresentanti/scarico/'.$val['id'].'/'.$value['documento_scarico_rapp'].'.pdf')):?>
+                            			RESO
+                            		<?php else:?>
+                            			IN VISIONE
+                            		<?php endif;?>
+                            	<?php else:?> 
+                            		<?php echo $value['quantita']?>
+                            	<?php endif;?>
+                            </td>
+							<td><?php echo $this->getFormatDate($value['data_visione'])?></td>
+                            <td><?php echo $value['documento_carico']?></td>
+                            
+                            <td class="actions" nowrap="nowrap">
+                            <?php if(in_array('AjaxPortaVisione', $_SESSION['profiledActions']) && $value['quantita']>0):?>
+								<a 
+                            		class="edit" 
+                            		href="javascript:void(0);" 
+                            		onclick="javascript:
+                            							show_div_cerca_ajax(
+                            												'<?php echo $assign['div_id']?>', 
+                            												'rapp_nome', 
+                            												'<?php echo $value['id']?>', 
+                            												'<?php echo $assign['id_text_message_search']?>', 
+                            												'<span>Cerca il cliente e porta in visione questo libro</span>');">
+									Porta in Visione</a>
+								
+							<?php endif;?>
+                            </td>
+                            <td class="actions">
+
+								<?php if(file_exists($_tplvar['APP_ROOT'].'/documenti_rappresentanti/carico/'.$val['id'].'/'.$value['documento_carico_rapp'].'.pdf')):?>
+								<a class="e" href="javascript:void();" onclick="var el = document.getElementById('show_doc_visione_<?php echo $value['id']?>');
+																					el.style.visibility = 'visible';
+                            														">Visualiza Doc. Carico</a>								
+								<div id="show_doc_visione_<?php echo $value['id']?>" class="contenitore esplode" style="visibility:hidden;position:absolute;background-color:#E6E6D2;left:0px;z-index:10000; width:400px;">
+								
+								    <div class="tit" style="width:380px;border: 2px solid #000000;color: #6DA9D2;font: bold 1.5em Arial,Tahoma,sans-serif;margin: 0;padding: 12px 0 12px 15px;">
+								    Visualizzazione Doc. Carico
+								    </div>
+								
+									<div id="form-block-div" style="width:380px;">
+										<div class="contenitore" style="width:380px;text-align:left;padding:20px;">
+
+											<a href="<?php echo $_tplvar['WWW_ROOT'].'/documenti_rappresentanti/carico/'.$val['id'].'/'.$value['documento_carico_rapp'].'.pdf'?>" target="_blank" alt="Scarica in formato pdf">
+												<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/pdf_ico.gif" border="0">
+											</a>
+											<b>Documento creato il <?php echo $this->getFormatDate($value['data_visione']);?></b>
+											<br />
+										</div>
+									    <div style="width:380px;margin-left:5px;">
+											<input type="button" class="submit" value="CHIUDI" style="float:right;"  onclick="var el = document.getElementById('show_doc_visione_<?php echo $value['id']?>');
+																													el.style.visibility = 'hidden';"/>
+									    </div>
+									</div>
+								</div>
+								<?php endif;?>        
+								<?php if(file_exists($_tplvar['APP_ROOT'].'/documenti_rappresentanti/scarico/'.$val['id'].'/'.$value['documento_scarico_rapp'].'.pdf')):?>
+								 <br><a class="e" href="javascript:void();" onclick="var el = document.getElementById('show_doc_scarico_<?php echo $value['id']?>');
+																					el.style.visibility = 'visible';
+                            														">Visualiza Doc. Scarico</a>								
+								<div id="show_doc_scarico_<?php echo $value['id']?>" class="contenitore esplode" style="visibility:hidden;position:absolute;background-color:#E6E6D2;left:0px;z-index:10000; width:400px;">
+								
+								    <div class="tit" style="width:380px;border: 2px solid #000000;color: #6DA9D2;font: bold 1.5em Arial,Tahoma,sans-serif;margin: 0;padding: 12px 0 12px 15px;">
+								    Visualizzazione Doc. Scarico
+								    </div>
+								
+									<div id="form-block-div" style="width:380px;">
+										<div class="contenitore" style="width:380px;text-align:left;padding:20px;">
+
+											<a href="<?php echo $_tplvar['WWW_ROOT'].'/documenti_rappresentanti/scarico/'.$val['id'].'/'.$value['documento_scarico_rapp'].'.pdf'?>" target="_blank" alt="Scarica in formato pdf">
+												<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/pdf_ico.gif" border="0">
+											</a>
+											<b>Documento creato il <?php echo $this->getFormatDate($value['data_visione']);?></b>
+											<br />
+										</div>
+									    <div style="width:380px;margin-left:5px;">
+											<input type="button" class="submit" value="CHIUDI" style="float:right;"  onclick="var el = document.getElementById('show_doc_scarico_<?php echo $value['id']?>');
+																													el.style.visibility = 'hidden';"/>
+									    </div>
+									</div>
+								</div>
+								<?php endif;?>    
+                            </td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+						<input type="hidden" name="<?php echo $assign['prefix']?>id_rappresentante" id="<?php echo $assign['prefix']?>id_rappresentante" value="<?php echo $val['id']?>">
+						<input type="hidden" name="<?php echo $assign['prefix']?>tbl_name" id="<?php echo $assign['prefix']?>tbl_name" value="clienti">
+						<input type="hidden" name="<?php echo $assign['prefix']?>action" id="<?php echo $assign['prefix']?>action" value="cerca_cliente">
+						<?php $this->getPartial('shared/DivCercaCliente', $assign);?>
+                <!-- Page Navigation -->
+				<?php
+				$assign['tot_items'] 	= $_tplvar['tot_items_storico_assegnati'];
+				$assign['curr_page'] 	= $_tplvar['curr_page_storico_assegnati'];
+				$assign['last_page'] 	= $_tplvar['last_page_storico_assegnati'];
+				$assign['numViewPage'] 	= $_tplvar['numViewPage_storico_assegnati'];
+				$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+				$assign['pageID'] 		= $params.'&pageIdStoricoAssegnati=';
+				$assign['pageIDIndex']	= $_REQUEST['pageIdStoricoAssegnati'];
+				echo $this->getPartial('shared/PagingAbstract', $assign);
+				?>
+				<!-- /Page Navigation -->
+				<!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1&action=assegnati';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+<br><br>
+</div>
+<?php else:?>
+<br><br><br><br><br>
+<div id="table-block" style="width:1000px;">
+<h2>Non ci sono Libri/DVD/Riviste assegnati nello Storico</h2>
+</div>
+<?php endif;?>
+
+<?php if($val['assegnati'] != array()):?>
+<br><br><br><br><br>
+<div id="table-block" style="width:1000px;">
+<h2>Libri/DVD/Riviste assegnati</h2>
+<br>
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+                        	<td>ISBN</td>
+							<td>TITOLO</td>
+							<td>PREZZO</td>
+							<td>QUANTITA'</td>
+                            <td>DATA ASSEGNAZIONE</td>
+                            <td>AZIONI</td>
+                            <td>DOCUMENTI</td>
+						</tr>
+						<?php foreach ($_tplvar['list_assegnati'] as $value):?>
+						<?php 
+						$assign['id'] = $value['id'];
+						$assign['div_id'] = 'id_div_porta_visione';
+						$assign['id_text_message_search'] = 'text_message_search_rappresentanti';
+						?>
+						
+                        <tr>
+							<td><?php echo $value['isbn']?></td>
+                            <td><?php echo $value['titolo']?></td>
+                            <td><?php echo $this->getFormatPrice($value['prezzo'])?></td>
+                            <td>
+                            	<?php if($value['quantita']<=0):?>
+                            		<?php if(file_exists($_tplvar['APP_ROOT'].'/documenti_rappresentanti/scarico/'.$val['id'].'/'.$value['documento_scarico_rapp'].'.pdf')):?>
+                            			RESO
+                            		<?php else:?>
+                            			IN VISIONE
+                            		<?php endif;?>
+                            	<?php else:?> 
+                            		<?php echo $value['quantita']?>
+                            	<?php endif;?>
+                            </td>
+							<td><?php echo $this->getFormatDate($value['data_inserimento_riga'])?></td>                            
+                            <td class="actions" nowrap="nowrap">
+                            <?php if(in_array('AjaxPortaVisione', $_SESSION['profiledActions']) && $value['quantita']>0):?>
+								<a 
+                            		class="edit" 
+                            		href="javascript:void(0);" 
+                            		onclick="javascript:
+                            							show_div_cerca_ajax(
+                            												'<?php echo $assign['div_id']?>', 
+                            												'rapp_nome', 
+                            												'<?php echo $value['id']?>', 
+                            												'<?php echo $assign['id_text_message_search']?>', 
+                            												'<span>Cerca il cliente e porta in visione questo libro</span>');">
+									Porta in Visione</a>
+								
+							<?php endif;?>
+                            </td>
+                            <td class="actions">
+
+								<?php if(file_exists($_tplvar['APP_ROOT'].'/documenti_rappresentanti/carico/'.$val['id'].'/'.$value['documento_carico_rapp'].'.pdf')):?>
+								<a class="e" href="javascript:void();" onclick="var el = document.getElementById('show_doc_visione_<?php echo $value['id']?>');
+																					el.style.visibility = 'visible';
+                            														">Visualiza Doc. Carico</a>								
+								<div id="show_doc_visione_<?php echo $value['id']?>" class="contenitore esplode" style="visibility:hidden;position:absolute;background-color:#E6E6D2;left:0px;z-index:10000; width:400px;">
+								
+								    <div class="tit" style="width:380px;border: 2px solid #000000;color: #6DA9D2;font: bold 1.5em Arial,Tahoma,sans-serif;margin: 0;padding: 12px 0 12px 15px;">
+								    Visualizzazione Doc. Carico
+								    </div>
+								
+									<div id="form-block-div" style="width:380px;">
+										<div class="contenitore" style="width:380px;text-align:left;padding:20px;">
+
+											<a href="<?php echo $_tplvar['WWW_ROOT'].'/documenti_rappresentanti/carico/'.$val['id'].'/'.$value['documento_carico_rapp'].'.pdf'?>" target="_blank" alt="Scarica in formato pdf">
+												<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/pdf_ico.gif" border="0">
+											</a>
+											<b>Documento creato il <?php echo $this->getFormatDate($value['data_visione']);?></b>
+											<br />
+										</div>
+									    <div style="width:380px;margin-left:5px;">
+											<input type="button" class="submit" value="CHIUDI" style="float:right;"  onclick="var el = document.getElementById('show_doc_visione_<?php echo $value['id']?>');
+																													el.style.visibility = 'hidden';"/>
+									    </div>
+									</div>
+								</div>
+								<?php endif;?>        
+								<?php if(file_exists($_tplvar['APP_ROOT'].'/documenti_rappresentanti/scarico/'.$val['id'].'/'.$value['documento_scarico_rapp'].'.pdf')):?>
+								 <br><a class="e" href="javascript:void();" onclick="var el = document.getElementById('show_doc_scarico_<?php echo $value['id']?>');
+																					el.style.visibility = 'visible';
+                            														">Visualiza Doc. Scarico</a>								
+								<div id="show_doc_scarico_<?php echo $value['id']?>" class="contenitore esplode" style="visibility:hidden;position:absolute;background-color:#E6E6D2;left:0px;z-index:10000; width:400px;">
+								
+								    <div class="tit" style="width:380px;border: 2px solid #000000;color: #6DA9D2;font: bold 1.5em Arial,Tahoma,sans-serif;margin: 0;padding: 12px 0 12px 15px;">
+								    Visualizzazione Doc. Scarico
+								    </div>
+								
+									<div id="form-block-div" style="width:380px;">
+										<div class="contenitore" style="width:380px;text-align:left;padding:20px;">
+
+											<a href="<?php echo $_tplvar['WWW_ROOT'].'/documenti_rappresentanti/scarico/'.$val['id'].'/'.$value['documento_scarico_rapp'].'.pdf'?>" target="_blank" alt="Scarica in formato pdf">
+												<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/pdf_ico.gif" border="0">
+											</a>
+											<b>Documento creato il <?php echo $this->getFormatDate($value['data_visione']);?></b>
+											<br />
+										</div>
+									    <div style="width:380px;margin-left:5px;">
+											<input type="button" class="submit" value="CHIUDI" style="float:right;"  onclick="var el = document.getElementById('show_doc_scarico_<?php echo $value['id']?>');
+																													el.style.visibility = 'hidden';"/>
+									    </div>
+									</div>
+								</div>
+								<?php endif;?>    
+                            </td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+						<input type="hidden" name="<?php echo $assign['prefix']?>id_rappresentante" id="<?php echo $assign['prefix']?>id_rappresentante" value="<?php echo $val['id']?>">
+						<input type="hidden" name="<?php echo $assign['prefix']?>tbl_name" id="<?php echo $assign['prefix']?>tbl_name" value="clienti">
+						<input type="hidden" name="<?php echo $assign['prefix']?>action" id="<?php echo $assign['prefix']?>action" value="cerca_cliente">
+						<?php $this->getPartial('shared/DivCercaCliente', $assign);?>
+                <!-- Page Navigation -->
+				<?php
+				$assign['tot_items'] 	= $_tplvar['tot_items_assegnati'];
+				$assign['curr_page'] 	= $_tplvar['curr_page_assegnati'];
+				$assign['last_page'] 	= $_tplvar['last_page_assegnati'];
+				$assign['numViewPage'] 	= $_tplvar['numViewPage_assegnati'];
+				$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+				$assign['pageID'] 		= $params.'&pageIdAssegnati=';
+				$assign['pageIDIndex']	= $_REQUEST['pageIdAssegnati'];
+				echo $this->getPartial('shared/PagingAbstract', $assign);
+				?>
+				<!-- /Page Navigation -->
+				<!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1&action=assegnati';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+<br><br>
+</div>
+<?php else:?>
+<br><br><br><br><br>
+<div id="table-block" style="width:1000px;">
+<h2>Non ci sono Libri/DVD/Riviste assegnati</h2>
+</div>
+<?php endif;?>
+
+
+<?php if($val['in_visione'] != array()):?>
+<br><br><br>
+<div id="table-block" style="width:1000px;">
+<h2>Libri/DVD/Riviste in visione</h2>
+<br>
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+                        	<td>ISBN</td>
+							<td>TITOLO</td>
+							<td>PREZZO</td>
+							<td>QUANTITA'</td>
+							<td>DATA VISIONE</td>
+                            <td>AZIONI</td>
+						</tr>
+						<?php foreach ($_tplvar['list_in_visione'] as $value):?>
+                        <tr>
+							<td><?php echo $value['isbn']?></td>
+                            <td><?php echo $value['titolo']?></td>
+                            <td><?php echo $this->getFormatPrice($value['prezzo'])?></td>
+                            <td><?php echo $value['quantita_visione']?></td>
+							<td><?php echo $this->getFormatDate($value['data_visione'])?></td>
+							<td class="actions"> 
+							<?php if(in_array('AjaxPortaVisione', $_SESSION['profiledActions'])):?>
+								<a class="edit" href="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovaVendita&id_visione=<?php echo $value['id_visione']?>&id_cliente=<?php echo $value['id_cliente']?>&id_magazzino=<?php echo $value['id']?>&vendita_from=visione&id_rappresentante=<?php echo $val['id']?>">
+								Vendi
+								</a>									
+							<?php endif;?>
+                            </td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+
+                <!-- Page Navigation -->
+				<?php
+				$assign['tot_items'] 	= $_tplvar['tot_items'];
+				$assign['curr_page'] 	= $_tplvar['curr_page'];
+				$assign['last_page'] 	= $_tplvar['last_page'];
+				$assign['numViewPage'] 	= $_tplvar['numViewPage'];
+				$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+				$assign['pageID'] 		= $params.'&pageIdVisioni=';
+				$assign['pageIDIndex']	= $_REQUEST['pageIdVisioni'];
+				echo $this->getPartial('shared/PagingAbstract', $assign);
+				?>
+				<!-- /Page Navigation -->
+				<!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1&action=in_visione';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+				
+                
+<br><br>
+</div>
+<?php else:?>
+<div id="table-block" style="width:1000px;">
+<h2>Non ci sono Libri/DVD/Riviste in visione</h2>
+</div>
+<?php endif;?>
+
+
+
+<?php if($val['vendite'] != array()):?>
+<div id="table-block" style="width:1000px; margin-top:10px;">
+	<h2>Libri/DVD/Riviste venduti</h2>
+	<br>
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+                        	<td>ISBN</td>
+							<td>TITOLO</td>
+							<td>PREZZO</td>
+							<td>QUANTITA'</td>
+							<td>DATA VEDNITA</td>
+						</tr>
+						<?php foreach ($_tplvar['list_vendite'] as $value):?>
+                        <tr>
+							<td><?php echo $value['isbn']?></td>
+                            <td><?php echo $value['titolo']?></td>
+                            <td><?php echo $value['prezzo']?></td>
+                            <td><?php echo $value['quantita']?></td>
+							<td><?php echo $this->getFormatDate($value['data_vendita'])?></td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+
+                <!-- Page Navigation -->
+				<?php
+				$assign['tot_items'] 	= $_tplvar['tot_items_vendite'];
+				$assign['curr_page'] 	= $_tplvar['curr_page_vendite'];
+				$assign['last_page'] 	= $_tplvar['last_page_vendite'];
+				$assign['numViewPage'] 	= $_tplvar['numViewPage_vendite'];
+				$assign['WWW_ROOT'] 	= $_tplvar['WWW_ROOT'];
+				$assign['pageID'] 		= $params.'&pageIdVendite=';
+				$assign['pageIDIndex']	= $_REQUEST['pageIdVendite'];
+				echo $this->getPartial('shared/PagingAbstract', $assign);
+				?>
+				<!-- /Page Navigation -->
+				<!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1&action=venduti';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+                
+				</div>
+
+<?php else:?>
+<div id="table-block" style="width:1000px;">
+<h2>Non ci sono Libri/DVD/Riviste venduti</h2>
+</div>
+<?php endif;?>
+<br><br><br><br><br><br><br><br><br><br><br>
+<?php endforeach;?>
+
+
+<?php endif;?>
+
+
+
+</div>
+</div>
+</div>

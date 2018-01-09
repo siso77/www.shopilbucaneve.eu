@@ -1,0 +1,68 @@
+<?php $_tplvar = $this->getVars();?>
+<h2 class="ftitle">LISTA PREFERITI</h2>
+<p></p>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Preferred" method="post">
+<table class="cart" cellspacing="3">
+	<tbody>
+		<tr>
+			<th>Articolo</th>
+			<th>Descrizione</th>
+			<th>Colore / Taglia</th>
+<!--			<th>Quantità</th>-->
+			<th>Sconto</th>
+			<th>Prezzo</th>
+			<th>Elimina</th>
+		</tr>
+	<?php $j=0;?>
+	<?php foreach ($_tplvar['products'] as $value):?>
+		<?php foreach ($value as $content):?>
+		<input type="hidden" name="id_to_basket[]" value="<?php echo $content['id_content'];?>">
+		<tr>
+			<td>
+			<?php $images = $this->dbGetImageFromIdContent($content['id_content'])?>
+			<?php foreach ($images as $image):?>
+				<img src="<?php echo $image['www_path'].'/Small_'.$image['name']?>">
+			<?php endforeach;?>
+			</td>
+			<td><a href="#"><?php echo $content['name_it']?></a></td>
+			<td><?php echo $content['color'];?>/<?php echo $content['size'];?></td>
+			<!--<td>
+				<select name="quantita[]" id="quantita">
+					<option value="0"<?php if($_tplvar['basket'][$j]['quantita'] == 0):?>selected="selected"<?php endif;?>>0</option>
+					<?php for($i = 1;$i<=$content['quantita'];$i++):?>
+					<?php if(empty($_tplvar['basket'][$j]['quantita']) &&  $i == 1):?>
+						<option value="<?php echo $i?>" selected="selected"><?php echo $i?></option>
+					<?php else:?>
+						<option value="<?php echo $i?>" <?php if($_tplvar['basket'][$j]['quantita'] == $i):?>selected="selected"<?php endif;?>><?php echo $i?></option>
+					<?php endif;?>
+					<?php endfor;?>
+				</select>			
+			</td>
+			--><td><strong><?php echo $content['percentuale_sconto']?>%</strong><br></td>
+			<td>
+				<span class="sconto-txt"><?php echo $content['price_it_qty']?>&euro;</span><br>
+				<strong><?php echo $content['price_discounted_it_qty']?>&euro;</strong>
+			</td>
+			<td>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Preferred&delete=1&id_content=<?php echo $content['id_content']?>&id_magazzino=<?php echo $content['id_magazzino']?>">Elimina</a>
+			</td>
+		</tr>
+		<?php $j++;?>
+		<?php endforeach;?>
+	<?php endforeach;?>
+	</tbody>
+</table>
+<p></p>
+<table>
+	<tbody>
+		<tr>
+			<td width="5%"><!-- <input value="aggiorna quantità" type="button" onclick="javascript:form.submit();"> --></td>
+			<td width="70%"></td>
+			<td width="5%"><input value="« continua shopping" type="button" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>';"></td>
+			<td width="1%"></td>
+			<td width="5%"><!-- <input value="vai in cassa »" type="button" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=CheckoutShopping';"> --></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<div class="clear"></div>

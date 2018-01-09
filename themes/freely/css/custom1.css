@@ -1,0 +1,134 @@
+
+
+
+
+
+
+header{color:#ffffff!important;}
+footer{color:#FFFFFF!important;}footer p{color:#FFFFFF!important;}footer .widget-title{color:#FFFFFF!important;}
+
+#content-wrapper a, .developed a,#jstwitter .tweet a,#sidebar .latest_posts .teaser-title,#sidebar .archive ul li a:hover,.widget_text a,.testimonials .quote-author{color:#7A9F17;}/********************************************/
+
+
+/********************************************/
+   #navigation ul.menu a{color:#101010 !important;}
+    ul.menu li.current_page_item a{color:#FFFFFF !important;}
+    ul.menu li.current_page_item a:hover{color:#FFFFFF !important;}
+    ul.menu li a:hover{color:#719806 !important;}
+
+
+
+    .navigation > ul > li.current-menu-item > a,
+    .navigation > ul > li.current-menu-parent > a,
+    .navigation > div > ul > li.current-menu-item > a,
+    .navigation > div > ul > li.current-menu-parent > a,
+    .navigation > ul > li.current-menu-ancestor > a,
+    .navigation > div > ul > li.current-menu-ancestor > a {background-color: #85B602 !important;}
+
+
+
+
+
+    .content-wrapper{color:#787878 !important}
+    .content-wrapper a{color:#7A9F17}
+    .content-wrapper a:hover{color:#787878}
+
+
+
+    input.button{color:#ffffff !important}
+
+
+/********************************************************/
+
+
+
+
+    #sidebar > div.widget {background-color:#FFFFFF !important}
+    #sidebar > div.widget h3.widget-title {color:#1A1A1B !important}
+	
+	.ie7 #sidebar .widget_recent_entries .widget-title{
+		background: #ECECEC !important;
+	}
+	.ie7  #sidebar > div.widget h3.widget-title{
+		background-color: #ECECEC !important;
+	}
+    #sidebar > div.widget h3.widget-title {
+    background: #ECECEC !important;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ECECEC), to(#ECECEC)) !important;
+    background: -moz-linear-gradient(top, #ECECEC,  #ECECEC) !important;
+    background: -o-linear-gradient(#ECECEC,#ECECEC) !important;
+    background-color:#ECECEC !important;
+    }
+    #sidebar > div.widget {color:#787878 !important}
+    #sidebar > div.widget a {color:#7A9F17 !important}
+    #sidebar > div.widget a:hover {color:#7A9F17 !important}
+
+/**************************/
+    
+                    #sidebar > div.widget_categories {background-color:#85B602 !important}
+            #sidebar > div.widget_categories h3.widget-title {background-color:#85B602 !important;}
+                            #sidebar > div.widget_categories h3.widget-title {color:#FFFFFF !important}
+                            #sidebar > div.widget_categories h3.widget-title {
+            background: #FFFFFF;
+            background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF)) !important;
+            background: -moz-linear-gradient(top, #FFFFFF,  #FFFFFF) !important;
+            background: -o-linear-gradient(#FFFFFF,#FFFFFF) !important;
+            background-color:#FFFFFF !important;
+            }
+                            #sidebar > div.widget_categories .textwidget {color:#FFFFFF !important}
+                            #sidebar > div.widget_categories .textwidget a {color:#FFFFFF !important}
+                            #sidebar > div.widget_categories .textwidget a:hover {color:#FFFFFF !important}
+        
+    
+                    #sidebar > div.widget_nav_menu {background-color:#85B602 !important}
+            #sidebar > div.widget_nav_menu h3.widget-title {background-color:#85B602 !important;}
+                            #sidebar > div.widget_nav_menu h3.widget-title {color:#FFFFFF !important}
+                            #sidebar > div.widget_nav_menu h3.widget-title {
+            background: #FFFFFF;
+            background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF)) !important;
+            background: -moz-linear-gradient(top, #FFFFFF,  #FFFFFF) !important;
+            background: -o-linear-gradient(#FFFFFF,#FFFFFF) !important;
+            background-color:#FFFFFF !important;
+            }
+                            #sidebar > div.widget_nav_menu .textwidget {color:#FFFFFF !important}
+                            #sidebar > div.widget_nav_menu .textwidget a {color:#FFFFFF !important}
+                            #sidebar > div.widget_nav_menu .textwidget a:hover {color:#FFFFFF !important}
+        
+    
+                    #sidebar > div.widget_archive {background-color:#85B602 !important}
+            #sidebar > div.widget_archive h3.widget-title {background-color:#85B602 !important;}
+                            #sidebar > div.widget_archive h3.widget-title {color:#FFFFFF !important}
+                            #sidebar > div.widget_archive h3.widget-title {
+            background: #FFFFFF;
+            background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF)) !important;
+            background: -moz-linear-gradient(top, #FFFFFF,  #FFFFFF) !important;
+            background: -o-linear-gradient(#FFFFFF,#FFFFFF) !important;
+            background-color:#FFFFFF !important;
+            }
+                            #sidebar > div.widget_archive .textwidget {color:#FFFFFF !important}
+                            #sidebar > div.widget_archive .textwidget a {color:#FFFFFF !important}
+                            #sidebar > div.widget_archive .textwidget a:hover {color:#FFFFFF !important}
+        
+    
+
+    #sidebar > .testimonials .quote-text {color:#FFFFFF !important}
+
+    #sidebar > .testimonials .quote-author {color:#7A9F17 !important}
+
+
+/********************************************************/
+
+    img.add-border {background-color:#FFFFFF !important}
+    img.add-border:hover {background-color:#8F8F8F !important}
+    img.add-border {border-color:#E0E0E0 !important}
+    img.add-border:hover {border-color:#E0E0E0 !important}
+
+
+
+
+
+
+
+
+
+	

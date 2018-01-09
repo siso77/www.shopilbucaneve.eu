@@ -1,0 +1,55 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+
+<div class="inner-wrapper">
+<?php $j=0;?>
+<?php foreach ($_SESSION[session_id()]['cart']['contents'] as $key => $content):?>
+<ol id="mini-cart" class="mini-products-list">
+	<li class="item">
+		<a style="width: 70px;" href="" title="<?php echo $_SESSION[session_id()]['cart']['contenuto'][$key]['nome_it']?>" class="product-image">
+		<?php $image = $this->getImageFromVbn($_SESSION[session_id()]['cart']['contenuto'][$key]['vbn']);?>
+		<?php if(!empty($image)):?>
+			<img alt="<?php echo $_SESSION[session_id()]['cart']['contenuto'][$key]['nome_it']?>" src="<?php echo $image;?>" width="70" class="main-pic">			
+		<?php else:?>
+			<img alt="<?php echo $_SESSION[session_id()]['cart']['contenuto'][$key]['nome_it']?>" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image.gif" width="70">
+		<?php endif;?>
+		
+	<div class="product-details">
+		<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart&delete=1&id_content=<?php echo $_tplvar['products']['contenuto'][$key]['id']?>&id_magazzino=<?php echo $content['id']?>" title="Rimuovi" onclick="" class="btn-remove">Rimuovi</a> 
+		<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart" title="Edit item" class="btn-edit">Modifica</a>
+		<p class="product-name"><a href=""><?php echo $_SESSION[session_id()]['cart']['contenuto'][$key]['nome_it']?></a></p>
+		<strong><?php echo $_SESSION[session_id()]['basket'][$j]['quantita']?></strong> x <span class="price"><?php echo $_SESSION[session_id()]['cart']['contenuto'][$key]['prezzo_0']?></span>
+
+	<div class="truncated">
+	<div class="truncated_full_value">
+		<?php if(!empty($content['price_it_qty']) && $content['price_it_qty'] > 0):?>
+			<?php echo $content['price_it_qty'];?>
+		<?php else:?>
+			Totale: <?php echo $_SESSION[session_id()]['cart']['contenuto'][$key][$_tplvar['key_prezzo']];?>
+		<?php endif;?>
+	
+<!--	<dl class="item-options">-->
+<!--		<dt>Color</dt>-->
+<!--		<dd>Black</dd>-->
+<!--		<dt>Another custom option</dt>-->
+<!--		<dd>First option</dd>-->
+<!--	</dl>-->
+
+	</div>
+<!--	<a href="#" onclick="return false;" class="details"></a></div>-->
+	</div>
+	</li>
+</ol>
+<?php 
+$total = str_replace(',', '.', $content['price_it_qty']) + $total;
+?>
+<?php $j++;?>
+<?php endforeach;?>
+<p class="subtotal"><span class="label">Subtotale:</span> <span class="price"><?php echo Currency::FormatEuro($total)?></span></p>
+<div class="actions">
+	<button type="button" title="Subscribe" class="button" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=CheckoutShopping<?php if(!empty($_tplvar['params_banking'])):?>&params=<?php echo $_tplvar['params_banking']?><?php endif;?>';"><span><span>Vai in Cassa</span></span></button>
+</div>
+</div>
+
+

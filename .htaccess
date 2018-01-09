@@ -1,0 +1,28 @@
+RewriteEngine On
+SetEnv APPLICATION_ENV pro
+
+#php_value memory_limit 12800M
+#php_value error_reporting 128
+
+#RewriteRule ^(.*)$ /index.php [NC,L]
+#RewriteRule !\.(js|gif|jpg|png|css|txt)$ /index.php [L]
+
+##REWRITE
+RewriteRule  ^La-Filosofia/(.*)\.html$  /index.php?act=StaticPageController&article=1 [L]
+RewriteRule  ^Le-Nostre-Radici/(.*)\.html$  /index.php?act=StaticPageController&article=2 [L]
+RewriteRule  ^L-Organizzazione/(.*)\.html$  /index.php?act=StaticPageController&article=3 [L]
+RewriteRule  ^Novita/(.*)\.html$  /index.php?act=StaticPageController&article=4 [L]
+RewriteRule  ^Magazzino-Online/(.*)\.html$  /index.php?act=Search [L]
+RewriteRule  ^RequestOrder\.html$  /index.php?act=RequestOrder [L]
+RewriteRule  ^Contatti\.html$  /index.php?act=Contatti [L]
+
+RewriteRule  ^Detail/(.*)/(.*)/(.*)\.html$  /index.php?act=ProductInfo&id=$3&breadcrumb1=$1&breadcrumb2=$2&breadcrumb4=$4  [L]
+RewriteRule  ^DetailFornitori/(.*)/(.*)/(.*)\.html$  /index.php?act=ProductInfoFornitori&id=$3&breadcrumb1=$1&breadcrumb2=$2&breadcrumb4=$4  [L]
+RewriteRule  ^DetailFornitoriDe/(.*)/(.*)/(.*)\.html$  /index.php?act=ProductInfoFornitoriDe&id=$3&breadcrumb1=$1&breadcrumb2=$2&breadcrumb4=$4  [L]
+RewriteRule  ^ShoppingCart/(.*)/(.*)/(.*)-(.*)\.html$  /index.php?act=ShoppingCart&id_content=$3&id_mag=$4&breadcrumb1=$1&breadcrumb2=$2  [L]
+RewriteRule  ^ShoppingCartFornitori/(.*)/(.*)/(.*)\.html$  /index.php?act=ShoppingCartFornitori&id_mag=$3&breadcrumb1=$1&breadcrumb2=$2  [L]
+RewriteRule  ^ShoppingCartFornitoriDe/(.*)/(.*)/(.*)\.html$  /index.php?act=ShoppingCartFornitoriDe&id_mag=$3&breadcrumb1=$1&breadcrumb2=$2  [L]
+RewriteRule  ^Categories/(.*)/(.*)\.html$  /index.php?act=Home&id_category=$2&breadcrumb1=$1  [L]
+RewriteRule  ^Offerte/(.*)/(.*)\.html$  /index.php?act=Offer  [L]
+RewriteRule  ^Marchi/(.*)/(.*)\.html$  /index.php?act=Brand&id_brand=$2  [L]
+##REWRITE

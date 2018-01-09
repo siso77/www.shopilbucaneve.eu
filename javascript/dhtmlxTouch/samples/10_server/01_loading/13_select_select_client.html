@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<script src="../../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="../../../codebase/touchui.css" type="text/css" charset="utf-8">
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ready(function(){
+				dhx.ui({
+                    type:"clean",
+					rows:[
+						{ view:"richselect", id:"sel1", options:[],inputWidth: 320,align:"center" , label: "Filter by"},
+						{ view:"richselect", id:"sel2", options:[],inputWidth: 320,align:"center", label: "Result" }
+					]
+				});
+				
+
+				$$("sel1_list").define("template","#id#");				
+				$$("sel1_list").parse([{ id:"A"},{ id:"D"},{ id:"E"},{ id:"N"},{ id:"S"},{ id:"W"},{ id:"Z"}]);
+
+				$$("sel2_list").define("template","#name#");
+				$$("sel2_list").load("data.json");
+
+				
+
+				$$('sel2_list').bind($$('sel1'), function(linked, master){
+					if (!master) return true;
+					return linked.name.indexOf(master) == 0;
+				});
+				
+			});
+			
+
+			
+		</script>
+	</body>
+</html>

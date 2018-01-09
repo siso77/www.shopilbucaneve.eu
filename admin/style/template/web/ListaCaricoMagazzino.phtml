@@ -1,0 +1,262 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>
+
+
+<!-- APERTURA FORM DI RICERCA -->
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=ListaCaricoMagazzino" method="post">
+<input type="hidden" name="search" value="1" />
+		
+  <div id="page-content-medium">
+	<h1>Contenuto del carici di magazzino</h1>
+			
+	  <h2>Ti trovi nel Data Base del carici di magazzino  <span>(hai le credenziali per modificare il Data Base o fare una vendit&agrave;)</span></h2>
+	  <div class="inner-box clearfix">
+			
+			<!--MENU RIGHT-->
+             <?php // echo $this->getPartial('shared/MenuRight');?>
+            <!-- / MENU RIGHT-->
+
+            
+<div id="form-block" style="height:30px; margin-bottom:20px;">
+
+<div class="contenitore" style="clear:left;">
+<div class="submit" style="float:left;height:20px; width:200px;">
+<input type="text" value="<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>" name="key_search" id="key_search" style="width:200px;" onblur="javascript:resetField(this, '<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>')" onclick="javascript:swapField(this, 'Cerca la parola chiave')"/>
+</div>
+<div class="submit" style="float:left; height:20px; margin-left:40px;">
+<input type="submit" class="submit" value="CERCA" />
+<input type="button" class="submit" value="RESET" onclick="javascript:resetFieldById('key_search', 'Cerca la parola chiave')" />
+</div>
+</div>
+</div>
+</form>
+<!-- CHIUSURA FORM DI RICERCA -->
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+	{
+		el.style.visibility = 'visible';
+		//el.style.position = 'relative';
+	}
+	else
+	{
+		el.style.visibility = 'hidden';
+		//el.style.position = 'absolute';
+	}
+}
+</script>
+<div style="clear:left"></div>
+				<div id="table-block">
+					<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="header">
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'isbn';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'ISBN';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>    
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'distributore';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'FORNITORE';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                    
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'titolo';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'TITOLO';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'casa_editrice.nome';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'EDITORE';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+<!--							<td>-->
+							<?php
+//							$assign['key_session'] = 'ListaCaricoMagazzino';
+//							$assign['order_by'] = 'autori.nome';
+//							$assign['action'] = 'ListaCaricoMagazzino';
+//							$assign['field_name'] = 'AUTORE';
+//							$this->getPartial('shared/SortField', $assign);
+							?>
+<!--							</td>                        -->
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'quantita';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'QUANTITA\'';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'prezzo';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'PREZZO LISTINO';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'documento_carico';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'DOCUMENTO CARICO';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCaricoMagazzino';
+							$assign['order_by'] = 'data_carico';
+							$assign['action'] = 'ListaCaricoMagazzino';
+							$assign['field_name'] = 'CARICATO';
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>                        
+<!--                           <td>AZIONI</td>-->
+                           <td>MODIFICA</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>						
+					<?php 
+					$assign['id'] = $value['id'];
+					$assign['div_id'] = 'id_div_porta_visione';
+					?>
+						<tr>
+							<td><?php echo $value['isbn']?></td>
+							<td><?php echo $value['distributore']?>&nbsp;</td>
+							<td><?php echo $value['titolo']?>&nbsp;</td>
+                            <td><?php echo $value['casa_editrice']?>&nbsp;</td>
+<!--                            <td><?php //echo $value['autore']?>&nbsp;</td>-->
+                            <td><?php echo $value['quantita']?>&nbsp;</td>
+							<td><?php echo $this->getFormatPrice($value['prezzo'])?>&nbsp;</td>
+							<td><?php echo $value['documento_carico']?>&nbsp;</td>
+                            <td><?php echo $this->getFormatDate($value['data_carico'])?>&nbsp;</td>
+<!--                            <td class="actions">-->
+                             
+                            	<?php if($value['quantita'] > 0):?>
+<!--                            	<a -->
+<!--                            		class="edit" -->
+<!--                            		href="javascript:void(0);" -->
+<!--                            		onclick="javascript:-->
+<!--                            							show_div_cerca_ajax(-->
+<!--                            												'<?php echo $assign['div_id']?>', -->
+<!--                            												'nome', -->
+<!--                            												'<?php echo $value['id']?>', -->
+<!--                            												'text_message_search', -->
+<!--                            												'<span>Cerca il cliente e porta in visione questo libro</span>');">-->
+<!--									Porta in Visione</a>-->
+								
+								<input type="hidden" name="tbl_name" id="tbl_name" value="clienti">
+								<input type="hidden" name="action" id="action" value="cerca_cliente">
+								<?php $this->getPartial('shared/DivCercaCliente', $assign);?>
+						
+                            	<?php else:?>
+<!--                            		<a class="delete" href="javascript:void(0);">Porta in Visione</a>-->
+								<?php endif;?>
+<!--                            </td>-->
+							<td class="actions">
+								<a class="edit" href="javascript:void(0);" onclick="javascript:show_hidden_div('detail_<?php echo $value['id'];?>')">dettaglio</a> |
+								<div id="detail_<?php echo $value['id'];?>" class="esplode">
+									<h2 style="background-color:#E6E6D2; border:1px solid #4A5154; width:950px;"><span style="font-size:1.8em;">Dettaglio Libro</span></h2>
+									<div style="height:auto; margin:10px;">
+										<table cellpadding="0" cellspacing="0">
+										<tr class="header" style="font-size:10px">
+											<td>ISBN</td>
+											<td>TITOLO</td>
+											<td>DESCRIZIONE</td>
+											<td>PREZZO</td>
+											<td>QUANTITA'</td>
+											<td>QUANTITA' CARICATA</td>
+											<td>DOCUMENTO CARICO</td>
+											<td>PERCENTUALE SCONTO</td>
+										</tr>
+										<tr>
+											<td><?php echo $value['isbn']?></td>
+											<td><?php echo $value['titolo']?></td>
+											<td><?php echo $value['descrizione']?></td>
+											<td><?php echo $value['prezzo']?></td>
+											<td><?php echo $value['quantita']?></td>
+											<td><?php echo $value['quantita_caricata']?></td>
+											<td><?php echo $value['documento_carico']?></td>
+											<td><?php echo $value['percentuale_sconto']?>%</td>
+										</tr>
+										<tr class="header" style="font-size:10px">
+											<td>COPIE OMAGGIO</td>
+											<td>DATA CARICO</td>
+											<td>TIPO CARICO</td>
+											<td>DISTRIBUTORE</td>
+											<td>AUTORE</td>
+											<td>CASA EDITRICE</td>
+											<td>TIPO</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td><?php echo $value['copie_omaggio']?></td>
+											<td><?php echo $value['data_carico']?></td>
+											<td><?php echo $value['nome']?></td>
+											<td><?php echo $value['distributore']?></td>
+											<td><?php echo $value['autore']?></td>
+											<td><?php echo $value['casa_editrice']?></td>
+											<td><?php echo $value['contenuto_tipo']?></td>
+											<td></td>
+										</tr>
+										</table>
+									</div>
+                                <div class="chiudi-int">    
+									<a class="chiudi" href="javascript:void(0);" onclick="javascript:show_hidden_div('detail_<?php echo $value['id'];?>')">chiudi</a>
+								</div>
+                                </div>
+								<a class="delete" href="javascript:void(0);" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')">cancella</a>
+								<div id="confirm_delete_<?php echo $value['id'];?>" style="background-color:#4A5154;left:400px;padding:10px;border:3px solid #900;width:250px;position:absolute;visibility:hidden">
+									<b><font color="#ffffff">Sei sicuro di voler cancellare?</font></b>
+									
+									<div style="width:200px; height:50px; margin-left:15px; margin-top:10px;">
+									
+										<div style="float:left;width:100px;">
+										<input type="button" value="Si" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=ListaCaricoMagazzino&delete=1&id=<?php echo $value['id']?>'" style="cursor:pointer" />
+										</div>
+										<div style="float:left; width:100px;">
+										<input type="button" value="No" onclick="javascript:showConfirmDelete('confirm_delete_<?php echo $value['id'];?>')" style="cursor:pointer"/>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					<?php endforeach;?>						
+					</tbody>
+				</table>
+
+                <!-- Page Navigation -->
+				<?php echo $this->getPartial('shared/Paging');?>
+				<!-- /Page Navigation -->
+				
+                <!-- Export Excel -->
+                <?php $assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+
+				</div>
+			</div>
+		</div><!-- end page-content -->
+		

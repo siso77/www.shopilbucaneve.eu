@@ -1,0 +1,169 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script type="text/javascript">
+<!--
+function sendForm(reset)
+{
+	document.getElementById('fade').style.display='block';
+	
+	var el = document.getElementById('key_search');
+	if(reset)
+	{
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxListContent',
+			  type: 'POST',
+			  dataType: 'html',
+			  data: '&reset=1',
+			  success: function(html){
+					document.getElementById('fade').style.display='none';
+				  $('#list_content').html(html);
+			  }
+			});
+	}
+	else
+	{
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxListContent',
+			  type: 'POST',
+			  dataType: 'html',
+			  data: '&key_search='+el.value,
+			  success: function(html){
+					document.getElementById('fade').style.display='none';
+				  $('#list_content').html(html);
+			  }
+			});
+	}
+}
+function closeForm()
+{
+	document.getElementById('fade').style.display='block';
+	
+	var el = document.getElementById('key_search');
+	$.ajax({
+		  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxListContent',
+		  type: 'POST',
+		  dataType: 'html',
+		  data: '&key_search='+el.value,
+		  success: function(html){
+				document.getElementById('fade').style.display='none';			  
+			  $('#list_content').html('');
+		  }
+		});
+}
+//-->
+</script>
+<!-- APERTURA FORM DI RICERCA -->
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+	<input type="hidden" name="search" value="1" />
+	<?php if($assign['history']):?>
+	<input type="hidden" name="history" value="1" />
+	<?php endif;?>	
+	<table style="background-color:#000000;" width="98%">
+	<tr>
+		<?php if($assign['show_combo']):?>
+		<td>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+	    	<?php echo $this->getPartial('shared/BoxSelectCategories');?>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+		</td>
+		<?php endif;?>
+		
+		<?php if($assign['show_combo_brand']):?>
+		<td>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+	    	<?php echo $this->getPartial('shared/BoxSelectBrand');?>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+		</td>
+		<?php endif;?>
+		<?php if($assign['show_fornitori']):?>
+		<td>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+	    	<?php echo $this->getPartial('shared/BoxSelectFornitori');?>
+			<!--BOX PER LA COMBO DELLE CATEGORIE-->
+		</td>
+		<?php endif;?>
+		
+		<td><input type="text" value="<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>" name="key_search" id="key_search" style="width:200px;" onblur="javascript:resetField(this, '<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>')" onclick="javascript:swapField(this, 'Cerca la parola chiave')"/></td>
+	</tr>
+	<tr>
+		<?php if($assign['show_checkboxes']):?>
+		<td>
+			<table>
+			<tr>
+				<td style="width:10px" valign="top">
+					<input type="checkbox" name="is_in_ecommerce" id="is_in_ecommerce" style="width:10px;" <?php if($_tplvar['is_in_ecommerce'] == 'on'):?>checked="checked"<?php endif;?>/>ECOMMERCE
+				</td>
+				<td style="width:10px" valign="top">
+					<input type="checkbox" name="is_in_evidence" id="is_in_evidence" style="width:10px;" <?php if($_tplvar['is_in_evidence'] == 'on'):?>checked="checked"<?php endif;?>/>VETRINA
+				</td>
+				<td style="width:10px" valign="top">
+					<input type="checkbox" name="is_invisible" id="is_invisible" style="width:10px;" <?php if($_tplvar['is_invisible'] == 'on'):?>checked="checked"<?php endif;?>/>INVISIBILE
+				</td>
+				<td style="width:10px" valign="top">
+					<input type="checkbox" name="is_in_offer" id="is_in_offer" style="width:10px;" <?php if($_tplvar['is_in_offer'] == 'on'):?>checked="checked"<?php endif;?>/>OFFERTA
+				</td>
+			</tr>
+			</table>
+		</td>
+		<?php endif;?>
+		
+		<?php if($assign['show_calendar']):?>
+		<!-- INCLUSIONE CALENDARIO -->
+		<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+		<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+		<!-- INCLUSIONE CALENDARIO -->
+		<td>
+			<?php
+			if(!empty($_tplvar['keys_searched']['data_from']))
+				$data_from = $_tplvar['keys_searched']['data_from'];
+			else 
+				$data_from = date('Y').'-01-01';
+				
+			if(!empty($_tplvar['keys_searched']['data_to']))
+				$data_to = $_tplvar['keys_searched']['data_to'];
+			else
+				$data_to = date('Y-m-d');
+			?>		
+			Dal&nbsp; <input type="text" id="data_from" class="data_from" name="data_from" value="<?php echo $data_from;?>" style="width:70px"/>
+			&nbsp;al&nbsp;<input type="text" id="data_to" class="data_to" name="data_to" value="<?php echo $data_to;?>" style="width:70px"/>
+			<script type="text/javascript">
+		    $('#data_from').DatePicker({
+		    	format:'Y-m-d',
+		    	date: $('#data_from').val(),
+		    	current: $('#data_from').val(),
+		    	starts: 1,
+		    	position: 'r',
+		    	onBeforeShow: function(){
+		    		$('#data_from').DatePickerSetDate($('#data_from').val(), true);
+		    	},
+		    	onChange: function(formated, dates){
+		    		$('#data_from').val(formated);
+		    		$('#data_from').DatePickerHide();
+		    	}
+		    });
+		    $('#data_to').DatePicker({
+		    	format:'Y-m-d',
+		    	date: $('#data_to').val(),
+		    	current: $('#data_to').val(),
+		    	starts: 1,
+		    	position: 'r',
+		    	onBeforeShow: function(){
+		    		$('#data_to').DatePickerSetDate($('#data_to').val(), true);
+		    	},
+		    	onChange: function(formated, dates){
+		    		$('#data_to').val(formated);
+		    		$('#data_to').DatePickerHide();
+		    	}
+		    });
+		    </script>
+			<?php endif;?>
+		</td>
+		<td>
+			<input type="button" class="submit" value="CERCA" onclick="javascript:sendForm(false);"/>
+			<input type="button" class="submit" value="RESET" onclick="javascript:sendForm(true);"/>
+			<input type="button" class="submit" value="CHIUDI" onclick="javascript:closeForm();"/>
+		</td>
+	</tr>		
+	</table>
+</form>
+<!-- CHIUSURA FORM DI RICERCA -->

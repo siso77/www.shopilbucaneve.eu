@@ -1,0 +1,120 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+
+
+<h1><?php if($_tplvar['header_message']):?><?echo $_tplvar['header_message']?><?php endif;?></h1>
+			
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCliente" method="post">
+
+<?php if(!empty($_tplvar['from'])):?>
+<input type="hidden" name="from" value="<?php echo $_tplvar['from']?>">
+<?php endif;?>
+
+<?php if(!empty($_REQUEST['id'])):?>
+<input type="hidden" name="id" value="<?php echo $_REQUEST['id']?>">
+<?php endif;?>
+<table>
+<tr>
+	<td>
+		<table>
+		<tr>
+			<td colspan="2" align="center">DATI GENERALI</td>
+		</tr>	
+		<tr>
+			<td>NOME</td>
+			<td><input type="text" name="nome" id="nome" value="<?php echo $_tplvar['cliente']['nome']?>" /></td>
+		</tr>
+		<tr>
+			<td>COGNOME</td>
+			<td><input type="text" name="cognome" id="cognome" value="<?php echo $_tplvar['cliente']['cognome']?>" /></td>
+		</tr>
+		<tr>
+			<td>CODICE FISCALE</td>
+			<td><input type="text" name="codice_fiscale" id="codice_fiscale" value="<?php echo $_tplvar['cliente']['codice_fiscale']?>" /></td>
+		</tr>
+		<tr>
+			<td>RAGIONE SOCIALE</td>
+			<td><input type="text" name="ragione_sociale" id="ragione_sociale" value="<?php echo $_tplvar['cliente']['ragione_sociale']?>" /></td>
+		</tr>
+		<tr>
+			<td>P.IVA</td>
+			<td><input type="text" name="p_iva" id="p_iva" value="<?php echo $_tplvar['cliente']['p_iva']?>" /></td>
+		</tr>
+		<tr>
+			<td>PROVINCIA</td>
+			<td><input type="text" name="provincia" id="provincia" value="<?php echo $_tplvar['cliente']['provincia']?>" /></td>
+		</tr>
+		<tr>
+			<td>STATO</td>
+			<td><input type="text" name="stato" id="stato" value="<?php echo $_tplvar['cliente']['stato']?>" /></td>
+		</tr>
+		
+		<tr>
+			<td>INDIRIZZO</td>
+			<td><input type="text" name="indirizzo" id="indirizzo" value="<?php echo $_tplvar['cliente']['indirizzo']?>" /></td>
+		</tr>
+		<tr>
+			<td>CAP</td>
+			<td><input type="text" name="cap" id="cap" value="<?php echo $_tplvar['cliente']['cap']?>" /></td>
+		</tr>
+		<tr>
+			<td>CITTA'</td>
+			<td><input type="text" name="citta" id="citta" value="<?php echo $_tplvar['cliente']['citta']?>" /></td>
+		</tr>
+		<tr>
+			<td>TELEFONO fISSO</td>
+			<td><input type="text" name="fisso" id="fisso" value="<?php echo $_tplvar['cliente']['fisso']?>" /></td>
+		</tr>
+		<tr>
+			<td>CELLULARE</td>
+			<td><input type="text" name="cellulare" id="cellulare" value="<?php echo $_tplvar['cliente']['cellulare']?>" /></td>
+		</tr>
+		<tr>
+			<td>MAIL</td>
+			<td><input type="text" name="email" id="email" value="<?php echo $_tplvar['cliente']['email']?>" /></td>
+		</tr>
+		</table>
+	</td>
+
+	<td>
+		<table>
+		<tr>
+			<td colspan="2" align="center">DATI PER LA SPEDIZIONE</td>
+		</tr>
+		<tr>
+			<td>PRESSO</td>
+			<td><input type="text" name="text_spedizione" id="text_spedizione" value="<?php echo $_tplvar['cliente']['text_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>INDIRIZZO</td>
+			<td><input type="text" name="indirizzo_spedizione" id="indirizzo_spedizione" value="<?php echo $_tplvar['cliente']['indirizzo_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>CAP</td>
+			<td><input type="text" name="cap_spedizione" id="cap_spedizione" value="<?php echo $_tplvar['cliente']['cap_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>CITTA'</td>
+			<td><input type="text" name="citta_spedizione" id="citta_spedizione" value="<?php echo $_tplvar['cliente']['citta_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>PROVINCIA</td>
+			<td><input type="text" name="provincia_spedizione" id="provincia_spedizione" value="<?php echo $_tplvar['cliente']['provincia_spedizione']?>" /></td>
+		</tr>
+		<tr>
+			<td>STATO</td>
+			<td><input type="text" name="stato_spedizione" id="stato_spedizione" value="<?php echo $_tplvar['cliente']['stato_spedizione']?>" /></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td align="right"><input type="submit" class="submit" value="Salva"/></td>
+	<td align="left">
+		<input type="reset" class="submit reset" value="Cancella" onClick="location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Shop&show_cart=1';" />
+	</td>
+</tr>
+</table>
+
+</form>

@@ -1,0 +1,223 @@
+<?php 
+$_tplvar = $this->getVars();
+?>
+<form action="<?php echo $_tplvar['WWW_ROOT'].'?act=FreeInvoice'?>" method="post">
+
+<table width="80%">
+<tr>
+	<td colspan="2">
+		<table width="98%">
+		<tr>
+			<td colspan="7" align="center"><b>FATTURA IMMEDIATA</b></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td>
+		<table width="900">
+		<tr>
+			<td colspan="4">DATI CLIENTI</td>
+		</tr>
+		<tr>
+			<td>NOME</td>
+			<td><input type="text" name="nome" value="<?php echo $_tplvar['invoices_data']['customer_data']['nome']?>"></td>
+			<td>COGNOME</td>
+			<td><input type="text" name="cognome" value="<?php echo $_tplvar['invoices_data']['customer_data']['cognome']?>"></td>
+		</tr>
+		<tr>
+			<td>CITTA'</td>
+			<td><input type="text" name="citta" value="<?php echo $_tplvar['invoices_data']['customer_data']['citta']?>"></td>
+			<td>INDIRIZZO</td>
+			<td><input type="text" name="indirizzo" value="<?php echo $_tplvar['invoices_data']['customer_data']['indirizzo']?>"></td>
+		</tr>
+		<tr>
+			<td>CAP</td>
+			<td><input type="text" name="cap" value="<?php echo $_tplvar['invoices_data']['customer_data']['cap']?>"></td>
+			<td>PROVINCIA</td>
+			<td><input type="text" name="provincia" value="<?php echo $_tplvar['invoices_data']['customer_data']['provincia']?>"></td>
+		</tr>
+		<tr>
+			<td>TELEFONO FISSO</td>
+			<td><input type="text" name="fisso" value="<?php echo $_tplvar['invoices_data']['customer_data']['fisso']?>"></td>
+			<td>CELLULARE</td>
+			<td><input type="text" name="cellulare" value="<?php echo $_tplvar['invoices_data']['customer_data']['cellulare']?>"></td>
+		</tr>
+		<tr>
+			<td>EMAIL</td>
+			<td><input type="text" name="email" value="<?php echo $_tplvar['invoices_data']['customer_data']['email']?>"></td>
+			<td>Codice Fiscale/P.IVA</td>
+			<td><input type="text" name="codice_fiscale" value="<?php echo $_tplvar['invoices_data']['customer_data']['codice_fiscale']?>"></td>
+		</tr>		
+		<tr>
+			<td colspan="4">LUOGO DI DESTINAZIONE DELLA MERCE</td>
+		</tr>
+		<tr>
+			<td>NOME</td>
+			<td><input type="text" name="nome_spedizione" value="<?php echo $_tplvar['invoices_data']['customer_data']['spedizione']['nome']?>"></td>
+			<td>COGNOME</td>
+			<td><input type="text" name="cognome_spedizione" value="<?php echo $_tplvar['invoices_data']['customer_data']['spedizione']['cognome']?>"></td>
+		</tr>
+		<tr>
+			<td>CITTA'</td>
+			<td><input type="text" name="citta_spedizione" value="<?php echo $_tplvar['invoices_data']['customer_data']['spedizione']['citta']?>"></td>
+			<td>INDIRIZZO</td>
+			<td><input type="text" name="indirizzo_spedizione" value="<?php echo $_tplvar['invoices_data']['customer_data']['spedizione']['indirizzo']?>"></td>
+		</tr>
+		<tr>
+			<td>CAP</td>
+			<td><input type="text" name="cap_spedizione" value="<?php echo $_tplvar['invoices_data']['customer_data']['spedizione']['cap']?>"></td>
+			<td>PROVINCIA</td>
+			<td><input type="text" name="provincia_spedizione" value="<?php echo $_tplvar['invoices_data']['customer_data']['spedizione']['provincia']?>"></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		
+		</table>
+	</td>
+	<td align="right" valign="bottom">
+		<table width="30%">
+		<tr>
+			<td>NUMERO FATTURA</td>
+			<td><input type="text" name="invoice_num" value="<?php echo $_tplvar['invoice_num']?>"></td>
+		</tr>
+		<tr>
+			<td>DATA FATTURA</td>
+			<td><input type="text" name="invoice_date" value="<?php if(!empty($_tplvar['invoice_date'])): echo $_tplvar['invoice_date']; else: echo date('d/m/Y'); endif;?>"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<table style="border: 0px solid #000000">
+				<tr>
+					<td nowrap="nowrap">MEZZO CEDENTE </td>
+					<td><input type="radio" name="mezzo" value="mezzo_cedente" <?php if($_tplvar['invoices_data']['mezzo'] == 'mezzo_cedente' || empty($_tplvar['invoices_data']['mezzo'])):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;</td>
+				</tr>
+				<tr>
+					<td nowrap="nowrap">MEZZO CESSIONARIO </td>
+					<td><input type="radio" name="mezzo" value="mezzo_cessionario" <?php if($_tplvar['invoices_data']['mezzo'] == 'mezzo_cessionario'):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;</td>
+				</tr>
+				<tr>
+					<td nowrap="nowrap">MEZZO VETTORE </td>
+					<td><input type="radio" name="mezzo" value="mezzo_vettore" <?php if($_tplvar['invoices_data']['mezzo'] == 'mezzo_vettore'):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;</td>
+				</tr>
+				<tr>
+					<td nowrap="nowrap">MEZZO ALTRO </td>
+					<td><input type="radio" name="mezzo" value="mezzo_altro" <?php if($_tplvar['invoices_data']['mezzo'] == 'mezzo_altro'):?> checked="checked"<?php endif;?>>&nbsp;&nbsp;</td>
+				</tr>
+				<tr>
+					<td>SCONTRINO</td>
+					<td align="left">
+						<input type="text" name="rif_scontrino" id="rif_scontrino" value="<?php echo $_tplvar['invoices_data']['rif_scontrino']?>">
+						<div id="err_rif_scontrino" style="color:#993300"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>DEL</td>
+					<td align="left">
+						<input type="text" id="data_rif_scontrino" name="data_rif_scontrino" value="<?php echo !empty($_tplvar['invoices_data']['data_rif_scontrino'])? $_tplvar['invoices_data']['data_rif_scontrino']: date('d/m/Y')?>">&nbsp;
+						<!-- INCLUSIONE CALENDARIO -->
+						<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+						<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+						<!-- INCLUSIONE CALENDARIO -->
+						<script type="text/javascript">
+					    $('#data_rif_scontrino').DatePicker({
+					    	format:'d/m/Y',
+					    	date: $('#data_rif_scontrino').val(),
+					    	current: $('#data_rif_scontrino').val(),
+					    	starts: 1,
+					    	position: 'r',
+					    	onBeforeShow: function(){
+					    		$('#data_rif_scontrino').DatePickerSetDate($('#data_rif_scontrino').val(), true);
+					    	},
+					    	onChange: function(formated, dates){
+					    		$('#data_rif_scontrino').val(formated);
+					    		$('#data_rif_scontrino').DatePickerHide();
+					    	}
+					    });
+					    </script>
+					</td>
+				</tr>
+				<tr>
+					<td>TIPO DI PAGAMENTO</td>
+					<td align="right" nowrap="nowrap">
+						<select name="tipo_pagamento" id="tipo_pagamento">
+							<option value=""> Seleziona </option>
+							<?php foreach ($_tplvar['cmb_payment_type'] as $value):?>
+								<option value="<?php echo $value['name']?>" <?php if($_tplvar['tipo_pagamento'] == $value['name']):?>selected="selected"<?php endif;?>><?php echo $value['name']?></option>			
+							<?php endforeach;?>
+						</select>
+						<div id="err_tipo_pagamento" style="color:#993300"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<table width="99%">
+		<tr>
+			<td>BAR CODE</td>
+			<td>NOME</td>
+			<td>DESCRIZIONE</td>
+			<td>PREZZO</td>
+			<td>QUANTITA</td>
+			<td>IVA</td>
+			<td>TOTALE</td>
+		</tr>
+		<?php for($i = 0; $i <= $_tplvar['invoices_index']; $i++):?>
+		<tr>
+			<td><input type="text" name="bar_code_<?php echo $i?>" value="<?php echo $_tplvar['invoices_data']['elements'][$i]['bar_code']?>"></td>
+			<td><input type="text" name="name_it_<?php echo $i?>" value="<?php echo $_tplvar['invoices_data']['elements'][$i]['name_it']?>"></td>
+			<td><input type="text" name="description_it_<?php echo $i?>" value="<?php echo $_tplvar['invoices_data']['elements'][$i]['description_it']?>"></td>
+			<td><input type="text" name="price_it_<?php echo $i?>" value="<?php echo $this->getFormatPrice($_tplvar['invoices_data']['elements'][$i]['price_it'])?>"></td>
+			<td><input type="text" name="quantita_<?php echo $i?>" value="<?php echo $_tplvar['invoices_data']['elements'][$i]['quantita']?>"></td>
+			<td><input type="text" name="iva_<?php echo $i?>" value="<?php echo $_tplvar['invoices_data']['elements'][$i]['iva']?>"></td>
+			<td><input type="text" name="totale_<?php echo $i?>" value="<?php echo $this->getFormatPrice($_tplvar['invoices_data']['elements'][$i]['totale'])?>" readonly="readonly"></td>
+		</tr>
+		<?php endfor;?>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>IMPONIBILE</td>
+			<td><input type="text" name="imponibile" value="<?php echo $this->getFormatPrice($_tplvar['invoices_data']['imponibile'])?>" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>TOTALE</td>
+			<td><input type="text" name="totale" value="<?php echo $this->getFormatPrice($_tplvar['invoices_data']['totale_fattura'])?>" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td><input type="submit" name="invia" value="AGGIUNGI"></td>
+			<td><input type="submit" name="save" value="GENERA FATTURA"></td>
+			<td><input type="submit" name="reset" value="RESETTA"></td>
+		</tr>
+		
+		</table>
+	</td>
+</tr>
+
+
+</table>
+</form>

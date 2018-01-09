@@ -1,0 +1,88 @@
+<?php $_tplvar = $this->getVars();?>
+	<!-- INCLUSIONE CALENDARIO -->
+	<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+	<!-- INCLUSIONE CALENDARIO -->
+
+<!-- APERTURA FORM DI RICERCA -->
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+	<input type="hidden" name="export" value="1" />
+	<input type="hidden" name="type" value="xls" />
+
+		<div style="padding:10px">
+			<?php
+			if(!empty($_tplvar['keys_searched']['data_from']))
+				$data_from = $_tplvar['keys_searched']['data_from'];
+			else 
+				$data_from = date('Y').'-01-01';
+				
+			if(!empty($_tplvar['keys_searched']['data_to']))
+				$data_to = $_tplvar['keys_searched']['data_to'];
+			else
+				$data_to = date('Y-m-d');
+			?>		
+			Dal&nbsp; <input type="text" id="data_from" class="data_from" name="data_from" value="<?php echo $data_from;?>" style="width:75px"/>
+			&nbsp;al&nbsp;<input type="text" id="data_to" class="data_to" name="data_to" value="<?php echo $data_to;?>" style="width:75px"/>
+			<script type="text/javascript">
+		    $('#data_from').DatePicker({
+		    	format:'Y-m-d',
+		    	date: $('#data_from').val(),
+		    	current: $('#data_from').val(),
+		    	starts: 1,
+		    	position: 'r',
+		    	onBeforeShow: function(){
+		    		$('#data_from').DatePickerSetDate($('#data_from').val(), true);
+		    	},
+		    	onChange: function(formated, dates){
+		    		$('#data_from').val(formated);
+		    		$('#data_from').DatePickerHide();
+		    	}
+		    });
+		    $('#data_to').DatePicker({
+		    	format:'Y-m-d',
+		    	date: $('#data_to').val(),
+		    	current: $('#data_to').val(),
+		    	starts: 1,
+		    	position: 'r',
+		    	onBeforeShow: function(){
+		    		$('#data_to').DatePickerSetDate($('#data_to').val(), true);
+		    	},
+		    	onChange: function(formated, dates){
+		    		$('#data_to').val(formated);
+		    		$('#data_to').DatePickerHide();
+		    	}
+		    });
+		    </script>
+			<input type="submit" class="submit" value="ESPORTA" />
+			<input type="button" class="submit" value="RESET" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT'].'?act='.$_tplvar['action_class_name']?>&reset=1'" />
+		</div>
+		<br>
+		<div style="padding:10px;">
+			<?php
+			if(!empty($_tplvar['keys_searched']['data2_to']))
+				$data2_to = $_tplvar['keys_searched']['data2_to'];
+			else
+				$data2_to = date('Y-m-d');
+			?>		
+			Oppure esporta tutto il magazzino&nbsp;al&nbsp;<input type="text" id="data2_to" class="data2_to" name="data2_to" value="<?php echo $data2_to;?>" style="width:75px"/>
+			<script type="text/javascript">
+		    $('#data2_to').DatePicker({
+		    	format:'Y-m-d',
+		    	date: $('#data2_to').val(),
+		    	current: $('#data2_to').val(),
+		    	starts: 1,
+		    	position: 'r',
+		    	onBeforeShow: function(){
+		    		$('#data2_to').DatePickerSetDate($('#data2_to').val(), true);
+		    	},
+		    	onChange: function(formated, dates){
+		    		$('#data2_to').val(formated);
+		    		$('#data2_to').DatePickerHide();
+		    	}
+		    });
+		    </script>
+			<input type="submit" class="submit" value="ESPORTA" name="btn_data2_to" />
+			<input type="button" class="submit" value="RESET" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT'].'?act='.$_tplvar['action_class_name']?>&reset=1'" />
+		</div>
+</form>
+<!-- CHIUSURA FORM DI RICERCA -->

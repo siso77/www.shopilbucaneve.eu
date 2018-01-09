@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+        <style>
+            html,body{background-color:#ffffff;}
+            .title {font-size: 15px;font-weight: bold;line-height: 16px;}
+            .author {color: #635a12;font-size: 13px;font-weight: bold;}
+            .dhx_list__item_selected .author{color: #ffffff;}
+            .details {font-size: 13px;}
+        </style>
+		<title>Accordion</title>
+	</head>
+	<body>
+	
+		
+		<div id="ipad" style="width:1024px; height:600px; overflow:hidden;">
+		<script type="text/javascript" charset="utf-8">
+		dhx.ui({
+				container:"ipad",
+			    type:"wide",
+				cols:[
+					{ template:"", width:50 },
+					{ view:"accordion",
+						type:"wide",
+						rows:[
+							{ 	
+								header:"Books",
+								body:{
+                                    id:"books",
+                                    view:"list",
+                                    template:"<div class='title'>#title#</div><div class='author'>by #author#</div>",
+                                    url:"../04_list/books.xml",
+                                    datatype:"xml",
+                                    type:{
+                                        height: 35
+                                    },
+                                    select:1
+                                }
+							},
+							{ 	
+								header:"Details",
+								body:{
+                                    id:"details",
+                                    template:"<div class='title'>#title#</div><div class='author'>#author#</div><div class='details'>#desc#<div>"
+								}
+							}
+					]},
+					{ template:"", width:50 }
+				]
+			});
+            $$("details").bind($$("books"));
+            
+		</script>
+	</body>
+</html>

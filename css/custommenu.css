@@ -1,0 +1,136 @@
+#pt_custommenu {
+    position:relative;
+    z-index:1000;
+    font-size: 14px;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+}
+
+div.popup {
+    position:absolute;
+    z-index:3000;
+    display: none;
+    background-color:#fff;
+    text-align:left;
+    width:1110px;
+}
+div.pt_menu, div.popup {
+    padding: 10px;
+}
+div.pt_menu {
+    float: left;
+    padding: 0 !important;
+}
+div.pt_menu a, div.popup a {
+    text-decoration: none;
+    display:block;  
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+div.pt_menu .parentMenu a { padding: 15px;}
+.itemMenu h4.level1,
+.itemMenu a.level1{
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: normal;
+    /*color: #1E7EC8;*/
+}
+.itemMenu h4.level1,
+.itemSubMenu h4.level2 span{
+    color: #897725;
+}
+.itemSubMenu h4.level2,
+.itemSubMenu a.level2,
+.itemSubMenu h4.level3,
+.itemSubMenu a.level3,
+.itemMenu a.level1.nochild{
+    background: url("../images/black-dot.jpg") no-repeat left center;
+    color: #666;
+    padding-left: 8px;
+    text-transform: none;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 5px 0;
+}
+.itemSubMenu a.level2:hover,
+.itemMenu a.level1.nochild:hover{
+
+}
+div.popup a.actParent {
+
+}
+div.popup a.act {
+
+}
+
+div.column {
+    float:left;
+    width:207px; /* column width */
+    margin-right: 10px;
+}
+div.column.last {
+    border-right: 0 none;
+    margin-right: 0;
+    padding-right: 0;
+}
+div.itemSubMenu {
+    padding-left:15px;
+    border: 1px solid #e9e9e9; border-top: none;
+}
+.clearBoth {
+    clear:both;
+}
+.block2{
+    margin-top: 0;
+}
+#popup_home{
+    display: none !important;
+}
+div.popup .block1{
+    overflow: hidden;
+    /*display: inline-block;*/
+    float: left;
+    /*clear:both;*/
+}
+div.popup .block1:after { display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }
+div.popup .block1 .column{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+/*show right block*/
+div.popup .floatleft{
+    float: left;
+}
+div.popup .block1.floatleft{
+    /*width: 650px;*/
+}
+div.popup .block2.floatleft{
+    /*width: 250px;*/
+}
+div.popup .blockright img{
+    max-width: 100%;
+} 
+
+div.pt_menu .parentMenu p{
+    margin: 0;
+    padding: 0;
+}
+#pt_menu_link .parentMenu ul li{
+    float: left;
+    list-style: none;
+}
+#pt_menu_link .parentMenu ul li a{
+    float: left;
+    padding: 0 10px;
+    display: block;
+}
+#pt_menu_link{
+    padding: 0;
+}
+.block2{
+/*    display: inline;*/
+    float: left;
+    /*clear:both;*/
+}

@@ -1,0 +1,589 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<!-- INCLUSIONE CALENDARIO -->
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'];?>calendar/css/datepicker.css" />
+<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>calendar/js/datepicker.js"></script>
+ <!-- INCLUSIONE CALENDARIO -->
+ 
+<script>window.dhx_globalImgPath = "<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/imgs/";</script>
+<link rel="STYLESHEET" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.css">
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
+
+<?php if(!empty($_tplvar['error_contenuto_precaricato'])):?>
+<b style="color:red"><?php echo $this->getText('code_not_found');?></b>
+<?php endif;?>	
+
+<?php if($_tplvar['confirm_insert']):?>
+<b style="color:red"><?php echo $this->getText('insert_succesfull');?></b>
+<?php endif;?>	
+
+<script type="text/javascript">
+<!--
+function validateForm()
+{
+	var ret = true;
+	var qty = document.getElementById('quantita');
+	var name_it = document.getElementById('name_it');
+	var description_it = document.getElementById('description_it');
+	var id_size_type = document.getElementById('id_size_type');
+	var id_fornitore = document.getElementsByName('id_fornitore');
+	var id_category = document.getElementById('id_category');
+	var id_brand = document.getElementById('id_brand');
+	var id_color = document.getElementById('id_color');
+	
+	var err_quantita = document.getElementById('err_quantita');
+	var err_name_it = document.getElementById('err_name_it');
+	var err_description_it = document.getElementById('err_description_it');
+	var err_id_size_type = document.getElementById('err_id_size_type');
+	var err_id_fornitore = document.getElementById('err_id_fornitore');
+	var err_id_category = document.getElementById('err_id_category');
+	var err_id_brand = document.getElementById('err_id_brand');
+	var err_id_color = document.getElementById('err_id_color');
+
+	if(id_color.value == '-')
+	{		
+		err_id_color.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_id_color.innerHTML = '';
+	
+	if(id_brand.value == '')
+	{		
+		err_id_brand.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_id_brand.innerHTML = '';
+	
+	if(id_category.value == '')
+	{		
+		err_id_category.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_id_category.innerHTML = '';
+	
+//	if(id_fornitore.value == null)
+//	{		
+//		err_id_fornitore.innerHTML = '(*) Campo obbligatorio';
+//		ret = false;
+//	}
+//	else
+//		err_id_fornitore.innerHTML = '';
+	
+	if(id_size_type.value == '-')
+	{		
+		err_id_size_type.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_id_size_type.innerHTML = '';
+
+	if(description_it.value == '')
+	{		
+		err_description_it.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_description_it.innerHTML = '';
+
+	if(name_it.value == '')
+	{		
+		err_name_it.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_name_it.innerHTML = '';
+
+/*
+	if(qty.value == '')
+	{		
+		err_quantita.innerHTML = '(*) Campo obbligatorio';
+		ret = false;
+	}
+	else
+		err_quantita.innerHTML = '';
+*/
+	return ret;
+}
+//-->
+</script>		
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post" enctype="multipart/form-data">
+<?php if(!empty($_tplvar['id_magazzino'])):?>
+<input type="hidden" name="id_magazzino" value="<?php echo $_tplvar['id_magazzino']?>">
+<?php elseif(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>
+<input type="hidden" name="id_content" value="<?php echo $_tplvar['contenuto_precaricato']['id_content']?>">
+<?php endif;?>
+<?php if(!empty($_REQUEST['confirm_insert'])):?>
+<table width="90%">
+<tr>
+	<td align="center">
+		<b style="color:red">MODIFICA AVVENUTA CON SUCCESSO</b>
+	</td>
+</tr>
+</table>
+<?php endif;?>
+
+<table>
+<tr>
+	<td>
+		<input type="submit" value="SALVA" />
+	</td>
+	<td>
+		<input type="button" class="submit" value="CANCELLA CAMPI" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>'" />
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_images');?>
+	</td>
+	<td>
+		<?php foreach ($_tplvar['contenuto_precaricato']['images'] as $image):?>
+			<?php if($image['name'] != 'pro-bike_product_default.jpg'):?>
+				<img src="<?php echo $image['www_path'].'/Medium_'.$image['name']?>">
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $image['id']?><?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+			<?php else:?>
+				<img src="<?php echo $image['www_path'].'/'.$image['name']?>" width="135" height="114">
+			<?php endif;?>
+		<?php endforeach;?>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" colspan="2">
+		<?php $i = 0;?>
+		<?php foreach($_tplvar['images'] as $key => $val):?>
+			<?php if(!empty($val['id'])):?>
+				<input type="hidden" name="id_img[]" value="<?php echo $val['id']?>" />
+			<?php endif;?>
+			<?php if(!empty($val['name'])):?>
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&delete_img=1&id_img=<?php echo $val['id']?><?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">Rimuovi</a><b></b>
+					<img src="<?php echo $val['www_path'].'/Small_'.$val['name']?>" border="0">
+			<?php endif;?>
+			<?php if(empty($val['name'])):?>
+				Immagine <input type="file" name="img_<?php echo $i;?>">
+			<?php endif;?>
+			<?php $i++;?>
+		<br><br>
+		<?php endforeach;?>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&add_img=1<?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">AGGIUNGI IMMAGINE</a>
+		<?php if(count($_tplvar['images']) > 1):?>
+				<a href="<?php echo $_tplvar['WWW_ROOT']?>/?act=<?php echo $_tplvar['action_class_name']?>&rem_img=1<?php if(!empty($_tplvar['contenuto_precaricato']['id_content'])):?>&id_content=<?php echo $_tplvar['contenuto_precaricato']['id_content']?><?php endif;?>">RIMUOVI ULTIMA IMMAGINE </a>
+		<?php endif;?>
+	</td>
+</tr>
+<tr>
+	<td>
+		<?php echo $this->getText('frm_category');?>
+	</td>
+	<td>
+		<select name="id_category" id="id_category">
+			<option value="">-</option>
+			<?php foreach($_tplvar['categories'] as $value):?>
+				<option 
+					value="<?php echo $value['id']?>"
+						<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_category'] == $value['id']):?>
+							selected="selected"
+						<?php endif;?> style="font-weight: bolder;background-color:#E6E6E6">
+				<?php echo $value['name']?></option>
+				<?php if(!empty($value['sub_category'])):?>
+					<?php foreach($value['sub_category'] as $val):?>
+					
+					<option 
+						value="<?php echo $val['id']?>"
+							<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_category'] == $val['id']):?>
+								selected="selected"
+							<?php endif;?>>	
+							<?php echo $val['name']?></option>				
+					<?php endforeach;?>
+				<?php endif;?>
+				
+			<?php endforeach;?>
+		</select>
+		<div id="err_id_category" style="color:#993300"></div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<?php echo $this->getText('frm_brand');?>
+	</td>
+	<td>
+		<select name="id_brand" id="id_brand">
+			<option value="">-</option>
+			<?php foreach($_tplvar['brands'] as $value):?>
+				<option 
+					value="<?php echo $value['id']?>"
+						<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_brand'] == $value['id']):?>
+							selected="selected"
+						<?php endif;?>>
+				<?php echo $value['name']?></option>
+			<?php endforeach;?>
+		</select>
+		<div id="err_id_brand" style="color:#993300"></div>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_color');?>
+	</td>
+	<td>
+		<select id="id_color" name="id_color">
+			<option> - </option>
+			<?php foreach ($_tplvar['cmb_dhtmlx_color'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato']['id_color'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['color'];?></option>
+			<?php endforeach;?>
+		</select>
+		<select id="id_color_2" name="id_color_2">
+			<option> - </option>
+			<?php foreach ($_tplvar['cmb_dhtmlx_color'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato']['id_color_2'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['color'];?></option>
+			<?php endforeach;?>
+		</select>
+		<select id="id_color_3" name="id_color_3">
+			<option> - </option>
+			<?php foreach ($_tplvar['cmb_dhtmlx_color'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato']['id_color_3'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['color'];?></option>
+			<?php endforeach;?>
+		</select>
+		<div id="err_id_color" style="color:#993300"></div>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_type_size');?>
+	</td>
+	<td>
+		<script type="text/javascript">
+		function getSizes(obj)
+		{
+			var id_size_type = obj.options[obj.selectedIndex].value;
+			
+			$.ajax({
+				  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetSizes',
+				  type: 'POST',
+				  dataType: "html",
+				  data: 'id_size_type='+id_size_type,
+				  success: function(html){
+					  $('#sizes').html(html);
+				  }
+				});
+		}
+		<?php if($_tplvar['contenuto_precaricato']['id_size']):?>
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetSizes',
+			  type: 'POST',
+			  dataType: "html",
+			  data: 'id_size=<?php echo $_tplvar['contenuto_precaricato']['id_size'];?>',
+			  success: function(html){
+				  $('#sizes').html(html);
+			  }
+			});
+		$.ajax({
+			  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxGetSizes',
+			  type: 'POST',
+			  dataType: "html",
+			  data: 'id_size=<?php echo $_tplvar['contenuto_precaricato']['id_size'];?>&display_type=1',
+			  success: function(html){
+				  $('#size_type').html(html);
+			  }
+			});
+		<?php endif;?>
+		</script>
+		
+		
+		
+		<?php if(empty($_tplvar['contenuto_precaricato']['id_size'])):?>
+		<select id="id_size_type" name="id_size_type" style="width:350px;" onchange="javascript:getSizes(this);">
+			<option> - </option>
+			<?php 
+			foreach ($_tplvar['cmb_dhtmlx_size_type'] as $key => $data):?>
+				<option value="<?php echo $data['id'];?>" <?php if($_tplvar['contenuto_precaricato']['id_size'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['type'];?></option>
+			<?php endforeach;?>
+		</select>
+		<?php endif;?>
+		<div id="size_type"></div>
+		<div id="sizes"></div>
+		<div id="err_id_size_type" style="color:#993300"></div>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_code');?>		
+	</td>
+	<td>
+		<?php if(!empty($_tplvar['contenuto_precaricato']['bar_code'])):?>
+			<input type="text" name="bar_code" id="field_1" value="<?php echo $_tplvar['contenuto_precaricato']['bar_code']?>" />
+		<?php elseif(!empty($_tplvar['bar_code_searched'])):?>
+			<input type="text" name="bar_code" id="field_1" value="<?php echo $_tplvar['bar_code_searched']?>" />
+		<?php else:?>
+		
+			<input type="text" name="bar_code"/>
+
+		<?php endif;?>
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_purchase_price');?>
+	</td>
+	<td>
+		<input type="text" name="prezzo_acquisto" value="<?php echo $_tplvar['contenuto_precaricato']['prezzo_acquisto']?>" />
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_ddt');?> / <?php echo $this->getText('frm_data_ddt');?>
+	</td>
+	<td>
+		<?php 
+		$exp = explode('|', $_tplvar['contenuto_precaricato']['ddt']);
+		$ddt = $exp[0];
+		$data_ddt = $exp[1];
+		?>
+		<?php 
+		$data = date('d/m/Y');
+		if(empty($data_ddt))
+			$data_ddt = $data;
+		?>
+		<input type="text" name="ddt" value="<?php echo $ddt?>" /> / <input type="text" id="data_ddt" class="data_ddt" name="data_ddt" value="<?php echo $data_ddt?>" /> (es.01/01/2000)
+   
+   
+	    <script type="text/javascript">
+	    $('#data_ddt').DatePicker({
+	    	format:'d/m/Y',
+	    	date: $('#data_ddt').val(),
+	    	current: $('#data_ddt').val(),
+	    	starts: 1,
+	    	position: 'r',
+	    	onBeforeShow: function(){
+	    		$('#data_ddt').DatePickerSetDate($('#data_ddt').val(), true);
+	    	},
+	    	onChange: function(formated, dates){
+	    		$('#data_ddt').val(formated);
+	    		$('#data_ddt').DatePickerHide();
+	    	}
+	    });
+	    </script>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_fattura_carico');?> / <?php echo $this->getText('frm_data_fattura_carico');?>
+	</td>
+	<td>
+		<?php 
+		$exp = explode('|', $_tplvar['contenuto_precaricato']['fattura_carico']);
+		$fattura_carico = $exp[0];
+		$data_fattura_carico = $exp[1];
+		
+		$data = date('d/m/Y');
+		if(empty($data_fattura_carico))
+			$data_fattura_carico = $data;
+		
+		?>
+		<input type="text" name="fattura_carico" value="<?php echo $fattura_carico?>" /> / <input type="text" name="data_fattura_carico" id="data_fattura_carico" value="<?php echo $data_fattura_carico?>" /> (es.01/01/2000)
+	    
+	    <script type="text/javascript">
+	    $('#data_fattura_carico').DatePicker({
+	    	format:'d/m/Y',
+	    	date: $('#data_fattura_carico').val(),
+	    	current: $('#data_fattura_carico').val(),
+	    	starts: 1,
+	    	position: 'r',
+	    	onBeforeShow: function(){
+	    		$('#data_fattura_carico').DatePickerSetDate($('#data_fattura_carico').val(), true);
+	    	},
+	    	onChange: function(formated, dates){
+	    		$('#data_fattura_carico').val(formated);
+	    		$('#data_fattura_carico').DatePickerHide();
+	    	}
+	    });
+	    </script>
+		
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_name');?>
+	</td>
+	<td>
+		<input type="text" name="name_it" id="name_it" value="<?php echo $_tplvar['contenuto_precaricato']['name_it']?>" />
+		<div id="err_name_it" style="color:#993300"></div>
+		<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/it.jpg" width="30" height="18">
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_description');?>
+	</td>
+	<td>
+		<textarea name="description_it" id="description_it" rows="10" cols="50"><?php echo $_tplvar['contenuto_precaricato']['description_it']?></textarea>
+		<div id="err_description_it" style="color:#993300"></div>
+		<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/it.jpg" width="30" height="18">
+	</td>
+</tr>
+
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_name');?>
+	</td>
+	<td>
+		<input type="text" name="name_en" value="<?php echo $_tplvar['contenuto_precaricato']['name_en']?>" />
+		<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/en.jpg" width="30" height="18">
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_description');?>
+	</td>
+	<td>
+		<textarea name="description_en" rows="10" cols="50"><?php echo $_tplvar['contenuto_precaricato']['description_en']?></textarea>
+		<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/en.jpg" width="30" height="18">
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<?php echo $this->getText('frm_is_in_ecommerce');?>
+	</td>
+	<td>
+		<input type="checkbox" name="is_in_ecommerce" <?php if($_tplvar['contenuto_precaricato']['is_in_ecommerce']==1):?>checked="checked"<?php endif;?> />
+	</td>
+</tr>
+<tr>
+	<td>
+		VETRINA
+	</td>
+	<td>
+		<input type="checkbox" name="is_in_evidence" <?php if($_tplvar['contenuto_precaricato']['is_in_evidence']==1):?>checked="checked"<?php endif;?> />
+	</td>
+</tr>
+<tr>
+	<td>
+		INVISIBILE
+	</td>
+	<td>
+		<input type="checkbox" name="invisible" <?php if($_tplvar['contenuto_precaricato']['invisible']==1):?>checked="checked"<?php endif;?> />
+	</td>
+</tr>
+<tr>
+	<td>
+		<?php echo $this->getText('frm_is_in_offer');?>
+	</td>
+	<td>
+		<input type="checkbox" name="is_in_offer" <?php if($_tplvar['contenuto_precaricato']['is_in_offer']==1):?>checked="checked"<?php endif;?> />
+	</td>
+</tr>
+<tr>
+	<td>
+		<?php echo $this->getText('frm_price');?>
+	</td>
+	<td>
+		<input type="text" name="price_it" id="price_it" value="<?php echo $_tplvar['contenuto_precaricato']['price_it']?>" />
+	</td>
+</tr>
+<tr>
+	<td>
+		<?php echo $this->getText('frm_percent_discount');?>
+	</td>
+	<td>
+	
+		<select name="percentuale_sconto" onchange="javascript:calculateBasket('price_it', this, 'price_discounted_it');">
+			<option value="0"> - </option>
+			<?php foreach ($_tplvar['percent_discount'] as $key => $data):?>
+				<option value="<?php echo $data['data'];?>" <?php if($_tplvar['contenuto_precaricato']['percentuale_sconto'] == $data['data']):?>selected="selected"<?php endif;?>><?php echo $data['data'];?>%</option>
+			<?php endforeach;?>
+		</select>
+	</td>
+</tr>
+<script>
+function calculateBasket(id, obj, id2)
+{
+	var el = document.getElementById(id);
+	var el2 = document.getElementById(id2);
+
+	var discount = parseFloat(el.value.replace(",", ".")) - (parseFloat((el.value.replace(",", ".")) * obj.options[obj.selectedIndex].value) / 100);
+	total = new String(discount);
+	exp = total.split('.');
+	if(exp[1])
+	{
+		if(exp[1].length == 1)
+			total = exp[0]+','+exp[1]+'0';
+	}
+	else
+		total = total + ',00';
+	el2.value = total;
+}
+</script>
+<tr>
+	<td>
+		<?php echo $this->getText('frm_price_discounted');?>
+	</td>
+	<td>
+		<input type="text" name="price_discounted_it" id="price_discounted_it" value="<?php if($_tplvar['contenuto_precaricato']['price_discounted_it'] != '0,00') echo $_tplvar['contenuto_precaricato']['price_discounted_it']?>" />
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_qty');?>
+	</td>
+	<td>
+		<input type="text" id="quantita" name="quantita" value="<?php echo $_tplvar['contenuto_precaricato']['quantita']?>" />
+		<div id="err_quantita" style="color:#993300"></div>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<?php echo $this->getText('frm_fornitore');?>
+	</td>
+	<td>
+		<?php if(!empty($_tplvar['contenuto_precaricato']['fornitore'])):?>
+			<select id="id_fornitore" name="fornitore" style="width:350px;height:18px;">
+				<?php foreach ($_tplvar['cmb_dhtmlx_fornitore'] as $key => $data):?>
+				<option value="<?php echo $data['id']?>" <?php if($_tplvar['contenuto_precaricato']['id_fornitore'] == $data['id']):?>selected="selected"<?php endif;?>><?php echo $data['data'];?></option>
+				<?php endforeach;?>
+			</select>
+			<script>
+			var z = new dhtmlXCombo("id_fornitore", "fornitore", 350);
+			z.enableFilteringMode(true);
+			</script>
+		<?php else:?>	
+			<div id="id_fornitore"></div>		
+			<script>
+			var z = new dhtmlXCombo("id_fornitore", "fornitore", 350);
+			z.addOption([<?php
+							$arrayJs = '';
+							if(!empty($_tplvar['contenuto_precaricato']['id_fornitore']))
+								$arrayJs .= "['".$_tplvar['contenuto_precaricato']['id_fornitore']."', '".$_tplvar['contenuto_precaricato']['fornitore']."'],";
+														
+							foreach ($_tplvar['cmb_dhtmlx_fornitore'] as $key => $data)
+							{
+								if($data['id'] != $_tplvar['contenuto_precaricato']['id_fornitore'])
+									$arrayJs .= "['".$data['id']."', '".htmlentities(str_replace("€", "", $data['data']), ENT_QUOTES, "UTF-8")."'],";
+								//$arrayJs .= "['".$data['id']."', '".htmlentities($data['data'], ENT_QUOTES, "UTF-8")."'],";
+							}
+							$arrayJs = substr($arrayJs, 0, -1);
+							echo $arrayJs;
+						?>]);
+			z.enableFilteringMode(true);
+			</script>
+		<?php endif;?>		
+		<div id="err_id_fornitore" style="color:#993300"></div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="submit" value="SALVA" />
+	</td>
+	<td>
+		<input type="button" class="submit" value="CANCELLA CAMPI" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>'" />
+	</td>
+</tr>
+</table>
+</form>

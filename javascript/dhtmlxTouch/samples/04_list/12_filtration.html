@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+	    <link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	    <script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <title>Filtration</title>
+	</head>
+<body>
+    <script type="text/javascript" charset="utf-8">
+        dhx.ui({
+		    cols:[{
+                width:300,
+                rows:[
+                    {view:"toolbar", type:"SubBar", elements:[
+                        {
+                           id: "filter",
+                           view: "text",
+                           label: "<div class='dhx_el_icon'><div class='dhx_el_icon_search' style='margin: 5px 0'></div></div>",
+                           labelWidth: 30
+                        }
+                    ]},
+                    {
+                         view:"list",
+                         id:"mylist",
+                         url:"friends.xml",
+                         datatype:"xml",
+                         template:"#title#",
+                         select:true
+                    }
+                 ]
+             },{
+
+            }]
+	    });
+        /*adds keyevents support to "filter" view*/
+        dhx.extend($$('filter'),dhx.KeyEvents);
+        /*sets a function that is called on keypress with delay*/
+        $$('filter').attachEvent("onTimedKeyPress", function(){
+            var text = $$("filter").getValue();
+            /*filters List by "title" property*/
+	        $$("mylist").filter("#title#",text);
+        });
+
+
+	 </script>
+</body>
+</html>

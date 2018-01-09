@@ -1,0 +1,77 @@
+<?php $_tplvar = $this->getVars();?>
+
+<table>
+<tr>
+	<th>Attenzione ci sono <?php echo count($_tplvar['new_users'])?> <?php if(count($_tplvar['new_users']) > 1):?>Nuovi Utenti<?php else:?>Nuovo Utente<?php endif;?></th>
+</tr>
+<tr>
+	<td>
+		<table>
+		<tr>
+			<td><b>Username</td>
+			<td><b>Email</td>
+			<td><b>Data Registrazione</td>
+			<td><b>Dettaglio</td>
+			<td><b>Attiva Account</td>
+		</tr>
+		<?php foreach ($_tplvar['new_users'] as $value):?>
+		<tr>
+			<td><?php echo $value['username']?></td>
+			<td><?php echo $value['username']?></td>
+			<td><?php echo $this->getFormatDate($value['data_inserimento_riga'])?></td>
+			<td>
+
+				<script>
+				var html_detail_<?php echo $value['id'];?> = '<table width="100%"><tr><td>Nome</td><td>Cognome</td><td>P.IVA / C.F.</td><td style="width: 400px">Indirizzo</td><td style="width: 400px">Indirizzo Spedizione</td><td>Email</td><td>Telefono</td><td>Cellulare</td><td>Settore Merceologico</td></tr><tr><td><?php echo mysql_real_escape_string($value['user_anag']['name'])?></td><td><?php echo mysql_real_escape_string($value['user_anag']['surname'])?></td><td>p.iva: <?php echo $value['user_anag']['p_iva']?>  c.f.: <?php echo $value['user_anag']['codice_fiscale']?></td><td><?php echo mysql_real_escape_string($value['user_anag']['address'].' - '.$value['user_anag']['city'].' - '.$value['user_anag']['cap'].' - '.$value['user_anag']['province'].' - '.$value['user_anag']['nation'])?></td><td><?php echo mysql_real_escape_string($value['user_anag']['address_spedizione'].' - '.$value['user_anag']['city_spedizione'].' - '.$value['user_anag']['cap_spedizione'].' - '.$value['user_anag']['province_spedizione'].' - '.$value['user_anag']['nation_spedizione'])?></td><td><?php echo $value['user_anag']['email']?></td><td><?php echo $value['user_anag']['phone']?></td><td><?php echo $value['user_anag']['mobile']?></td><td><?php echo $value['user_anag']['settore_merceologico']?></td></tr></table>';
+				</script>
+				<a class="delete" href="javascript:void(0);" onclick="jQuery.fancybox(html_detail_<?php echo $value['id'];?>)">Dettaglio</a>							
+			</td>
+			<td><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Home&activate_account=1&id_user=<?php echo $value['id']?>">Attiva Account</a></td>
+		</tr>
+		<?php endforeach;?>
+		</table>
+	</td>
+</tr>
+<tr>
+	<th>Clienti Online</th>
+</tr>
+<tr>
+	<td>
+		<table>
+		<tr>
+			<td><b>Cliente</td>
+			<td><b>P.IVA</td>
+			<td><b>Data Ultimo Accesso</td>
+		</tr>
+		<?php foreach ($_tplvar['users_online'] as $value):?>
+		<tr>
+			<td><?php echo $value['ragione_sociale']?></td>
+			<td><?php echo $value['p_iva']?></td>
+			<td><?php echo $this->getFormatDate($value['last_access'])?></td>
+		</tr>
+		<?php endforeach;?>
+		</table>
+	</td>
+</tr>
+<tr>
+	<th>Lista Accessi Clienti</th>
+</tr>
+<tr>
+	<td>
+		<table>
+		<tr>
+			<td><b>Cliente</td>
+			<td><b>P.IVA</td>
+			<td><b>Data Ultimo Accesso</td>
+		</tr>
+		<?php foreach ($_tplvar['users_acces'] as $value):?>
+		<tr>
+			<td><?php echo $value['ragione_sociale']?></td>
+			<td><?php echo $value['p_iva']?></td>
+			<td><?php echo $this->getFormatDate($value['last_access'])?></td>
+		</tr>
+		<?php endforeach;?>
+		</table>
+	</td>
+</tr>
+</table>

@@ -1,0 +1,134 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script type="text/javascript">
+<!--
+function sendFilter(obj)
+{
+	var id = obj.options[obj.selectedIndex].value;
+	document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&id_category='+id;
+}
+//-->
+</script>
+<table>
+<tr>
+	<td>Filtra contenuti per</td>
+	<td>
+		<select name="id_category" onchange="javascript:sendFilter(this)">
+		<option value="">-</option>
+		<?php foreach($_tplvar['cmb_category'] as $value):?>
+			<option 
+				value="<?php echo $value['id']?>"
+					<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_category'] == $value['id']):?>
+						selected="selected"
+					<?php endif;?>>
+			<?php echo $value['name']?></option>
+		<?php endforeach;?>
+		</select>
+	</td>
+</tr>
+</table>
+
+					<table>
+						<tr>
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCategorie';
+							$assign['order_by'] = 'name';
+							if(!empty($_REQUEST['id_category']))
+								$assign['action'] = 'ListaCategorie&id_category='.$_REQUEST['id_category'];
+							else
+								$assign['action'] = 'ListaCategorie';
+							$assign['field_name'] = 'NOME IT';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCategorie';
+							$assign['order_by'] = 'description';
+							if(!empty($_REQUEST['id_category']))
+								$assign['action'] = 'ListaCategorie&id_category='.$_REQUEST['id_category'];
+							else
+								$assign['action'] = 'ListaCategorie';
+							$assign['field_name'] = 'DESCRIZIONE IT';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCategorie';
+							$assign['order_by'] = 'name_en';
+							if(!empty($_REQUEST['id_category']))
+								$assign['action'] = 'ListaCategorie&id_category='.$_REQUEST['id_category'];
+							else
+								$assign['action'] = 'ListaCategorie';
+							$assign['field_name'] = 'NOME EN';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>
+							<td>
+							<?php
+							$assign['key_session'] = 'ListaCategorie';
+							$assign['order_by'] = 'description_en';
+							if(!empty($_REQUEST['id_category']))
+								$assign['action'] = 'ListaCategorie&id_category='.$_REQUEST['id_category'];
+							else
+								$assign['action'] = 'ListaCategorie';
+							$assign['field_name'] = 'DESCRIZIONE EN';							
+							$this->getPartial('shared/SortField', $assign);
+							?>
+							</td>
+							
+                           <td>MODIFICA</td>
+                           <td>CANCELLA</td>
+						</tr>
+						
+					<?php foreach ($_tplvar['list'] as $value):?>
+					<tr>
+						<td width="120"><?php echo $value['name']?></td>
+						<td width="120"><?php echo $value['description']?></td>
+						<td width="120"><?php echo $value['name_en']?></td>
+						<td width="120"><?php echo $value['description_en']?></td>
+						<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCategoria&edit=1&id=<?php echo $value['id']?>">MODIFICA</a></td>
+						<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&delete=1&id=<?php echo $value['id']?>">CANCELLA</a></td>
+					</tr>
+					<?php if(is_array($value['sub_category'])):?>
+					<tr>
+						<td colspan="6">
+							<table width="100%">
+							<?php foreach ($value['sub_category'] as $val):?>
+							<tr>
+								<td width="120"><?php echo $val['name']?></td>
+								<td width="120"><?php echo $val['description']?></td>
+								<td width="120"><?php echo $val['name_en']?></td>
+								<td width="120"><?php echo $val['description_en']?></td>
+								<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=CaricaCategoria&edit=1&id=<?php echo $val['id']?>">MODIFICA</a></td>
+								<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&delete=1&id=<?php echo $val['id']?>">CANCELLA</a></td>
+							</tr>
+							<?php endforeach;?>
+							</table>
+						</td>
+					</tr>
+					<?php endif;?>
+					<?php endforeach;?>
+				</table>
+				
+                <!-- Page Navigation -->
+                <?php
+                if(!empty($_REQUEST['order_by'])) 
+                	$assign['params'] = '&order_by='.$_REQUEST['order_by'];
+                if(!empty($_REQUEST['order_type'])) 
+                	$assign['params'] .= '&order_type='.$_REQUEST['order_type'];
+                if(!empty($_REQUEST['pageID'])) 
+                	$assign['params'] .= '&pageID='.$_REQUEST['pageID'];
+                	?>
+				<?php echo $this->getPartial('shared/Paging', $assign);?>
+
+				<!-- /Page Navigation -->
+                
+                <!-- Export Excel -->
+                <?php //$assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php //echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+				
+<br><br>

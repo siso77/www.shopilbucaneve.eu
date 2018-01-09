@@ -1,0 +1,73 @@
+* {margin: 0px;padding: 0px;}
+body {background-color: #E6E6D2;font: normal 0.75em/145% Arial, Tahoma, sans-serif;color: #33393c;text-align: left;}
+p {margin: 0px 0px 10px 0px;line-height: 140%;color: #33393c;}
+a {outline: none;text-decoration: underline;}
+a:hover {text-decoration: none;}
+.hide {display: none;}
+img {border: 0px;}
+
+/* Clearing method
+------------------------------------------------------*/
+
+.clearfix:after {content: ".";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;}
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix {display: block;}
+* html .clearfix {height: 1%;}
+/* Branding
+------------------------------------------------------*/
+
+/* forms
+------------------------------------------------------*/
+
+#page-content label {font: bold 1.2em Arial, Tahoma, sans-serif;color: #33393c;margin: 10px 0px 5px 0px;display: block;}
+#page-content input, #page-content textarea {/*font: normal 1.5em Arial, Tahoma, sans-serif;color: #454545;margin: 0px 0px 15px 0px;padding: 5px;display: block;border: 1px solid #cccccc;width: 35%;*/}
+#page-content textarea {font: normal 1.2em Arial, Tahoma, sans-serif;height: 150px;}
+#page-content input:focus, #page-content textarea:focus {border: 1px solid #454545;}
+#page-content input.submit {background-color: #0099ff;display: block;float: left;width: 140px;margin: 0px 10px 20px 0px;padding: 6px 0px 6px 0px;font: bold 1.1em Arial, Tahoma, sans-serif;color: #fff;text-transform: uppercase;border: 1px solid #fff;cursor:pointer;}
+#page-content input.reset {background-color: #33393c;}
+#page-content input.submit:hover {background-color: #ff6600;}
+#page-content .short {width: 35%;}
+#page-content select.short {/*padding-top:5px;width: 36%;height:38px;border: 1px solid #CCCCCC;font: bold 1.1em Arial, Tahoma, sans-serif;*/}
+#page-content .short-radio {width: 15px;margin-left: 20px;position: relative;top:-18px;border: none;font: bold 1.1em Arial, Tahoma, sans-serif;}
+#page-content div.radio {width: 10%;height: 33px;float:left;}
+#page-content .medium {width: 97%;}
+
+/* Alerts
+------------------------------------------------------*/
+
+#page-content .success {font: bold 1.1em Arial, Tahoma, sans-serif;color: #249901;padding: 10px 15px 10px 15px;margin: 5px 0px 5px 0px;border: 1px solid #84cd6e;background-color: #dff2d9;}
+#page-content .error {font: bold 1.1em Arial, Tahoma, sans-serif;color: #f03a31;padding: 10px 15px 10px 15px;margin: 5px 0px 5px 0px;border: 1px solid #f03a31;background-color: #fad3c5;}
+/* form-block
+------------------------------------------------------*/
+#form-block {position: relative;margin-right: 270px;}
+#form-block em {color: #5c6163;display: block;margin: -12px 0px 12px 0px;}
+
+/* ====================== */
+/* Pagination             */
+/* ====================== */
+.paginator { margin: 0px; padding: 0px;  list-style: none; display: block;clear: both;border-top: 1px solid #eee;padding: 8px 0px 0px;}
+.paginator li { display: inline; }
+.paginator li a {color: #aaa;border: 1px solid #eee;padding: 3px 5px;}
+.paginator li a:hover, .paginator li.current a {color: #545454;border: 1px solid #BEB7A9;background: #F5F5ED;}
+
+/* forms globali
+------------------------------------------------------*/
+
+label {font: bold 1.2em Arial, Tahoma, sans-serif;color: #33393c;margin: 10px 0px 5px 0px;display: block;}
+input, #page-content textarea {font: normal 1.5em Arial, Tahoma, sans-serif;color: #454545;margin: 0px 0px 15px 0px;padding: 5px;border: 1px solid #cccccc;width: 35%;}
+textarea {font: normal 1.2em Arial, Tahoma, sans-serif;height: 150px;}
+input:focus, #page-content textarea:focus {border: 1px solid #454545;}
+input.submit {background-color: #0099ff;display: block;float: left;width: 140px;margin: 0px 10px 20px 0px;padding: 6px 0px 6px 0px;font: bold 1.1em Arial, Tahoma, sans-serif;color: #fff;text-transform: uppercase;border: 1px solid #fff;cursor:pointer;}
+input.reset {background-color: #33393c;}
+input.submit:hover {background-color: #ff6600;}
+.short {width: 35%;}
+select.short {padding-top:5px;width: 36%;height:38px;border: 1px solid #CCCCCC;font: bold 1.1em Arial, Tahoma, sans-serif;}
+.short-radio {width: 15px;margin-left: 20px;position: relative;top:-18px;border: none;font: bold 1.1em Arial, Tahoma, sans-serif;}
+div.radio {width: 10%;height: 33px;float:left;}
+.medium {width: 60%;}
+
+.order {color:#FFF;}
+.order a {color:#FFF;}
+.order a:hover{color:#FFF;}
+.order a:active{color:#FFF;}
+.order a:visited{color:#FFF;}

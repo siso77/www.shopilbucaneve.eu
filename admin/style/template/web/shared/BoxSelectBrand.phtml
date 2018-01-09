@@ -1,0 +1,28 @@
+<?php $_tplvar = $this->getVars();?>
+<script type="text/javascript">
+<!--
+function sendFilterBrand(obj)
+{
+	var id = obj.options[obj.selectedIndex].value;
+	
+	document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?><?php if(!empty($_REQUEST['history'])):?>&history=1<?php endif;?>&id_brand='+id;
+}
+//-->
+</script>
+<table>
+<tr>
+	<td>
+		<!-- <select name="id_brand" onchange="javascript:sendFilterBrand(this)"> -->
+		<select name="id_brand" id="key_search_id_brand">
+			<option value="">-</option>
+			<?php foreach($_tplvar['cmb_brand'] as $value):?>
+				<option 
+					value="<?php echo $value['id']?>"
+						<?php if(!empty($_tplvar['contenuto_precaricato']) && $_tplvar['contenuto_precaricato']['id_brand'] == $value['id']):?>
+							selected="selected"
+						<?php endif;?>><?php echo $value['name']?></option>
+			<?php endforeach;?>
+		</select>		
+	</td>
+</tr>
+</table>

@@ -1,0 +1,57 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $_SESSION['lang'];?>">
+
+<head>
+
+	<?php echo $this->getEncoding();?>
+	<?php $this->getSeoMetatag();?>
+
+	<meta name="language" content="<?php echo $_SESSION['lang'];?>">
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+		
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/javascript.js"></script>
+	
+	<BASE HREF="<?php echo $_tplvar['WWW_ROOT'];?>"> 
+	<link rel="stylesheet" href="<?php echo $_tplvar['WWW_ROOT'];?>css/style.css" type="text/css" media="screen" />	
+	
+	<!-- mootools -->
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>js/mootools.core.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>js/mootools.more.js"></script>	
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>js/mootools/DatePicker.js"></script>
+	<script type="text/javascript" src="<?php echo $_tplvar['WWW_ROOT'];?>js/unFocus-History-p.js"></script>
+	
+	<?php //$this->getPartial('shared/HederaPageJavascript');?>
+
+</head>
+<html>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0"> 
+	<?php
+	if($_GET['pageID'])
+		$page = '&pageID='.$_GET['pageID'];
+	
+	if(!$_GET['orderType'])
+		$orderType = '&orderType=DESC';
+	elseif($_GET['orderType'] == 'ASC')
+		$orderType = '&orderType=DESC';
+	else
+		$orderType = '&orderType=ASC';
+	
+	if($_GET['orderBy'])
+		$orderBy = '&orderBy='.$_GET['orderBy'];
+	else
+		$orderBy = '';
+	?>
+
+	<div id="container" align="center">
+	<?php //$this->getPartial('Header');?>
+				
+	<?php $this->getPartial($_tplvar['tpl_action']);?>
+		
+	<?php $this->getPartial('Footer');?>
+	</div>
+	<!--/container-->
+</body>
+</html>

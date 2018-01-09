@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="list.css" type="text/css" media="screen" charset="utf-8">
+        <title>Item swipe handling</title>
+	</head>
+	<body>
+        <div style="border: 1px solid #ADADAD; width:700px;height:250px;margin:50px;">
+            <div id="listbox" style='width:100%; height:100%;'></div>
+        </div>
+
+		<script type="text/javascript" charset="utf-8">
+            dhx.ready(function(){
+                dhx.ui({
+                    container:"listbox",
+    				id:"books",
+                    view:"list",
+                    type:{
+                        template:"<div style='float:left'><div class='title'>#title#</div> <div class='author'>by #author#</div></div><div class='price'>#cprice# $</div>",
+                        templateSwipe:"<div style='float:left;text-decoration:line-through'><div class='title'>#title#</div> <div class='author'>by #author#</div></div><div class='price'><input type='button' class='delete_item' value='Delete'></div>",
+                        height: 35
+                    },
+                    url:"books.xml",
+                    datatype:"xml",
+                   
+                    select:1
+    			});
+    			/*adds swipe handling, applies templateSwipe for swiped item*/
+    			dhx.extend($$("books"),dhx.TouchEvents);
+    			/*onclick event handler of element with 'delete_item' className*/
+    			$$("books").on_click["delete_item"] = function(e,id){
+                    $$("books").remove(id);
+                    return false;
+                };
+            });
+
+
+
+		</script>
+	</body>
+</html>

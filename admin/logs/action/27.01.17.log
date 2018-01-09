@@ -1,0 +1,8 @@
+Jan 27 12:54:10|5[info]27/01/2017 12:54:10 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Jan 27 12:54:16|5[info]27/01/2017 12:54:16 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Jan 27 12:54:29|5[info]27/01/2017 12:54:29 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = ControllerError][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Jan 27 12:54:36|5[info]27/01/2017 12:54:36 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Jan 27 12:54:41|5[info]27/01/2017 12:54:41 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Jan 27 12:54:56|5[info]27/01/2017 12:54:56 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Orders][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Jan 27 12:55:08|5[info]27/01/2017 12:55:08 - [UTENTE = siso][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]
+Jan 27 12:55:17|5[info]27/01/2017 12:55:17 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = ControllerError][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0]

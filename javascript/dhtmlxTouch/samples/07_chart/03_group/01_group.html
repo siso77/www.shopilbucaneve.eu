@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<title>Group</title>
+	<script src="../../../codebase/touchui.js" type="text/javascript"></script>
+	<link rel="STYLESHEET" type="text/css" href="../../../codebase/touchui.css">
+	<script src="../common/companies.js"></script>
+<body>
+    <div id="chartDiv" style="width:600px;height:250px;margin:20px"></div>
+    <div  style="margin-left:20px">
+        <input type="button" name="some_name" value="Group by" onclick="window['group'+document.getElementById('groupby').value]()">
+        <select name="groupby" id="groupby">
+            <option value="A">company</option>
+            <option value="B" SELECTED>year (total sales)</option>
+            <option value="C">year (max sales)</option>
+        </select>
+    </div>
+
+	<script>
+        dhx.ui({
+            view:"chart",
+            id:"mychart",
+            container:"chartDiv",
+            type:"bar",
+            value:"#sales#",
+            gradient:"falling",
+            color:"#b3e025",
+            radius:0,
+            alpha:0.5,
+            border:true,
+            barWidth:70,
+            xAxis:{
+                template:"#id#"
+            },
+            yAxis:{
+            },
+            group:{
+                by:"#year#",
+                map:{
+                    sales:["#sales#","sum"]
+                }
+            },
+            sort:{
+                by:"#id#",
+                as:"string",
+                dir:"asc"
+            },
+            data: data
+        });
+
+        function  groupA(){
+            $$("mychart").group({
+                by:"#company#",
+                map:{
+                    sales:["#sales#","sum"]
+                }
+            });
+        }
+
+        function  groupB(){
+            $$("mychart").group({
+                by:"#year#",
+                map:{
+                    sales:["#sales#","sum"]
+                }
+            });
+        }
+
+        function  groupC(){
+            $$("mychart").group({
+                by:"#year#",
+                map:{
+                    sales:["#sales#","max"]
+                }
+            });
+        }
+
+	</script>
+</body>
+</html>

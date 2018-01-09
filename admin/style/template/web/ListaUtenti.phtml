@@ -1,0 +1,117 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+function setAgente(el, id_user)
+{
+	$.fancybox.showLoading();
+	$.ajax({
+	  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetOption',
+	  type: 'POST',
+	  dataType: 'html',
+	  data: 'id_user='+id_user+'&codice_agente='+jQuery(el).val(),
+	  success: function(html){
+	  	$.fancybox( html );
+	  }
+	});
+}
+</script>
+<!--MENU TOP-->
+    <?php echo $this->getPartial('shared/BoxSearch');?>
+<!-- / MENU TOP-->
+					<table cellspacing="10" cellpadding="0">
+						<tr>
+							<?php
+							foreach ($_tplvar['header_list'] as $key => $value)
+							{								
+								foreach ($value as $k => $val)
+								{
+									if($key == 0 && $k != 'id' && $k != 'operatore' && $k != 'last_access' && $k != 'data_modifica_riga' && $k != 'is_agent')
+									{
+										?><td nowrap="nowrap"><b><?php 
+										$KEY_TO_DISPLAY[] = $k;
+										$assign['key_session'] = $_tplvar['action_class_name'];
+										$assign['order_by'] = $k;
+										$assign['action'] = $_tplvar['action_class_name'];
+										$assign['field_name'] = $this->getText(strtoupper($k));							
+										$this->getPartial('shared/SortField', $assign);
+										?></td><?php 
+									}
+								}
+							}
+							?>
+							
+                           <td nowrap="nowrap">Azioni</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):
+					?>
+					<tr>
+						<?php foreach ($KEY_TO_DISPLAY as $to_display):?>
+						<td nowrap="nowrap">
+							<?php if($to_display == 'is_agent'):?>
+								<select onchange="javascript:setAgente(this, '<?php echo $value['id'];?>');">
+								<?php foreach ($_tplvar['agenti'] as $chiave => $agente):?>
+									<?php if( ($value[$to_display] == -1 || empty($value[$to_display]))&& $chiave == 0):?>
+										<option value="-1">----</option>
+									<?php endif;?>
+									<option value="<?php echo $agente['codice_agente']?>" <?php if($value[$to_display] == $agente['codice_agente']):?>selected="selected"<?php endif;?>><?php echo $agente['nominativo']?></option>
+								<?php endforeach;?>
+								</select>
+							<?php 
+								elseif($this->getFormatDate($value[$to_display]) != '01/01/1970 01:00:00' && $to_display != 'username') :
+									echo $this->getFormatDate($value[$to_display]);
+								else:
+									echo $value[$to_display];
+								endif;
+							?>
+						&nbsp;</td>
+						<?php endforeach;?>
+						<td nowrap="nowrap">
+							
+							<a class="edit" href="javascript:void(0);" onclick="javascript:
+										$.fancybox.showLoading();
+										$.ajax({
+										  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxMergeUserToCustomer',
+										  type: 'POST',
+										  dataType: 'html',
+										  data: 'id_user=<?php echo $value['id'];?>',
+										  success: function(html){
+										  	$.fancybox( html );
+										  }
+										});">Collega Cliente Etiflor</a> |
+						
+						
+							<script type="text/javascript">
+							var html_edit_<?php echo $value['id']?> = '<div id="edit_<?php echo $value['id'];?>" style="background-color:#fff;width:auto;"><form action="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovoUtente" method="post">	<input type="hidden" name="id" value="<?php echo $value['id']?>"><table><tr><td style="background:none">NOME</td><td style="background:none"><input type="text" name="name" value="<?php echo $value['name']?>"></td></tr><tr><td style="background:none">COGNOME</td><td style="background:none"><input type="text" name="surname" value="<?php echo $value['surname']?>"></td></tr><tr><td style="background:none">EMAIL</td><td style="background:none"><input type="text" name="email" value="<?php echo $value['email']?>"></td></tr><tr><td style="background:none">USERNAME</td><td style="background:none"><input type="text" name="username" value="<?php echo $value['username']?>"></td></tr><tr><td style="background:none">PASSWORD</td><td style="background:none"><input type="password" name="password" value="<?php echo $value['password']?>"></td></tr><tr><td style="background:none">CONFERMA PASSWORD</td><td style="background:none"><input type="password" name="cnf_password" value="<?php echo $value['cnf_password']?>"></td></tr><tr><td style="background:none">TIPOLOGIA</td><td style="background:none"><select name="type"><?php foreach ($_tplvar['cmb_user_type'] as $val):?><option value="<?php echo $val['id']?>" <?php if($val['name'] == $value['type']):?> selected="selected"<?php endif;?>><?php echo $val['name']?></option><?php endforeach;?></select></td></tr><tr><td align="right" colspan="2" style="background:none"><input type="submit" value="Salva" class="submit"></td></tr></table></form></div></form></div>';
+							</script>
+							<a class="edit" href="javascript:void(0);" onclick="javascript:$.fancybox(html_edit_<?php echo $value['id']?>);">Modifica</a> |
+							<script type="text/javascript">
+							var html_<?php echo $value['id']?> = '<div style="background-color:#fff;width:200px"><table><tr><td style="background:none;"><font color="#900">Sei sicuro di voler cancellare?</font></td></tr><tr><td style="background:none;"><input type="button" value="Si" onclick="javascript:document.location.href = \'<?php echo $_tplvar['WWW_ROOT']?>?act=ListaUtenti&delete=1&id=<?php echo $value['id']?>\'"></td></tr></table></div>';
+							</script>
+							<a class="delete" href="javascript:void(0);" onclick="javascript:$.fancybox(html_<?php echo $value['id']?>);">Cancella</a>
+						</td>
+					</tr>
+					<?php endforeach;?>
+				</table>
+
+
+                <!-- Page Navigation -->
+				<?php echo $this->getPartial('shared/Paging');?>
+				<!-- /Page Navigation -->
+                
+                <!-- Export Excel -->
+                <?php //$assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php //echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+                
+				</div>
+			</div>
+		</div><!-- end page-content -->
+		

@@ -1,0 +1,258 @@
+<?php $_tplvar = $this->getVars();?>
+<style>
+<!--
+.selected {
+	background-color: #B00000;
+}
+.not_selected {
+	background-color: #ADADAD;
+}
+
+td {
+	padding: 9px 12px;
+	color: #333;
+	border-top: 1px solid white;
+}
+tbody tr:hover td {
+	background: url('<?php echo STORE_WWW_ROOT_PATH?>theme/styles/style2/images/back.png') repeat scroll transparent;
+}
+tbody td {
+	background: url('<?php echo STORE_WWW_ROOT_PATH?>theme/styles/style2/images/back.png') repeat scroll transparent;
+}
+.container_24 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+}
+-->
+</style>
+
+<div id="page-content">
+	<div id="page-content-header" class="container_24">
+		<div id="page-title">
+			<h2>IL TUO CARRELLO del Fornitore 1</h2>
+		</div>
+<!--		<p class="breadcrumbs"><span class="breadcrumb_info">Ti trovi in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Carrello</span></p>-->
+	</div>
+	
+	<?php 
+	$basket = $_SESSION[session_id()]['basket_fornitori'];
+	?>
+	
+	<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCartFornitori" method="post" id="shopping-cart">
+	<input type="hidden" name="refresh_qty" value="1">
+	<?php if(!empty($_tplvar['params_banking'])):?>
+	<input type="hidden" name="params" value="<?php echo $_tplvar['params_banking']?>">
+	<?php endif;?>
+
+	<div>
+		<div class="entry">
+			<p>
+				Attenzione: Per aggiungere quantità per ogni prodotto, scegli la quantita che desideri e clicca sul tasto "Aggiorna Quantità".
+			</p>
+		</div>
+		<div id="main-content" class="grid_17">
+			<div class="main-content-padding">
+				<div class="page">
+					<div class="entry">
+						<br>
+						<div class="cart-contents-table-bg-img">
+						
+						<table cellspacing="3" width="75%">
+							<tbody>
+								<tr>
+									<th style="width:70px;text-align:center;">Articolo</td>
+									<th style="text-align:center;">Codice</th>
+									<th style="text-align:center;">Descrizione</th>
+									<th style="text-align:center;">Quantit&aacute; X Imballo</th>
+									<th style="text-align:center;">Quantit&aacute;</th>
+									<th style="text-align:center;">Prezzo</th>
+									<!-- <th style="text-align:center;">IVA</th> -->
+									<th style="text-align:center;">Prezzo Totale</th>
+									<th style="text-align:center;">Elimina</th>
+								</tr>
+							<?php $j=0;?>
+							<?php
+							$n_carrelli = $basket['n_carrelli'];
+							$perc_occupazione = $basket['perc_occupazione'];
+							unset($basket['n_carrelli']); 
+							unset($basket['perc_occupazione']); 
+							?>
+							<?php //foreach ($_tplvar['products']['contents'] as $value):?>
+								<?php foreach ($basket as $key => $value):?>
+								<input type="hidden" name="id_mag[]" value="<?php echo $value['giacenza']['id'];?>">
+								<tr>
+									<td style="text-align:center;">
+
+										<?php
+										if(is_file($_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/dendekker/'.$value['giacenza']['codice'].".jpg"))
+											$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/dendekker/".$value['giacenza']['codice'].".jpg";
+										else
+										{
+											$file = WWW_IMAGE_DENDEKKER_PAHT."/img_products/".$value['giacenza']['codice'].".jpg";
+											$file_headers = @get_headers($file);
+											if($file_headers[0] == 'HTTP/1.1 404 Not Found')
+												$image_to_copy = null;
+											else
+												$image_to_copy = WWW_IMAGE_DENDEKKER_PAHT."/img_products/".$value['giacenza']['codice'].".jpg";
+					
+											if(!empty($image_to_copy))
+											{
+												copy($image_to_copy, $_tplvar['APP_ROOT'].'/'.$_tplvar['IMG_DIR'].'/fornitori/dendekker/'.$value['giacenza']['codice'].".jpg");
+												$image = $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']."/fornitori/dendekker/".$value['giacenza']['codice'].".jpg";
+											}
+										}
+										?>
+										
+										<?php if(!empty($image)):?>
+											<img alt="" src="<?php echo $image;?>" width="90" class="main-pic">			
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="90" height="85">
+										<?php endif;?>
+						
+									</td>
+									<td style="text-align:center;"><?php echo $value['giacenza']['codice']?></td>
+									<td style="text-align:center;"><?php echo $value['giacenza']['descrizione']?></td>
+									<td style="text-align:center;">
+										<?php 
+										$exp = explode(' x ', $value['giacenza']['qta_scatola']);
+										$qty_sc = $exp[1];
+										?>
+										<?php echo $qty_sc?>
+									</td>
+									<td style="text-align:center;">
+									<?php $index = 40;?>
+									<select name="quantita[]" id="quantita">
+											<option value="0" <?php if($value['basket_qty']['sel_quantita'] == 0):?>selected="selected"<?php endif;?>>0</option>
+											<?php for($i = 1;$i<=$index;$i++):?>
+											<?php if(empty($value['basket_qty']['sel_quantita']) &&  $i == 1):?>
+												<option value="<?php echo $i?>" selected="selected"><?php echo $i?></option>
+											<?php else:?>
+												<option value="<?php echo $i?>" <?php if($value['basket_qty']['sel_quantita'] == $i):?>selected="selected"<?php endif;?>><?php echo $i?></option>
+											<?php endif;?>
+											<?php endfor;?>
+										</select>			
+									</td>
+									<td style="text-align:center;">
+						                <?php 
+						                $ricarico = '0.'.$_SESSION['LoggedUser']['sconto_fornitori_nl'];
+								        $ricarico = round($value['giacenza']['prezzo_sc'] * $ricarico, 2);
+								        $value['giacenza']['prezzo_sc'] = $value['giacenza']['prezzo_sc']+$ricarico;
+								        ?>
+										<?php echo Currency::FormatEuro( $value['giacenza']['prezzo_sc'] )?>
+									</td>
+									<!-- 
+									<td style="text-align:center;">
+										<?php echo $value['contenuto']['cod_iva']?>%
+									</td>
+									 -->
+									<td style="text-align:center;">
+										<?php 
+// 										$prezzoIva = (str_replace(',', '.', $value['price_it_qty']) * $value['contenuto']['cod_iva']) / 100;
+// 										$prezzoIva = round($prezzoIva, 2);
+										$prezzo_prodotto = (str_replace(',', '.', $value['giacenza']['prezzo_sc'])*$qty_sc)* $value['basket_qty']['sel_quantita'];
+										?>
+										<?php echo Currency::FormatEuro( $prezzo_prodotto );?>
+										<?php $subTotale += str_replace(',', '.', $prezzo_prodotto);?>
+										<?php $imponibile += str_replace(',', '.', $prezzo_prodotto);?>
+									</td>
+									
+									<td style="text-align:center;">
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCartFornitori&delete=1&id_content=<?php echo $value['contenuto']['id']?>&id_magazzino=<?php echo $value['giacenza']['id']?>">Elimina</a>
+									</td>
+								</tr>
+								<?php $j++;?>
+								<?php $cod_iva = $value['contenuto']['cod_iva'];?>
+								<?php endforeach;?>
+							<?php //endforeach;?>
+
+							<?php if(!empty($value['giacenza']) && $value['giacenza'] != array() && !empty($imponibile)):?>
+								<tr>
+									<td>&nbsp;</td>
+									<td colspan="5">&nbsp;</td>
+									<td>Imponibile</td>
+									<td><?php echo Currency::FormatEuro($imponibile)?></td>
+									<td>&nbsp;</td>
+								</tr>
+								<!-- <tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>IVA <?php echo IVA?>%</td>
+									<td>IVA <?php echo $cod_iva?>%</td>
+									<td><?php //echo Currency::FormatEuro(round($imponibile * FATTURA_TAX_IVA, 2))?></td>
+									<td><?php //echo Currency::FormatEuro(round( $imponibile * ('0.'.$cod_iva) , 2))?></td>
+									<td>&nbsp;</td>
+								</tr>
+								 -->
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Totale</td>
+									<td><?php echo Currency::FormatEuro($subTotale)?></td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td colspan="9">
+										Tot. Carrelli <?php echo $_SESSION[session_id()]['basket_fornitori']['n_carrelli'];?><br>
+										Occupazione <?php echo $_SESSION[session_id()]['basket_fornitori']['n_carrelli'];?>&deg; Carrello <?php echo $_tplvar['perc_occupazione']?> %<br>
+										<?php $count = $_SESSION[session_id()]['basket_fornitori']['n_carrelli'];?>
+										
+										<?php for($i = 1;$i <= $_SESSION[session_id()]['basket_fornitori']['n_carrelli'];$i++):?>
+											<?php if($i < $count):?>
+												<img alt="" src="<?php echo $_tplvar['WWW_ROOT']?>img/web/carrello_full.png" width="50">
+											<?php else:?>
+												<?php if($_tplvar['perc_occupazione'] <= 20):?>
+													<img alt="" src="<?php echo $_tplvar['WWW_ROOT']?>img/web/carrello_low.png" width="50">
+												<?php elseif($_tplvar['perc_occupazione'] <= 40):?>
+													<img alt="" src="<?php echo $_tplvar['WWW_ROOT']?>img/web/carrello_low_2.png" width="50">
+												<?php elseif($_tplvar['perc_occupazione'] <= 55):?>
+													<img alt="" src="<?php echo $_tplvar['WWW_ROOT']?>img/web/carrello_low_3.png" width="50">
+												<?php elseif($_tplvar['perc_occupazione'] <= 75):?>
+													<img alt="" src="<?php echo $_tplvar['WWW_ROOT']?>img/web/carrello_medium.png" width="50">
+												<?php elseif($_tplvar['perc_occupazione'] <= 90):?>
+													<img alt="" src="<?php echo $_tplvar['WWW_ROOT']?>img/web/carrello_medium_2.png" width="50">
+												<?php else:?>
+													<img alt="" src="<?php echo $_tplvar['WWW_ROOT']?>img/web/carrello_full.png" width="50">
+												<?php endif;?>
+											<?php endif;?>
+										<?php endfor;?>
+									</td>
+								</tr>
+								<?php endif;?>
+								<tr>
+									<td nowrap="nowrap" align="right" colspan="10">
+										<div class="actions">
+											<input type="button" value="Vai in Cassa" class="submit" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=CheckoutShopping<?php if(!empty($_tplvar['params_banking'])):?>&params=<?php echo $_tplvar['params_banking']?><?php endif;?>';">
+											<input type="button" value="Aggiorna Quantit&aacute;" class="submit" onclick="jQuery('#shopping-cart').submit();">
+											<input type="button" value="Continua lo Shopping" class="submit" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=SearchFornitori&for=1<?php if(!empty($_tplvar['params_banking'])):?>&params=<?php echo $_tplvar['params_banking']?><?php endif;?>';">
+										</div>
+										
+									</td>
+								</tr>
+						</table>
+						</form>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- end main-content-padding -->
+		</div>
+		<!-- end main-content -->
+		<!-- start categories -->
+		<?php //echo $this->getPartial('shared/BoxUserData');?>
+		<!-- end categories -->
+	</div>
+	<!-- end content-container -->
+	<div class="clear"></div>
+</div>
+<!-- end page-content -->
+

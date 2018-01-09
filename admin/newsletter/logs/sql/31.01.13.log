@@ -1,0 +1,2 @@
+gen 31 10:22:06|PEAR_LOG_SQL[info] E' stata eseguita la query: [ UPDATE users SET id_type = 1,id_anag = 2,username = 'simona',password = '3506e1dff0db4e4d78412e2feb7c0a95a2afr24tg56r4r65wg',last_access = '2013-01-31 10:22:06',operatore = 'siso',data_inserimento_riga = '2011-06-14',data_modifica_riga = '2013-01-31',is_active = 1 WHERE id = 2 ] dall'utente di dominio [   ]
+gen 31 10:22:56|PEAR_LOG_SQL[info] E' stata eseguita la query: [ UPDATE newsletters SET object = 'Tangando lasagnando',date_last_modify = '2013-01-31 10:22:56' WHERE id =  ] dall'utente di dominio [   ]

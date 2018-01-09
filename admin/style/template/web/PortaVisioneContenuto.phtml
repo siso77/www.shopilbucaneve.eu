@@ -1,0 +1,334 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<div id="page-content" class="clearfix">
+			
+			<h1><?php if($_tplvar['header_message']):?><?echo $_tplvar['header_message']?><?php else:?>Compila la scheda Cliente<?php endif;?></h1>
+			<h2>
+				<?php if($_tplvar['sub_header_message']):?>
+					<?echo $_tplvar['sub_header_message']?>
+				<?php else:?>
+					Scrivi su ogni campo e carica il &quot;Data Base&quot; <span>(Descrizione del cliente)</span>
+				<?php endif;?>
+			</h2>
+			<div class="inner-box clearfix">
+			
+<div id="form-block-div">
+
+<!--<div class="error">
+				Errore! non &eacute; stato registrato l'articolo.
+			</div>
+
+<div class="success">
+				Inserimento effettuato con successo!
+			</div>-->
+<div class="contenitore">
+
+<div>
+<label for="field_1">Nome</label>
+<!--<input type="text" name="nome" id="nome" value="<?php echo $_tplvar['cliente']['nome']?>" />-->
+<span><?php echo $_tplvar['cliente']['nome']?></span>
+</div>
+
+<div>
+<label for="field_1">Cognome</label>
+<!--<input type="text" name="cognome" id="cognome" value="<?php echo $_tplvar['cliente']['cognome']?>" />-->
+<span><?php echo $_tplvar['cliente']['cognome']?></span>
+</div>
+
+<div>
+<label for="field_1">Codice Fiscale</label>
+<!--<input type="text" name="codice_fiscale" id="codice_fiscale" value="<?php echo $_tplvar['cliente']['codice_fiscale']?>" />-->
+<span><?php echo $_tplvar['cliente']['codice_fiscale']?></span>
+</div>
+
+<div>
+<label for="field_1">Ragione Sociale</label>
+<!--<input type="text" name="ragione_sociale" id="ragione_sociale" value="<?php echo $_tplvar['cliente']['ragione_sociale']?>" />-->
+<span><?php echo $_tplvar['cliente']['ragione_sociale']?></span>
+</div>
+
+<div>
+<label for="field_1">P.IVA</label>
+<!--<input type="text" name="p_iva" id="p_iva" value="<?php echo $_tplvar['cliente']['p_iva']?>" />-->
+<span><?php echo $_tplvar['cliente']['p_iva']?></span>
+</div>
+
+
+<div>
+<label for="field_1">Indirizzo</label>
+<!--<input type="text" name="indirizzo" id="indirizzo" value="<?php echo $_tplvar['cliente']['indirizzo']?>" />-->
+<span><?php echo $_tplvar['cliente']['indirizzo']?></span>
+</div>
+
+<div>
+<label for="field_1">CAP</label>
+<!--<input type="text" name="cap" id="cap" value="<?php echo $_tplvar['cliente']['cap']?>" />-->
+<span><?php echo $_tplvar['cliente']['cap']?></span>
+</div>
+
+<div>
+<label for="field_1">Citt&agrave;</label>
+<!--<input type="text" name="citta" id="citta" value="<?php echo $_tplvar['cliente']['citta']?>" />-->
+<span><?php echo $_tplvar['cliente']['citta']?></span>
+</div>
+
+<div>
+<label for="field_1">Telefono fisso</label>
+<!--<input type="text" name="fisso" id="fisso" value="<?php echo $_tplvar['cliente']['fisso']?>" />-->
+<span><?php echo $_tplvar['cliente']['fisso']?></span>
+</div>
+
+<div>
+<label for="field_1">Cellulare</label>
+<!--<input type="text" name="cellulare" id="cellulare" value="<?php echo $_tplvar['cliente']['cellulare']?>" />-->
+<span><?php echo $_tplvar['cliente']['cellulare']?></span>
+</div>
+
+<div>
+<label for="field_1">Mail</label>
+<!--<input type="text" name="email" id="email" value="<?php echo $_tplvar['cliente']['email']?>" />-->
+<span><?php echo $_tplvar['cliente']['email']?></span>
+</div>
+<!--
+<div class="submit">
+<input type="button" class="submit" value="Salva" onClick="location.href='form_success.html';" />
+</div>
+<div class="submit">
+<input type="reset" class="submit reset" value="Cancella" onClick="location.href='form_error.html';" />
+</div>
+
+-->
+</div>
+
+<div class="separatore"></div>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=PortaVisione" method="post">
+<input type="hidden" name="id_cliente" value="<?php echo $_tplvar['cliente']['id']?>">
+
+<!-- Da formattare -->
+
+		<div class="contenitore">
+    
+	<div style="clear:left"></div>
+	<div id="table-block">
+		<table cellspacing="0" cellpadding="0" style="width:1000px">
+		<tbody>
+			<tr class="header">
+				<td>ISBN</td>    
+				<td>TITOLO</td>    
+				<td>EDITORE</td>    
+				<td>QUANTITA'</td>    
+			</tr>
+			
+		<?php foreach ($_tplvar['book_in_basket'] as $value):?>
+    	<input type="hidden" name="id_magazzino[]" value="<?php echo $value['id_magazzino']?>">
+			
+			<tr>
+				<td><?php echo $value['isbn']?></span></td>    
+				<td><?php echo substr($value['titolo'], 0, $_tplvar['TRUNCATE_PORTA_VISIONE_TITOLO'])?></td>    
+				<td><?php echo $value['casa_editrice']?></td>
+				<td>
+				<?php 
+				if($_tplvar['vendita_from'] == 'visione_cliente' && !empty($_tplvar['qty'])):?>
+					<?php
+					$value['quantita'] = $_tplvar['qty'];
+					?>
+				<?php endif;?>
+			
+				<?php if($value['quantita'] != 0):?>
+				<select name="quantita_<?php echo $value['id_magazzino']?>" style="width: 60px;height: 28px !important">
+					<?php for($i=1;$i <= $value['quantita'];$i++):?>
+					<option value="<?php echo $i;?>"><?php echo $i;?></option>
+					<?php endfor;?>
+				</select>
+				<?php endif;?>	
+				
+				</td>
+			</tr>    
+		<?php endforeach;?>
+
+			    
+		</tbody>
+		</table>
+	</div>
+</div>
+    
+</div>
+<!-- Da formattare -->
+
+<div class="separatore"></div>
+
+<br />
+
+<?php if($_tplvar['porta_in_visione']):?>
+
+<script>window.dhx_globalImgPath = "<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/imgs/";</script>
+<link rel="STYLESHEET" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.css">
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/dhtmlxSuite/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
+
+	
+	<div style="width:1000px; height:auto;">
+		<div style="float:left; margin-left:10px;border:#E6E6D2 2px solid; padding-left:3px; width:180px;">
+			<h2>Inserisci Dati Genrali</h2>
+			<!-- <div>
+			<label for="field_1">Quantit&agrave;</label>
+			<input type="text" name="quantita" id="quantita" value="" />
+			</div> -->
+			
+			<div>
+			<label for="field_1">Bolla di Visione</label>
+			<input type="text" name="bolla_visione" id="bolla_visione" value="<?php echo $_tplvar['index_bolla_visione']['id']?>"  style="width:90px"/>
+			</div>
+			
+			<div>
+			<label for="field_1">Data di Visione</label>
+			<input type="text" name="data_visione" id="data_visione" value="<?php echo date('d/m/Y')?>" style="width:90px"/>
+			</div>
+		</div>
+		
+		<div  style="float:left; border:#E6E6D2 5px solid; margin-left:10px; margin-top:0px; width:200px;">
+		<h2><a href="javascript:void(0);" onclick="javascript:show_div('cerca_rappresentante', 'cerca_rappresentante_nome');" style="color:#FFF;">Cerca il Rappresentante</a></h2>
+        </div>
+        <div  style="float:left; border:#E6E6D2 5px solid; margin-left:10px; margin-top:5px; width:260px;">
+		
+		<h2><a href="javascript:void(0);" onclick="javascript:show_div('nuovo_rappresentante', 'rappresentante_nome');" style="color:#FFF;">Inserisci Nuovo Rappresentante</a></h2>
+		</div>
+
+			<div id="cerca_rappresentante" style="visibility:hidden; float:left; background-color:#FFF; position:absolute; top: auto; left:0px;border:#E6E6D2 5px solid; padding-left:3px; width:747px; min-height:370px;">
+            
+            <h2>Cerca il Rappresentante</h2>
+				<input type="hidden" name="id_rappresentante" id="id_rappresentante">
+			
+				<div>
+				<label for="field_1">Nome</label>
+				<input type="text" name="cerca_rappresentante_nome" id="cerca_rappresentante_nome" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Cognome</label>
+				<input type="text" name="cerca_rappresentante_cognome" id="cerca_rappresentante_cognome" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Mail</label>
+				<input type="text" name="cerca_rappresentante_email" id="cerca_rappresentante_email" value="" />
+				</div>
+				<input type="hidden" name="tbl_name" id="tbl_name" value="rappresentante">
+
+				<div class="submit">
+				<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>
+				
+				<input type="button" class="submit" value="Cerca" onClick="
+											var arrayParams = new Array(
+													'cerca_rappresentante_nome', 
+													'cerca_rappresentante_cognome', 
+													'cerca_rappresentante_email', 
+													'tbl_name'
+													);
+											ajaxSendAction(
+															'POST', 
+															'<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxCercaRappresentante', 
+															arrayParams, 
+															'result_search',
+															true);" />
+															
+				<input type="button" class="submit" value="Reset" onClick="
+											var arrayParams = new Array(
+													'tbl_name'
+													);
+											ajaxSendAction(
+															'POST', 
+															'<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxCercaRappresentante&reset=1', 
+															arrayParams, 
+															'result_search',
+															true);" />
+
+				<input type="button" class="submit" value="Chiudi" onClick="javascript:show_div('cerca_rappresentante', 'cerca_rappresentante_nome');" />
+
+			</div>
+				
+
+<p id="result_search"></p>															
+				
+			</div>
+		
+			<div id="nuovo_rappresentante" style="visibility:hidden;float:left; background-color:#FFF; position:absolute; top:auto; left:0px;border:#E6E6D2 5px solid; padding-left:3px; width:747px; min-height:370px; z-index:10px;">
+            <h2>Inserisci il nuovo Rappresentante</h2>
+			
+				<div>
+				<label for="field_1">Nome</label>
+				<input type="text" name="rappresentante_nome" id="rappresentante_nome" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Cognome</label>
+				<input type="text" name="rappresentante_cognome" id="rappresentante_cognome" value="" />
+				</div>
+			
+				<div>
+				<label for="field_1">Indirizzo</label>
+				<input type="text" name="rappresentante_indirizzo" id="rappresentante_indirizzo" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Citt&agrave;</label>
+				<input type="text" name="rappresentante_citta" id="rappresentante_citta" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Cap</label>
+				<input type="text" name="rappresentante_cap" id="rappresentante_cap" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Cellulare</label>
+				<input type="text" name="rappresentante_cellulare" id="rappresentante_cellulare" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Telefono Fisso</label>
+				<input type="text" name="rappresentante_fisso" id="rappresentante_fisso" value="" />
+				</div>
+				
+				<div>
+				<label for="field_1">Mail</label>
+				<input type="text" name="rappresentante_email" id="rappresentante_email" value="" />
+				</div>
+				<div>
+				<label for="field_1">Percentuale Provvigioni</label>
+				<input type="text" name="rappresentante_percentuale_provvigioni" id="rappresentante_percentuale_provvigioni" value="" />
+				</div>
+            
+            
+			<div id="submit_porta_visione_nuovo_rappresentante" class="submit" style="position:relative;">
+			<input type="submit" class="submit" value="Porta in Visione" />
+			</div> 
+            
+            
+            <div class="submit" style="position:relative;">
+			<input type="button" class="submit" value="Chiudi" onclick="javascript:show_div('nuovo_rappresentante', 'rappresentante_nome');"/>
+			</div>           
+        
+   <!--     
+        <div style="background-color:#333; width:80px; color:#FFF; margin-left:100px;">
+                <a href="javascript:void(0);" onclick="javascript:show_div('nuovo_rappresentante', 'rappresentante_nome');" style="color:#FFF; font-size:1.5em;">Chiudi [X]</a>
+			</div>-->
+        
+        
+        </div>
+	</div>
+
+<div id="submit_porta_visione" class="submit" style="position:relative;visibility:hidden; float:left; clear:both;">
+<input type="submit" class="submit" value="Porta in Visione" />
+</div>
+	
+</div>
+</form>
+<?php endif;?>
+
+
+
+</div>
+
+</div>

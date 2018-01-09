@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+        <title>Layout</title>
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			dhx.ui({
+				rows:[
+					{
+                        template:"Top bar",
+						height:30
+					},
+					{ cols:[
+						{ 	template:"Left column" },
+						{	template:"Right column",
+							gravity:2
+						}
+					]},
+					{	template:"Status bar",
+						height:30
+					}
+				]
+			});
+			
+		</script>
+	</body>
+</html>

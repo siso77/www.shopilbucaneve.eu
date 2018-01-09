@@ -1,0 +1,618 @@
+<?php $_tplvar = $this->getVars();?>
+<link rel="stylesheet" href="<?php echo $_tplvar['wp_external_root']?>wp-content/plugins/fancybox-for-wordpress/css/fancybox.css" type="text/css" media="screen" />
+<style type="text/css">
+	div#fancy_inner {border-color:#BBBBBB}
+	div#fancy_close {right:-15px;top:-12px}
+	div#fancy_bg {background-color:#FFFFFF}
+</style>
+<script type='text/javascript' src='<?php echo $_tplvar['wp_external_root']?>wp-content/plugins/fancybox-for-wordpress/js/jquery.fancybox-1.2.6.min.js?ver=1.3.2'></script>
+<!-- Fancybox for WordPress v2.7.5 -->
+<script type="text/javascript">
+	jQuery.noConflict();
+	jQuery(function(){
+			jQuery.fn.getTitle = function() {
+			var arr = jQuery("a.fancybox");
+			jQuery.each(arr, function() {
+				var title = jQuery(this).children("img").attr("title");
+				jQuery(this).attr('title',title);
+			})
+		}
+		// Supported file extensions
+		var thumbnails = 'a:has(img)[href$=".bmp"],a:has(img)[href$=".gif"],a:has(img)[href$=".jpg"],a:has(img)[href$=".jpeg"],a:has(img)[href$=".png"],a:has(img)[href$=".BMP"],a:has(img)[href$=".GIF"],a:has(img)[href$=".JPG"],a:has(img)[href$=".JPEG"],a:has(img)[href$=".PNG"]';
+		jQuery(thumbnails).addClass("fancybox").attr("rel","fancybox").getTitle();
+
+			jQuery("a.fancybox").fancybox({
+			'imageScale': true,
+			'padding': 10,
+			'zoomOpacity': true,
+			'zoomSpeedIn': 500,
+			'zoomSpeedOut': 500,
+			'zoomSpeedChange': 300,
+			'overlayShow': true,
+			'overlayColor': "#666666",
+			'overlayOpacity': 0.3,
+			'enableEscapeButton': true,
+			'showCloseButton': true,
+			'hideOnOverlayClick': true,
+			'hideOnContentClick': false,
+			'frameWidth':  560,
+			'frameHeight':  340,
+			'centerOnScroll': true
+		});
+
+})
+</script>
+<!-- END Fancybox for WordPress -->
+
+<h2 class="ftitle">
+<?php 
+	if(!empty($_tplvar['content'][0]['name_band']))
+		echo $_tplvar['content'][0]['name_band'].' - ';
+	echo $_tplvar['content'][0]['name_it'];
+?></h2>
+<div class="store-item">
+	<div class="box01">
+		<?php $image = $this->getImageFromIdContent2($_tplvar['content'][0]['id'], 'Large_')?>
+		<?php if(!empty($image)):?>
+			<img alt="" src="<?php echo $image;?>" width="300" class="main-pic">			
+		<?php else:?>
+			<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="90" height="85">
+		<?php endif;?>
+	
+		<div class="main-desc">
+			<?php echo $_tplvar['content'][0]['description_it'];?>
+			<p></p>
+
+<!--			<p>COLORI:</p>-->
+			<?php 
+			$color 	 = $this->getColorFromIdContent($_tplvar['content'][0]['magazzino'][0]['id_color']);
+			$color_2 = $this->getColorFromIdContent($_tplvar['content'][0]['magazzino'][0]['id_color_2']);
+			$color_3 = $this->getColorFromIdContent($_tplvar['content'][0]['magazzino'][0]['id_color_3']);
+			
+			$image_color   = $this->getColorColorImageFromId($_tplvar['content'][0]['magazzino'][0]['id_color']);
+			$image_color_2 = $this->getColorColorImageFromId($_tplvar['content'][0]['magazzino'][0]['id_color_2']);
+			$image_color_3 = $this->getColorColorImageFromId($_tplvar['content'][0]['magazzino'][0]['id_color_3']);
+			?>
+			<ul class="box-color">
+				<?php if(!empty($color)):?>
+				<li>
+					<?php if(!empty($image_color)):?>
+<!--						<img alt="<?php echo $color;?>" src="<?php $image_color[0]['www_path'].$image_color[0]['name']?>">-->
+					<?php else:?>
+						<?php 
+						if($color == 'ROSSO')
+							$class = 'box-red';
+						elseif($color == 'BLU')
+							$class = 'box-blu';
+						elseif($color == 'VERDE')
+							$class = 'box-green';
+						else
+							$class = '';
+						?>
+<!--						<div class="<?php echo $class;?>"></div>-->
+					<?php endif;?>
+					<p>
+					<?php //echo $color;?>
+					</p>
+				</li>
+				<?php endif;?>
+				<?php if(!empty($color_2)):?>
+				<li>
+					<?php if(!empty($image_color_2)):?>
+<!--						<img alt="<?php echo $color_2;?>" src="<?php $image_color_2[0]['www_path'].$image_color_2[0]['name']?>">-->
+					<?php else:?>
+						<?php 
+						if($color_2 == 'ROSSO')
+							$class = 'box-red';
+						elseif($color_2 == 'BLU')
+							$class = 'box-blu';
+						elseif($color_2 == 'VERDE')
+							$class = 'box-green';
+						else
+							$class = '';
+						?>
+<!--						<div class="<?php echo $class;?>"></div>-->
+					<?php endif;?>
+					<p>
+					<?php //echo $color_2;?>
+					</p>
+				</li>
+				<?php endif;?>
+				<?php if(!empty($color_3)):?>
+				<li>
+					<?php if(!empty($image_color_3)):?>
+<!--						<img alt="<?php echo $color_3;?>" src="<?php $image_color_3[0]['www_path'].$image_color_3[0]['name']?>">-->
+					<?php else:?>
+						<?php 
+						if($color_3 == 'ROSSO')
+							$class = 'box-red';
+						elseif($color_3 == 'BLU')
+							$class = 'box-blu';
+						elseif($color_3 == 'VERDE')
+							$class = 'box-green';
+						else
+							$class = '';
+						?>
+<!--						<div class="<?php echo $class;?>"></div>-->
+					<?php endif;?>
+					<p>
+						<?php //echo $color_3;?>
+					</p>
+				</li>
+				<?php endif;?>
+				<!-- 
+				<li>
+					<div class="box-red02"></div>
+					<p>rosso</p></li>
+				<li>
+					<div class="box-blu02"></div>
+					<p>blu</p>
+				</li>
+				<li>
+					<div class="box-green02"></div>
+					<p>verde</p>
+				</li>
+				<li>
+					<div class="box-red02"></div>
+					<p>rosso</p>
+				</li>
+				<li>
+					<div class="box-blu02"></div>
+					<p>blu</p>
+				</li>
+				<li>
+					<div class="box-green02"></div>
+					<p>verde</p>
+				</li>
+				-->
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+	<div class="long-desc"><?php //echo $_tplvar['content'][0]['description_it']?></div>
+	<!--
+	<ul>
+		<?php $images = $this->dbGetImageFromIdContent($_tplvar['content'][0]['id'], 'Large_', '100')?>
+		
+		<?php foreach ($images as $image):?>
+		<li>
+			<a class="fancybox"
+				href="<?php echo $image['www_path'].'/Large_'.$image['name']?>"
+				rel="fancybox" title="<?php echo $image['name']?>">
+			
+				<img alt=""
+					src="<?php echo $image['www_path'].'/Large_'.$image['name']?>"
+					title="<?php echo $image['name']?>"> 
+			</a>
+		</li>
+		<?php endforeach;?>
+		<div class="clear"></div>
+	</ul>
+	-->
+	<iframe src="https://www.facebook.com/plugins/like.php?href=<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $_tplvar['content'][0]['name'];?>/<?php echo str_replace(' ','%20',str_replace("'","", str_replace('"','', $_tplvar['content'][0]['name_it'])))?>/<?php echo $_tplvar['content'][0]['id']?>.html"
+        scrolling="no" frameborder="0"
+        style="border:none; width:450px; height:80px"></iframe>
+        
+	<!--<fb:like href="<?php echo $_tplvar['WWW_ROOT']?>" width="450" ​​height="80"/>-->
+	<!--	<div class="fb-like" data-href="<?php echo $_tplvar['WWW_ROOT']?>" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>-->
+	<!--<div class="fb-like" data-href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $_tplvar['content'][0]['name'];?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $_tplvar['content'][0]['name_it'])))?>/<?php echo $_tplvar['content'][0]['id']?>.html" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>-->
+	<!-- PLUGIN LIKE FACEBOOK -->
+
+</div>
+<p></p>
+<h3>Seleziona Taglia / Colore</h3>
+<table class="cart" cellspacing="3">
+	<tbody>
+		<tr>
+			<th>articolo</th><th>descrizione</th><th>colore/taglia</th><th>prezzo</th><th>sconto</th><th>prezzo scontato</th><th>carrello</th><th>lista preferiti</th>
+		</tr>
+		<?php foreach ($_tplvar['content'][0]['magazzino'] as $content):?>
+
+		<?php if($content['quantita'] > 0):?>
+		<tr>
+			<td>
+			<?php 
+			$images = $this->dbGetImageFromBarCode($content['bar_code']);
+			if(empty($images))
+				$images = $this->dbGetImageFromIdContent($content['id_content']);
+			?>
+			<?php foreach ($images as $image):?>
+				<a class="fancybox"
+					href="<?php echo $image['www_path'].'/Large_'.$image['name']?>"
+					rel="fancybox" title="<?php echo $image['name']?>">
+					<img src="<?php echo $image['www_path'].'/Small_'.$image['name']?>">
+				</a>
+			<?php endforeach;?>
+			</td>
+			<td><a href="#"><?php echo $content['name_it']?></a></td>
+			<td>
+				<?php echo $content['color'];?>/<?php echo $content['size'];?>
+			</td>
+			<td nowrap="nowrap">
+				<?php echo Currency::FormatEuro($content['price_it'])?> &euro;
+			</td>
+			<td>
+				<strong>
+					<?php
+						if(!empty($content['content_percent_sconto'])) 
+							echo $content['content_percent_sconto'].' %';
+					?> 
+				</strong>
+			</td>
+			<td nowrap="nowrap">
+				<?php echo Currency::FormatEuro($content['price_discounted_it'])?> &euro;
+			</td>
+			<td>
+				<?php if($content['is_in_ecommerce']):?>
+				<form action="<?php echo $_tplvar['WWW_ROOT']?>ShoppingCart/<?php echo str_replace(' ','-',$content['name'])?>/<?php echo str_replace(' ','-',$content['name_it'])?>/<?php echo $content['id_magazzino']?>.html" method="post">
+					<fieldset>
+						<input value="compra" type="submit">
+					</fieldset>
+				</form>
+				<?php else:?>
+					<div style="color:#CC0000">Prodotto aquistabile in negozio</div>
+				<?php endif;?>
+			</td>
+			<td>
+					<fieldset>
+						<input value="aggiungi" type="button" class="submit" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=Preferred&id=<?php echo $content['id_magazzino']?>';">
+					</fieldset>
+			</td>
+		</tr>
+		<?php endif;?>
+		<?php endforeach;?>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr>
+			<th></th>
+			<th></th>
+			<th colspan="4"><a href="http://www.pro-bike.it/about-us/dove-siamo/">Guarda dove siamo</a></th>
+			<th></th>
+			<th></th>
+		</tr>		
+	</tbody>
+</table>
+<div class="clear"></div>
+<br>
+<script type="text/javascript">
+<!--
+function validateForm()
+{
+	var email = $('#email').val();
+	var richiesta = $('#richiesta').val();
+	var captcha_code = $('#captcha_code').val();
+	var ret = true;
+	
+	if(email == '')
+	{
+		$('#email').css('border', '1px solid red');
+		ret = false;
+	}
+	else
+		$('#email').css('border', '#555555');
+	if(richiesta == '')
+	{
+		$('#richiesta').css('border', '1px solid red');
+		ret = false;
+	}
+	else
+		$('#richiesta').css('border', '#555555');
+//	if(captcha_code == '')
+//	{
+//		$('#captcha_code').css('border', '1px solid red');
+//		ret = false;
+//	}
+//	else
+//		$('#captcha_code').css('border', '#555555');
+
+	return ret;
+}
+//-->
+</script>
+
+<!--<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=RequestInfo" method="post" onsubmit="javascript:return validateForm();">
+<table style="width: 100%;">
+	<tbody>
+	<tr>
+		<th colspan="2">Richiedi ulteriori informazioni su questo articolo</th>
+	</tr>
+	<tr>
+		<th align="right" width="250">Nome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="nome" value="<?php echo $_tplvar['customer_data']['nome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Cognome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="cognome" value="<?php echo $_tplvar['customer_data']['cognome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Telefono&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="telefono" value="<?php echo $_tplvar['customer_data']['telefono']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Indirizzo email *&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" id="email" name="email" value="<?php echo $_tplvar['customer_data']['email']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Localit&agrave; (Regione,Provincia o Citt&agrave;)&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="localita" value="<?php echo $_tplvar['customer_data']['localita']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right" valign="top">Richiesta *&nbsp;</th>
+		<th align="left" style="padding:6px;"><textarea rows="4" cols="26" id="richiesta" name="richiesta"><?php echo $_tplvar['customer_data']['richiesta']?></textarea></th>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<th align="left" style="padding:6px;">
+			<img id="captcha" src="<?php echo $_tplvar['WWW_ROOT']?>?act=ProductInfo&captcha=1" alt="CAPTCHA Image" />
+			<a href="#" onclick="document.getElementById('captcha').src = '<?php echo $_tplvar['WWW_ROOT']?>?act=ProductInfo&captcha=1&' + Math.random(); return false">
+				<img src="<?php echo $_tplvar['WWW_ROOT']?>/img/web/refresh.png" alt="Reload Image" onclick="this.blur()" align="bottom" border="0">
+			</a>
+		</th>
+	</tr>
+	<tr>
+		<th align="right">Inserisci la sequenza dell'immagine sopra *&nbsp;</th>
+		<th align="left" style="padding:6px;">
+			<input type="text" id="captcha_code" name="captcha_code" size="10" maxlength="6" <?php if($_tplvar['error_captcha']):?>style="border:1px solid red;<?php endif;?>width:200px" />
+		</th>
+	</tr>
+	<?php if($_tplvar['error_captcha']):?>
+	<tr>
+		<th colspan="2" style="color:red;padding:6px;">Attenzione errore nell'inserimento del Captcha</th>
+	</tr>
+	<?php endif;?>
+	<tr>
+		<th>(*) Campi obbligatori</th>
+		<th style="padding:6px;"><input type="submit" value="Invia Richiesta"></th>
+	</tr>
+	<?php if($_tplvar['confirm']):?>
+	<tr>
+		<th colspan="2" style="color:green;padding:6px;">La tua richiesta &egrave; stata inviata correttamente</th>
+	</tr>
+	<?php endif;?>
+	</tbody>
+</table>
+</form>
+-->
+
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=RequestInfo" method="post" onsubmit="javascript:return validateForm();">
+<table style="width: 100%;">
+	<tbody>
+	<tr>
+		<th colspan="2">Richiedi ulteriori informazioni su questo articolo</th>
+	</tr>
+	<tr>
+		<th align="right" width="250">Nome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="nome" value="<?php echo $_tplvar['customer_data']['nome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Cognome&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="cognome" value="<?php echo $_tplvar['customer_data']['cognome']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Telefono&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="telefono" value="<?php echo $_tplvar['customer_data']['telefono']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Indirizzo email *&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" id="email" name="email" value="<?php echo $_tplvar['customer_data']['email']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right">Localit&agrave; (Regione,Provincia o Citt&agrave;)&nbsp;</th>
+		<th align="left" style="padding:6px;"><input type="text" name="localita" value="<?php echo $_tplvar['customer_data']['localita']?>" style="width:200px"></th>
+	</tr>
+	<tr>
+		<th align="right" valign="top">Richiesta *&nbsp;</th>
+		<th align="left" style="padding:6px;"><textarea rows="4" cols="26" id="richiesta" name="richiesta"><?php echo $_tplvar['customer_data']['richiesta']?></textarea></th>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<th align="left" style="padding:6px;">
+			<script type="text/javascript">
+			var RecaptchaOptions = {
+				theme : 'blackglass'
+			};
+			</script>		
+			<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LfcC9MSAAAAAMPmN6yhMEP5-pN1Y8xv4GN6BZz3"></script>
+			<noscript>
+			<iframe src="http://www.google.com/recaptcha/api/noscript?k=6LfcC9MSAAAAAMPmN6yhMEP5-pN1Y8xv4GN6BZz3" height="300" width="500" frameborder="0"></iframe><br>
+			<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+			<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+			</noscript>
+		</th>
+	</tr>
+<!--	<tr>-->
+<!--		<th align="right">Inserisci la sequenza dell'immagine sopra *&nbsp;</th>-->
+<!--		<th align="left" style="padding:6px;">-->
+<!--			<input type="text" id="captcha_code" name="captcha_code" size="10" maxlength="6" <?php if($_tplvar['error_captcha']):?>style="border:1px solid red;<?php endif;?>width:200px" />-->
+<!--		</th>-->
+<!--	</tr>-->
+	<?php if($_tplvar['error_captcha']):?>
+	<tr>
+		<th colspan="2" style="color:red;padding:6px;">Attenzione errore nell'inserimento del Captcha</th>
+	</tr>
+	<?php endif;?>
+	<tr>
+		<th>(*) Campi obbligatori</th>
+		<th style="padding:6px;"><input type="submit" value="Invia Richiesta"></th>
+	</tr>
+	<?php if($_tplvar['confirm']):?>
+	<tr>
+		<th colspan="2" style="color:green;padding:6px;">La tua richiesta &egrave; stata inviata correttamente</th>
+	</tr>
+	<?php endif;?>
+	</tbody>
+</table>
+</form>
+
+<div class="clear"></div>
+
+<style>
+.crop{
+    float:left;
+    margin:.5em 10px .5em 0;
+    overflow:hidden;
+    position:relative;
+    border:0px solid #ccc;
+    width:180px;
+    height:85px;
+    }
+.crop img{
+    position:absolute;
+    top:0px;
+    left:0px;
+    }
+</style>
+
+<br>
+<br>
+<?php if(!empty($_tplvar['releated'])):?>
+<h2 class="ftitle">Ti consigliamo anche</h2>
+<?php endif;?>
+							<?php 
+							$rowForBox = 8;
+							?>
+							<div class="store-cont">
+							<?php foreach($_tplvar['releated'] as $key => $product):?>
+								<?php $index++;?>
+								<?php if(!empty($product) && $index <= $rowForBox):?>
+								<?php $hrefCategory = $product['name']?>
+									<div class="item-box" style="min-height: 220px;">
+										<?php $image = $this->getImageFromIdContent($product['id'], 'Large_', '100')?>
+										<?php if(!empty($image)):?>
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+											<?php echo $image;?>
+										</a>
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/logo_fattura.png" width="100" height="95">
+										<?php endif;?>
+										</p>
+										<div class="item_name">
+											<a href="<?php echo $_tplvar['WWW_ROOT']?>Detail/<?php echo $hrefCategory;?>/<?php echo str_replace(' ','-',str_replace("'","", str_replace('"','', $product['name_it'])))?>/<?php echo $product['id']?>.html">
+												<?php echo $product['name_band'];?><br>
+												<?php echo substr($product['name_it'], 0, $_tplvar['SHOP_TRUNCATE_TEXT']);?>
+											</a>
+										</div>
+										<?php 
+										$qty = 0;
+										$qty_color = null;
+										$qty_size = null;
+										foreach ($product['magazzino'] as $giacenze)
+										{
+											$qty += $giacenze['quantita'];
+											if(!empty($giacenze['color']))
+												$qty_color[ucfirst(strtolower($giacenze['color']))] += $giacenze['quantita'];
+											if(!empty($giacenze['size']))
+												$qty_size[ucfirst(strtolower($giacenze['size']))] += $giacenze['quantita'];
+										}
+										?>										
+										<div class="disp">
+										<?php if($product['magazzino'][0]['quantita'] > 0):?>
+											Disponibile
+										<?php elseif($product['magazzino'][0]['is_in_ecommerce']):?>
+											Acquistabile in negozio
+										<?php else:?>
+											<p style="color:#F9D616">Non Disponibile</p>
+										<?php endif;?>
+										</div>
+										<div class="price">
+											<a href="javascript:void(0);" onclick="javascript:
+												$('#detail_qty_<?php echo $product['id']?>').show();">
+												Taglie e colori&nbsp;(<?php echo $qty?>)
+											</a>
+											<a id="lnk_<?php echo $product['id']?>" href="javascript:void(0);" onclick="javascript:
+												$.ajax({
+													  url: '<?php echo $_tplvar['WWW_ROOT']?>?act=AjaxSetListCompare',
+													  type: 'POST',
+													  dataType: 'html',
+													  data: 'id_content=<?php echo $product['id']?>',
+													  success: function(html){
+														  $('#lnk_<?php echo $product['id']?>').css('color', 'green');
+														  $('#prodicts_compared').html(html);
+														  //$('#res_<?php echo $product['id']?>').show();
+													  }
+													});">
+												Confronta Prodotto
+											</a>
+										</div>
+										
+<!--										<div id="res_<?php echo $product['id']?>"></div>-->
+										
+										<div id="detail_qty_<?php echo $product['id']?>" style="width:auto;display:none;position:absolute;background-color:#1A1A1A;z-index:1;border:1px solid #fff;">
+										<dir id="sidebar">										
+											<div id="nav_menu-3" class="widget_nav_menu widget" style="background:transparent url(../images/border_dot_light.png) repeat-x left top">
+												<div class="winner">
+												<h4 class="wtitle">TAGLIE E COLORI</h4><br>
+													<div class="menu-abbigliamento-container">
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_color)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Colori disponibili
+														</li>
+														<?php
+															foreach ($qty_color as $key => $val):
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<?php 														
+														if(is_array($qty_size)): 
+														?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															Taglie disponibili
+														</li>
+														<?php foreach ($qty_size as $key => $val):?>
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<?php echo $key?>&nbsp;(<?php echo $val?>)
+														</li>
+														<?php 
+															endforeach;
+														endif;
+														?>
+													</ul>
+													<ul id="menu-abbigliamento" class="menu">
+														<li id="menu-item-115" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-115">
+															<a href="javascript:void(0);" onclick="javascript:$('#detail_qty_<?php echo $product['id']?>').hide();">Chiudi</a>
+														</li>
+													</ul>
+													</div>
+												</div>
+											</div>
+										</dir>
+										</div>
+
+										<div class="price">
+										<?php if(!empty($product['price_discounted_it'])):?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_discounted_it'])?>
+										<?php else:?>
+											<b>&euro;&nbsp;</b><?php echo $this->getFormatPrice($product['price_it'])?>
+										<?php endif;?>
+										</div>
+									</div>
+								<?php else:?>
+<!--									<div class="store-cont"><div class="item-box">&nbsp;</div></div>-->
+								<?php endif;?>
+								
+								<?php endforeach;?>
+								
+								<div class="clear"></div>
+							</div>
+
+							<div class="clear"></div>

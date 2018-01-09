@@ -1,0 +1,86 @@
+<?php $_tplvar = $this->getVars();?>
+
+
+<!-- APERTURA FORM DI RICERCA -->
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+<input type="hidden" name="search" value="1" />
+<!--<input type="text" value="<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>" name="key_search" id="key_search" style="width:200px;" onblur="javascript:resetField(this, '<?php if($_tplvar['key_search']):?><?php echo $_tplvar['key_search']?><?php else:?>Cerca la parola chiave<?php endif;?>')" onclick="javascript:swapField(this, 'Cerca la parola chiave')"/>-->
+<!---->
+<!--<input type="submit" class="" value="CERCA" />-->
+<!--<input type="button" class="" value="RESET" onclick="javascript:resetFieldById('key_search', 'Cerca la parola chiave')" />-->
+</form>
+
+<!-- CHIUSURA FORM DI RICERCA -->
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+	{
+		el.style.visibility = 'visible';
+		//el.style.position = 'relative';
+	}
+	else
+	{
+		el.style.visibility = 'hidden';
+		//el.style.position = 'absolute';
+	}
+}
+</script>
+
+					<table cellspacing="10" cellpadding="0">
+						<tr>
+							<?php
+							foreach ($_tplvar['header_list'] as $key => $value)
+							{								
+								foreach ($value as $k => $val)
+								{
+									if($key == 0 && $k != 'id' && $k != 'operatore')
+									{
+										?><td width="100"><?php 
+										$KEY_TO_DISPLAY[] = $k;
+										$assign['key_session'] = $_tplvar['action_class_name'];
+										$assign['order_by'] = $k;
+										$assign['action'] = $_tplvar['action_class_name'];
+										$assign['field_name'] = $this->getText(strtoupper($k));							
+										$this->getPartial('shared/SortField', $assign);
+										?></td><?php 
+									}
+								}
+							}
+							?>
+							
+                           <td width="100">MODIFICA</td>
+                           <td width="100">CANCELLA</td>
+						</tr>
+					<?php foreach ($_tplvar['list'] as $value):?>
+					<tr>
+						<?php foreach ($KEY_TO_DISPLAY as $to_display):?>
+						<td width="100" nowrap="nowrap">
+							<?php echo $value[$to_display];?>
+						&nbsp;</td>
+						<?php endforeach;?>
+						<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=NuovoBrand&edit=1&id=<?php echo $value['id']?>">MODIFICA</a></td>
+						<td width="100"><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>&delete=1&id=<?php echo $value['id']?>">CANCELLA</a></td>
+					</tr>
+					
+					
+					
+					
+					<?php endforeach;?>
+				</table>
+
+
+                <!-- Page Navigation -->
+				<?php echo $this->getPartial('shared/Paging');?>
+				<!-- /Page Navigation -->
+                
+                <!-- Export Excel -->
+                <?php //$assign['url'] = $_tplvar['WWW_ROOT'].'?act='.$_REQUEST['act'].'&export=1';?>
+				<?php //echo $this->getPartial('shared/ButtonExcelExport', $assign);?>
+				<!-- /Export Excel -->
+                
+				</div>
+			</div>
+		</div><!-- end page-content -->
+<br><br>

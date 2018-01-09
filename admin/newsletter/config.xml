@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <database>
+	<dev>
+	  	  <Db_type>mysql</Db_type>
+		    <Server>localhost</Server>
+		    <Database>siso_newsletter</Database>
+		    <User>root</User>
+		    <Password></Password>
+    </dev>
+	<pro>
+	    <Db_type>mysql</Db_type>
+	    <Server>62.149.150.161</Server>
+	    <Database>Sql568040_2</Database>
+	    <User>Sql568040</User>
+	    <Password>d4d3a093</Password>
+	</pro>
+  </database>
+  <SO>
+		<!--<System>WIN</System>-->
+        <System>UNIX</System>
+  </SO>
+  <smarty_tpl>
+    <debugging>0</debugging>
+    <caching>0</caching>
+    <tpl_dir>/style/template</tpl_dir>
+    <conf_dir>/style/languages</conf_dir>
+    <cache_dir>/style/cache</cache_dir>
+    <cache_lifetime>3600</cache_lifetime>
+    <template_ext>.phtml</template_ext>
+  </smarty_tpl>
+  <VirtualIncludePath>
+    <MyLibs>libs</MyLibs>
+    <PearDir>libs/ext/pear</PearDir>
+  </VirtualIncludePath>
+  <VirtualIncludes>
+    <BeanBase>BeanBase.php</BeanBase>
+    <MyAction>Action.php</MyAction>
+    <SeoEngine>SeoEngine.php</SeoEngine>
+    <Session>Session.php</Session>
+    <DB>DB.php</DB>
+    <MyDB>MyDB.php</MyDB>
+    <MySmarty>TemplateEngine.php</MySmarty>
+    <MyPager>MyPager.php</MyPager>
+    <PEARLog>Log.php</PEARLog>
+    <MyLOG>MyLog.php</MyLOG>
+    <SISO_Image>SISO_Image.php</SISO_Image>
+    <Feeds>Feeds.php</Feeds>
+  </VirtualIncludes>
+  <VirtualDefines>
+  	<CHARSET>UTF-8</CHARSET>
+	<MAILED_BY_HOST>tangando.it</MAILED_BY_HOST>
+    <PREFIX_META_TITLE>Amministrazione Newsletters</PREFIX_META_TITLE>
+    <PREFIX_META_TITLE_SEPARATOR>-</PREFIX_META_TITLE_SEPARATOR>
+  	<USE_ZEND_CACHE>0</USE_ZEND_CACHE>
+    <WWW_INDEX>index.php</WWW_INDEX>
+    <PEAR_DIR>libs/ext/pear/</PEAR_DIR>
+    <URL_SEPARATOR></URL_SEPARATOR>
+    <INI_SET_SEPARATOR>;</INI_SET_SEPARATOR>
+    <LOG_DIR>/logs/</LOG_DIR>
+    <IF_LOG>false</IF_LOG>
+    <LOG_LEVEL>store</LOG_LEVEL>
+    <DISPLAY_ERROR_QUERY>true</DISPLAY_ERROR_QUERY>
+    <DEBUG_TIME>0</DEBUG_TIME>
+
+    <DEFAULT_LANG>it</DEFAULT_LANG>
+    <PARAM_ACTION_REQUEST>act</PARAM_ACTION_REQUEST>
+    <DEFAULT_ACTION>Newsletter</DEFAULT_ACTION>
+    <IMG_DIR>img</IMG_DIR>
+    <CSS_DIR>css</CSS_DIR>
+    <JS_DIR>javascript</JS_DIR>
+    <PASSWORD_SALT>a2afr24tg56r4r65wg</PASSWORD_SALT>
+    <FORM_REQUEST_TIMEOUT>120</FORM_REQUEST_TIMEOUT>
+	<SITE_ROOT>http://tangando.it/newsletter/</SITE_ROOT>
+	
+    <IT_TIMESTAMP_FORMAT>d/m/Y H:i:s</IT_TIMESTAMP_FORMAT>
+    <EN_TIMESTAMP_FORMAT>Y-m-d H:i:s</EN_TIMESTAMP_FORMAT>
+    <ES_TIMESTAMP_FORMAT>Y-m-d H:i:s</ES_TIMESTAMP_FORMAT>
+    <DE_TIMESTAMP_FORMAT>Y-m-d H:i:s</DE_TIMESTAMP_FORMAT>
+
+    <EMAIL_ADMIN>info@tangando.it</EMAIL_ADMIN>
+    <EMAIL_ADMIN_HOST>smtp.tangando.it</EMAIL_ADMIN_HOST>
+    <EMAIL_ADMIN_USERNAME>info@tangando.it</EMAIL_ADMIN_USERNAME>
+    <EMAIL_ADMIN_PASSWORD>t4ng4nd0</EMAIL_ADMIN_PASSWORD>
+  </VirtualDefines>
+</root>

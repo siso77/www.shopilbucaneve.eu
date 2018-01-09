@@ -1,0 +1,296 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FATTURA MEDIAEDIT {<?php echo $_tplvar['index_fattura'];?>}</title>
+<link rel="stylesheet" type="text/css" href="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['CSS_DIR'];?>/print.css" media="print" />
+<?php if($_REQUEST['print']):?>
+<script>
+	window.opener.document.location.href = "<?php echo $_tplvar['WWW_ROOT']?>?act=ViewCliente&id=<?php echo $_REQUEST['id_cliente']?>";
+	window.print();
+</script>
+<?php endif;?>
+</head>
+
+<body>
+
+<table width="<?php echo $_tplvar['fattura']['width']?>" height="<?php echo $_tplvar['fattura']['height']?>" border="0" style="border: 1px #666 solid;" align="center" bgcolor="#FFFFFF" cellspacing="0">
+  <tr>
+    <td width="796" height="104" valign="top"><table width="100%" border="0" cellspacing="0">
+      <tr>
+        <td width="33%"><img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR'];?>/MEDIAEDIT-LOGO.jpg" alt="" width="345" height="98" /></td>
+        <td width="33%" valign="bottom">&nbsp;</td>
+        <td width="33%" align="right" style="font-size:11px;">MEDIAEDIT di Dario Muscatello<br />
+Via degli Scipioni, 292 -00192 Roma<br />
+Tel. 06 45491243 &ndash; 0697252500<br />
+Partita I.V.A. n.08648741000<br />
+c.f. MSCDRA75P01H501T<br />
+Registro imprese 1110250<br />
+mediaedit@mediaedit.it</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="294" valign="top">
+    <table width="100%" border="0" height="48" cellspacing="0">
+      <tr>
+        <td width="67%" height="44"><h2>Cliente</h2></td>  <td width="33%" height="44"><table width="100%" border="0" cellspacing="0">
+          <tr>
+            <td height="38" align="center"><h2>Fattura n&deg;</h2></td>
+            <td align="center"><h3><?php echo $_tplvar['index_fattura'];?></h3></td>
+          </tr>
+        </table>          </td>
+      </tr>
+    </table>
+      <table width="100%" border="0" style="border: 1px #666 solid;" cellspacing="0">
+        <tr>
+          <td width="27%" height="119"><table width="100%" border="0" cellspacing="0">
+            <tr>
+              <td><strong>Cognome Nome o Rag Sociale</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Indirizzo Sede.</strong></td>
+            </tr>
+            <tr>
+              <td><strong>C.A.P.</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Citt&agrave;</strong></td>
+            </tr>
+            <tr>
+              <td><strong>C.F. o P.IVA</strong></td>
+            </tr>
+          </table></td>
+          <td width="43%"><table width="100%" border="0" cellspacing="0">
+            <tr>
+              <td>
+              	<?php if(!empty($_tplvar['data']['cliente']['ragione_sociale'])):?>
+              		<?php echo $_tplvar['data']['cliente']['ragione_sociale'];?>
+              	<?php else:?>
+              		<?php echo ucfirst($_tplvar['data']['cliente']['nome']);?>&nbsp;<?php echo ucfirst($_tplvar['data']['cliente']['cognome']);?>
+              	<?php endif;?>
+              	&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>
+              	<?php if(!empty($_tplvar['data']['cliente']['indirizzo'])):?>
+              		<?php echo $_tplvar['data']['cliente']['indirizzo'];?>
+              	<?php elseif(!empty($_tplvar['data']['cliente']['indirizzo_spedizione'])):?>
+              		<?php echo $_tplvar['data']['cliente']['indirizzo_spedizione'];?>
+              	<?php endif;?>
+              	&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>
+				<?php if(!empty($_tplvar['data']['cliente']['cap'])):?>
+              		<?php echo $_tplvar['data']['cliente']['cap'];?>
+              	<?php endif;?>    
+              	&nbsp;          
+              </td>
+            </tr>
+            <tr>
+              <td>
+				<?php if(!empty($_tplvar['data']['cliente']['citta'])):?>
+	           		<?php echo $_tplvar['data']['cliente']['citta'];?>
+              	<?php endif;?>   
+              	&nbsp; 
+              </td>
+            </tr>
+            <tr>
+              <td>
+				<?php if(!empty($_tplvar['data']['cliente']['codice_fiscale'])):?>
+              		<?php echo $_tplvar['data']['cliente']['codice_fiscale'];?>
+              	<?php elseif(!empty($_tplvar['data']['cliente']['p_iva'])):?>
+              		<?php echo $_tplvar['data']['cliente']['p_iva'];?>
+              	<?php endif;?>    
+              	&nbsp;          
+              </td>
+            </tr>
+          </table></td>
+          <td width="30%" valign="middle"><table width="100%" style="border: 1px #666 solid;" cellspacing="0">
+            <tr>
+              <td>Data</td>
+              <td>
+              	<?php 
+              		echo $_tplvar['data']['data_fatturazione'];
+              		unset($_tplvar['data']['data_fatturazione']);
+              	?>
+              </td>
+            </tr>
+            <tr>
+              <td>DDV n&deg;</td>
+              <td>
+              	<?php 
+              	echo $_tplvar['data']['ddv'];
+              	unset($_tplvar['data']['ddv']);
+              ?>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+
+          </table></td>
+        </tr>
+    </table>
+    
+	<?php if(!empty($_tplvar['data']['free_text'])):?>
+	<table width="<?php echo $_tplvar['fattura']['width']?>" height="<?php echo $_tplvar['fattura']['height']?>" border="0" style="border: 1px #666 solid;" align="center" bgcolor="#FFFFFF" cellspacing="0">
+	<tr>
+	<td width="796" height="104" valign="top"><table width="100%" border="0" cellspacing="0">
+	<?php echo $_tplvar['data']['free_text']?>
+	</td>
+	</tr>
+	</table>
+	<?php 
+	unset($_tplvar['data']['free_text']);
+	endif;?>
+    
+      <table width="100%" border="1" cellspacing="0">
+        <tr>
+          <td width="14%"><strong>Editore</strong></td>
+          <td width="13%"><strong>Autore</strong></td>
+          <td width="43%"><strong>Descrizione</strong></td>
+          <td width="9%" align="center"><strong>Prezzo</strong></td>
+          <td width="9%" align="center"><strong>Q.t&agrave;</strong></td>
+          <td width="12%" align="center"><strong>Importo</strong></td>
+        </tr>
+    </table>
+      <table width="100%" border="1" height="650" cellspacing="0" cellspacing="0">
+        <tr>
+          <td width="14%" valign="top">
+			<?php foreach ($_tplvar['data'] as $key => $value):?>          
+	          	<div>
+	          		<?php 
+	          			if(strlen($value['casa_editrice'])>$_tplvar['INCOICE_HTML_STRLEN_1_FILED'])
+	          				echo substr($value['casa_editrice'], 0, $_tplvar['INCOICE_HTML_STRLEN_1_FILED']).'...';
+	          			else
+	          				echo $value['casa_editrice'];
+	          		?>
+	          	</div>
+			<?php endforeach;?>      
+          </td>
+          <td width="13%" valign="top">
+			<?php foreach ($_tplvar['data'] as $key => $value):?>          
+	          	<div>
+	          		<?php
+	          			if(strlen($value['autore'])>$_tplvar['INCOICE_HTML_STRLEN_2_FILED'])
+	          				echo substr($value['autore'], 0, $_tplvar['INCOICE_HTML_STRLEN_2_FILED']).'...';
+	          			else
+	          				echo $value['autore'];
+	          			?>
+	          	</div>
+			<?php endforeach;?>      
+          </td>
+          <td width="43%" valign="top">
+			<?php foreach ($_tplvar['data'] as $key => $value):?>          
+	          	<div>
+	          		<?php 
+	          			if(strlen($value['titolo'])>$_tplvar['INCOICE_HTML_STRLEN_3_FILED'])
+	          				echo substr($value['titolo'], 0, $_tplvar['INCOICE_HTML_STRLEN_3_FILED']).'...';
+	          			else
+	          				echo $value['titolo'];
+	          		?>
+	          	</div>
+			<?php endforeach;?>      
+          </td>
+          <td width="9%" align="center" valign="top">
+			<?php foreach ($_tplvar['data'] as $key => $value):?>          
+	          	<div><?php echo $this->getFormatPrice($value['prezzo']);?></div>
+			<?php endforeach;?>      
+          </td>
+          <td width="9%" align="center" valign="top">
+			<?php foreach ($_tplvar['data'] as $key => $value):?>          
+	          	<div><?php echo $value['quantita'];?></div>
+			<?php endforeach;?>      
+          </td>
+          <td width="12%" align="center" valign="top">
+			<?php 
+			foreach ($_tplvar['data'] as $key => $value):
+				$importo = $value['prezzo']*$value['quantita'];
+			?>
+	          	<div><?php if($importo > 0) echo $this->getFormatPrice($importo);?></div>
+			<?php endforeach;?>      
+          </td>
+        </tr>
+        </table>
+        <?php if(empty($_REQUEST['print']) && empty($_REQUEST['view_fattura'])):?>
+	        <table width="100%" border="0" height="650" cellspacing="0" cellspacing="0">
+	        <?php for($i=0;$i <= (20 - count($_tplvar['data']));$i++):?>
+	        <tr>
+	        	<td>&nbsp;</td>
+	        	<td>&nbsp;</td>
+	        	<td>&nbsp;</td>
+	        	<td>&nbsp;</td>
+	        	<td>&nbsp;</td>
+	        	<td>&nbsp;</td>
+	        </tr>
+	        <?php endfor;?>
+	        </table>
+		<?php endif;?>
+    </td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="1" cellspacing="0" cellspacing="0">
+      <tr>
+        <td width="70%" style="font-size:11px">A Ricevimento Fattura - Bonifico Bancario -<br />
+          In seguito alla fusione delle Societ&agrave; del gruppo Unicredit, si fa presente che<br />
+          a decorrere dal 1 novembre 2010 per il pagamento delle fatture sar&agrave; valido<br />
+          il nuovo IBAN intestato a DARIO MUSCATELLO: IT35A0200805170000400223874<br />
+          <?php echo $_tplvar['data'][0]['tipo_pagamento']['description'];?>
+        </td>
+        <td width="30%"><table width="100%" style="font-size:11px" cellspacing="0" cellspacing="0">
+          <tr>
+            <td>Imponibile</td>
+            <td><?php echo $this->getFormatPrice($_tplvar['data']['invoice_data']['imponibile'])?></td>
+          </tr>
+          <tr>
+            	<?php
+            		if(!empty($_tplvar['data'][0]['percentuale_sconto']))
+            			$discount = $_tplvar['data'][0]['percentuale_sconto'];
+            		elseif(!empty($_tplvar['data']['invoice_data']['sale']))
+            			$discount = $_tplvar['data']['invoice_data']['sale'];
+            	?>
+          
+            <td>Sconto <?php echo $discount?> %</td>
+            <td>
+            	<?php
+            		echo $this->getFormatPrice(($_tplvar['data']['invoice_data']['imponibile'] * $discount / 100)); 
+            	?>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size:15px"><strong>Totale Fattura</strong></td>
+            <td style="font-size:15px">
+            	<strong>
+            		<?php
+            			$tot = $_tplvar['data']['invoice_data']['imponibile'] - ($_tplvar['data']['invoice_data']['imponibile'] * $discount / 100);
+            			echo $this->getFormatPrice($tot);
+            		?>
+            	</strong>
+            </td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td align="center" style="font-size:11px">
+    	Documento emesso in relazione ad operazioni assoggettate a IVA- esente da bollo art.6 tab. B-D.P.R.-n&deg;642/72.Esente da bolla di accompagnamento 
+    	<?php if($_tplvar['data']['includeTextIva']):?>
+    	- IVA assolta dall'editore ex. Art. 74
+    	<?php endif;?>
+    </td>
+  </tr>
+</table>
+
+</body>
+
+</html>

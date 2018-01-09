@@ -1,0 +1,130 @@
+<?php
+$_tplvar = $this->getVars();
+
+if(!empty($_tplvar['content'][0]))
+	$content = $_tplvar['content'][0];
+if(!empty($_REQUEST['breadcrumb1']))
+	$category = $this->getCategoryByName($_REQUEST['breadcrumb1']);	
+
+if(!empty($category) && $category[0]['parent_id'] != 0)
+	$root_category = $this->getCategoryById($category[0]['parent_id']);
+elseif($category[0]['parent_id'] == 0 && $_REQUEST['act'] == 'ProductInfo')
+{
+	$root_category = $category[0];
+	$category = array($this->getCategoryById($content['id_category']));
+	$_REQUEST['breadcrumb1'] = $category[0]['name'];
+}
+
+if(empty($root_category) && !empty($content))
+	$root_category = $this->getCategoryById($category[0]['parent_id']);
+
+$i = 0;
+$breadcrumb[$i]['name'] = ''.$_tplvar['PREFIX_META_TITLE'];
+$i++;
+
+if(!empty($root_category))
+{
+	$breadcrumb[$i]['name'] = $root_category['name'].', '.$root_category['name'];
+	$i++;
+}
+if(!empty($_REQUEST['breadcrumb1']))
+{
+	$breadcrumb[$i]['name'] = $_REQUEST['breadcrumb1'].', '.$category[0]['name'];
+	$i++;
+}
+if(!empty($_REQUEST['breadcrumb2']))
+{
+	$breadcrumb[$i]['name'] = $_REQUEST['breadcrumb2'].', '.$category[0]['name'];
+	$i++;
+}
+if($_REQUEST['act'] == 'Offer')
+{
+	$breadcrumb[$i]['name'] = 'Le migliori offerte di '.$_tplvar['PREFIX_META_TITLE'];
+	$i++;
+}
+if($_REQUEST['act'] == 'Brand')
+{
+	$breadcrumb[$i]['name'] = $_tplvar['PREFIX_META_TITLE'];
+	$i++;
+}
+
+if($_REQUEST['act'] == 'Login')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Login';
+	$i++;
+}
+if($_REQUEST['act'] == 'Preferred')
+{
+	$breadcrumb[$i]['name'] = 'Lista Preferiti';
+	$i++;
+}
+if($_REQUEST['act'] == 'ShoppingCart' && empty($_REQUEST['id']))
+{
+	$breadcrumb[$i]['name'] = 'Carrello';
+	$i++;
+}
+if($_REQUEST['act'] == 'CheckoutShopping')
+{
+	$breadcrumb[$i]['name'] = 'Carrello';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Riepilogo';
+	$i++;
+}
+if($_REQUEST['act'] == 'CheckoutPayment')
+{
+	$breadcrumb[$i]['name'] = 'Conferma Ordine';
+	$i++;
+}
+
+if($_REQUEST['act'] == 'MyAccount')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Pagina iniziale del mio account';
+	$i++;
+}
+if($_REQUEST['act'] == 'CreateAccount')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Registrazione utente';
+	$i++;
+}
+if($_REQUEST['act'] == 'Orders')
+{
+	$breadcrumb[$i]['name'] = 'Il mio account';
+	$i++;
+	$breadcrumb[$i]['name'] = 'Ordini effettuati';
+	$i++;
+}
+if($_REQUEST['act'] == 'search')
+{
+	$breadcrumb[$i]['name'] = 'Ricerca Prodotti';
+	$i++;
+	$breadcrumb[$i]['name'] = $_tplvar['key_search'];
+	$i++;	
+}
+
+foreach ($breadcrumb as $key => $value)
+{
+	$html .= $value['name'];
+	if($key < (count($breadcrumb)-1))
+		$html .= ',';
+}
+if(!empty($content))
+	$html .= $content['name_it'];
+
+$title = PREFIX_META_TITLE;
+if(!empty($content))
+	$title .= ' - '.$content['name_it'];
+?>
+<title><?php echo $title;?></title>
+<meta name="description" content="<?php echo $_tplvar['PREFIX_META_TITLE']?>, <?php echo $html?>" />
+<meta name="keywords" content="<?php echo $_tplvar['PREFIX_META_TITLE']?>, <?php echo $html?>" />
+<meta name="robots" content="INDEX,FOLLOW" />
+<?php 
+$breadcrumb = null;
+$html = null;
+?>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+        <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        </style>
+		<title>Calendar</title>
+        <script type="text/javascript" charset="utf-8">
+        dhx.ready(function(){
+            dhx.ui({
+                type:"space",
+                cols:[
+                    {
+                        view:"calendar",
+                        id:"mycalendar",
+                        weekHeader:1,
+                        weekNumber:1,
+                        timeSelect:1,
+                        date:new Date(2010,07,10)
+                    },
+                    {
+                        id:"log",
+                        scroll:"y",
+                        template:"<div id='eventLog'></div>"
+                    }
+                ]
+            });
+            function log(ev,args){
+                var message=ev;
+                var div="<div>";
+                message+='<ul style="padding:0 0 0 22px;margin:0;font:italic 60% verdana">';
+                for (var i=0; i < args.length; i++) {
+                    message+="<li>"+args[i];
+                };
+                message+='</ul>';
+                div+=message+"</div";
+                document.getElementById("eventLog").innerHTML=div+document.getElementById('eventLog').innerHTML;
+            }
+            $$("mycalendar").attachEvent("onDateSelect",function(){
+                log("onDateSelect",arguments)
+            });
+            $$("mycalendar").attachEvent("onBeforeMonthChange",function(){
+                log("onBeforeMonthChange",arguments)
+	        });
+	        $$("mycalendar").attachEvent("onAfterMonthChange",function(){
+                log("onAfterMonthChange",arguments)
+	        });
+         });
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

@@ -1,0 +1,4 @@
+Jan 09 14:32:16|5[info]09/01/2018 14:32:16 - [UTENTE = ][REMOTE IP = 2.230.223.16][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36]
+Jan 09 14:32:19|5[info]09/01/2018 14:32:19 - [UTENTE = siso][REMOTE IP = 2.230.223.16][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36]
+Jan 09 14:32:27|5[info]09/01/2018 14:32:27 - [UTENTE = siso][REMOTE IP = 2.230.223.16][act = ListaUtenti][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36]
+Jan 09 14:32:35|5[info]09/01/2018 14:32:35 - [UTENTE = siso][REMOTE IP = 2.230.223.16][act = ListaUtenti][rowForPage = 100][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36]

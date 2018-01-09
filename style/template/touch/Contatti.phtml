@@ -1,0 +1,319 @@
+<?php $_tplvar = $this->getVars();?>
+
+<style>
+<!--
+.container_24 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1170px;
+}
+-->
+</style>			
+			<div id="page-content">
+				<div id="page-content-header" class="container_24" style="margin-left:180px">
+					<div id="page-title">
+						<h2>Contatti</h2>
+					</div>
+					<p class="breadcrumbs"><span class="breadcrumb_info">Ti trovi in:</span> <a href="index.html">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Contatti</span></p>
+					<div style="margin-right:200px">
+						<h3 style="margin: 3px 0 0;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">Krupy Latina</h3>
+					</div>
+				</div>
+				<div id="content-container" class="container_24">
+				    <div id="main-content" class="grid_16 push_10">
+					<div class="main-content-padding">
+	
+					<!-- BEGIN KRUPY LATINA -->
+					<div style="margin-right:160px">
+						<h3 style="margin: 13px 0 0 ;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Orari di Apertura:
+						</h3>
+					</div>
+					<div class="textwidget">
+					
+						<div style="float:left;width:200px">
+							<strong>Dal Luned&iacute; al Sabato:</strong><br />
+							Dalle <em><strong>7:30</strong></em> alle <em><strong>13</strong></em><br />
+							Dalle <em><strong>14:30</strong></em> alle <em><strong>18:30</strong></em>
+						</div>
+
+						<div style="float:left;width:200px">
+							<strong>Domenica:</strong><br />
+							Dalle <em><strong>7:30</strong></em> alle <em><strong>13</strong></em><br />
+						</div>
+
+						<div class="clear"></div>
+					</div>					
+					<div style="margin-right:160px">
+						<h3 style="margin: 13px 0 0 ;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Contatti
+						</h3>
+					</div>
+					
+					<div class="clear"></div>
+					<div id="contactInfo">
+						<div class="grid_4 contactFieldDesc">Indirizzo:</div>
+						<div class="grid_11 contactFieldValue">Via Migliara 45</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc"></div>
+						<div class="grid_11 contactFieldValue">Latina (LT) - 04100</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc"></div>
+						<div class="grid_11 contactFieldValue">Coordinate Geografiche - 41.41814, 12.986207</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc">Telefono:</div>
+						<div class="grid_11 contactFieldValue">(+39) 0773-258830</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc">Fax:</div>
+						<div class="grid_11 contactFieldValue">(+39) 0773- 258901</div>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+
+					<div id="contact-wrapper">
+					
+<!-- 
+<?php					    // Message Area.  It shows a message upon successful email submission
+					    if( isset( $emailSent ) && $emailSent == true ) : ?>
+						<div class="success">
+						    <div class="msg-box-icon">
+							<strong>Email Successfully Sent!</strong><br />
+							Thank you <strong><?php echo $contact_name_thx; ?></strong> for using our contact form! Your email was successfully sent and we will be in touch with you shortly.
+						    </div>
+						</div>
+<?php					    elseif ( isset( $emailSent ) && $emailSent == false ) : ?>
+						<div class="erroneous">
+						    <div class="msg-box-icon">
+							Failed to connect to mailserver!
+						    </div>
+						</div>
+<?php					    endif; ?>
+					    <form id="contactForm" class="cmxform" method="post" action="#contact-wrapper">
+						<strong>Utilizza il form sottostante per inviarci una mail:</strong>
+						<div>
+						    <label for="contact_name">Nome </label><em>(obbligatorio, almeno 2 caratteri)</em><br />
+						    <input id="contact_name" name="contact_name" size="30" class="required<?php if(isset($nameError)) echo ' error'; ?>" value="<?php echo htmlentities($contact_name, ENT_QUOTES, "UTF-8"); ?>" />
+<?php						    if(isset($nameError)) echo '<label class="error" for="contact_name" generated="true">'.$nameError.'</label>'; ?>
+						</div>
+						<div>
+						    <label for="contact_email">E-Mail </label><em>(obbligatorio)</em><br />
+						    <input id="contact_email" name="contact_email" size="30"  class="required email<?php if(isset($emailError)) echo ' error'; ?>" value="<?php echo htmlentities($contact_email, ENT_QUOTES, "UTF-8"); ?>" />
+<?php						    if(isset($emailError)) echo '<label class="error" for="contact_email" generated="true">'.$emailError.'</label>'; ?>
+						</div>
+						<div>
+						    <label for="contact_phone">Telefono </label><em>(opzionale)</em><br />
+						    <input id="contact_phone<?php echo $NA_phone_format; ?>" name="contact_phone<?php echo $NA_phone_format; ?>" size="14" class="phone<?php if(isset($phoneError)) echo ' error'; ?>" value="<?php echo htmlentities($contact_phone, ENT_QUOTES, "UTF-8"); ?>" maxlength="14" />
+						    <label for="contact_ext">ext. </label>
+						    <input id="contact_ext<?php echo $NA_phone_format; ?>" name="contact_ext<?php echo $NA_phone_format; ?>" size="5" class="ext<?php if(isset($extError)) echo ' error'; ?>" value="<?php echo htmlentities($contact_ext, ENT_QUOTES, "UTF-8"); ?>" maxlength="5" />
+<?php						    if(isset($phone_extError)) echo '<label class="error" for="contact_phone" generated="true">'.$phone_extError.'</label>'; ?>
+						</div>
+						<div>
+						    <label for="contact_message">Commento </label><em>(obbligatorio)</em><br />
+						    <textarea id="contact_message" name="contact_message" cols="70" rows="7" class="required<?php if(isset($messageError)) echo ' error'; ?>"><?php echo htmlentities($contact_message, ENT_QUOTES, "UTF-8"); ?></textarea>
+<?php						    if(isset($messageError)) echo '<br /><label class="error" for="contact_message" generated="true">'.$messageError.'</label>'; ?>
+						</div>
+
+<?php						if ( $recaptcha_enabled == 'yes' ) : ?>
+						    <script type="text/javascript">var RecaptchaOptions = {theme : '<?php echo $recaptcha_theme; ?>', lang : '<?php echo $recaptcha_lang; ?>'};</script>
+						    <div>
+<?php							echo recaptcha_get_html( $publickey, $rCaptcha_error ); ?>
+						    </div>
+<?php						endif; ?>
+
+						<div>
+						    <input name="submit" class="submit" type="submit" value="Invia Richiesta"/>
+						</div>
+					    </form>
+						-->
+					</div><!-- end contact-wrapper -->
+					</div><!-- end main-content-padding -->
+				    </div><!-- end main-content -->
+					<div id="sidebar" class="grid_8 pull_16 sidebar-box">
+						<div id="sidebarSubnav">
+						
+						<!-- 
+							<div class="widget widget_subpages custom-formatting">
+								<h3>Orari di Apertura:</h3>
+								<div class="textwidget">
+								
+									<div style="float:left;width:200px">
+										<strong>Dal Luned&iacute; al Sabato:</strong><br />
+										Dalle <em><strong>7:30</strong></em> alle <em><strong>13</strong></em><br />
+										Dalle <em><strong>14:30</strong></em> alle <em><strong>18:30</strong></em>
+									</div>
+
+									<div style="float:left;width:200px">
+										<strong>Domenica:</strong><br />
+										Dalle <em><strong>7:30</strong></em> alle <em><strong>13</strong></em><br />
+									</div>
+
+									<div class="clear"></div>
+								</div>
+							</div>
+ 						-->
+							<div id="googlemap-widget" class="substitute_widget_class">
+							    <h3 class="widgettitle">Google Map</h3>
+								<iframe width="280" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?f=q&source=s_q&hl=it&geocode=&q=Via+Migliara+45+04100+Latina&aq=&sll=41.41814,12.986207&sspn=0.0699,0.169086&t=v&ie=UTF8&hq=&hnear=Strada+Migliara+45&z=13&ll=41.41814,12.986207&output=embed&iwloc=near"></iframe>
+								<br /><small><a target="_blank" href="https://maps.google.it/maps?f=q&source=embed&hl=it&geocode=&q=Via+Migliara+45+04100+Latina&aq=&sll=41.41814,12.986207&sspn=0.0699,0.169086&t=v&ie=UTF8&hq=&hnear=Strada+Migliara+45&z=13&ll=41.41814,12.986207&iwloc=near" style="color:#0000FF;text-align:left">Visualizzazione ingrandita della mappa</a></small>							
+							</div>
+						</div>
+						<!-- end sidebarSubnav -->
+					</div>
+					<!-- end sidebar -->
+				</div>
+				<!-- end content-container -->
+				<div class="clear"></div>
+				<!-- END KRUPY LATINA -->
+				
+				<!-- BEGIN KRUPY ROMA -->
+				<div id="page-content-header" class="container_24" style="margin-left:180px">
+					<div style="margin-right:200px">
+						<h3 style="margin: 3px 0 0;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Krupy Roma
+						</h3>
+					</div>
+				</div>
+				<div id="content-container" class="container_24">
+				    <div id="main-content" class="grid_16 push_10">
+					<div class="main-content-padding">
+					
+					<div style="margin-right:160px">
+						<h3 style="margin: 13px 0 0 ;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Orari di Apertura:
+						</h3>
+					</div>
+					<div class="textwidget">
+					
+						<div style="float:left;width:200px">
+							<strong>Dal Luned&iacute; al Sabato:</strong><br />
+							Dalle <em><strong>7:30</strong></em> alle <em><strong>13</strong></em><br />
+							Dalle <em><strong>14:30</strong></em> alle <em><strong>18:30</strong></em>
+						</div>
+
+						<div class="clear"></div>
+					</div>					
+					<div style="margin-right:160px">
+						<h3 style="margin: 13px 0 0 ;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Contatti
+						</h3>
+					</div>
+					
+					<div class="clear"></div>
+					<div id="contactInfo">
+						<div class="grid_4 contactFieldDesc" style="width:200px">Presso il Mercato Dei Fiorni</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc">Indirizzo:</div>
+						<div class="grid_11 contactFieldValue">via trionfale, 45</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc"></div>
+						<div class="grid_11 contactFieldValue">Roma (RM) - 00195</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc">Telefono:</div>
+						<div class="grid_11 contactFieldValue">(+39) 06-39743399</div>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+
+					</div><!-- end main-content-padding -->
+				    </div><!-- end main-content -->
+					<div id="sidebar" class="grid_8 pull_16 sidebar-box">
+						<div id="sidebarSubnav">
+							<div id="googlemap-widget" class="substitute_widget_class">
+							    <h3 class="widgettitle">Google Map</h3>
+								<iframe width="280" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=Roma+via+trionfale,+45&amp;sll=41.908557,12.535998&amp;sspn=0.289742,0.676346&amp;t=m&amp;ie=UTF8&amp;hq=&amp;hnear=Via+Trionfale,+45,+Roma,+Lazio&amp;ll=41.913519,12.451458&amp;spn=0.022355,0.024033&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+								<br /><small><a target="_blank" href="https://maps.google.it/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=Roma+via+trionfale,+45&amp;sll=41.908557,12.535998&amp;sspn=0.289742,0.676346&amp;t=m&amp;ie=UTF8&amp;hq=&amp;hnear=Via+Trionfale,+45,+Roma,+Lazio&amp;ll=41.913519,12.451458&amp;spn=0.022355,0.024033&amp;z=14&amp;iwloc=A&amp;output=embed" style="color:#0000FF;text-align:left">Visualizzazione ingrandita della mappa</a></small>							
+							</div>
+						</div>
+						<!-- end sidebarSubnav -->
+					</div>
+					<!-- end sidebar -->
+				</div>
+				<!-- end content-container -->
+				<div class="clear"></div>
+				<!-- END KRUPY ROMA -->
+				
+				
+				
+				<!-- BEGIN KRUPY APRILIA -->
+				<div id="page-content-header" class="container_24" style="margin-left:180px">
+					<div style="margin-right:200px">
+						<h3 style="margin: 3px 0 0;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Krupy Aprilia
+						</h3>
+					</div>
+				</div>
+				<div id="content-container" class="container_24">
+				    <div id="main-content" class="grid_16 push_10">
+					<div class="main-content-padding">
+					
+					<div style="margin-right:160px">
+						<h3 style="margin: 13px 0 0 ;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Orari di Apertura:
+						</h3>
+					</div>
+					<div class="textwidget">
+					
+						<div style="float:left;width:200px">
+							<strong>Luned&iacute; e Gioved&iacute;:</strong><br />
+							Dalle <em><strong>5:30</strong></em> alle <em><strong>10</strong></em><br />
+						</div>
+
+						<div class="clear"></div>
+					</div>					
+					<div style="margin-right:160px">
+						<h3 style="margin: 13px 0 0 ;padding-bottom: 7px;background: transparent url(<?php echo $_tplvar['WWW_ROOT']?>theme/styles/style2/images/underline-1.png) repeat-x scroll 0 100%;">
+							Contatti
+						</h3>
+					</div>
+					
+					<div class="clear"></div>
+					<div id="contactInfo">
+						<div class="grid_4 contactFieldDesc" style="width:200px">Presso il Mercato Dei Fiorni</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc">Indirizzo:</div>
+						<div class="grid_11 contactFieldValue">SS. Pontina - Via della Ferriere</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc"></div>
+						<div class="grid_11 contactFieldValue">Latina (LT) - 04100</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc"></div>
+						<div class="grid_11 contactFieldValue">Coordinate Geografiche - 41.532889, 12.740647</div>
+						<div class="clear"></div>						
+						<div class="grid_4 contactFieldDesc" style="width:400px">Indicazioni per chi proviene da Roma:</div>
+						<div class="grid_11 contactFieldValue">
+							SS. Pontina, passa oltre Aprilia verso Latina
+							Prendi l'uscita verso Campoverde/Cisterna/Appia
+							Svolta a destra verso Via delle Ferriere (indicazioni per Via della Ferriere).
+							Il mercato si trova al bivio di via delle Ferriere, di fronte.
+						</div>
+						<div class="clear"></div>
+						<div class="grid_4 contactFieldDesc" style="width:400px">Indicazioni per chi proviene da Latina:</div>
+						<div class="grid_11 contactFieldValue">
+							SS Pontina, prendi l'uscita verso Campoverde/Cisterna
+							Svolta tutto a sinistra verso Via delle Ferriere, oltre il cavalcavia si trova di fronte.
+						</div>
+						<div class="clear"></div>						
+					</div>
+					<div class="clear"></div>
+
+					</div><!-- end main-content-padding -->
+				    </div><!-- end main-content -->
+					<div id="sidebar" class="grid_8 pull_16 sidebar-box">
+						<div id="sidebarSubnav">
+							<div id="googlemap-widget" class="substitute_widget_class">
+							    <h3 class="widgettitle">Google Map</h3>
+								<iframe width="280" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=41.532889,+12.740647&amp;aq=&amp;sll=41.540454,12.740387&amp;sspn=0.072852,0.169086&amp;t=v&amp;ie=UTF8&amp;ll=41.534784,12.744939&amp;spn=0.019243,0.042272&amp;z=14&amp;output=embed"></iframe>
+								<br /><small><a target="_blank" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=41.532889,+12.740647&amp;aq=&amp;sll=41.540454,12.740387&amp;sspn=0.072852,0.169086&amp;t=v&amp;ie=UTF8&amp;ll=41.534784,12.744939&amp;spn=0.019243,0.042272&amp;z=14&amp;output=embed" style="color:#0000FF;text-align:left">Visualizzazione ingrandita della mappa</a></small>							
+							</div>
+						</div>
+						<!-- end sidebarSubnav -->
+					</div>
+					<!-- end sidebar -->
+				</div>
+				<!-- end content-container -->
+				<div class="clear"></div>
+				<!-- END KRUPY APRILIA -->
+				
+				
+				
+			</div>

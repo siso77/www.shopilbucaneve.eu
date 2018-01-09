@@ -1,0 +1,63 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+
+					<div id="cart-sidebar" class="grid_7" style="width:310px">
+					    <div class="custom">
+						    <h3>Il tuo Account</h3>
+						    <br>
+						    
+							<?php if(!empty($_SESSION['LoggedUser'])):?>
+	<?php 
+	if(!empty($_SESSION[session_id()]['basket']) && $_SESSION[session_id()]['basket'] != array())
+	{
+		foreach ($_SESSION[session_id()]['basket'] as $prod)
+		{
+			if(!empty($_SESSION[session_id()]['cart']['contents'][$prod['id']]['price_discounted_it']))
+				$tot += str_replace(',', '.', $_SESSION[session_id()]['cart']['contents'][$prod['id']]['price_discounted_it']) * $prod['quantita'];
+			else
+				$tot += str_replace(',', '.', $_SESSION[session_id()]['cart']['contents'][$prod['id']]['price_it']) * $prod['quantita'];
+	
+		}
+		$tot = '&euro; '.$this->getFormatPrice($tot);
+	}
+	?>							
+							
+								Ciao <?php echo $_SESSION['LoggedUser']['username']?>
+								<br>
+							    <div class="custom-formatting">
+								    <ul>
+								    	<li><a href="<?php echo $_tplvar['WWW_ROOT']?>?act=Orders&user_id=<?php echo $_SESSION['LoggedUser']['id']?>"><?php echo $this->getText('user_orders')?></a></li>
+								    	<li>
+								    		<a href="javascript:void(0);" onclick="$.fancybox(html_newsletter_subscribe);"><?php echo $this->getText('newsletter_subscribe')?></a>
+								    	</li>
+								    	<li>
+								    		<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart"><?php echo $this->getText('shopping_cart')?> (<?php echo count($_SESSION[session_id()]['cart']['contents'])?>) &nbsp;<?php echo $tot;?></a>
+								    	</li>
+								    </ul>
+							    </div>
+								<a class="pngfix small-dark-button align-btn-right" href="<?php echo $_tplvar['WWW_ROOT']?>?act=Logout&return_uri=<?php echo $_SERVER['REDIRECT_URL']?>"><span class="pngfix"><?php echo $this->getText('logout')?></span></a>
+							<?php else:?>
+							<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Login" method="post">
+							<div id="contact-wrapper">
+								<div>
+									<label for="username"><?php echo $this->getText('username');?> </label>
+									<em><?php echo $this->getText('username_help');?></em><br />
+									<input id="username" name="username" size="30" class="required" value="" />
+								</div>
+								<div>
+									<label for="password"><?php echo $this->getText('pwd');?> </label>
+									<em><?php echo $this->getText('pwd_help');?></em><br />
+									<input type="password" id="password" name="password" size="30" class="required" value="" />
+								</div>
+								<div id="error_login_message"></div>
+								<div>
+									<a class="pngfix small-dark-button align-btn-right" href="<?php echo $_tplvar['WWW_ROOT']?>?act=CreateAccount" onclick="javascript:goLogin()"><span class="pngfix"><?php echo $this->getText('registrati')?></span></a>
+									<a class="pngfix small-dark-button align-btn-right" href="javascript:void(0);" onclick="javascript:$.fancybox.showLoading();goLogin(true);"><span class="pngfix"><?php echo $this->getText('invia')?></span></a>
+								</div>
+							</div>
+							</form>
+							<?php endif;?>
+							
+					    </div>
+					</div>

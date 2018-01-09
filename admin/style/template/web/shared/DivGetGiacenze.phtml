@@ -1,0 +1,59 @@
+<?php $_tplvar = $this->getVars();?>
+					<table cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="100">BAR CODE</td>                        
+						<td width="100">NOME</td>                        
+						<td width="100">TAGLIA</td>
+						<td width="100">COLORE</td>
+						<td width="100">QUANTITA' RIMANENTE</td>
+						<td width="100">QUANTITA' CARICATA</td>
+						<td width="100">PREZZO D'ACQUISTO</td>    
+						<td width="100">PREZZO</td>    
+						<td width="100">PREZZO SCONTATO</td>
+						<td width="100">CATEGORIA</td>    
+						<td width="100">FORNITORE</td>    
+						<td width="100">DATA CARICO</td>
+						<td width="100">DDT</td>
+						<td width="100">FATTURA CARICO</td>
+						<td width="100">OPERATORE</td>
+					</tr>
+					<?php foreach ($_tplvar['data'] as $value):?>						
+					<tr>
+						<td><?php echo $value['bar_code']?></td>
+						<td>
+                           <?php echo $value['name_it']?>
+						</td>
+                        <td><?php echo $value['size']?></td>
+                        <td>
+                        	<table>	
+                        	<tr>
+                        		<td style="border:1px solid #fff;"><?php echo $value['color']?></td>
+<!--                        		<td style="border:1px solid #fff;"><?php echo $this->getImageColorFromId($value['id_color'])?></td>-->
+                        		
+                        		<td style="border:1px solid #fff;"><?php echo $this->getColorFromIdContent($value['id_color_2'])?></td>
+<!--                        		<td style="border:1px solid #fff;"><?php echo $this->getImageColorFromId($value['id_color_2'])?></td>-->
+                        		
+                        		<td style="border:1px solid #fff;"><?php echo $this->getColorFromIdContent($value['id_color_3'])?></td>
+<!--                        		<td style="border:1px solid #fff;"><?php echo $this->getImageColorFromId($value['id_color_3'])?></td>-->
+                        	</tr>
+                        	</table>
+                        </td>
+                        <td><?php echo $value['quantita']?>&nbsp;</td>
+                        <td><?php echo $value['quantita_caricata']?>&nbsp;</td>
+                        <td><?php echo $this->getFormatPrice($value['prezzo_acquisto'])?>&nbsp;</td>
+                        <td><?php echo $this->getFormatPrice($value['price_it'])?>&nbsp;</td>
+                        <td><?php echo $value['price_discounted_it']?>&nbsp;</td>
+                        <td><?php echo $value['name']?>&nbsp;</td>
+                        <td><?php echo $value['fornitore']?>&nbsp;</td>
+                        <td><?php echo $this->getFormatDate($value['data_inserimento_riga'])?>&nbsp;</td>
+                        
+                        <td><?php echo str_replace('|', '-', $value['ddt'])?>&nbsp;</td>
+                        <td><?php echo str_replace('|', '-', $value['fattura_carico'])?>&nbsp;</td>
+                        
+                        <td><?php echo $value['operatore']?>&nbsp;</td>
+                       </tr>
+					<?php endforeach;?>
+					<tr>
+						<td colspan="12" align="center"><a href="javascript:void(0);" onclick="$('#giacenze_<?php echo $_tplvar['id_content'];?>').hide();">CHIUDI</a></td>
+					</tr>
+					</table>            	            

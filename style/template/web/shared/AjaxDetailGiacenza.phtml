@@ -1,0 +1,83 @@
+<?php 
+$_tplvar = $this->getVars();
+?>
+
+<div class="category-products" style="width:auto;">
+<!-- Begin Product Listing -->
+<ol class="products-list" id="products-list">
+	<li class="item" style="margin-left:-10px;">
+	<table class="header-table">
+	<tr class="header-row">
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Foto Partita</a></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Codice Partita</a></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Variet&aacute;</a></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Provenienza</a></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Dimensione</a></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Colore</a></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Quantit&aacute; Imballo</a></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><a href="#">Disponibilit&aacute;</a></td>
+<!--		<td class="header-cell" style="min-width:28px">-->
+<!--			<img src="<?php echo $_tplvar['WWW_ROOT']?>theme/styles/common-images/carrello.gif" width="20"></img>-->
+<!--		</td>-->
+	</tr>
+	<?php foreach ($_tplvar['data'] as $key => $value):
+	?>
+	<tr class="header-row">
+		<td class="header-cell" style="min-width:100px;width:100px">
+		<?php if($value['id_content'] == 1):?>
+			<?php
+				$d = dir($_tplvar['APP_ROOT'].'/email_images/');
+				while (false !== ($entry = $d->read())) {
+					if($entry != '.' && $entry != '..')
+						$image = $_tplvar['WWW_ROOT'].'email_images/'.$entry;
+				}
+				$d->close();	
+			?>
+		<?php else:?>
+		<?php $image = null;?>
+		<?php endif;?>
+		<?php if(!empty($image)):?>
+			<a style="width:104px;" href="javascript:void();" onclick="jQuery.fancybox('<img  src=<?php echo $image?> />');" title="" class="product-image lightbox grouped_elements" rel="group1">
+				<img id="image_custom" src="<?php echo $image?>" alt="" width="100" height="100" />
+			</a>
+		<?php else:?>
+				<img  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image.gif" alt="" width="100" height="100" />
+		<?php endif;?>		
+		</td>
+		<td class="header-cell" style="min-width:28px"><?php echo $value['bar_code']?></td>
+		<td class="header-cell" style="min-width:28px" nowrap="nowrap"><?php echo $_tplvar['contenuto']['nome_it']?></td>
+		<td class="header-cell"><?php echo $_tplvar['contenuto']['C5']?></td>
+		<td class="header-cell"><?php echo $_tplvar['contenuto']['C4']?></td>
+		<td class="header-cell"><?php echo $_tplvar['contenuto']['C3']?></td>
+		<td class="header-cell" style="min-width:28px"><?php echo $value['quantita']?></td>
+		<td class="header-cell" style="min-width:28px"><?php echo $value['disponibilita']?></td>
+		
+		<td class="list-cell" style="width:10px">
+			<?php 
+			$add_to_basket_url = $_tplvar['WWW_ROOT'].'ShoppingCart';
+			if(!empty($_tplvar['contenuto']['id_famiglia']))
+			{
+				$famiglia = $this->getFamigliById($_tplvar['contenuto']['id_famiglia']);
+				$add_to_basket_url .= '/'.$famiglia['famiglia'];
+			}
+			else
+				$add_to_basket_url .= '/-';
+		
+			if(!empty($_tplvar['contenuto']['nome_it']))
+				$add_to_basket_url .= '/'.$_tplvar['contenuto']['nome_it'];
+			else
+				$add_to_basket_url .= '-';
+		
+			$add_to_basket_url .= '/'.$value['id'].'.html';
+			?>
+			<a class="pl-info" href="<?php echo $add_to_basket_url;?>" title="Aggiungi al Carrello">
+				<img src="<?php echo $_tplvar['WWW_ROOT']?>theme/styles/common-images/carrello.gif" width="30">
+			</a>
+		</td>
+											  
+	</tr>	
+	<?php endforeach;?>
+	</table>	
+	</li>
+</ol>
+</div>								

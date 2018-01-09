@@ -1,0 +1,84 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<head>
+
+	<?php echo $this->getEncoding();?>
+	<?php $this->getSeoMetatag();?>
+
+	<meta name="language" content="<?php echo $_SESSION['lang'];?>">
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+	<link rel="stylesheet" href="<?php echo $_tplvar['WWW_ROOT'];?>css/style.css" type="text/css" media="screen" />	
+<script type="text/javascript">
+function focusUsername()
+{
+	var el = document.getElementById('username');
+	el.focus();
+}
+</script>
+</head>
+<html>
+<body onload="focusUsername();">
+
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Login" method="post">
+<center>
+<table>
+<tr>
+	<td>
+		<div id="header" class="fix">
+			<div class="headline">
+				<a title="Tangando" href="<?php echo $_tplvar['SITE_ROOT'];?>" class="home">
+					<img alt="Tangando" src="<?php echo $_tplvar['SITE_ROOT'];?>img/web/logo.png" width="150">
+				</a>
+				<div class="header-text">
+					Associazione Culturale Tangando
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td>
+		<table>
+		<tr>
+			<td>
+				<div class="box">
+					<div class="welcome" id="welcometitle">Benvenuti nella gestione newsletter, Fase di Login: <!--//  BENEVENUTO -->
+				</div>		
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="333">
+				  <tr>
+					<td width="79" height="35"><span class="login">USERNAME</span></td>
+					<td width="244" height="35"><label>
+					  <input name="username" type="text" class="fields" id="username" size="30" />  <!--//  Username  -->
+					</label></td>
+				  </tr>
+				  
+				  <tr>
+					<td height="35"><span class="login">PASSWORD</span></td>
+					<td height="35"><input name="pwd" type="password" class="fields" id="password" size="30" /></td> <!--//  Password -->
+				  </tr>
+				  
+				  <tr>
+					<td height="65">&nbsp;</td>
+					<td height="65" valign="middle"><label>
+					  <input name="button" type="submit" class="button" id="button" value="LOGIN" />
+					  <!--//  login BOTTONE -->
+					</label></td>
+				  </tr>
+				</table>
+			
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+</center>
+</form>
+
+</body>
+</html>

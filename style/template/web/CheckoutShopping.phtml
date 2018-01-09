@@ -1,0 +1,637 @@
+<?php 
+$_tplvar = $this->getVars();
+$this->getIntlPartial('CheckoutShopping');
+?>
+<style>
+<!--
+.selected {
+	background-color: #B00000;
+}
+.not_selected {
+	background-color: #ADADAD;
+}
+
+td {
+	padding: 9px 12px;
+}
+-->
+</style>
+
+<div id="page-content">
+	<div id="page-content-header" class="container_24">
+		<div id="page-title">
+<!--			<h2>Dati per la Fatturazione/Spedizione</h2>-->
+		</div>
+		<!-- <p class="breadcrumbs"><span class="breadcrumb_info">Ti trovi in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Carrello</span></p> -->
+	</div>
+	
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=CheckoutPayment" method="post" onsubmit="return checkPaymentType();">
+<input type="hidden" name="id_user" value="<?php echo $_tplvar['id_user']?>">
+<?php if(!empty($_tplvar['params_banking'])):?>
+<input type="hidden" name="params" value="<?php echo $_tplvar['params_banking']?>">
+<?php endif;?>
+
+<?php if(!empty($_REQUEST['error_partenza'])):?>
+<script>jQuery(document).ready(function(){ jQuery.fancybox('<div style="padding:20px;font-size:12px"><?php echo $this->getText('error_msg_partenza')?></div>'); });</script>
+<?php endif;?>
+<?php if(!empty($_REQUEST['error_partenza_fornitori_1'])):?>
+<script>jQuery(document).ready(function(){ jQuery.fancybox('<div style="padding:20px;"><?php echo $this->getText('error_msg_for_1')?></div>'); });</script>
+<?php endif;?>
+<?php if(!empty($_REQUEST['error_partenza_fornitori_2'])):?>
+<script>jQuery(document).ready(function(){ jQuery.fancybox('<div style="padding:20px;"><?php echo $this->getText('error_msg_for_2')?></div>'); });</script>
+<?php endif;?>
+
+<?php 
+$month = array('Jan' => 'Gennaio', 'Feb' => 'Febbraio', 'Mar' => 'Marzo', 'Apr' => 'Aprile', 'May' => 'Maggio', 'Jun' => 'Giugno', 'Jul' => 'Luglio', 'Aug' => 'Agosto', 'Sep' => 'Settembre', 'Oct' => 'Ottobre', 'Nov' => 'Novembre','Dec' => 'Dicembre');
+$days  = array('Sunday' => 'domenica','Monday' => 'luned&igrave;', 'Tuesday' => 'marted&igrave;', 'Wednesday' => 'mercoled&igrave;', 'Thursday' => 'gioved&igrave;', 'Friday' => 'venerd&igrave;', 'Saturday' => 'sabato');
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d'), date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+1, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+2, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+3, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+4, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+5, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+6, date('Y'));
+
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+7, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+8, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+9, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+10, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+11, date('Y'));
+$mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+12, date('Y'));
+// $mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+13, date('Y'));
+// $mapCurrentWeek[] = mktime('00', '00', '00', date('m'), date('d')+14, date('Y'));
+?>
+
+	<div id="content-container" style="margin-left:10px;margin-right:10px">
+		<div id="main-content">
+			<div class="main-content-padding">
+				<div class="page">
+					<div class="entry">
+						
+						<div class="cart-contents-table-bg-img" style="width: 75%;">
+							<a id="a-dati-personali" href="javascript:void(0);" onclick="
+							if(jQuery('#dati-personali').css('display') == 'none')
+							{
+								jQuery('#a-dati-personali').html('<h3 style=\'background-color:#ebebeb;padding:5px;\'><B><?php echo $this->getText('hide_personal_data')?></B></h3>');
+								jQuery('#dati-personali').show(1000);
+							}
+							else
+							{
+								jQuery('#a-dati-personali').html('<h3 style=\'background-color:#ebebeb;padding:5px;\'><B><?php echo $this->getText('show_personal_data')?></B></h3>');
+								jQuery('#dati-personali').hide(1000);
+							}
+							" style="color: #88898c;text-decoration:none;cursor:pointer">
+								<h3 style="background-color:#ebebeb;padding:5px;">
+									<B><?php echo $this->getText('show_personal_data')?></B>
+								</h3>
+							</a>
+						
+							
+<div id="dati-personali" style="display:none;border:1px solid #ebebeb;">
+				<table cellpadding="0" style="width:70%;">
+				<tbody style="background-color:#fff">
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left"><?php echo $this->getText('sel_1_personal_data')?></th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber"><?php echo $this->getText('sel_1_personal_data_p_iva')?></span></td>
+						<td>
+							<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField3">&nbsp;<?php echo $this->getText('sel_1_personal_data_p_iva_opz')?></span>
+							<div id="err_p_iva"></div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblFirstName"><?php echo $this->getText('sel_1_personal_data_name')?></span></td>
+						<td><input type="text" id="name" size="36" maxlength="50" name="name" value="<?php echo $_tplvar['user_data']['name']?>">
+						<div id="err_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname"><?php echo $this->getText('sel_1_personal_data_surname')?></span></td>
+						<td><input type="text" id="surname" size="36" maxlength="50" name="surname" value="<?php echo $_tplvar['user_data']['surname']?>">
+						<div id="err_surname"></div>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrCompanyName">
+						<td align="right"><span class="Label105" id="CustSetUp_LblCompanyName"><?php echo $this->getText('sel_1_personal_data_company_name')?></span></td>
+						<td><input type="text" id="company_name" size="36" maxlength="250" name="company_name" value="<?php echo $_tplvar['user_data']['']?>">
+						<div id="err_company_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine1"><?php echo $this->getText('sel_1_personal_data_address')?> </span></td>
+						<td><input type="text" id="address" size="36" maxlength="100" name="address" value="<?php echo $_tplvar['user_data']['address']?>">
+						<div id="err_address"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine2"><?php echo $this->getText('sel_1_personal_data_address_to')?> </span></td>
+						<td>
+							<input type="text" id="address_secondary" size="36" maxlength="36" name="address_secondary" value="<?php echo $_tplvar['user_data']['address_secondary']?>">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField1">&nbsp;<?php echo $this->getText('sel_1_personal_data_p_iva_opz')?></span>
+							<div id="err_address_secondary"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCity"><?php echo $this->getText('sel_1_personal_data_city')?></span></td>
+						<td><input type="text" id="city" size="36" maxlength="60" name="city" value="<?php echo $_tplvar['user_data']['city']?>">
+						<div id="err_city"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCounty"><?php echo $this->getText('sel_1_personal_data_state')?></span></td>
+						<td><input type="text" id="province" size="36" maxlength="60" name="province" value="<?php echo $_tplvar['user_data']['province']?>">
+						<div id="err_province"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCountry"><?php echo $this->getText('sel_1_personal_data_nation')?></span></td>
+						<td><?php echo $this->getPartial('shared/CmbCountries');?>
+						<div id="err_nation"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblPostCode"><?php echo $this->getText('sel_1_personal_data_cap')?></span></td>
+						<td><input type="text" id="cap" size="20" maxlength="12" name="cap" value="<?php echo $_tplvar['user_data']['cap']?>">
+						<div id="err_cap"></div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left"><?php echo $this->getText('sel_2_personal_data')?></th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber"><?php echo $this->getText('sel_2_personal_data_p_iva')?></span></td>
+						<td>
+							<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField3">&nbsp;<?php echo $this->getText('sel_2_personal_data_p_iva_opz')?></span>
+							<div id="err_p_iva"></div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblFirstName"><?php echo $this->getText('sel_2_personal_name')?></span></td>
+						<td><input type="text" id="name_spedizione" size="36" maxlength="50" name="nome_spedizione" value="<?php echo $_tplvar['user_data']['name_spedizione']?>">
+						<div id="err_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname"><?php echo $this->getText('sel_2_personal_data_surname')?></span></td>
+						<td><input type="text" id="surname_spedizione" size="36" maxlength="50" name="surname_spedizione" value="<?php echo $_tplvar['user_data']['surname_spedizione']?>">
+						<div id="err_surname"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine1"><?php echo $this->getText('sel_2_personal_data_address')?> </span></td>
+						<td><input type="text" id="address_spedizione" size="36" maxlength="100" name="address_spedizione" value="<?php echo $_tplvar['user_data']['address_spedizione']?>">
+						<div id="err_address"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine2"><?php echo $this->getText('sel_2_personal_data_address_to')?> </span></td>
+						<td>
+							<input type="text" id="address_secondary_spedizione" size="36" maxlength="36" name="address_secondary_spedizione" value="<?php echo $_tplvar['user_data']['address_secondary_spedizione']?>">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField1">&nbsp;(opzionale)</span>
+							<div id="err_address_secondary"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCity"><?php echo $this->getText('sel_2_personal_data_city')?></span></td>
+						<td><input type="text" id="city_spedizione" size="36" maxlength="60" name="city_spedizione" value="<?php echo $_tplvar['user_data']['city_spedizione']?>">
+						<div id="err_city"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCounty"><?php echo $this->getText('sel_2_personal_data_state')?></span></td>
+						<td><input type="text" id="province_spedizione" size="36" maxlength="60" name="province_spedizione" value="<?php echo $_tplvar['user_data']['province_spedizione']?>">
+						<div id="err_province"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCountry"><?php echo $this->getText('sel_2_personal_data_nation')?></span></td>
+						<td>
+							<?php 
+							$assign['suffix'] = '_spedizione';
+							echo $this->getPartial('shared/CmbCountries', $assign);?>
+							<div id="err_nation"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblPostCode"><?php echo $this->getText('sel_2_personal_data_cap')?></span></td>
+						<td><input type="text" id="cap_spedizione" size="20" maxlength="12" name="cap_spedizione" value="<?php echo $_tplvar['user_data']['cap_spedizione']?>">
+						<div id="err_cap"></div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left"><?php echo $this->getText('sel_3_personal_data')?></th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105"
+							id="CustSetUp_LblDayPhone"><?php echo $this->getText('sel_3_personal_data_telefono')?></span></td>
+						<td><input type="text" id="phone" size="20" maxlength="20" name="phone" value="<?php echo $_tplvar['user_data']['phone']?>">
+						<div id="err_phone"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblOtherPhone"><?php echo $this->getText('sel_3_personal_data_cell')?></span></td>
+						<td><input type="text" id="mobile" size="20" maxlength="20" name="mobile" value="<?php echo $_tplvar['user_data']['mobile']?>"><span class="OptionalField1" id="CustSetUp_LblOptionalField2">&nbsp;(opzionale)</span>
+						<div id="err_mobile"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblGender"><?php echo $this->getText('sel_3_personal_data_sex')?></span>
+						</td>
+						<td>
+						<table cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td style="padding-right: 2px;">
+										<input type="radio" <?php if($_tplvar['user_data']['sex'] == 'Maschio' || empty($_tplvar['user_data']['sex'])):?>checked="checked"<?php endif;?> value="Maschio" name="sex" id="sex">
+										<label for="CustSetUp_RadMale"><?php echo $this->getText('sel_3_personal_data_uomo')?></label>
+									</td>
+									<td>
+										<input type="radio" value="Femmina" name="sex" id="sex" <?php if($_tplvar['user_data']['sex'] == 'Femmina'):?>checked="checked"<?php endif;?>>
+										<label for="CustSetUp_RadFemale"><?php echo $this->getText('sel_3_personal_data_donna')?></label>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+</div>			
+
+			<?php if(!empty($_tplvar['basket'])):?>
+				<a id="a-carrello-gardesana" href="javascript:void(0);" onclick="
+					if(jQuery('#carrello-gardesana').css('display') == 'none')
+					{
+						jQuery('#a-carrello-gardesana').html('<h3 style=\'background-color:#ebebeb;padding:5px;\'><B><?php echo $this->getText('hide_carrello_eti')?></B></h3>');
+						jQuery('#carrello-gardesana').show(1000);
+					}
+					else
+					{
+						jQuery('#a-carrello-gardesana').html('<h3 style=\'background-color:#ebebeb;padding:5px;\'><B><?php echo $this->getText('show_carrello_eti')?></B> <?php echo $this->getText('show_carrello_eti_msg')?></h3>');
+						jQuery('#carrello-gardesana').hide(1000);
+					}
+					" style="color: #88898c;text-decoration:none;cursor:pointer">
+						<h3 style="background-color:#ebebeb;padding:5px;">
+							<B><?php echo $this->getText('hide_carrello_eti')?></B>
+						</h3>
+					</a>
+				
+<div id="carrello-gardesana" style="display:block;border:1px solid #ebebeb;">
+			
+			<table class="cart" cellspacing="3" width="70%" style="background-color:#fff">
+				<tbody>
+					<tr style="border-bottom:1px solid #ebebeb;">
+						<th style="width:70px;text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_articolo')?></td>
+						<th style="text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_desc')?></th>
+						<th style="text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_quantita')?></th>
+						<th style="text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_prezzo')?></th>
+						<?php if($_SESSION['LoggedUser']['is_foreign'] == 0):?>
+						<th style="text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_iva')?></th>
+						<?php endif;?>
+						<th style="text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_importo')?></th>
+						<th style="text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_note')?></th>
+						<!-- <th style="text-align:center;padding:15px;font-weight:bold;"><?php echo $this->getText('carrello_eti_urgente')?></th> -->
+					</tr>
+				<?php $j=0;?>
+				<?php //foreach ($_tplvar['products'] as $value):?>
+					<?php 
+					$basket = $_tplvar['basket'];
+					unset($basket['n_carrelli']);
+					unset($basket['perc_occupazione']);					
+					foreach ($basket as $key => $value):?>
+					<?php 
+					$value['price_it_qty'] = $value['giacenza'][$_tplvar['key_prezzo']] * $value['basket_qty']['sel_quantita'];
+					?>
+					<?php $peso_spedizione = 0;?>
+					<?php $peso_spedizione += $value['giacenza']['peso']*$value['basket_qty']['sel_quantita'];?>
+					
+					<input type="hidden" name="id_contenuto[]" value="<?php echo $value['giacenza']['id'];?>">
+					<input type="hidden" name="id_giacenza[]" value="<?php echo $value['giacenza']['id'];?>">
+					<tr style="border-bottom:1px solid #ebebeb;">
+						<td style="text-align:center;vertical-align:middle;">
+						<?php $content = $this->getContentById($value['giacenza']['id_content']);?>
+						<?php $image = null;?>
+								<?php $vbn_image = $this->getImageFromVbn($content['vbn']);?>
+									<?php $obj_image = $this->dbGetImageFromBarCode($bar_code);?>
+									<?php $product_image = $this->dbGetImageProductFromBarCode($bar_code);?>
+									<?php if(!empty($obj_image)):?>
+										<?php $image = $obj_image[0]['www_path'].$obj_image[0]['name'];?>
+									<?php elseif(!empty($product_image)):?>
+										<?php $image = $product_image;?>
+									<?php else:?>
+									<?php $image = null;?>
+									<?php endif;?>
+									<?php if(!empty($image)):?>
+									<a style="text-decoration:none;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $image?> oncontextmenu=\'return false;\' />');" title="" class="product-image">
+										<img class="firstImg" src="<?php echo $image?>" alt="" />
+									<?php else:?>
+									<?php if(!empty($vbn_image)):?>
+									<!--  onmouseout="jQuery('#zoom-vbn-image').hide();" onmouseover="jQuery('#zoom-vbn-image').html('<img src=\'<?php echo $vbn_image?>\' width=\'440\' oncontextmenu=\'return false;\'>');jQuery('#zoom-vbn-image').show('slow');" -->
+										<a style="width:14px;" href="javascript:void();" onclick="jQuery.fancybox('<img src=<?php echo $vbn_image?> oncontextmenu=\'return false;\' width=640/>');" title="" class="product-image">
+											<img id="image_custom" src="<?php echo $vbn_image?>" alt="" style="width:90px;height:85px;" width="90" height="85" oncontextmenu="return false;"/>
+										</a>
+									<?php endif;?>
+									<?php if (empty($image) && empty($vbn_image)):?>
+										<img src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="90" height="85">
+									<?php endif;?>
+									<?php endif;?>
+						</td>
+						<td style="text-align:center;vertical-align:middle;"><?php echo $value['giacenza']['descrizione']?></td>
+						<td style="text-align:center;vertical-align:middle;">
+							<?php echo $value['basket_qty']['sel_quantita']?>
+						</td>
+						
+						<td style="text-align:center;vertical-align:middle;">
+							<?php echo Currency::FormatEuro($value['giacenza'][$_tplvar['key_prezzo']])?>
+						</td>
+						<?php if($_SESSION['LoggedUser']['is_foreign'] == 0):?>
+						<td style="text-align:center;vertical-align:middle;">
+							<?php echo $value['giacenza']['cod_iva']?>%
+						</td>
+						<?php endif;?>
+						<td style="text-align:center;vertical-align:middle;">
+							<?php 
+							if($_SESSION['LoggedUser']['is_foreign'] == 0)
+							{
+								$prezzoIva = (str_replace(',', '.', $value['price_it_qty']) * $value['giacenza']['cod_iva']) / 100;
+								$prezzoIva = round($prezzoIva, 2);
+								$prezzoIvaImponibile = $prezzoIva;
+							}
+							$prezzoIva = 0;
+							?>
+							<?php echo Currency::FormatEuro(str_replace(',', '.', ($value['price_it_qty']+$prezzoIva) ));?>
+							<?php $subTotale += str_replace(',', '.', $value['price_it_qty']+$prezzoIva);?>
+							<?php $imponibile += str_replace(',', '.', $value['price_it_qty']);?>
+						</td>
+						<td>
+							<textarea rows="5" cols="30" name="nota_<?php echo $value['giacenza']['id']?>" id="nota_<?php echo $value['giacenza']['id']?>" onclick="if(this.value == '<?php echo $this->getTranslation('Inserisci una nota per il prodotto')?>: <?php echo $value['giacenza']['nome_it']?>') this.value = '';" onblur="if(this.value == '') this.value = '<?php echo $this->getTranslation('Inserisci una nota per il prodotto')?>: <?php echo $value['giacenza']['nome_it']?>';"><?php echo $this->getTranslation('Inserisci una nota per il prodotto')?>: <?php echo $value['giacenza']['nome_it']?></textarea>
+						</td>
+						<!-- 
+						<td>
+							<input type="checkbox" name="indispensabile_<?php echo $value['giacenza']['id']?>" id="indispensabile_<?php echo $value['giacenza']['id']?>">
+						</td>
+						-->
+					</tr>
+					<?php $j++;?>
+					<?php $cod_iva = $value['giacenza']['cod_iva'];?>
+					<?php endforeach;?>
+				<?php //endforeach;?>
+				<!-- 
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:center;"><?php echo $this->getText('carrello_eti_imponibile')?></td>
+						<td style="text-align:center;"><?php echo Currency::FormatEuro($imponibile-$prezzoIvaImponibile)?></td>
+					</tr>
+					<?php if($_SESSION['LoggedUser']['is_foreign'] == 0):?>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td style="text-align:center;">IVA <?php echo $cod_iva?>%</td>
+						<td style="text-align:center;"><?php echo Currency::FormatEuro(round($imponibile * ('0.'.$cod_iva), 2))?></td>
+					</tr>
+					<?php endif;?>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:center;"><?php echo $this->getText('carrello_eti_importo_totale')?></td>
+						<td style="text-align:center;"><?php echo Currency::FormatEuro($subTotale)?></td>
+					</tr>
+				-->
+				</tbody>
+			</table>
+			<br>
+</div>
+			<?php endif;?>
+
+				<?php 
+				unset($_SESSION[session_id()]['basket_fornitori']['n_carrelli']);
+				unset($_SESSION[session_id()]['basket_fornitori']['perc_occupazione']);
+				?>
+			
+			<table style="width:100%;border: 1px solid #ebebeb;">
+			<tr>
+				<td colspan="3" style="text-align:center;"><div id="page-title" style="background-color:#ebebeb"><h2><?php echo $this->getText('carrello_eti_totale_carrello')?></h2></div></td>
+			</tr>
+			<tr>
+				<td >&nbsp;</td>
+				<td style="width:110px;text-align:right;" nowrap="nowrap"><?php echo $this->getText('carrello_eti_imponibile')?></td>
+				<td style="width:165px"><?php echo Currency::FormatEuro(($imponibile_for_de+$imponibile_for+$imponibile))?></td>
+			</tr>
+
+			<tr>
+				<td >&nbsp;</td>
+				<td style="width:110px;text-align:right;" nowrap="nowrap">IVA <?php echo $cod_iva?>%</td>
+				<td style="width:165px"><?php echo Currency::FormatEuro(round($imponibile * ('0.'.$cod_iva), 2))?></td>
+			</tr>
+			
+			
+			<tr>
+				<td >&nbsp;</td>
+				<td style="width:110px;text-align:right;" nowrap="nowrap">Totale</td>
+				<td style="width:165px"><?php echo Currency::FormatEuro($subTotale+round( $imponibile * ('0.'.$cod_iva) , 2))?></td>
+			</tr>
+			
+			
+			<!--<tr>
+				<td>&nbsp;</td>
+				<td style="width:110px;text-align:right;" nowrap="nowrap">Spese Spedizione</td>
+				<td style="width:120px">
+					<?php
+					include_once(APP_ROOT.'/beans/ApplicationSetup.php');
+					$BeanApplicationSetup = new ApplicationSetup();
+					$speseSpedizione = $BeanApplicationSetup->dbGetAllByField(MyDB::connect(), 'spese_spedizione');
+					if($speseSpedizione[0]['name'] != '0,00' && $speseSpedizione[0]['name'] > 0)
+					{
+						$speseSpedizioneIva = round( $speseSpedizione[0]['name'] * ('0.'.$cod_iva) , 2);
+						$speseSpedizione[0]['name'] = $speseSpedizione[0]['name']+$speseSpedizioneIva;
+
+						echo Currency::FormatEuro($speseSpedizione[0]['name']);
+					}
+					?>
+				</td>
+			</tr>
+			
+			<tr>
+				<td >&nbsp;</td>
+				<td style="width:110px;text-align:right;" nowrap="nowrap">Totale Spesa</td>
+				<td><?php echo Currency::FormatEuro($imponibile_for_de+$subTotale_for+$subTotale+round( $imponibile * ('0.'.$cod_iva) , 2)+$speseSpedizione[0]['name'])?></td>
+			</tr>								
+			--></table>
+			<br>
+			<table width="100%" style="background-color:#fff;border: 1px solid #ebebeb;">
+			<tr>
+				<td style="text-align:center;"><div id="page-title" style="background-color:#ebebeb"><h2><?php echo $this->getText('carrello_eti_tipo_pagamento')?></h2></div></td>
+			</tr>
+			<!--<tr>
+				<td colspan="2" align="center">Ti ricordiamo che il prezzo verr&aacute; maggiorato di &euro;<?php echo $_tplvar['spese_spedizione']?> per la spedizione.</td>
+			</tr>
+			-->
+			<tr>
+				<td style="text-align:center;" align="center">
+				<?php if(!empty($_SESSION['LoggedUser']['tipo_pagamento'])):?>
+					<select name="payment_type" id="payment_type" onchange="javascript:choicePaymentType(this)">
+						<option value="<?php echo $_SESSION['LoggedUser']['tipo_pagamento']?>"><?php echo $_SESSION['LoggedUser']['tipo_pagamento']?></option>
+					</select>
+				<?php else:?>
+					<select name="payment_type" id="payment_type" onchange="javascript:choicePaymentType(this)">
+						<option value="">Seleziona</option>
+						<?php foreach ($_tplvar['cmb_payment_type'] as $paymentType):?>
+							<option value="<?php echo $paymentType['name']?>"><?php echo $paymentType['name']?></option>
+						<?php endforeach;?>
+					</select>
+				<?php endif;?>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="text-align:center;" align="center">
+				<div id="iban" style="visibility:hidden;position:absolute;text-align:center;">
+					Hai scelto di pagare con Bonifico Bancario.<br>
+					Di seguito i dati necessari per effettuare il bonifico.<br>
+					Iban: IT 77 K 07057 59290 000000005246<br>
+					BANCA: CREDIVENETO - ag. Villafontana<br>
+					Intestato a : LDG s.r.l.
+				</div>
+				<div id="validation_error" style="visibility:hidden;position:absolute;color:red"></div>
+				</td>
+			</tr>
+			<script>
+			function checkPaymentType()
+			{
+				var el = document.getElementById('payment_type');
+				var el_error = document.getElementById("validation_error");
+				if(el.value == '')
+				{
+					el.style.borderColor = 'red';
+					el_error.innerHTML = 'Atenzione devi selezionare il tipo di pagamento!';
+					el_error.style.visibility = 'visible';
+					el_error.style.position = 'relative';
+					return false;
+				}
+				else
+				{
+					el_error.style.visibility = 'hidden';
+					el_error.style.position = 'absolute';
+					return true;
+				}
+			}
+							
+			function choicePaymentType(obj)
+			{
+				//var val = obj.options[obj.selectedIndex].value;
+				var payment_type = document.getElementById('payment_type');				
+				var el_error = document.getElementById("validation_error");
+				el_error.style.visibility = 'hidden';
+				el_error.style.position = 'absolute';
+				payment_type.style.borderColor = 'grey';
+				
+				var el = document.getElementById('iban');
+				if(obj.value == 'bonifico' || obj.value == 'BONIFICO')
+				{
+					if(el.style.visibility == 'visible')
+					{
+						el.style.visibility = 'hidden';
+						el.style.position = 'absolute';
+					}
+					else
+					{
+						el.style.visibility = 'visible';
+						el.style.position = 'relative';
+					}
+				}
+				else
+				{
+					el.style.visibility = 'hidden';
+					el.style.position = 'absolute';
+				}
+			}
+			</script>
+			</table>
+			<style>
+			.submit {
+				border:0px;
+				height:40px;
+				width:200px;
+				background: transparent url('<?php echo $_tplvar['WWW_ROOT']?>theme/styles/common-images/dark-button-r.png') no-repeat scroll right top;
+				color: #ACACAC;
+				padding: 0 40px 0 10px;
+				position: relative;
+				display: block;
+			}
+			.submit:hover {
+				border:0px;
+				height:40px;
+				width:200px;
+				background-position: right bottom;
+				color: #666;
+				cursor: pointer;
+			}
+			</style>
+			<table style="width:100%">
+			<tr>
+				<td align="right">
+					<div class="actions" style="float:right;">
+						<button type="submit" title="Subscribe" class="button" style="color: #ffffff;display: inline-block;outline: none;cursor: pointer;text-align: center;text-decoration: none;font-size: 9pt;padding-top: 0px;padding-bottom: 0px;margin-left: 3px;-webkit-border-bottom-right-radius: 0;-webkit-border-top-left-radius: 0;-moz-border-bottom-right-radius: 0;border-bottom-right-radius: 0;-moz-border-top-left-radius: 0;border-top-left-radius: 0;-webkit-box-shadow: 0;-moz-box-shadow: 0;-o-box-shadow: 0;box-shadow: 0;">&nbsp;&nbsp;&nbsp;<span><span><?php echo $this->getText('carrello_eti_chiudi_ordine')?>&nbsp;&nbsp;</span></span></button>
+					</div>
+				</td>
+			</tr>
+			</table>
+			</form>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- end main-content-padding -->
+		</div>
+		<!-- end main-content -->
+		<!-- start categories -->
+		<?php //echo $this->getPartial('shared/BoxUserData');?>
+		<!-- end categories -->
+	</div>
+	<!-- end content-container -->
+	<div class="clear"></div>
+</div>
+<!-- end page-content -->

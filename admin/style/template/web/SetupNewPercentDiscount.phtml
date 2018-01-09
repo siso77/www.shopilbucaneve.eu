@@ -1,0 +1,11 @@
+<?php $_tplvar = $this->getVars();?>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=<?php echo $_tplvar['action_class_name']?>" method="post">
+<?php if(!empty($_tplvar['data']['id']))?>
+	<input type="hidden" name="id" value="<?php echo $_tplvar['data']['id']?>">
+<br><br>
+	Percentuale <input type="text" name="dercent_discount" value="<?php echo $_tplvar['data']['data']?>"> %
+
+	<br><br>
+	<input type="submit" name="save" value="Salva">
+	<input type="reset" class="submit" name="cancel" value="Cancella">
+</form>

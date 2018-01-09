@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Confirm</title>
+    <meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+		html,body{
+            background-color:#ffffff;
+            height:100%;
+        }
+        </style>
+</head>
+<body>
+	<script>
+		dhx.ready(function(){
+
+			dhx.confirm({
+				title: "Close",
+				message: "Are you sure you want to do it?",
+                position:"center",
+				callback: function(result) {
+					if (result) 
+						dhx.notice("Confirmed");
+					else
+						dhx.notice("Canceled");
+				}
+			});
+
+		});
+	</script>
+</body>
+</html>
+

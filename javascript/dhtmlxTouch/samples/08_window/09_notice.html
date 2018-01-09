@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notice</title>
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+		html,body{
+            background-color:#ffffff;
+        }
+        .error{
+        	background-color:rgba(255,0,0,0.7);
+        }
+        </style>
+</head>
+<body>
+	<script>
+		dhx.notice("some message");
+		dhx.notice({
+			message:"other message",
+			css:"error",
+			delay:2000
+		});
+	</script>
+</body>
+</html>
+

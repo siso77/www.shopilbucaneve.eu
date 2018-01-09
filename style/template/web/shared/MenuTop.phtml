@@ -1,0 +1,43 @@
+<?php $_tplvar = $this->getVars();?>
+
+<div class="content">
+	<div class="navcontainer">
+		<div class="hl"></div>
+		<div id="nav" class=" fix">
+			<ul id="menu-main" class="mnav dropdown fix">
+				<li id="menu-item-77" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77"><a href="<?php echo $_tplvar['wp_external_root']?>">HOME</a></li>
+				<li id="menu-item-88" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-86 current_page_item menu-item-88">
+					<a href="<?php echo $_tplvar['WWW_ROOT']?>">STORE</a>
+					
+					<ul class="sub-menu">
+					<?php foreach($_tplvar['cmb_categories'] as $value):?>
+						<li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134">
+							<!--<a href="<?php echo $_tplvar['WWW_ROOT']?>?id_category=<?php echo $value['id']?>"><?php echo $value['name']?></a>-->
+							<a href="<?php echo $_tplvar['WWW_ROOT']?>Categories/<?php echo $value['name']?>/<?php echo $value['id']?>.html"><?php echo $value['name']?></a>
+						</li>
+						<?php //foreach($value['sub_category'] as $val):?>							
+							<?php //echo $val['name']?>
+						<?php //endforeach;?>
+					<?php endforeach;?>					
+					</ul>
+				</li>
+				<li id="menu-item-76" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-76"><a href="<?php echo $_tplvar['wp_external_root']?>news/">NEWS</a></li>
+				<li id="menu-item-148" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-148"><a href="<?php echo $_tplvar['wp_external_root']?>eventi/">EVENTI</a></li>
+				<li id="menu-item-75" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75"><a href="<?php echo $_tplvar['wp_external_root']?>team/">TEAM</a>
+					<ul class="sub-menu">
+						<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78"><a href="<?php echo $_tplvar['wp_external_root']?>team/our-team/">Our Team</a></li>
+						<li id="menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-85"><a href="<?php echo $_tplvar['wp_external_root']?>team/sponsors/">Sponsor</a></li>
+					</ul>
+				</li>
+				<li id="menu-item-154" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-154"><a href="<?php echo $_tplvar['wp_external_root']?>community/">COMMUNITY</a></li>
+				<li id="menu-item-151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-151"><a href="<?php echo $_tplvar['wp_external_root']?>contatti/">CONTATTI</a></li>
+			</ul>														
+			<form method="post" id="searchform" class="" action="<?php echo $_tplvar['WWW_ROOT'].'?act=search';?>">
+				<fieldset>
+					<input type="text" value="<?php if(!empty($_tplvar['key_search'])):?><?php echo $_tplvar['key_search'];?><?php else:?>parola chiave<?php endif;?>" name="s" id="s" onfocus="if (this.value == 'parola chiave') {this.value = '';}" onblur="if (this.value == '') {this.value = 'parola chiave';}" />
+					<input type="image" value="Go" src="<?php echo $_tplvar['wp_external_root']?>wp-content/themes/stationpro/images/search-btn.png" class="submit btn" />
+				</fieldset>
+			</form>
+		</div><!-- /nav -->
+	</div>
+</div>

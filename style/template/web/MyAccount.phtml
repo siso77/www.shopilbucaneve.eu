@@ -1,0 +1,280 @@
+<?php $_tplvar = $this->getVars();?>
+<style>
+<!--
+.selected {
+	background-color: #B00000;
+}
+.not_selected {
+	background-color: #ADADAD;
+}
+
+td {
+	padding: 9px 12px;
+}
+
+-->
+</style>
+
+<h2 class="ftitle">I Tuoi Dati</h2>
+<p></p>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=MyAccount" method="post">
+<input type="hidden" name="id_user" value="<?php echo $_tplvar['id_user']?>">
+<table cellspacing="0" cellpadding="0" style="text-align: left; width: 100%;">
+	<tbody>
+		<tr>
+			<td align="left">
+			<table cellpadding="30" style="width: 100%;">
+				<tbody>
+					<tr>
+						<td colspan="2" style="height: 10px;"></td>
+					</tr>
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left"><?php echo $this->getTranslation('Modifica Password: Inserisci la nuova password o lascia i campi vuoti')?></th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber"><?php echo $this->getTranslation('Password')?></span></td>
+						<td>
+							<input type="text" id="password" size="20" maxlength="50" name="password">
+						</td>
+					</tr>
+					<tr id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber"><?php echo $this->getTranslation('Conferma Password')?></span></td>
+						<td>
+							<input type="text" id="confirm_password" size="20" maxlength="50" name="confirm_password">
+						</td>
+					</tr>
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left"><?php echo $this->getTranslation("Selezione 1: Dettagli dell'indirizzo di fatturazione")?></th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber"><?php echo $this->getTranslation('Partita IVA')?></span></td>
+						<td>
+							<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField3">&nbsp;(<?php echo $this->getTranslation('opzionale')?>)</span>
+							<div id="err_p_iva"></div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblFirstName"><?php echo $this->getTranslation('Nome')?></span></td>
+						<td><input type="text" id="name" size="36" maxlength="50" name="name" value="<?php echo $_tplvar['user_data']['name']?>">
+						<div id="err_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname"><?php echo $this->getTranslation('Cognome')?></span></td>
+						<td><input type="text" id="surname" size="36" maxlength="50" name="surname" value="<?php echo $_tplvar['user_data']['surname']?>">
+						<div id="err_surname"></div>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrCompanyName">
+						<td align="right"><span class="Label105" id="CustSetUp_LblCompanyName"></span></td>
+						<td><input type="text" id="company_name" size="36" maxlength="250" name="company_name" value="<?php echo $_tplvar['user_data']['']?>">
+						<div id="err_company_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine1"><?php echo $this->getTranslation('Indirizzo')?> </span></td>
+						<td><input type="text" id="address" size="36" maxlength="100" name="address" value="<?php echo $_tplvar['user_data']['address']?>">
+						<div id="err_address"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine2"><?php echo $this->getTranslation('Presso')?> </span></td>
+						<td>
+							<input type="text" id="address_secondary" size="36" maxlength="36" name="address_secondary" value="<?php echo $_tplvar['user_data']['address_secondary']?>">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField1">&nbsp;(<?php echo $this->getTranslation('opzionale')?>)</span>
+							<div id="err_address_secondary"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCity"><?php echo $this->getTranslation('Cittˆ')?></span></td>
+						<td><input type="text" id="city" size="36" maxlength="60" name="city" value="<?php echo $_tplvar['user_data']['city']?>">
+						<div id="err_city"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCounty"><?php echo $this->getTranslation('Stato')?>/<?php echo $this->getTranslation('Provincia')?>/<?php echo $this->getTranslation('Regione')?></span></td>
+						<td><input type="text" id="province" size="36" maxlength="60" name="province" value="<?php echo $_tplvar['user_data']['province']?>">
+						<div id="err_province"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCountry"><?php echo $this->getTranslation('Nazione')?></span></td>
+						<td><?php echo $this->getPartial('shared/CmbCountries');?>
+						<div id="err_nation"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblPostCode"><?php echo $this->getTranslation('CAP')?></span></td>
+						<td><input type="text" id="cap" size="20" maxlength="12" name="cap" value="<?php echo $_tplvar['user_data']['cap']?>">
+						<div id="err_cap"></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="height: 10px;"></td>
+					</tr>
+					
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left"><?php echo $this->getTranslation('Selezione 2: Indirizzo di spedizione')?>(<?php echo $this->getTranslation('se differente da quello di fatturazione')?>)</th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr style="display: none; visibility: hidden;" id="TbrVatNumber">
+						<td align="right"><span class="Label105" id="CustSetUp_LblVatNumber"><?php echo $this->getTranslation('Partita IVA')?></span></td>
+						<td>
+							<input type="text" id="p_iva" size="20" maxlength="50" name="p_iva">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField3">&nbsp;(<?php echo $this->getTranslation('opzionale')?>)</span>
+							<div id="err_p_iva"></div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblFirstName"><?php echo $this->getTranslation('Nome')?></span></td>
+						<td><input type="text" id="name_spedizione" size="36" maxlength="50" name="name_spedizione" value="<?php echo $_tplvar['user_data']['name_spedizione']?>">
+						<div id="err_name"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblSurname"><?php echo $this->getTranslation('Cognome')?></span></td>
+						<td><input type="text" id="surname_spedizione" size="36" maxlength="50" name="surname_spedizione" value="<?php echo $_tplvar['user_data']['surname_spedizione']?>">
+						<div id="err_surname"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine1"><?php echo $this->getTranslation('Indirizzo')?></span></td>
+						<td><input type="text" id="address_spedizione" size="36" maxlength="100" name="address_spedizione" value="<?php echo $_tplvar['user_data']['address_spedizione']?>">
+						<div id="err_address"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblAddressLine2"><?php echo $this->getTranslation('Presso')?> </span></td>
+						<td>
+							<input type="text" id="address_secondary_spedizione" size="36" maxlength="36" name="address_secondary_spedizione" value="<?php echo $_tplvar['user_data']['address_secondary_spedizione']?>">
+							<span class="OptionalField1" id="CustSetUp_LblOptionalField1">&nbsp;(<?php echo $this->getTranslation('opzionale')?>)</span>
+							<div id="err_address_secondary"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCity"><?php echo $this->getTranslation('Cittˆ')?></span></td>
+						<td><input type="text" id="city_spedizione" size="36" maxlength="60" name="city_spedizione" value="<?php echo $_tplvar['user_data']['city_spedizione']?>">
+						<div id="err_city"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCounty"><?php echo $this->getTranslation('Stato')?>/<?php echo $this->getTranslation('Provincia')?>/<?php echo $this->getTranslation('Regione')?></span></td>
+						<td><input type="text" id="province_spedizione" size="36" maxlength="60" name="province_spedizione" value="<?php echo $_tplvar['user_data']['province_spedizione']?>">
+						<div id="err_province"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblCountry"><?php echo $this->getTranslation('Nazione')?></span></td>
+						<td>
+							<?php 
+							$assign['suffix'] = '_spedizione';
+							echo $this->getPartial('shared/CmbCountries', $assign);?>
+							<div id="err_nation"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblPostCode"><?php echo $this->getTranslation('CAP')?></span></td>
+						<td><input type="text" id="cap_spedizione" size="20" maxlength="12" name="cap_spedizione" value="<?php echo $_tplvar['user_data']['cap_spedizione']?>">
+						<div id="err_cap"></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="height: 10px;"></td>
+					</tr>
+					
+					<tr>
+						<td style="padding-bottom: 5px;" colspan="2">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<th align="left"><?php echo $this->getTranslation('Selezione 3: Altre informazioni')?></th>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105"
+							id="CustSetUp_LblDayPhone"><?php echo $this->getTranslation('Numero telefonico per contatto giornaliero')?></span></td>
+						<td><input type="text" id="phone" size="20" maxlength="20" name="phone" value="<?php echo $_tplvar['user_data']['phone']?>">
+						<div id="err_phone"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblOtherPhone"><?php echo $this->getTranslation('Numero di cellulare')?></span></td>
+						<td><input type="text" id="mobile" size="20" maxlength="20" name="mobile" value="<?php echo $_tplvar['user_data']['mobile']?>"><span class="OptionalField1" id="CustSetUp_LblOptionalField2">&nbsp;(opzionale)</span>
+						<div id="err_mobile"></div>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><span class="Label105" id="CustSetUp_LblGender"><?php echo $this->getTranslation('Sesso')?>:</span>
+						</td>
+						<td>
+						<table cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td style="padding-right: 2px;">
+										<input type="radio" <?php if($_tplvar['user_data']['sex'] == 'Maschio' || empty($_tplvar['user_data']['sex'])):?>checked="checked"<?php endif;?> value="Maschio" name="sex" id="sex">
+										<label for="CustSetUp_RadMale"><?php echo $this->getTranslation('Uomo')?></label>
+									</td>
+									<td>
+										<input type="radio" value="Femmina" name="sex" id="sex" <?php if($_tplvar['user_data']['sex'] == 'Femmina'):?>checked="checked"<?php endif;?>>
+										<label for="CustSetUp_RadFemale"><?php echo $this->getTranslation('Donna')?></label>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="height: 10px;"></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<tbody>
+		<tr>
+			<td width="5%"></td>
+			<td width="70%"></td>
+			<td width="5%">
+				<div class="actions">
+					<button type="submit" title="Subscribe" class="button" style="color: #ffffff;border: 1px solid black;display: inline-block;outline: none;cursor: pointer;text-align: center;text-decoration: none;font-size: 9pt;padding-top: 0px;padding-bottom: 0px;margin-left: 3px;-webkit-border-bottom-right-radius: 0;-webkit-border-top-left-radius: 0;-moz-border-bottom-right-radius: 0;border-bottom-right-radius: 0;-moz-border-top-left-radius: 0;border-top-left-radius: 0;-webkit-box-shadow: 0;-moz-box-shadow: 0;-o-box-shadow: 0;box-shadow: 0;width: 90px;">&nbsp;&nbsp;&nbsp;<span><span><?php echo $this->getTranslation('Salva')?></span></span></button>
+				</div>
+			</td>
+			<td width="1%"></td>
+			<td width="5%"></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<div class="clear"></div>

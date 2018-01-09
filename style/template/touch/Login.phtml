@@ -1,0 +1,21 @@
+<?php $_tplvar = $this->getVars();?>
+<h2>Login</h2>
+<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=Login" method="post">
+
+	<div data-role="fieldcontain" class="ui-hide-label">
+		<label for="username"><?php echo $this->getText('username');?></label>
+		<input type="text" name="username" id="username" value="" placeholder="Username"/>
+		<em><?php echo $this->getText('username_help');?></em>
+		
+		<label for="password"><?php echo $this->getText('pwd');?> </label><em><?php echo $this->getText('pwd_help');?></em>
+		<input id="password" type="password" name="password" value="" placeholder="Password" />
+		
+		<?php if(!empty($_tplvar['error_message'])):?>
+		<br /><br /><em style="color:red"><?php echo $this->getText('lbl_error_login');?></em><br /><br />
+		<?php endif;?>
+		<br /><br />	
+		<button type="submit">&nbsp;&nbsp;&nbsp;<span><span><?php echo $this->getText('invia')?></span></span></button>
+		<button type="button" onclick="javascript:document.location.href = '<?php echo $_tplvar['WWW_ROOT']?>?act=CreateAccount'">&nbsp;&nbsp;&nbsp;<span><span><?php echo $this->getText('registrati')?></span></span></button>
+		
+	</div>
+</form>

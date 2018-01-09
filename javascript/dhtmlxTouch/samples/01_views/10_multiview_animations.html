@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+	<title>Multiview: animation</title>
+	<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+		html,body{
+			background-color:#ffffff;
+		}
+		.desc {color: #635a12;font-size: 14px;font-weight: bold;}
+        .dhx_list__item_selected .desc{color: #ffffff;}
+         
+    </style>
+    <script>
+		var config={
+			rows:[
+				{
+					view:"toolbar",
+					type:"MainBar",
+					id: "animation_type",
+					elements:[
+						{ align:"center", view:"segmented", id:"animation_type_btn", options:[
+							{value:"slide", label:"Slide" },
+							{value:"flip", label:"Flip"}
+						]}
+					]
+				},
+				{
+					view:"toolbar",
+					type:"SubBar",
+					id: "animation_subtype",
+					elements:[
+						{ align:"center", view:"segmented", id:"animation_subtype_btn", selected: "together", options:[
+							{value:"together", label:"Together"},
+							{value:"in", label:"In"},
+							{value:"out", label:"Out"}
+						]}
+					]
+				},
+				{
+					gravity:2,
+					id: "multiview",
+					view:"multiview",
+					cells:[
+						{
+                            id:"games",
+                            view:"list",
+                            url:"../04_list/games.xml",
+                            datatype:"xml",
+                            template:"#name#",
+                            select:1
+
+                        },
+                        {   id:"video",
+                            view:"list",
+                            url:"../04_list/movies.xml",
+                            datatype:"xml",
+                            template:"#name# <span class='desc'>(#year#)</span>",
+                            select:1
+                        },
+                        {   id:"music",
+                            view:"list",
+                            url:"../04_list/songs.xml",
+                            datatype:"xml",
+                            template:"<span class='title'>#name#</span><span class='desc'>(#author#)</span>",
+                            
+                            select:1
+                        }
+					]
+				},
+				{
+					view:"toolbar",
+					id:"BottomBar", type:"BottomBar",
+					elements:[
+						{ view:"tabbar", id:'tabbar', align:"center",  selected: 'games',inputWidth:300, options: [
+							  { label: 'Games', src: 'imgs/tabbar/games.png', value: 'games'},
+                              { label: 'Video', src: 'imgs/tabbar/video.png', value: 'video'},
+                              { label: 'Music', src: 'imgs/tabbar/music.png', value: 'music'}
+                             
+						]}
+					]
+				}
+			]
+		};
+		dhx.ready(function() {
+			//init config
+			dhx.ui(config);
+			$$("BottomBar").attachEvent("onBeforeTabClick", function(button, id) {
+				// getting required elements
+				var multiview = $$('multiview');
+				var type_btn = $$('animation_type_btn');
+				var subtype_btn = $$('animation_subtype_btn');
+
+				// updating animation config
+				multiview.config.animate.type = type_btn.getValue();
+				multiview.config.animate.subtype = subtype_btn.getValue();
+
+				// displaying required view
+				$$(id).show();
+				return true;
+			});
+			var options = {
+				slide: [
+					{value:"together", label:"Together"},
+					{value:"in", label:"In"},
+					{value:"out", label:"Out"}
+				],
+				flip: [
+					{value:"horizontal", label:"Horizontal"},
+					{value:"vertical", label:"Vertical"}
+				]
+			};
+			// updating animation subtypes after click on animation type
+			$$('animation_type').attachEvent("onAfterTabClick", function(id, key) {
+				var animation_subtype_bar = $$("animation_subtype");
+				var subtype_btn = $$("animation_subtype_btn");
+				subtype_btn.config.options = options[key];
+				subtype_btn.config.selected = options[key][0].value;
+				subtype_btn.refresh();
+			});
+		});
+    </script>
+<body>
+</body>
+</html>

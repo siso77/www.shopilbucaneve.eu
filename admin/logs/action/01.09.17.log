@@ -1,0 +1,5 @@
+Sep 01 12:55:45|5[info]01/09/2017 12:55:45 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Sep 01 12:55:50|5[info]01/09/2017 12:55:50 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Sep 01 12:56:00|5[info]01/09/2017 12:56:00 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Setup][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Sep 01 12:56:58|5[info]01/09/2017 12:56:58 - [UTENTE = ][REMOTE IP = 81.25.111.71][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]
+Sep 01 12:57:01|5[info]01/09/2017 12:57:01 - [UTENTE = siso][REMOTE IP = 81.25.111.71][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0]

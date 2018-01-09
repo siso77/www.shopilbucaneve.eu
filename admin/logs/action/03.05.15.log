@@ -1,0 +1,3 @@
+May 03 18:53:29|5[info]03/05/2015 18:53:29 - [UTENTE = ][REMOTE IP = 2.32.128.168][act = ListaUtenti][reset = 1][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; MAAU; rv:11.0) like Gecko]
+May 03 18:53:45|5[info]03/05/2015 18:53:45 - [UTENTE = siso][REMOTE IP = 2.32.128.168][act = Home][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; MAAU; rv:11.0) like Gecko]
+May 03 18:53:54|5[info]03/05/2015 18:53:54 - [UTENTE = siso][REMOTE IP = 2.32.128.168][act = ListaUtenti][REQUEST METHOD = GET][USER AGENT = Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; MAAU; rv:11.0) like Gecko]

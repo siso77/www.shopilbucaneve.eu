@@ -1,0 +1,25 @@
+<?php $_tplvar = $this->getVars();?>
+
+<script  src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['JS_DIR'];?>/jQuery/jquery-1.3.min.js"></script>
+<script type="text/javascript">
+function showConfirmDelete(id)
+{
+	var el = document.getElementById(id);
+	if(el.style.visibility == 'hidden')
+		el.style.visibility = 'visible';
+	else
+		el.style.visibility = 'hidden';
+}
+</script>
+<!--BOX PER LA RICERCA-->
+	<?php 
+	$assign['show_combo'] = false;
+	$assign['show_calendar'] = true;
+	$assign['show_combo_brand'] = false;
+	if(!empty($_REQUEST['history']))
+		$assign['history'] = 1;
+	?>
+    <?php echo $this->getPartial('shared/BoxSearchContabilita', $assign);?>
+<!--BOX PER LA RICERCA-->
+
+		

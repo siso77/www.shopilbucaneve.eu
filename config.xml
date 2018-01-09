@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <database>
+	<dev>
+	    <Db_type>mysql</Db_type>
+	    <Server>localhost</Server>
+	    <Database></Database>
+	    <User></User>
+	    <Password></Password>
+    </dev>
+    <pro>
+	    <Db_type>mysql</Db_type>
+	    <Server>89.46.111.19</Server>
+	    <Database>Sql975645_1</Database>
+	    <User>Sql975645</User>
+    	<Password>ur56752518</Password>
+    </pro>
+  </database>
+  <SO>
+<!--    <System>WIN</System> -->
+   <System>UNIX</System>  
+  </SO>
+  <smarty_tpl>
+    <debugging>0</debugging>
+    <caching>0</caching>
+    <tpl_dir>/style/template</tpl_dir>
+    <conf_dir>/style/languages</conf_dir>
+    <cache_dir>/style/cache</cache_dir>
+    <cache_lifetime>3600</cache_lifetime>
+    <template_ext>.phtml</template_ext>
+  </smarty_tpl>
+  <VirtualIncludePath>
+    <MyLibs>libs</MyLibs>
+    <PearDir>libs/ext/pear</PearDir>
+    <BarCodeGeneratorDir>libs/ext/BARCODE_GENERATOR</BarCodeGeneratorDir>
+    <BarCodeGeneratorHtmlDir>libs/ext/BARCODE_GENERATOR/html</BarCodeGeneratorHtmlDir>
+  </VirtualIncludePath>
+  <VirtualIncludes>
+    <BeanBase>BeanBase.php</BeanBase>
+    <MyAction>Action.php</MyAction>
+    <SeoEngine>SeoEngine.php</SeoEngine>
+    <Session>Session.php</Session>
+    <DB>DB.php</DB>
+    <MyDB>MyDB.php</MyDB>
+    <MySmarty>TemplateEngine.php</MySmarty>
+    <MyPager>MyPager.php</MyPager>
+    <PEARLog>Log.php</PEARLog>
+    <MyLOG>MyLog.php</MyLOG>
+    <SISO_Image>SISO_Image.php</SISO_Image>
+    <Feeds>Feeds.php</Feeds>
+    <BaseBarCodeGenerator>BaseBarCodeGenerator.php</BaseBarCodeGenerator>
+  </VirtualIncludes>
+  <VirtualDefines>
+  	<STREAM_WWW_ROOT>http://www.shopilbucaneve.eu/</STREAM_WWW_ROOT>
+  	<SITE_WWW_ROOT>http://shopilbucaneve.florsistemi.it/</SITE_WWW_ROOT>
+    <CURTESY_PAGE>0</CURTESY_PAGE>
+  	<CHARSET>ISO-8859-1</CHARSET>
+  	<USE_ZEND_CACHE>1</USE_ZEND_CACHE>
+    <WWW_INDEX>index.php</WWW_INDEX>
+    <PEAR_DIR>libs/ext/pear/</PEAR_DIR>
+    <URL_SEPARATOR></URL_SEPARATOR>
+    <INI_SET_SEPARATOR>;</INI_SET_SEPARATOR>
+    <LOG_DIR>/logs/</LOG_DIR>
+    <IF_LOG>0</IF_LOG>
+    <LOG_LEVEL>store</LOG_LEVEL>
+    <DISPLAY_ERROR_QUERY>true</DISPLAY_ERROR_QUERY>
+    <DEBUG_TIME>0</DEBUG_TIME>
+	<DEFAULT_LANG>it</DEFAULT_LANG>
+    <PARAM_ACTION_REQUEST>act</PARAM_ACTION_REQUEST>
+    <DEFAULT_ACTION>Search</DEFAULT_ACTION>
+    <IMG_DIR>img</IMG_DIR>
+    <CSS_DIR>css</CSS_DIR>
+    <JS_DIR>javascript</JS_DIR>
+    <PASSWORD_SALT>a2afr24tg56r4r65wg</PASSWORD_SALT>
+    <FORM_REQUEST_TIMEOUT>120</FORM_REQUEST_TIMEOUT>
+	<THEME>style4</THEME>
+	<ECM_OPERATORE>ecommerce</ECM_OPERATORE>
+    <INCOICE_STRLEN_1_FILED>15</INCOICE_STRLEN_1_FILED>
+    <INCOICE_STRLEN_2_FILED>15</INCOICE_STRLEN_2_FILED>
+    <INCOICE_STRLEN_3_FILED>15</INCOICE_STRLEN_3_FILED>
+
+    <INCOICE_HTML_STRLEN_1_FILED>12</INCOICE_HTML_STRLEN_1_FILED>
+    <INCOICE_HTML_STRLEN_2_FILED>12</INCOICE_HTML_STRLEN_2_FILED>
+    <INCOICE_HTML_STRLEN_3_FILED>50</INCOICE_HTML_STRLEN_3_FILED>
+    
+    <LISTA_MAGAZZINO_TRUNCATE_NAME>30</LISTA_MAGAZZINO_TRUNCATE_NAME>
+    <LISTA_MAGAZZINO_TRUNCATE_DESCRIPTION>30</LISTA_MAGAZZINO_TRUNCATE_DESCRIPTION>
+    <SHOP_TRUNCATE_TEXT>50</SHOP_TRUNCATE_TEXT>
+    
+    <IT_TIMESTAMP_FORMAT>d/m/Y</IT_TIMESTAMP_FORMAT>
+    <EN_TIMESTAMP_FORMAT>Y-m-d</EN_TIMESTAMP_FORMAT>
+    <ES_TIMESTAMP_FORMAT>Y-m-d</ES_TIMESTAMP_FORMAT>
+    <DE_TIMESTAMP_FORMAT>Y-m-d</DE_TIMESTAMP_FORMAT>
+
+  	<GOOGLE_RECAPCHA_PUBLIC_KEY>6Le8niMTAAAAAKBx4Dp4RRPfn0Diz4fjl7Qc_FqL</GOOGLE_RECAPCHA_PUBLIC_KEY>
+  	<GOOGLE_RECAPCHA_PRIVATE_KEY>6Le8niMTAAAAAKuLaJhdpH_PMhboYZDDVnHCWLog</GOOGLE_RECAPCHA_PRIVATE_KEY>
+  
+  	<SESSION_CUSTOM_NAME>stream_ilbucaneve</SESSION_CUSTOM_NAME>  
+	<WWW_VBN_IMAGE_PAHT>http://stream.florsistemi.it</WWW_VBN_IMAGE_PAHT>
+	<WWW_IMAGE_DENDEKKER_PAHT>http://www.edendekker.nl</WWW_IMAGE_DENDEKKER_PAHT>
+	<WWW_IMAGE_GASA_PAHT>http://photo.ggmediaportal.com/offer/de/</WWW_IMAGE_GASA_PAHT>
+    <PREFIX_META_TITLE>Il Bucaneve</PREFIX_META_TITLE>
+    <PREFIX_META_TITLE_SEPARATOR>-</PREFIX_META_TITLE_SEPARATOR>
+    
+    <TPL_DISPLAY_TIPO_COLORE>0</TPL_DISPLAY_TIPO_COLORE>
+    <TPL_DISPLAY_ALTEZZA>1</TPL_DISPLAY_ALTEZZA>
+    <TPL_DISPLAY_GRADO_M>1</TPL_DISPLAY_GRADO_M>
+    <TPL_DISPLAY_PROVENIENZA>1</TPL_DISPLAY_PROVENIENZA>
+    <TPL_DISPLAY_COLORE>0</TPL_DISPLAY_COLORE>
+    <TPL_DISPLAY_GM>1</TPL_DISPLAY_GM>
+	<TPL_DISPLAY_VAI_CARRELLO>1</TPL_DISPLAY_VAI_CARRELLO>
+	<TPL_DISPLAY_FORNITORI>0</TPL_DISPLAY_FORNITORI>
+	<TPL_DISPLAY_SETTORI>0</TPL_DISPLAY_SETTORI>
+	<TPL_DISPLAY_REPARTI>0</TPL_DISPLAY_REPARTI>
+
+	<DEFAULT_LAYOUT_DISPLAY>SearchThumb</DEFAULT_LAYOUT_DISPLAY>
+   	<DEFAULT_LAYOUT_DISPLAY_SESSION>thumb</DEFAULT_LAYOUT_DISPLAY_SESSION>
+    
+    <CACHE_PRODUCTS>0</CACHE_PRODUCTS>
+    <COD_CLI_PADD_IN_ORDER>0</COD_CLI_PADD_IN_ORDER>
+  
+	<EMAIL_ADMIN_TO>solidago2@alice.it</EMAIL_ADMIN_TO>
+	<EMAIL_ADMIN_FROM>order@ilbucaneve.eu</EMAIL_ADMIN_FROM>
+    <EMAIL_ADMIN>frontend@integra-services.it</EMAIL_ADMIN>
+    <EMAIL_ADMIN_HOST>integra-services.it</EMAIL_ADMIN_HOST>
+    <EMAIL_ADMIN_USERNAME>frontend@integra-services.it</EMAIL_ADMIN_USERNAME>
+    <EMAIL_ADMIN_PASSWORD>!fr0nt3nd#</EMAIL_ADMIN_PASSWORD>
+
+    <IMPORT_FOTO_EMAIL_ADMIN_HOST>stream.florsistemi.it</IMPORT_FOTO_EMAIL_ADMIN_HOST>
+    <IMPORT_FOTO_EMAIL_ADMIN_USERNAME>term_bucaneve@integra-services.it</IMPORT_FOTO_EMAIL_ADMIN_USERNAME>
+    <IMPORT_FOTO_EMAIL_ADMIN_PASSWORD>milano87</IMPORT_FOTO_EMAIL_ADMIN_PASSWORD>
+    
+    <IMPORT_GIACENZE_DENDEKKER_EMAIL_ADMIN_HOST>integra-services.it</IMPORT_GIACENZE_DENDEKKER_EMAIL_ADMIN_HOST>
+    <IMPORT_GIACENZE_DENDEKKER_EMAIL_ADMIN_USERNAME>@integra-services.it</IMPORT_GIACENZE_DENDEKKER_EMAIL_ADMIN_USERNAME>
+    <IMPORT_GIACENZE_DENDEKKER_EMAIL_ADMIN_PASSWORD>n3th3rl4nd1</IMPORT_GIACENZE_DENDEKKER_EMAIL_ADMIN_PASSWORD>
+
+    <IMPORT_GIACENZE_GASA_EMAIL_ADMIN_HOST>integra-services.it</IMPORT_GIACENZE_GASA_EMAIL_ADMIN_HOST>
+    <IMPORT_GIACENZE_GASA_EMAIL_ADMIN_USERNAME>@integra-services.it</IMPORT_GIACENZE_GASA_EMAIL_ADMIN_USERNAME>
+    <IMPORT_GIACENZE_GASA_EMAIL_ADMIN_PASSWORD>d3utschl4nd1</IMPORT_GIACENZE_GASA_EMAIL_ADMIN_PASSWORD>
+    
+<!--  
+	<EMAIL_ADMIN_TO>frontend@integra-services.it</EMAIL_ADMIN_TO>
+	<EMAIL_ADMIN_FROM>frontend@integra-services.it</EMAIL_ADMIN_FROM>
+    <EMAIL_ADMIN_HOST>stream.integra-services.it</EMAIL_ADMIN_HOST>
+    <EMAIL_ADMIN_USERNAME>frontend@stream.integra-services.it</EMAIL_ADMIN_USERNAME>
+    <EMAIL_ADMIN_PASSWORD>1nt3gr4fr0nt3nd</EMAIL_ADMIN_PASSWORD>
+-->
+    
+    <EMAIL_FOOTER>
+   		Il Bucaneve srl |br|
+		 |br|
+		ITALIA |br|
+		Tel. 02 |br|
+		Fax. 02 |br|
+	</EMAIL_FOOTER>
+	
+	<ADMIN_RAGIONE_SOCIALE>Il Bucaneve</ADMIN_RAGIONE_SOCIALE>
+	<ADMIN_INDIRIZZO></ADMIN_INDIRIZZO>
+	<ADMIN_TELEFONO>+39</ADMIN_TELEFONO>
+	<ADMIN_P_IVA></ADMIN_P_IVA>
+  </VirtualDefines>
+</root>

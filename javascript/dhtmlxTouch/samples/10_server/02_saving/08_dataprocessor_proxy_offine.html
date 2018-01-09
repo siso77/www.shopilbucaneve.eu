@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<script src="../../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="../../../codebase/touchui.css" type="text/css" charset="utf-8">
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			var source;
+			dhx.ready(function(){
+				source = new dhx.proxy({
+					url: "data.php",
+					storage: dhx.storage.local
+				});
+				dhx.ui({
+					rows:[
+						{view:"toolbar", type:"MainBar", elements:[
+							{view:"icon", icon:"add", click:"addItem" },
+							{view:"icon", icon:"delete", click:"removeItem" },
+                            {}
+						]},
+						{
+                            type:"wide",
+							cols:[
+                                {
+                                    view:"list", id:"mylist", url:source,
+                                    type:{ width:"auto", template:"#name#" },
+                                    select:true
+                                },
+                                {
+                                    width:320,
+                                    view:"form", id:"myform", elements:[
+                                        { view:"text", label:"Name", id:"name"},
+                                        { view:"text", label:"Age",  id:"age"},
+                                        { view:"text", label:"City", id:"city"},
+                                        { view:"button", type:"form", label:"Save", click:"saveForm"}
+                                    ]
+                                }
+                            ]
+
+						}
+					]
+				});
+				var dp = new dhx.DataProcessor({
+					master:$$('mylist'),
+					url: source
+				});
+				$$('myform').bind($$('mylist'));
+			
+			});
+			
+			
+			function addItem(){
+				$$('mylist').add({name:"",age:30,city:""},1);
+			};
+			function removeItem(){
+				$$('mylist').remove($$('mylist').getSelected());
+			};
+			function saveForm() {
+				$$('myform').save();
+			};
+			
+		</script>
+	</body>
+</html>

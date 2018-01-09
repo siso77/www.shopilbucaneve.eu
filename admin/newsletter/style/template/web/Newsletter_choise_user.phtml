@@ -1,0 +1,92 @@
+<?php
+$_tplvar = $this->getVars();
+?>
+<br><br>
+	<div id="sidebar" style="width:1200px;">
+		<!-- WIDGETS RIGHT -->
+		<div id="widgets">
+			<div id="nav_menu-3" class="widget_nav_menu widget">
+				<div class="winner">
+					<div class="menu-abbigliamento-container">
+						<ul id="menu-abbigliamento" class="menu">
+
+    <table align="center">
+    <tr>
+    	<td><div><input class="submit" type="button" value="Lista Newsletter" onclick="javascript:window.location.href='<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&search=1'"/></div></td>
+    </tr>
+    </table>
+
+
+INVIO NEWSLETTER
+
+<br><br>
+	<form action="<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter" method="post">
+	<input type="hidden" name="step" value="3">
+	<div>
+		<fieldset style="border: 0px none ; margin: 0px; padding: 5px;">
+			<table style="text-align: left;">
+			<tr>
+				<th style="width: 160px; vertical-align: top;padding:10px">Inserisci mail:</th>
+				<th style="width: 120px; vertical-align: top;padding:10px"><input type="text" id="mail" name="mail" value="<? echo $_tplvar['selected_customer']?>" style="width:350px;"></th>
+				<th style="width: 620px; vertical-align: top;padding:10px;">(E' possibile inserire pi&uacute; email separandole con la virgola es: test@test.it, test2@test2.com)</th>
+			</tr>
+			<tr>
+				<th style="width: 160px; vertical-align: top;padding:10px">Seleziona un utente:</th>
+				<th style="width: 120px; vertical-align: top;padding:10px">
+					<div>
+					
+						<select name="categoria[]" style="width: 350px;">
+							<option value="all">TUTTI</option>
+							<option value="Giovedi">Corso Gioved&iacute;</option>
+							<option value="Martedi">Corso Marted&iacute;</option>
+						</select>
+<!-- 
+						<select name="categoria[]" style="width: 350px;">
+							<option value="" <?php if(empty($_SESSION['selected_customer'])):?> selected="selected"<?php endif;?>> </option>
+							<option value="all">TUTTI</option>
+							<?php foreach ($_tplvar['emails'] as $val):?>
+								<option value="<?php echo strtolower($val['email'])?>" <?php if(!empty($_SESSION['selected_customer']) && $_SESSION['selected_customer'] == $val['email']):?> selected="selected"<?php endif;?>>
+								<?php echo strtolower($val['email'])?>
+								</option>
+							<?php endforeach;?>
+						</select>
+ -->
+					</div>					
+				</th>
+				<th style="width: 120px; vertical-align: top;"></th>
+			</tr>
+			<tr>
+				<th style="width: 160px; vertical-align: top;padding:10px">Oggetto:</th>
+				<th style="width: 120px; vertical-align: top;padding:10px"><input type="text" id="oggetto" name="oggetto" style="width:350px;"></th>
+				<th style="width: 120px; vertical-align: top;padding:10px"></th>
+			</tr>
+			<tr>
+				<td colspan="3" align="center"><?php if($_tplvar['is_send']) echo '<font color="red"><b>Invio effettuato correttamente</b>';?></td>
+			</tr>
+			</table>
+		</fieldset>
+	</div>
+<br><br>
+    <table align="center">
+    <tr>
+    	<td><div><input class="submit" type="button" value="Indietro" onclick="document.location.href = '<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter'"/></div></td>
+    	<td><div><input class="submit" type="button" value="Salva Newsletter" onclick="
+		var el = document.getElementById('oggetto');
+		var param = '';
+		if(el.value != '')
+			param = '&oggetto='+el.value;
+		document.location.href = '<?php echo $_tplvar['WWW_ROOT'];?>?act=Newsletter&step=3&save=1'+param;"/></div></td>
+    	<td><div><input class="submit" type="submit" value="Invia Newsletter" /></div></td>
+    </tr>
+	</table>
+</div>
+
+
+
+						</ul>
+					</div>
+					&nbsp;
+				</div>
+			</div>
+		</div>
+	</div>

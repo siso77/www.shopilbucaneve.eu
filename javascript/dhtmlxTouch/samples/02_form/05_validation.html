@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+		<link rel="stylesheet" href="../../codebase/touchui.css" type="text/css" media="screen" charset="utf-8">
+		<script src="../../codebase/touchui.js" type="text/javascript" charset="utf-8"></script>
+		<title>Form: validation</title>
+	</head>
+	<body>
+		<style>
+			html,body{
+                background-color:#ffffff;
+            }
+        </style>
+		
+		<script type="text/javascript" charset="utf-8">
+		dhx.ready(function(){
+				dhx.ui({
+					view:"window",
+                    head:{
+                        view:"toolbar", type:"MainBar", elements:[
+                            {view:"label", label:"Sample",align:"left", width:200, click:"clear_sample" },
+                            {view:"button", align:"left", label:"validate",inputWidth:100, click:"$$('myform').validate()" }
+                        ]
+                    },
+                    body:{
+                        view:"form", id:"myform", elements:[
+                            {},
+                            { view:"text", inputWidth:300, label:"Name *", id:"name"},
+                            { view:"text", inputWidth:300, label:"Age *",  id:"age"},
+                            { view:"text", inputWidth:300, label:"City", id:"city"},
+                            {}
+                        ],
+                        rules:{
+                            name:dhx.rules.isNotEmpty,
+                            age:dhx.rules.isNumber
+                        }
+                    },
+                    height:200,
+                    width:300,
+                    left:100,
+                    top:100
+
+				});
+
+				$$("myform").attachEvent("onValidationSuccess",function(id,data){
+                    dhx.notice(id+": success")
+					
+				});
+				$$("myform").attachEvent("onValidationError",function(id,data){
+					dhx.notice(id+": failed")
+				})
+			});
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,2 @@
+Jan 12 09:59:48|PEAR_LOG_SQL[info] E' stata eseguita la query: [ UPDATE index_fattura SET year='2017' ] dall'utente di dominio [  ]
+Jan 12 09:59:48|PEAR_LOG_SQL[info] E' stata eseguita la query: [ UPDATE index_ddt SET year='2017' ] dall'utente di dominio [  ]

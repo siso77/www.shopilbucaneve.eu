@@ -1,0 +1,151 @@
+<?php
+ $html = '<html lang="en">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>
+      Associazione Culturale Tangando
+    </title>
+  </head>
+
+<body bgcolor="#000000" cellpadding="0" cellspacing="0">
+<!-- visualizzazione incorretta della newsletter --> 
+<div style="text-align:center; width:100%; height:25px; background:#fff; font-weight:bold; line-height: 25px; font-size: 14px; font-family: Helvetica, Arial, sans-serif; color: #464623;">Se non visualizzi correttamente la Newsletter <a href="http://www.sexyshopping.it/newsletter.html?act=LastNewsletter&id='.$idNewsletter.'" style="color:#464623; text-decoration:underline; font-weight:bold;">CLICCA QUI!</a></div>
+<!-- /visualizzazione incorretta della newsletter --> 
+
+<div>
+  		<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="padding: 35px 0;" bgcolor="#6600320">
+		  <tr>
+		  	<td align="center">
+
+					<table border="0" width="500" align="center" cellspacing="0" cellpadding="0">  
+					<tr> 
+						<td colspan="2" valign="top"> 
+							<table border="0" width="600" cellpadding="0" cellspacing="0"> 
+							<tr> 
+							    <td valign="middle" bgcolor="#660032"> 
+							    	<a href="http://www.sexyshopping.it/index.php"><img src="http://www.sexyshopping.it/img/logo_newsletter.jpg"/></a>
+							    </td> 
+							    <td valign="middle" bgcolor="#9C8460" align="right"> 
+							    	<!-- loginbox //--> 
+								</td> 
+							</tr> 
+							</table> 
+						</td> 
+					</tr> 
+					</table> 
+		  	
+		  	
+				<table cellpadding="0" cellspacing="0" border="0" align="center" width="600" style="font-family: Helvetica, Arial, sans-serif; background:url('.WWW_ROOT.'newsletter/images/bg_table2.png) repeat-y; background-color:#fff;" bgcolor="#fff">
+			      	
+					<tr>
+					<!-- contenuto -->
+			        	<td width="580" valign="top" align="left" bgcolor="#000000" style="font-family: Helvetica, Arial, sans-serif; font-size:14px; padding: 25px 0 0; background-color:#FFF;" class="content">
+							<table cellpadding="0" cellspacing="0" border="0"  style="color: #717171; font: normal 11px Helvetica, Arial, sans-serif; margin: 0; padding: 0;" width="580">
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 0 0 0 0;  font-family: Helvetica, Arial, sans-serif; background: url('.WWW_ROOT.'newsletter/images/bg_date.png) no-repeat center top; height:20px; line-height: 20px;" align="center" width="550" height="20" background="'.WWW_ROOT.'newsletter/images/bg_date.png">
+									<!--<h3 style="color:#666; font-weight: bold; text-transform: uppercase; margin: 0; padding: 0; line-height: 10px; font-size: 13px;"><$currentdayname$> <$currentday$> <$currentmonthname$></h3>-->
+                                    <h3 style="color:#666; font-weight: bold; text-transform: uppercase; margin: 0; padding: 0; line-height: 10px; font-size: 10px;text-align:center;">'.str_replace('ì', '&igrave;', strftime("%A %d %B %Y")).'</h3>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 20px 0 0;" align="left">			
+									<h2 style="color:#646464; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; ">
+'.$titolo.'
+									</h2>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 10px 0 8px; background-color:#FFF;  font-size: 14px;"  valign="top" bgcolor="#000000" >
+									<p style="color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 14px;font-family: Helvetica, Arial, sans-serif; background-color:#FFF; ">
+
+
+'.$news.'
+
+
+									</p>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+							</tr>	
+';
+foreach ($newsInSession as $key => $val){
+if($key != 'index'){
+$html .= '
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 8px 0;"  valign="top">
+								<!--<img src="'.WWW_ROOT.'newsletter/images/img.jpg" style="border: 1px solid #e9e9e9; display: block;" border="1">-->
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 5px 0 5px;"  valign="top">
+									<img src="'.WWW_ROOT.'newsletter/images/divider.png" style="border-top: 10px solid #fff">
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 15px 0 0;" align="left">			
+									<h2 style="color:#646464; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; ">
+'.$val['titolo'].'
+									</h2>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+							<tr>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+								<td style="padding: 10px 0 45px;"  valign="top">
+									<table cellpadding="0" cellspacing="0" border="0"  style="color: #717171; font: normal 14px Helvetica, Arial, sans-serif; margin: 0; padding: 0;" width="550">
+									<tr>
+										<td style="padding: 5px 0 7px 0px;"  valign="top" align="left">
+											<p style="color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 14px;font-family: Helvetica, Arial, sans-serif;">
+'.$val['news'].'							
+											</p>
+										</td>
+										<td valign="top" style="padding: 5px 0 7px 0px;">
+										<!--<img src="'.WWW_ROOT.'newsletter/images/img2.jpg" style="border: 1px solid #e9e9e9; display: block;" border="1" align="right">-->
+										</td>
+									</tr>
+									</table>
+								</td>
+								<td width="22" style="font-size: 1px; line-height: 1px;"><img src="'.WWW_ROOT.'newsletter/images/spacer.gif" width="20"></td>
+							</tr>
+';
+}
+}
+	
+$html .= '							</table>	
+						</td>
+					
+					
+			      </tr>
+				  	<tr>
+						<td width="600" align="left" style="padding: font-size: 0; line-height: 0; height: 3px;" height="3" colspan="2"><img src="'.WWW_ROOT.'newsletter/images/bg_bottom.png"></td>
+				      </tr>	
+				</table><!-- body -->
+				<table cellpadding="0" cellspacing="0" border="0" align="center" width="600" style="font-family: Helvetica, Arial, sans-serif; line-height: 10px;" class="footer">
+				<tr>
+			        <td align="center" style="padding: 5px 0 10px; font-size: 14px; color:#fff; margin: 0; line-height: 1.2;font-family: Helvetica, Arial, sans-serif;" valign="top">
+						<br>
+						<p style="font-size: 12px; color:#fff; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">
+Questa mail le &egrave; stata inviata perch&eacute; risulti iscritto alla newsletter di Sexyshopping.
+
+Qualora non desiderassi ricevere ulteriori comunicazioni scrivici una mail ad 
+                        <unsubscribe style="color: #333333; text-decoration: underline;"><a href="mailto:info@sexyshopping.it">info@sexyshopping.it</a></unsubscribe> con oggetto RIMUOVIMI e provvederemo immediatamente alla cancellazione del tuo indirizzo.
+                        </p>
+						
+					</td>
+			      </tr>
+				</table><!-- footer-->
+		  	</td>
+		</tr>
+    </table>
+</div>    
+  </body>
+</html>';

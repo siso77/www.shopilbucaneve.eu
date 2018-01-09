@@ -1,0 +1,31 @@
+html,body{
+    background-color:#ffffff;
+}
+.title {
+	font-size: 15px;
+    font-weight: bold;
+    line-height: 16px;
+}
+.author{
+	color: #969696;
+	font-size: 13px;
+	font-weight: bold;
+}
+.price{
+	color: #3b6471;
+	font-size: 15px;
+	font-weight: bold;
+    float:right;
+    width:70px;
+    line-height:35px;
+}
+.active{
+	float:right;
+   
+}
+.inline {
+	display: inline;
+}
+.dhx_list__item_selected .author{
+	color: #ffffff;
+}

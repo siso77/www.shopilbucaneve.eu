@@ -1,0 +1,133 @@
+<?php
+$_tplvar = $this->getVars();
+$this->getIntlPartial('Index');
+//_dump($_tplvar);
+//exit();
+?>	
+<!DOCTYPE html> 
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <title>Florsistemi - Stream Touch</title>
+        
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="<?php echo $_tplvar['WWW_ROOT']?>javascript/my.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+        </script>
+        <script src="<?php echo $_tplvar['WWW_ROOT']?>javascript/my.js"></script>
+        
+        <script type="text/javascript">
+        $.mobile.showPageLoadingMsg("b", "", true);
+        
+        $( document ).bind( 'mobileinit', function(){
+        	  $.mobile.loader.prototype.options.text = "Loading...";
+        	  $.mobile.loader.prototype.options.textVisible = false;
+        	  $.mobile.loader.prototype.options.theme = "a";
+        	  $.mobile.loader.prototype.options.html = "Loading...";
+        	});
+    	
+        $.mobile.loading( 'show', {
+        	text: 'Loading...',
+        	textVisible: true,
+        	theme: 'a',
+        	html: "Loading..."
+        });
+        </script>
+</head>
+
+<body>
+	<div data-role="page" class="type-interior">
+	
+		<div data-theme="b" data-role="header">
+			<h3>Filtri di Ricerca</h3>			
+		</div>
+		<div data-role="content" data-theme="b">
+			<div class="content-primary" data-theme="b" style="margin-left:-25px">
+			<ul>
+				<li>
+					<?php $data_icon = null;?>
+					<?php if($_SESSION['Search']['all_disp']):?>
+						<?php $data_icon = 'data-icon="delete" data-theme="c"';?>
+						<?php $url = $_tplvar['WWW_ROOT'].'?act=Search&all_disp=0';?>
+					<?php else:?>
+						<?php $data_icon = 'data-icon="check"';?>
+						<?php $url = $_tplvar['WWW_ROOT'].'?act=Search&all_disp=1';?>
+					<?php endif;?>
+					<a href="<?php echo $url?>" data-transition="flip" data-role="button" <?php echo $data_icon?>>Tutti i Prodotti</a>
+				</li>
+				<li>
+					<?php $data_icon = null;?>
+					<?php if($_SESSION['Search']['only_disp']):?>
+						<?php $data_icon = 'data-icon="delete" data-theme="c"';?>
+						<?php $url = $_tplvar['WWW_ROOT'].'?act=Search&only_disp=0';?>
+					<?php else:?>
+						<?php $data_icon = 'data-icon="check"';?>
+						<?php $url = $_tplvar['WWW_ROOT'].'?act=Search&only_disp=1';?>
+					<?php endif;?>
+					<a href="<?php echo $url?>" data-transition="flip" data-role="button" <?php echo $data_icon?>>Prodotti Disponibili</a>
+				</li>
+				<li>
+					<?php $data_icon = null;?>
+					<?php if($_SESSION['Search']['display_prod_img']):?>
+						<?php $data_icon = 'data-icon="delete" data-theme="c"';?>
+						<?php $url = $_tplvar['WWW_ROOT'].'?act=Search&display_prod_img=0';?>
+					<?php else:?>
+						<?php $data_icon = 'data-icon="check"';?>
+						<?php $url = $_tplvar['WWW_ROOT'].'?act=Search&display_prod_img=1';?>
+					<?php endif;?>
+					<a href="<?php echo $url?>" data-transition="flip" data-role="button" <?php echo $data_icon?>>Prodotti con Immagini</a>
+				</li>
+				
+				<li>
+					<?php echo $this->getPartial('shared/ComboRowForPage', $assign);?>
+				</li>
+				<!-- 
+				<li>
+					<?php if(TPL_DISPLAY_GM):?>
+					<select name="gm" id="gm" style="font-size:14px;width:auto;">
+						<option value="empty">Gruppo</option>
+						<?php foreach ($_tplvar['cmb_gm'] as $value):?>
+						<option value="<?php echo $value['id']?>" <?php if($_tplvar['search']['gm'] == $value['id']):?>selected="selected"<?php endif;?>><?php echo $value['gruppo']?></option>
+						<?php endforeach;?>
+					</select>
+					<?php endif;?>
+				</li>
+				<li>
+					<?php if(TPL_DISPLAY_COLORE):?>
+						<select name="colore" id="colore" style="font-size:14px;width:auto;">
+							<option value="empty">Colore</option>
+							<option value="empty">TUTTI</option>
+							<?php foreach ($_tplvar['cmb_colori'] as $value):?>
+							<?php if(!empty($value['value'])):?>
+									<option value="<?php echo $value['value']?>" <?php if($_tplvar['search']['colore'] == $value['value']):?>selected="selected"<?php endif;?>><?php echo $value['value']?></option>
+								<?php endif;?>
+							<?php endforeach;?>
+						</select>
+					<?php endif;?>
+				</li>
+				<li>
+					<?php if(TPL_DISPLAY_TIPO_COLORE):?>
+					<td style="padding:5px">
+						<select name="tipo_colore" id="tipo_colore" style="font-size:14px;width:auto;">
+							<option value="empty">Tonalit&aacute;</option>
+							<?php foreach ($_tplvar['cmb_tipo_colori'] as $value):?>
+								<?php if(!empty($value['value'])):?>
+								<option value="<?php echo $value['value']?>" <?php if($_tplvar['search']['tipo_colore'] == $value['value']):?>selected="selected"<?php endif;?>><?php echo $value['value']?></option>
+								<?php endif;?>
+							<?php endforeach;?>
+						</select>
+					</td>
+					<?php endif;?>			
+				</li>
+				-->
+			</ul>
+			
+			</div>		
+		</div>
+	</div>
+</body>
+</html>

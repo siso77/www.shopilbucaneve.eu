@@ -1,0 +1,153 @@
+<?php 
+$_tplvar = $this->getVars();
+?>
+
+<style>
+<!--
+.selected {
+	background-color: #B00000;
+}
+.not_selected {
+	background-color: #ADADAD;
+}
+
+td {
+	padding: 9px 12px;
+	color: #333;
+	border-top: 1px solid white;
+}
+.container_24 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+}
+-->
+</style>
+
+<div id="page-content" style="padding-left: 20px;">
+	<div id="page-content-header" class="container_24">
+		<div id="page-title">
+			<h2><?php echo $this->getText('shopping_chart_title');?></h2>
+		</div>
+<!--		<p class="breadcrumbs"><span class="breadcrumb_info">Ti trovi in:</span> <a href="/">Home</a><span class="breadarrow"> &raquo; </span><span class="current_crumb">Carrello</span></p>-->
+	</div>
+
+	<form action="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart" method="post" id="shopping-cart">
+	<?php if(!empty($_tplvar['params_banking'])):?>
+	<input type="hidden" name="params" value="<?php echo $_tplvar['params_banking']?>">
+	<?php endif;?>
+
+	<div>
+		<div class="entry">
+			<p>
+				<?php echo $this->getText('shopping_chart_text_refresh');?>
+			</p>
+		</div>
+		<div id="main-content" class="grid_17">
+			<div class="main-content-padding">
+				<div class="page">
+					<div class="entry">
+						<br>
+						<div class="cart-contents-table-bg-img">
+									
+						<table cellspacing="3" width="75%">
+							<tbody>
+								<tr>
+									<th style="width:70px;text-align:center;"><?php echo $this->getText('shopping_chart_table_articolo');?></td>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_desc');?></th>
+									<th style="text-align:center;">Quantita' Acquistata</th>
+									<th style="text-align:center;"><?php echo $this->getText('shopping_chart_table_delete');?></th>
+								</tr>
+							<?php 
+							$j=0;
+							$peso_spedizione = 0;
+							?>
+							<?php //foreach ($_tplvar['products']['contents'] as $value):?>
+								<?php 
+								$basket = $_tplvar['basket'];
+								unset($basket['n_carrelli']);
+								unset($basket['perc_occupazione']);
+								foreach ($basket as $key => $value):
+								$peso_spedizione += $value['giacenza']['peso']*$value['basket_qty']['sel_quantita'];
+								?>
+								<input type="hidden" name="id_contenuto[]" value="<?php echo $value['giacenza']['id'];?>">
+								<input type="hidden" name="id_giacenza[]" value="<?php echo $value['giacenza']['id'];?>">
+								<tr>
+									<td style="text-align:center;">
+										<?php $image = null;?>
+										<?php $image = $this->getImageFromVbn($value['giacenza']['vbn']);?>
+										<?php $product_image = $this->dbGetImageProductFromBarCode($value['giacenza']['bar_code']);?>
+										
+										<?php if(!empty($product_image)):?>
+											<?php $obj_image = $this->dbGetImageFromBarCode($value['giacenza']['bar_code']);?>
+											<?php $product_image = $this->dbGetImageProductFromBarCode($value['giacenza']['bar_code']);?>
+										
+											<?php if(!empty($obj_image)):?>
+												<?php
+												$d = dir($_tplvar['APP_ROOT'].'/email_images/');
+												while (false !== ($entry = $d->read())) {
+													if($entry != '.' && $entry != '..')
+														$image = $obj_image[0]['www_path'].$obj_image[0]['name'];
+												}
+												$d->close();	
+												?>
+											<?php elseif(!empty($product_image)):?>
+												<?php $image = $product_image;?>
+											<?php else:?>
+											<?php $image = null;?>
+											<?php endif;?>
+										<?php endif;?>
+										
+										<?php if(!empty($image)):?>
+											<img alt="" src="<?php echo $image;?>" width="90" class="main-pic">			
+										<?php else:?>
+											<img alt="" src="<?php echo $_tplvar['WWW_ROOT'].$_tplvar['IMG_DIR']?>/image_large.gif" width="90" height="85">
+										<?php endif;?>
+									</td>
+									<td style="text-align:center;"><?php echo $value['giacenza']['descrizione']?></td>
+									
+									<td style="text-align:center;">
+										<?php //$index = round($value['giacenza']['disponibilita'] / $content['qta_min_ord'], 0, PHP_ROUND_HALF_DOWN);?>
+										<input type="text" id="quantita" name="quantita[]" value="<?php echo $value['basket_qty']['sel_quantita']?>">
+									</td>
+									<td style="text-align:center;">
+										<a href="<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart&delete=1&id_content=<?php echo $value['giacenza']['id']?>&id_giacenza=<?php echo $value['giacenza']['id']?>">Elimina</a>
+									</td>
+								</tr>
+								<?php $j++;?>
+								<?php $cod_iva = $value['giacenza']['cod_iva'];?>
+								<?php endforeach;?>
+							<?php //endforeach;?>
+							
+								<tr>
+									<td nowrap="nowrap" align="right" colspan="10">
+										<div class="actions">
+											<button value="<?php echo $this->getTranslation('Vai in cassa')?>" class="button btn-cart" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>?act=CheckoutShopping<?php if(!empty($_tplvar['params_banking'])):?>&params=<?php echo $_tplvar['params_banking']?><?php endif;?>';return false;"><span><span>Vai in Cassa</span></span></button>
+											<button value="<?php echo $this->getTranslation('Aggiorna quantita')?>" class="button btn-cart" onclick="jQuery('#shopping-cart').submit();"><span><span><?php echo $this->getTranslation('Aggiorna quantita')?></span></span></button>
+											<button value="<?php echo $this->getTranslation('Continua lo shopping')?>" class="button btn-cart" onclick="javascript:document.location.href='<?php echo $_tplvar['WWW_ROOT']?>Magazzino-Online/Lista-Prodotti.html<?php if(!empty($_tplvar['params_banking'])):?>&params=<?php echo $_tplvar['params_banking']?><?php endif;?>';return false;"><span><span><?php echo $this->getTranslation('Continua lo shopping')?></span></span></button>
+											<!-- <button value="<?php echo $this->getTranslation('Stampa il carrello')?>" class="button btn-cart" onclick="javascript: window.open('<?php echo $_tplvar['WWW_ROOT']?>?act=ShoppingCart&print_orders=1', '', '');"><span><span><?php echo $this->getTranslation('Stampa il carrello')?></span></span></button> -->
+										</div>
+										
+									</td>
+								</tr>
+						</table>
+						</form>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- end main-content-padding -->
+		</div>
+		<!-- end main-content -->
+		<!-- start categories -->
+		<?php //echo $this->getPartial('shared/BoxUserData');?>
+		<!-- end categories -->
+	</div>
+	<!-- end content-container -->
+	<div class="clear"></div>
+</div>
+<!-- end page-content -->
+<br>
+<br>
+	

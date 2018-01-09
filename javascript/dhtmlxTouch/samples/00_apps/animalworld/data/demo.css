@@ -1,0 +1,105 @@
+/* mainbar start */
+.dhx_mainbar {
+    background-color:rgb(64,66,65);
+    background: -o-linear-gradient(top, rgb(104,107,112) 0% ,  rgb(64,66,65) 100%);
+    background: -ms-linear-gradient(top, rgb(104,107,112) 0% , rgb(64,66,65) 100%));
+    background:  -moz-linear-gradient(top, rgb(104,107,112) 0% , rgb(64,66,65) 100%);
+    background:  -webkit-gradient(linear, left top, left bottom, color-stop(0,rgb(104,107,112)), color-stop(1, rgb(64,66,65)));
+
+}
+/* mainbar end */
+
+/* transparentbar start
+also uses parts of subbar */
+.dhx_transparentbar {
+    background: transparent !important;
+	font-weight: bold;
+}
+/* transparentbar end */
+
+/* subbar start */
+.dhx_subbar {
+	background-image: 	-webkit-linear-gradient(		rgb(223,226,225), 	rgb(138,138,138) );
+	background-image: 		-moz-linear-gradient(top, 		rgb(223,226,225), 	rgb(138,138,138));
+	background-repeat: repeat-x;
+}
+
+.dhx_list_item{
+	cursor:pointer;
+
+	line-height: 	22px;
+	font-family:  "Helvetica World", "HelveticaNeue", "Helvetica Neue", "HelveticaNeueRoman", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+
+	font-weight: bold;
+	font-size: 		16px;
+	text-decoration:none;
+	color: 	#303030;
+
+	border-bottom:	1px solid  #78777C;
+	text-shadow: 0px 1px 0px #dddddd;
+
+	vertical-align: middle;
+	white-space:nowrap;
+	background: 	#B2B2B8;
+	background:  -moz-linear-gradient( 	#D4D7E0, 	#B0B0B0);;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0,  	#D4D7E0), color-stop(1, #B0B0B0));
+	-moz-user-select:none;
+	-moz-user-select:-moz-none;/*latest ff*/
+	-webkit-user-select:none;
+}
+
+.dhx_el_label div{
+	text-shadow:  	0px 1px 0px #4d4d4d;
+    height: 		43px;
+    font-family:  "Helvetica World", "HelveticaNeue", "Helvetica Neue", "HelveticaNeueRoman", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+	font-weight: 	bold;
+	font-size: 	22px;
+	color: 		#FFFFFF;
+}
+
+.dhx_el_button input{
+	height: 32px;
+
+    font-size: 		15px;
+    font-weight: 	bold;
+	text-decoration:none;
+	color: 	rgb(105,105,105);
+	text-shadow:  0px 1px 0px 			#FFFFFF;
+
+    border: 1px solid  				#000000;
+    -webkit-border-radius: 			8px;
+    -webkit-border-bottom-right-radius: 	9px;
+    -webkit-border-bottom-left-radius: 	9px;
+    -moz-border-radius: 			8px;
+    -moz-border-radius-bottomright: 	9px;
+    -moz-border-radius-bottomleft:	9px;
+    border-radius: 			8px;
+    border-bottom-right-radius: 	9px;
+    border-bottom-left-radius: 	9px;
+
+	padding: 1px 15px 1px;
+
+  	background: 	#ebebeb;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0,  	#FFFFFF), color-stop(1, rgb(202,202,202)));
+	background: -moz-linear-gradient(top,  	 			#FFFFFF,  			rgb(202,202,202) );
+
+
+	-moz-box-shadow: 	inset 0px 0px 1px #4d4d4d,  0 1px #4d4d4d;
+	-webkit-box-shadow: 	inset 0px 0px 1px #4d4d4d,  0 1px #4d4d4d;
+	box-shadow: 	inset 0px 0px 1px #4d4d4d,  0 1px #4d4d4d;
+}
+
+.dhx_touch .dhx_el_button input{
+   	background:  	rgb(150,150,150);
+	background:  -webkit-gradient(linear, left top, left bottom, from(  	rgb(150,150,150) ),to(  			rgb(202,202,202) ));
+	background:  -moz-linear-gradient(top,   	rgb(150,150,150),   			rgb(202,202,202) );
+	color:$inputs_touch_color;
+	text-shadow:$inputs_touch_text_shadow;
+}
+
+.dhx_view {
+    background-color: #D8D8D8;
+    color: #303030;
+    overflow: hidden;
+    vertical-align: top;
+}
